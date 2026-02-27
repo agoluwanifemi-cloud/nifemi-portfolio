@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invoice — ADENIRAN OLUWANIFEMI</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+[data-theme="dark"] { --bg: #0a0a0a; --fg: #e8e4df; --accent: #c8ff00; --muted: #5a5651; --card: #111; --border: rgba(255,255,255,0.06); --warning: #ffab00; }
+[data-theme="light"] { --bg: #f5f2ed; --fg: #1a1a1a; --accent: #5a00e6; --muted: #8a8580; --card: #eae6e0; --border: rgba(0,0,0,0.08); --warning: #ff8f00; }
+:root { --mono: 'DM Mono', monospace; --display: 'Syne', sans-serif; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--fg); font-family: var(--mono); font-weight: 300; transition: background 0.5s, color 0.5s; }
+
+.invoice-wrap { max-width: 750px; margin: 0 auto; padding: 3rem 2rem; }
+
+/* HEADER */
+.inv-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.inv-brand { font-family: var(--display); font-weight: 800; font-size: 1.3rem; text-transform: uppercase; letter-spacing: -0.02em; }
+.inv-brand .dot { display: inline-block; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; margin-left: 2px; }
+.inv-meta { text-align: right; }
+.inv-meta h2 { font-family: var(--display); font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 0.5rem; }
+.inv-meta p { font-size: 0.65rem; color: var(--muted); line-height: 1.8; }
+
+/* PARTIES */
+.inv-parties { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+.inv-party label { font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.25em; color: var(--accent); display: block; margin-bottom: 0.5rem; }
+.inv-party p { font-size: 0.75rem; line-height: 1.8; color: var(--fg); }
+.inv-party .muted { color: var(--muted); }
+
+/* LINE ITEMS */
+.inv-table { width: 100%; margin-bottom: 2rem; }
+.inv-table-header { display: grid; grid-template-columns: 1fr 150px; padding: 0.8rem 0; border-bottom: 2px solid var(--accent); }
+.inv-table-header span { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--accent); }
+.inv-table-header span:last-child { text-align: right; }
+.inv-row { display: grid; grid-template-columns: 1fr 150px; padding: 0.8rem 0; border-bottom: 1px solid var(--border); }
+.inv-row .name { font-size: 0.78rem; }
+.inv-row .sub-items { font-size: 0.6rem; color: var(--muted); margin-top: 0.3rem; line-height: 1.6; }
+.inv-row .amount { font-size: 0.78rem; text-align: right; color: var(--accent); }
+
+/* TOTALS */
+.inv-totals { display: flex; flex-direction: column; align-items: flex-end; margin-bottom: 3rem; }
+.inv-total-row { display: flex; gap: 3rem; padding: 0.5rem 0; font-size: 0.78rem; }
+.inv-total-row.grand { font-size: 1rem; font-weight: 500; padding-top: 0.8rem; margin-top: 0.5rem; border-top: 2px solid var(--accent); }
+.inv-total-row.deposit { color: var(--warning); font-weight: 500; font-size: 0.85rem; }
+.inv-total-row .label { color: var(--muted); min-width: 150px; text-align: right; }
+.inv-total-row .value { min-width: 150px; text-align: right; }
+
+/* DEPOSIT NOTICE */
+.deposit-notice {
+  background: var(--card); border: 1px solid var(--warning); padding: 1.5rem;
+  margin-bottom: 3rem;
+}
+.deposit-notice h4 { font-family: var(--display); font-size: 0.85rem; font-weight: 700; color: var(--warning); text-transform: uppercase; margin-bottom: 0.5rem; }
+.deposit-notice p { font-size: 0.7rem; color: var(--muted); line-height: 1.7; }
+
+/* PAYMENT DETAILS */
+.payment-section { margin-bottom: 3rem; }
+.payment-section h3 { font-family: var(--display); font-size: 0.9rem; font-weight: 700; text-transform: uppercase; margin-bottom: 1.5rem; }
+.payment-tabs { display: flex; gap: 0; margin-bottom: 1.5rem; border: 1px solid var(--border); width: fit-content; }
+.pay-tab { background: none; border: none; color: var(--muted); font-family: var(--mono); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.6rem 1.5rem; cursor: pointer; }
+.pay-tab.active { background: var(--accent); color: var(--bg); }
+.payment-detail { display: none; }
+.payment-detail.active { display: block; }
+.payment-detail table { width: 100%; }
+.payment-detail td { font-size: 0.72rem; padding: 0.4rem 0; vertical-align: top; }
+.payment-detail td:first-child { color: var(--muted); width: 180px; }
+
+/* SIGNATURE */
+.signature-section {
+  border: 1px solid var(--border); padding: 2rem; margin-bottom: 3rem;
+}
+.signature-section h3 { font-family: var(--display); font-size: 0.9rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem; }
+.signature-section p { font-size: 0.65rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
+.sig-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+.sig-row label { font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--accent); display: block; margin-bottom: 0.4rem; }
+.sig-row input { background: var(--card); border: 1px solid var(--border); color: var(--fg); font-family: var(--mono); font-size: 0.78rem; padding: 0.8rem 1rem; width: 100%; outline: none; }
+.sig-row input:focus { border-color: var(--accent); }
+.sig-row input:disabled { opacity: 0.5; }
+
+.sig-checkbox { display: flex; align-items: flex-start; gap: 0.8rem; margin-bottom: 1.5rem; }
+.sig-checkbox input[type="checkbox"] { margin-top: 3px; accent-color: var(--accent); }
+.sig-checkbox label { font-size: 0.65rem; color: var(--muted); line-height: 1.6; cursor: pointer; }
+
+.sign-btn {
+  background: var(--accent); color: var(--bg); border: none;
+  font-family: var(--mono); font-size: 0.75rem; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.15em; padding: 1rem 2.5rem;
+  cursor: pointer; transition: opacity 0.3s;
+}
+.sign-btn:hover { opacity: 0.85; }
+.sign-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.signed-confirmation {
+  display: none; background: var(--card); border: 1px solid var(--accent);
+  padding: 2rem; text-align: center; margin-bottom: 3rem;
+}
+.signed-confirmation h3 { font-family: var(--display); font-size: 1.1rem; font-weight: 700; color: var(--accent); margin-bottom: 0.5rem; }
+.signed-confirmation p { font-size: 0.7rem; color: var(--muted); line-height: 1.7; }
+
+/* ACTIONS */
+.inv-actions { display: flex; gap: 1rem; margin-bottom: 2rem; }
+.inv-actions button {
+  background: none; border: 1px solid var(--border); color: var(--fg);
+  font-family: var(--mono); font-size: 0.65rem; text-transform: uppercase;
+  letter-spacing: 0.1em; padding: 0.7rem 1.5rem; cursor: pointer;
+  transition: border-color 0.3s;
+}
+.inv-actions button:hover { border-color: var(--accent); }
+.inv-actions a { text-decoration: none; }
+
+footer { padding: 2rem; text-align: center; border-top: 1px solid var(--border); }
+footer span { font-size: 0.55rem; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; }
+
+@media (max-width: 600px) {
+  .invoice-wrap { padding: 2rem 1.2rem; }
+  .inv-header { flex-direction: column; gap: 1rem; }
+  .inv-meta { text-align: left; }
+  .inv-parties { grid-template-columns: 1fr; gap: 1.5rem; }
+  .sig-row { grid-template-columns: 1fr; }
+  .inv-total-row { gap: 1.5rem; }
+  .inv-actions { flex-direction: column; }
+}
+
+@media print {
+  body { background: white; color: black; }
+  .inv-actions, .sign-btn, .payment-tabs { display: none; }
+  .payment-detail { display: block !important; margin-bottom: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="invoice-wrap" id="invoiceWrap">
+  <!-- Populated by JS -->
+  <div style="text-align:center;padding:4rem;color:var(--muted);">Loading invoice...</div>
+</div>
+
+<footer><span>© 2026 Adeniran Oluwanifemi — This is a project estimate, not a binding contract until signed.</span></footer>
+
+<script>
+const st = localStorage.getItem('nifemi-theme') || 'dark';
+document.documentElement.setAttribute('data-theme', st);
+
+const data = JSON.parse(localStorage.getItem('nifemi-invoice') || 'null');
+
+if (!data) {
+  document.getElementById('invoiceWrap').innerHTML = `
+    <div style="text-align:center;padding:6rem 2rem;">
+      <h2 style="font-family:var(--display);font-size:1.5rem;font-weight:700;margin-bottom:1rem;">No Invoice Found</h2>
+      <p style="font-size:0.75rem;color:var(--muted);margin-bottom:2rem;">Start by selecting services on the Work With Me page.</p>
+      <a href="./work-with-me.html" style="color:var(--accent);font-size:0.75rem;">← Go to Work With Me</a>
+    </div>`;
+} else {
+  renderInvoice(data);
+}
+
+function renderInvoice(inv) {
+  const s = inv.symbol;
+
+  let itemsHTML = '';
+  inv.items.forEach(item => {
+    const sub = item.details ? `<div class="sub-items">${item.details.join(' · ')}</div>` : '';
+    itemsHTML += `<div class="inv-row"><div><div class="name">${item.name}</div>${sub}</div><div class="amount">${s}${item.min.toLocaleString()}–${s}${item.max.toLocaleString()}</div></div>`;
+  });
+
+  document.getElementById('invoiceWrap').innerHTML = `
+    <!-- HEADER -->
+    <div class="inv-header">
+      <div>
+        <div class="inv-brand">NIFEMI<span class="dot"></span></div>
+        <p style="font-size:0.65rem;color:var(--muted);margin-top:0.3rem;">Adeniran Oluwanifemi<br>Visual & Brand Designer<br>Dublin, Ireland</p>
+      </div>
+      <div class="inv-meta">
+        <h2>INVOICE</h2>
+        <p>Invoice #: ${inv.id}<br>Date: ${inv.date}<br>Valid Until: ${inv.expiry}<br>Currency: ${inv.currency}</p>
+      </div>
+    </div>
+
+    <!-- PARTIES -->
+    <div class="inv-parties">
+      <div class="inv-party">
+        <label>From</label>
+        <p>Adeniran Oluwanifemi<br>Ag.oluwanifemi@gmail.com<br>+353 899 705 747<br><span class="muted">Dublin, Ireland</span></p>
+      </div>
+      <div class="inv-party">
+        <label>Bill To</label>
+        <p>${inv.client.name}<br>${inv.client.email}${inv.client.company ? '<br>' + inv.client.company : ''}${inv.client.phone ? '<br>' + inv.client.phone : ''}</p>
+      </div>
+    </div>
+
+    ${inv.client.brief ? `<div style="margin-bottom:2rem;padding:1rem;background:var(--card);border:1px solid var(--border);"><label style="font-size:0.55rem;text-transform:uppercase;letter-spacing:0.25em;color:var(--accent);display:block;margin-bottom:0.5rem;">Project Brief</label><p style="font-size:0.7rem;color:var(--muted);line-height:1.7;">${inv.client.brief}</p>${inv.client.timeline ? `<p style="font-size:0.65rem;color:var(--accent);margin-top:0.5rem;">Timeline: ${inv.client.timeline}</p>` : ''}</div>` : ''}
+
+    <!-- LINE ITEMS -->
+    <div class="inv-table">
+      <div class="inv-table-header">
+        <span>Service</span>
+        <span>Amount</span>
+      </div>
+      ${itemsHTML}
+    </div>
+
+    <!-- TOTALS -->
+    <div class="inv-totals">
+      <div class="inv-total-row grand">
+        <span class="label">Total Estimate</span>
+        <span class="value">${s}${inv.minTotal.toLocaleString()}–${s}${inv.maxTotal.toLocaleString()}</span>
+      </div>
+      <div class="inv-total-row deposit">
+        <span class="label">60% Deposit Due</span>
+        <span class="value">${s}${inv.depositMin.toLocaleString()}–${s}${inv.depositMax.toLocaleString()}</span>
+      </div>
+    </div>
+
+    <!-- DEPOSIT NOTICE -->
+    <div class="deposit-notice">
+      <h4>⚡ 60% Deposit Required to Begin</h4>
+      <p>A deposit of 60% of the agreed final amount is required before work commences. The remaining 40% is due upon project completion and final file handover. This invoice is valid for 7 days from the date of issue.</p>
+    </div>
+
+    <!-- PAYMENT -->
+    <div class="payment-section">
+      <h3>Payment Details</h3>
+      <div class="payment-tabs">
+        <button class="pay-tab active" onclick="showPayment('eur', this)">EUR</button>
+        <button class="pay-tab" onclick="showPayment('usd', this)">USD</button>
+        <button class="pay-tab" onclick="showPayment('gbp', this)">GBP</button>
+        <button class="pay-tab" onclick="showPayment('ngn', this)">NGN</button>
+        <button class="pay-tab" onclick="showPayment('paypal', this)">PayPal</button>
+      </div>
+
+      <div class="payment-detail active" id="pay-eur">
+        <table>
+          <tr><td>Account Holder</td><td>Oluwanifemi Adeniran</td></tr>
+          <tr><td>Bank</td><td>CLEAR JUNCTION LTD</td></tr>
+          <tr><td>IBAN</td><td>GB33 CLJU 0413 0766 3190 85</td></tr>
+        </table>
+      </div>
+
+      <div class="payment-detail" id="pay-usd">
+        <table>
+          <tr><td>Account Holder</td><td>Oluwanifemi Adeniran</td></tr>
+          <tr><td>Bank</td><td>Revolut Bank UAB</td></tr>
+          <tr><td>IBAN</td><td>IE70 REVO 9903 6033 1375 86</td></tr>
+          <tr><td>BIC / SWIFT</td><td>REVOIE23</td></tr>
+          <tr><td>Correspondent BIC</td><td>CHASGB2L</td></tr>
+          <tr><td>Address</td><td>2 Dublin Landings, North Dock, Dublin 1</td></tr>
+        </table>
+      </div>
+
+      <div class="payment-detail" id="pay-gbp">
+        <table>
+          <tr><td>Account Holder</td><td>Oluwanifemi Adeniran</td></tr>
+          <tr><td>Bank</td><td>CLEAR JUNCTION LTD</td></tr>
+          <tr><td>Account Number</td><td>66319085</td></tr>
+          <tr><td>Sort Code</td><td>04-13-07</td></tr>
+          <tr><td>IBAN</td><td>GB33 CLJU 0413 0766 3190 85</td></tr>
+        </table>
+      </div>
+
+      <div class="payment-detail" id="pay-ngn">
+        <table>
+          <tr><td>Account Holder</td><td>Oluwanifemi Glory Adeniran</td></tr>
+          <tr><td>Bank</td><td>Paga</td></tr>
+          <tr><td>Account Number</td><td>0496994472</td></tr>
+        </table>
+      </div>
+
+      <div class="payment-detail" id="pay-paypal">
+        <table>
+          <tr><td>PayPal Name</td><td>Oluwanifemi Adeniran</td></tr>
+          <tr><td>PayPal Email</td><td>Femi.glory63@gmail.com</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- SIGNATURE -->
+    <div class="signature-section" id="signatureSection">
+      <h3>Sign to Confirm</h3>
+      <p>By signing below, you confirm that you've reviewed the services, pricing estimate, and payment terms outlined in this invoice. This serves as a mutual agreement to proceed with the project upon receipt of the 60% deposit.</p>
+      <div class="sig-row">
+        <div><label>Full Name *</label><input type="text" id="sigName" placeholder="Type your full legal name"></div>
+        <div><label>Date</label><input type="text" id="sigDate" value="${new Date().toLocaleDateString('en-IE')}" disabled></div>
+      </div>
+      <div class="sig-checkbox">
+        <input type="checkbox" id="sigAgree">
+        <label for="sigAgree">I agree to the terms outlined in this invoice, including the 60% deposit requirement before work begins and the remaining 40% due upon completion.</label>
+      </div>
+      <button class="sign-btn" id="signBtn" onclick="signInvoice()" disabled>Sign & Confirm Project</button>
+    </div>
+
+    <div class="signed-confirmation" id="signedConfirmation">
+      <h3>✓ Invoice Signed</h3>
+      <p>Thank you! Your signed confirmation has been sent. Nifemi will reach out to you shortly to finalize details and begin once the deposit is received.</p>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="inv-actions">
+      <button onclick="window.print()">Print / Save PDF</button>
+      <a href="./work-with-me.html"><button>← Back to Services</button></a>
+      <a href="./index.html"><button>Visit Portfolio</button></a>
+    </div>
+  `;
+
+  // Enable sign button when checkbox is checked and name entered
+  const sigName = document.getElementById('sigName');
+  const sigAgree = document.getElementById('sigAgree');
+  const signBtn = document.getElementById('signBtn');
+
+  function checkSign() {
+    signBtn.disabled = !(sigName.value.trim().length > 2 && sigAgree.checked);
+  }
+  sigName.addEventListener('input', checkSign);
+  sigAgree.addEventListener('change', checkSign);
+}
+
+function showPayment(id, btn) {
+  document.querySelectorAll('.payment-detail').forEach(d => d.classList.remove('active'));
+  document.querySelectorAll('.pay-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('pay-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function signInvoice() {
+  const name = document.getElementById('sigName').value.trim();
+  const date = document.getElementById('sigDate').value;
+
+  // Send signature notification to Nifemi
+  const inv = JSON.parse(localStorage.getItem('nifemi-invoice'));
+  const formData = new FormData();
+  formData.append('_subject', `✓ Invoice ${inv.id} SIGNED by ${name}`);
+  formData.append('invoice_id', inv.id);
+  formData.append('signed_by', name);
+  formData.append('signed_date', date);
+  formData.append('client_email', inv.client.email);
+  formData.append('client_name', inv.client.name);
+  formData.append('total', `${inv.symbol}${inv.minTotal.toLocaleString()}–${inv.symbol}${inv.maxTotal.toLocaleString()}`);
+  formData.append('deposit', `${inv.symbol}${inv.depositMin.toLocaleString()}–${inv.symbol}${inv.depositMax.toLocaleString()}`);
+
+  fetch('https://formspree.io/f/mldqqvra', {
+    method: 'POST', body: formData,
+    headers: { 'Accept': 'application/json' }
+  });
+
+  // Show confirmation
+  document.getElementById('signatureSection').style.display = 'none';
+  document.getElementById('signedConfirmation').style.display = 'block';
+
+  // Disable further editing
+  document.getElementById('signBtn').disabled = true;
+}
+</script>
+</body>
+</html>
