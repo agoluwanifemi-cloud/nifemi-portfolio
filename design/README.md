@@ -1,99 +1,97 @@
 # ADENIRAN OLUWANIFEMI — Portfolio
 
-Avant-garde, scattered-layout portfolio. Designs are randomly positioned across the canvas for that experimental, gallery-wall feel.
+Avant-garde scattered-layout portfolio powered by Cloudinary cloud storage.
 
 ---
 
-## 🚀 Deploy (5 minutes)
+## 🚀 SETUP GUIDE (10 minutes)
 
-### 1. Create GitHub Repo
-- Go to [github.com/new](https://github.com/new)
-- Name it something like `nifemi-portfolio`
-- Make it **Public**
-- Click **Create repository**
+### Step 1: Create a Cloudinary Account (FREE)
 
-### 2. Push Your Code
-```bash
-cd /path/to/this/folder
-git init
-git add .
-git commit -m "Initial portfolio"
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/nifemi-portfolio.git
-git push -u origin main
+1. Go to **[cloudinary.com](https://cloudinary.com)** and sign up (free tier = 25GB)
+2. Once logged in, go to your **Dashboard**
+3. Copy your **Cloud Name** (looks like `dxyz123abc`)
+
+### Step 2: Create an Upload Preset
+
+This lets your admin panel upload images without exposing secret keys:
+
+1. In Cloudinary, go to **Settings** → **Upload** tab
+2. Scroll down to **Upload presets**
+3. Click **Add upload preset**
+4. Set these options:
+   - **Upload preset name**: `nifemi_portfolio` (or whatever you like)
+   - **Signing Mode**: **Unsigned** ← IMPORTANT!
+   - **Folder**: `portfolio` (optional, keeps things organized)
+   - **Tags**: `portfolio` ← IMPORTANT! This is how your site finds images
+5. Click **Save**
+
+### Step 3: Enable the Resource List API
+
+This allows the portfolio to fetch images by tag:
+
+1. In Cloudinary, go to **Settings** → **Security** tab
+2. Find **"Resource list"** and make sure it's **enabled**
+3. Save
+
+### Step 4: Update Your Code
+
+Open **index.html** and find this line near the top of the `<script>`:
+```js
+const CLOUD_NAME = 'YOUR_CLOUD_NAME';
+```
+Replace `YOUR_CLOUD_NAME` with your actual cloud name.
+
+Open **admin.html** and update these lines:
+```js
+const CLOUD_NAME = 'YOUR_CLOUD_NAME';
+const UPLOAD_PRESET = 'YOUR_UPLOAD_PRESET';    // e.g. 'nifemi_portfolio'
+const ADMIN_PASSWORD = 'YOUR_PASSWORD_HERE';    // Pick a secret password!
 ```
 
-### 3. Deploy on Vercel
-- Go to [vercel.com](https://vercel.com) and sign in with GitHub
-- Click **"Add New Project"**
-- Import your `nifemi-portfolio` repo
-- Click **Deploy** — that's it!
-- Vercel gives you a live URL instantly (e.g. `nifemi-portfolio.vercel.app`)
+### Step 5: Deploy
+
+1. Push your code to GitHub
+2. Import the repo on [vercel.com](https://vercel.com)
+3. Deploy — done!
 
 ---
 
-## 🎨 How to Add Your Designs
+## 🎨 HOW TO ADD DESIGNS
 
-This is the only thing you'll ever need to do going forward:
-
-### Step 1: Add images to the `/designs` folder
-Drop your `.jpg`, `.png`, or `.webp` files in the `designs/` folder.
-
-### Step 2: Update `designs.json`
-Open `designs.json` and add your images:
-
-```json
-[
-  { "file": "my-brand-project.jpg", "title": "Brand Identity — ClientName" },
-  { "file": "campaign-poster.png", "title": "Summer Campaign 2025" },
-  { "file": "logo-system.jpg", "title": "Logo System — StartupX" }
-]
-```
-
-- `file` → exact filename (must match what's in the `/designs` folder)
-- `title` → shows on hover as a label
-
-### Step 3: Push to GitHub
-```bash
-git add .
-git commit -m "Added new designs"
-git push
-```
-
-Vercel auto-deploys within ~30 seconds. Done!
+1. Go to `yoursite.com/admin.html`
+2. Enter your admin password
+3. Type a project title
+4. Drag & drop or select your images
+5. Click **Upload to Portfolio**
+6. Images appear on your live site within seconds — no redeployment needed!
 
 ---
 
 ## 📁 File Structure
 ```
-├── index.html          ← The portfolio site
-├── designs.json        ← Your design manifest (edit this!)
-├── designs/            ← Your images go here
-│   ├── project-01.jpg
-│   ├── project-02.png
-│   └── ...
-└── README.md
+├── index.html     ← Public portfolio (pulls images from Cloudinary)
+├── admin.html     ← Secret admin panel (password-protected upload)
+└── README.md      ← This file
 ```
 
 ---
 
 ## 💡 Tips
-- **Image sizes**: Use high-quality images (1200–2400px wide). They'll be auto-cropped to fit scattered frames.
-- **Naming**: Use descriptive filenames like `fintech-rebrand.jpg` not `IMG_4032.jpg`.
-- **Scatter behavior**: Images scatter randomly on each page load — this is intentional! It creates a unique gallery experience every visit.
-- **Click to expand**: Visitors can click any scattered image to see it full-screen.
+
+- **Image quality**: Upload high-res images — Cloudinary auto-optimizes them
+- **Titles**: Add descriptive titles when uploading — they show on hover
+- **The scatter**: Images randomly reposition on each page load — this is the art!
+- **Admin URL**: Bookmark `yoursite.com/admin.html` — only you know it exists
+- **Delete images**: Use the Cloudinary dashboard (cloudinary.com → Media Library) to remove images
 
 ---
 
-## ✏️ Customization
-All colors, fonts, and content are in `index.html`. Key CSS variables at the top:
+## 🔒 Security Notes
 
-```css
---bg: #0a0a0a;       /* Background */
---fg: #e8e4df;        /* Text */
---accent: #c8ff00;    /* Accent (lime green) */
---muted: #5a5651;     /* Subtle text */
-```
+- The admin password is client-side — it's a basic deterrent, not bank-level security
+- Since the upload preset is unsigned, someone could technically upload if they found your cloud name + preset name
+- For a personal portfolio this is totally fine — if you want more security later, we can add a serverless API
 
 ---
 
