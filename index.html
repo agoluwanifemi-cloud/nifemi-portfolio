@@ -149,6 +149,40 @@ nav {
 }
 @keyframes floatRotate { to { transform: rotate(360deg); } }
 
+.hero-image {
+  position: absolute;
+  right: 3vw;
+  bottom: 0;
+  width: clamp(300px, 32vw, 520px);
+  z-index: 2;
+  opacity: 0;
+  animation: heroImgReveal 1.4s cubic-bezier(0.16, 1, 0.3, 1) 2.6s forwards;
+  -webkit-mask-image: linear-gradient(to top, transparent 0%, black 10%, black 80%, transparent 100%);
+  mask-image: linear-gradient(to top, transparent 0%, black 10%, black 80%, transparent 100%);
+  filter: contrast(1.05) brightness(0.95);
+}
+@keyframes heroImgReveal {
+  0% { opacity: 0; transform: translateY(40px) scale(0.97); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+.hero-image-accent {
+  position: absolute;
+  right: calc(3vw + clamp(120px, 14vw, 220px));
+  bottom: 15vh;
+  width: 1px; height: 0;
+  background: var(--accent);
+  animation: accentLine 1s ease 3.2s forwards;
+}
+@keyframes accentLine { to { height: 120px; } }
+@media (max-width: 900px) {
+  .hero-image {
+    position: relative; right: auto; bottom: auto;
+    width: 60vw; margin-top: 2rem;
+  }
+  .hero-image-accent { display: none; }
+  .hero { min-height: auto; padding-top: 8rem; padding-bottom: 4rem; }
+}
+
 .marquee-section {
   padding: 2rem 0;
   border-top: 1px solid rgba(255,255,255,0.06);
@@ -369,6 +403,8 @@ footer span { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: upperca
   </h1>
   <p class="hero-subtitle">8+ years translating abstract ideas into strategic visual solutions — brand identities, digital campaigns, and visual systems that drive connection.</p>
   <div class="hero-float"></div>
+  <img src="./hero.png" alt="Adeniran Oluwanifemi" class="hero-image">
+  <div class="hero-image-accent"></div>
   <div class="hero-scroll">Scroll to explore</div>
 </section>
 
