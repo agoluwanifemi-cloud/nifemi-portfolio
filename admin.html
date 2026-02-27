@@ -27,7 +27,6 @@ body {
   min-height: 100vh;
 }
 
-/* LOGIN SCREEN */
 .login-screen {
   min-height: 100vh;
   display: flex;
@@ -73,7 +72,7 @@ body {
 
 .login-box input:focus { border-color: var(--accent); }
 
-.login-box button {
+.btn {
   background: var(--accent);
   color: var(--bg);
   border: none;
@@ -87,7 +86,8 @@ body {
   transition: opacity 0.3s;
 }
 
-.login-box button:hover { opacity: 0.85; }
+.btn:hover { opacity: 0.85; }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
 .login-error {
   font-size: 0.7rem;
@@ -96,7 +96,6 @@ body {
   display: none;
 }
 
-/* ADMIN PANEL */
 .admin-panel { display: none; }
 .admin-panel.active { display: block; }
 
@@ -113,7 +112,6 @@ body {
   font-size: 1rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: -0.01em;
 }
 
 .admin-header .badge {
@@ -124,6 +122,7 @@ body {
   background: var(--accent);
   padding: 0.3rem 0.7rem;
   font-weight: 500;
+  margin-left: 0.8rem;
 }
 
 .admin-header a {
@@ -135,7 +134,48 @@ body {
 
 .admin-header a:hover { color: var(--accent); }
 
-/* UPLOAD SECTION */
+/* SETUP NOTICE */
+.setup-notice {
+  padding: 1.5rem 2rem;
+  background: rgba(200,255,0,0.05);
+  border-bottom: 1px solid var(--border);
+  display: none;
+}
+
+.setup-notice.active { display: block; }
+
+.setup-notice h3 {
+  font-family: var(--display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.8rem;
+}
+
+.setup-notice p {
+  font-size: 0.7rem;
+  line-height: 1.8;
+  color: var(--muted);
+}
+
+.setup-notice input {
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--fg);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  padding: 0.6rem 0.8rem;
+  outline: none;
+  width: 100%;
+  max-width: 500px;
+  margin: 0.5rem 0;
+  transition: border-color 0.3s;
+}
+
+.setup-notice input:focus { border-color: var(--accent); }
+
+.setup-notice .btn { margin-top: 0.5rem; padding: 0.6rem 1.5rem; }
+
 .upload-section {
   padding: 3rem 2rem;
   border-bottom: 1px solid var(--border);
@@ -174,7 +214,6 @@ body {
   text-align: center;
   cursor: pointer;
   transition: border-color 0.3s, background 0.3s;
-  position: relative;
 }
 
 .upload-dropzone:hover,
@@ -184,69 +223,41 @@ body {
 }
 
 .upload-dropzone input { display: none; }
-
-.upload-dropzone p {
-  font-size: 0.75rem;
-  color: var(--muted);
-  letter-spacing: 0.05em;
-}
-
-.upload-dropzone .icon {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-  display: block;
-}
-
-.upload-btn {
-  background: var(--accent);
-  color: var(--bg);
-  border: none;
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  padding: 0.9rem 2rem;
-  cursor: pointer;
-  transition: opacity 0.3s;
-  align-self: flex-start;
-}
-
-.upload-btn:hover { opacity: 0.85; }
-.upload-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.upload-dropzone p { font-size: 0.75rem; color: var(--muted); }
+.upload-dropzone .icon { font-size: 2rem; margin-bottom: 0.5rem; display: block; }
 
 .upload-status {
   font-size: 0.7rem;
   color: var(--accent);
-  display: none;
+  min-height: 1.2rem;
 }
 
 .upload-progress {
-  width: 100%;
-  height: 3px;
+  width: 100%; height: 3px;
   background: var(--border);
   overflow: hidden;
   display: none;
 }
 
 .upload-progress .bar {
-  width: 0%;
-  height: 100%;
+  width: 0%; height: 100%;
   background: var(--accent);
   transition: width 0.3s;
 }
 
-.preview-thumb {
-  width: 80px; height: 80px;
-  object-fit: cover;
-  border: 1px solid var(--border);
-  display: none;
+.preview-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
-/* GALLERY GRID */
-.gallery-section {
-  padding: 3rem 2rem;
+.preview-row img {
+  width: 60px; height: 60px;
+  object-fit: cover;
+  border: 1px solid var(--border);
 }
+
+.gallery-section { padding: 3rem 2rem; }
 
 .gallery-section h2 {
   font-family: var(--display);
@@ -265,7 +276,7 @@ body {
 
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 1rem;
 }
 
@@ -286,22 +297,27 @@ body {
   display: block;
 }
 
-.gallery-item .item-info {
+.gallery-item .item-overlay {
   position: absolute;
-  bottom: 0; left: 0; right: 0;
-  background: linear-gradient(transparent, rgba(0,0,0,0.9));
-  padding: 2rem 0.8rem 0.8rem;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
   opacity: 0;
   transition: opacity 0.3s;
 }
 
-.gallery-item:hover .item-info { opacity: 1; }
+.gallery-item:hover .item-overlay { opacity: 1; }
 
 .gallery-item .item-title {
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  margin-bottom: 0.5rem;
+  text-align: center;
+  padding: 0 0.5rem;
 }
 
 .gallery-item .delete-btn {
@@ -309,12 +325,11 @@ body {
   color: white;
   border: none;
   font-family: var(--mono);
-  font-size: 0.6rem;
+  font-size: 0.55rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   padding: 0.4rem 0.8rem;
   cursor: pointer;
-  transition: opacity 0.3s;
 }
 
 .gallery-item .delete-btn:hover { opacity: 0.8; }
@@ -323,11 +338,7 @@ body {
   text-align: center;
   padding: 4rem 0;
   color: var(--muted);
-}
-
-.empty-state p {
   font-size: 0.75rem;
-  letter-spacing: 0.1em;
 }
 </style>
 </head>
@@ -338,7 +349,7 @@ body {
   <h1>NIFEMI<span class="dot"></span> ADMIN</h1>
   <div class="login-box">
     <input type="password" id="passwordInput" placeholder="Enter admin password" autofocus>
-    <button onclick="login()">Enter</button>
+    <button class="btn" onclick="login()">Enter</button>
     <p class="login-error" id="loginError">Incorrect password</p>
   </div>
 </div>
@@ -346,11 +357,20 @@ body {
 <!-- ADMIN PANEL -->
 <div class="admin-panel" id="adminPanel">
   <div class="admin-header">
-    <div style="display:flex;align-items:center;gap:1rem;">
+    <div style="display:flex;align-items:center;">
       <h1>NIFEMI</h1>
       <span class="badge">Admin</span>
     </div>
     <a href="./index.html">← Back to Portfolio</a>
+  </div>
+
+  <!-- SETUP (shown first time only) -->
+  <div class="setup-notice" id="setupNotice">
+    <h3>⚡ First-Time Setup</h3>
+    <p>Paste your JSONBin.io bin ID below. This is where your portfolio data is stored.</p>
+    <input type="text" id="binIdInput" placeholder="Paste your bin ID (e.g. 67c0a1...)">
+    <br>
+    <button class="btn" onclick="saveBinId()">Save</button>
   </div>
 
   <!-- UPLOAD -->
@@ -363,14 +383,14 @@ body {
         <span class="icon">↑</span>
         <p>Click to select images or drag & drop</p>
       </div>
-      <img class="preview-thumb" id="previewThumb" alt="Preview">
+      <div class="preview-row" id="previewRow"></div>
       <div class="upload-progress" id="uploadProgress"><div class="bar" id="progressBar"></div></div>
       <p class="upload-status" id="uploadStatus"></p>
-      <button class="upload-btn" id="uploadBtn" onclick="uploadDesign()" disabled>Upload to Portfolio</button>
+      <button class="btn" id="uploadBtn" onclick="uploadDesigns()" disabled>Upload to Portfolio</button>
     </div>
   </div>
 
-  <!-- EXISTING DESIGNS -->
+  <!-- GALLERY -->
   <div class="gallery-section">
     <h2>Current Portfolio</h2>
     <p class="gallery-count" id="galleryCount">Loading...</p>
@@ -380,12 +400,29 @@ body {
 
 <script>
 // ==========================================
-// CONFIG — Fill these in!
+// CONFIG
 // ==========================================
-const CLOUD_NAME = 'dszvalogw';           // Your Cloudinary cloud name
-const UPLOAD_PRESET = 'nifemi_portfolio';      // Unsigned upload preset name
-const TAG = 'portfolio';                          // Tag for portfolio images
-const ADMIN_PASSWORD = 'Jesusislord1!';      // Change this to your secret password!
+const CLOUD_NAME = 'dszvalogw';
+const UPLOAD_PRESET = 'nifemi_portfolio';
+const ADMIN_PASSWORD = 'Jesusislord1!';
+
+// JSONBin.io — free JSON storage (no signup required for public bins)
+// We store the portfolio image list here so both admin & site can access it
+const JSONBIN_API = 'https://api.jsonbin.io/v3/b';
+
+// Get or set the bin ID
+function getBinId() {
+  return localStorage.getItem('nifemi_bin_id') || '';
+}
+
+function saveBinId() {
+  const id = document.getElementById('binIdInput').value.trim();
+  if (id) {
+    localStorage.setItem('nifemi_bin_id', id);
+    document.getElementById('setupNotice').classList.remove('active');
+    loadGallery();
+  }
+}
 
 // ==========================================
 // LOGIN
@@ -395,11 +432,14 @@ document.getElementById('passwordInput').addEventListener('keydown', e => {
 });
 
 function login() {
-  const pw = document.getElementById('passwordInput').value;
-  if (pw === ADMIN_PASSWORD) {
+  if (document.getElementById('passwordInput').value === ADMIN_PASSWORD) {
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('adminPanel').classList.add('active');
-    loadGallery();
+    if (!getBinId()) {
+      document.getElementById('setupNotice').classList.add('active');
+    } else {
+      loadGallery();
+    }
   } else {
     const err = document.getElementById('loginError');
     err.style.display = 'block';
@@ -408,16 +448,15 @@ function login() {
 }
 
 // ==========================================
-// FILE SELECTION & PREVIEW
+// FILE SELECTION
 // ==========================================
 let selectedFiles = [];
-
 const dropzone = document.getElementById('dropzone');
 const fileInput = document.getElementById('fileInput');
 
 fileInput.addEventListener('change', e => {
   selectedFiles = Array.from(e.target.files);
-  updatePreview();
+  showPreviews();
 });
 
 dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('dragover'); });
@@ -426,89 +465,116 @@ dropzone.addEventListener('drop', e => {
   e.preventDefault();
   dropzone.classList.remove('dragover');
   selectedFiles = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
-  updatePreview();
+  showPreviews();
 });
 
-function updatePreview() {
-  const thumb = document.getElementById('previewThumb');
-  const btn = document.getElementById('uploadBtn');
+function showPreviews() {
+  const row = document.getElementById('previewRow');
+  row.innerHTML = '';
+  document.getElementById('uploadBtn').disabled = selectedFiles.length === 0;
+  dropzone.querySelector('p').textContent = selectedFiles.length > 0
+    ? `${selectedFiles.length} file(s) selected`
+    : 'Click to select images or drag & drop';
 
-  if (selectedFiles.length > 0) {
+  selectedFiles.forEach(file => {
     const reader = new FileReader();
-    reader.onload = e => { thumb.src = e.target.result; thumb.style.display = 'block'; };
-    reader.readAsDataURL(selectedFiles[0]);
-    btn.disabled = false;
-    dropzone.querySelector('p').textContent = `${selectedFiles.length} file(s) selected`;
-  } else {
-    thumb.style.display = 'none';
-    btn.disabled = true;
-    dropzone.querySelector('p').textContent = 'Click to select images or drag & drop';
-  }
+    reader.onload = e => {
+      const img = document.createElement('img');
+      img.src = e.target.result;
+      row.appendChild(img);
+    };
+    reader.readAsDataURL(file);
+  });
 }
 
 // ==========================================
-// UPLOAD TO CLOUDINARY
+// UPLOAD TO CLOUDINARY + SAVE TO JSONBIN
 // ==========================================
-async function uploadDesign() {
-  if (selectedFiles.length === 0) return;
+async function uploadDesigns() {
+  if (selectedFiles.length === 0 || !getBinId()) return;
 
   const btn = document.getElementById('uploadBtn');
   const status = document.getElementById('uploadStatus');
   const progress = document.getElementById('uploadProgress');
   const bar = document.getElementById('progressBar');
-  const caption = document.getElementById('captionInput').value.trim();
+  const caption = document.getElementById('captionInput').value.trim() || 'Untitled';
 
   btn.disabled = true;
   btn.textContent = 'Uploading...';
-  status.style.display = 'block';
   progress.style.display = 'block';
 
-  let uploaded = 0;
+  const newImages = [];
 
-  for (const file of selectedFiles) {
-    status.textContent = `Uploading ${uploaded + 1} of ${selectedFiles.length}...`;
-    bar.style.width = `${(uploaded / selectedFiles.length) * 100}%`;
+  for (let i = 0; i < selectedFiles.length; i++) {
+    status.textContent = `Uploading ${i + 1} of ${selectedFiles.length}...`;
+    bar.style.width = `${((i) / selectedFiles.length) * 100}%`;
 
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append('file', selectedFiles[i]);
     formData.append('upload_preset', UPLOAD_PRESET);
-    formData.append('tags', TAG);
-    if (caption) {
-      formData.append('context', `caption=${caption}`);
-    }
 
     try {
       const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
         method: 'POST',
         body: formData,
       });
-
-      if (!res.ok) throw new Error('Upload failed');
-      uploaded++;
+      const data = await res.json();
+      if (data.secure_url) {
+        newImages.push({
+          url: data.secure_url,
+          title: caption,
+          id: data.public_id,
+          uploaded: new Date().toISOString(),
+        });
+      }
     } catch (err) {
-      status.textContent = `Error uploading ${file.name}: ${err.message}`;
-      status.style.color = '#ff4444';
+      status.textContent = `Error: ${err.message}`;
     }
   }
 
   bar.style.width = '100%';
-  status.textContent = `✓ ${uploaded} design(s) uploaded successfully!`;
-  status.style.color = 'var(--accent)';
+
+  if (newImages.length > 0) {
+    // Fetch existing portfolio data
+    let existing = [];
+    try {
+      const res = await fetch(`${JSONBIN_API}/${getBinId()}/latest`, {
+        headers: { 'X-Access-Key': '$2a$10$placeholder' }
+      });
+      const data = await res.json();
+      existing = data.record?.images || data.record || [];
+    } catch (e) {}
+
+    // Merge new images
+    const updated = [...existing, ...newImages];
+
+    // Save back to JSONBin
+    try {
+      await fetch(`${JSONBIN_API}/${getBinId()}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ images: updated }),
+      });
+      status.textContent = `✓ ${newImages.length} design(s) uploaded!`;
+    } catch (e) {
+      status.textContent = 'Uploaded to Cloudinary but failed to save list.';
+    }
+  }
 
   // Reset
   setTimeout(() => {
     btn.textContent = 'Upload to Portfolio';
     btn.disabled = true;
-    status.style.display = 'none';
+    status.textContent = '';
     progress.style.display = 'none';
     bar.style.width = '0%';
     selectedFiles = [];
-    document.getElementById('previewThumb').style.display = 'none';
+    document.getElementById('previewRow').innerHTML = '';
     document.getElementById('captionInput').value = '';
     dropzone.querySelector('p').textContent = 'Click to select images or drag & drop';
     fileInput.value = '';
     loadGallery();
-  }, 2000);
+  }, 1500);
 }
 
 // ==========================================
@@ -517,38 +583,65 @@ async function uploadDesign() {
 async function loadGallery() {
   const grid = document.getElementById('galleryGrid');
   const count = document.getElementById('galleryCount');
+  const binId = getBinId();
+
+  if (!binId) {
+    count.textContent = 'Set up JSONBin first ↑';
+    return;
+  }
 
   try {
-    const res = await fetch(`https://res.cloudinary.com/${CLOUD_NAME}/image/list/${TAG}.json`);
-    if (!res.ok) throw new Error('No images found');
+    const res = await fetch(`${JSONBIN_API}/${binId}/latest`);
     const data = await res.json();
-    const images = data.resources || [];
+    const images = data.record?.images || data.record || [];
 
     count.textContent = `${images.length} design(s) in portfolio`;
 
     if (images.length === 0) {
-      grid.innerHTML = '<div class="empty-state"><p>No designs yet — upload your first one above!</p></div>';
+      grid.innerHTML = '<div class="empty-state">No designs yet — upload your first one above!</div>';
       return;
     }
 
-    grid.innerHTML = images.map(img => {
-      const thumbUrl = `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/w_400,h_400,c_fill,q_auto,f_auto/v${img.version}/${img.public_id}.${img.format}`;
-      const title = (img.context && img.context.custom && img.context.custom.caption)
-        ? img.context.custom.caption
-        : img.public_id.split('/').pop().replace(/[-_]/g, ' ');
-
+    grid.innerHTML = images.map((img, i) => {
+      // Cloudinary auto-optimize thumbnail
+      const thumbUrl = img.url.replace('/upload/', '/upload/w_400,h_400,c_fill,q_auto,f_auto/');
       return `
         <div class="gallery-item">
-          <img src="${thumbUrl}" alt="${title}" loading="lazy">
-          <div class="item-info">
-            <div class="item-title">${title}</div>
+          <img src="${thumbUrl}" alt="${img.title}" loading="lazy">
+          <div class="item-overlay">
+            <div class="item-title">${img.title}</div>
+            <button class="delete-btn" onclick="deleteDesign(${i})">Delete</button>
           </div>
         </div>`;
     }).join('');
-
   } catch (err) {
-    count.textContent = '0 designs in portfolio';
-    grid.innerHTML = '<div class="empty-state"><p>No designs yet — upload your first one above!</p></div>';
+    count.textContent = 'Error loading portfolio';
+    grid.innerHTML = `<div class="empty-state">Could not load. Check your bin ID.</div>`;
+  }
+}
+
+// ==========================================
+// DELETE
+// ==========================================
+async function deleteDesign(index) {
+  if (!confirm('Remove this design from the portfolio?')) return;
+
+  const binId = getBinId();
+  try {
+    const res = await fetch(`${JSONBIN_API}/${binId}/latest`);
+    const data = await res.json();
+    const images = data.record?.images || data.record || [];
+    images.splice(index, 1);
+
+    await fetch(`${JSONBIN_API}/${binId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ images }),
+    });
+
+    loadGallery();
+  } catch (err) {
+    alert('Failed to delete: ' + err.message);
   }
 }
 </script>
