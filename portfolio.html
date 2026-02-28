@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — MANNORR</title>
+<meta name="description" content="Selected works by Adeniran Oluwanifemi — brand identities, visual campaigns, and design systems.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+[data-theme="dark"]{--bg:#0a0a0a;--fg:#e8e4df;--accent:#c8ff00;--muted:#5a5651;--border:rgba(255,255,255,0.06);--overlay-bg:rgba(10,10,10,0.96)}
+[data-theme="light"]{--bg:#f5f2ed;--fg:#1a1a1a;--accent:#5a00e6;--muted:#8a8580;--border:rgba(0,0,0,0.08);--overlay-bg:rgba(245,242,237,0.96)}
+:root{--serif:'Instrument Serif',serif;--mono:'DM Mono',monospace;--display:'Syne',sans-serif}
+html{scroll-behavior:smooth}body{background:var(--bg);color:var(--fg);font-family:var(--mono);font-weight:300;overflow-x:hidden;cursor:crosshair;transition:background .5s,color .5s}
+.cursor-dot{position:fixed;width:8px;height:8px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:10000;mix-blend-mode:difference}
+.cursor-ring{position:fixed;width:40px;height:40px;border:1px solid var(--accent);border-radius:50%;pointer-events:none;z-index:10000;mix-blend-mode:difference}
+.top-bar{padding:1.5rem 2.5rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border)}
+.top-bar a{color:var(--fg);text-decoration:none;font-family:var(--display);font-weight:800;font-size:1.1rem;text-transform:uppercase;letter-spacing:-.02em}
+.top-bar a .dot{display:inline-block;width:8px;height:8px;background:var(--accent);border-radius:50%;margin-left:2px}
+.top-bar-right{display:flex;gap:1.5rem;align-items:center}
+.top-bar-right a{font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;color:var(--muted);text-decoration:none}.top-bar-right a:hover{color:var(--accent)}
+.theme-toggle{background:none;border:1px solid var(--fg);color:var(--fg);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:.75rem;display:flex;align-items:center;justify-content:center}
+.page-hero{padding:5rem 5vw 3rem;text-align:center}
+.page-hero h1{font-family:var(--display);font-size:clamp(2.5rem,6vw,5rem);font-weight:800;text-transform:uppercase;letter-spacing:-.04em;line-height:1}
+.page-hero h1 .italic{font-family:var(--serif);font-style:italic;font-weight:400;text-transform:none}.page-hero h1 .accent{color:var(--accent)}
+.page-hero p{margin-top:1rem;font-size:.75rem;color:var(--muted);letter-spacing:.1em}
+.scatter-canvas{position:relative;width:100%;min-height:200vh;padding:0 3vw}
+.scatter-item{position:absolute;transition:transform .6s cubic-bezier(.16,1,.3,1),filter .4s;cursor:pointer}
+.scatter-item:hover{z-index:10!important;transform:scale(1.05)!important;filter:brightness(1.1)}
+.scatter-item img{width:100%;height:100%;object-fit:cover;display:block}
+.scatter-item .item-label{position:absolute;bottom:-2rem;left:0;font-family:var(--mono);font-size:.6rem;text-transform:uppercase;letter-spacing:.15em;color:var(--muted);opacity:0;transition:opacity .3s;white-space:nowrap}.scatter-item:hover .item-label{opacity:1}
+.scatter-item .item-number{position:absolute;top:-1.5rem;right:0;font-family:var(--mono);font-size:.55rem;color:var(--accent);letter-spacing:.1em}
+.scatter-loading{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+.scatter-loading .spinner{width:30px;height:30px;border:2px solid var(--muted);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 1rem}
+@keyframes spin{to{transform:rotate(360deg)}}.scatter-loading p{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.image-overlay{position:fixed;inset:0;z-index:9000;background:var(--overlay-bg);backdrop-filter:blur(30px);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}.image-overlay.active{opacity:1;visibility:visible}
+.image-overlay img{max-width:85vw;max-height:80vh;object-fit:contain;transform:scale(.95);opacity:0;transition:transform .4s cubic-bezier(.16,1,.3,1),opacity .3s}.image-overlay.active img{transform:scale(1);opacity:1}
+.overlay-close{position:absolute;top:1.5rem;right:2rem;font-family:var(--mono);font-size:.65rem;color:var(--fg);letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;border:1px solid var(--border);padding:.6rem 1.2rem;transition:border-color .3s;z-index:10}.overlay-close:hover{border-color:var(--accent)}
+.overlay-info{position:absolute;bottom:1.5rem;left:2rem;font-family:var(--mono);font-size:.65rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.overlay-counter{position:absolute;bottom:1.5rem;right:2rem;font-family:var(--mono);font-size:.65rem;color:var(--muted);z-index:10}
+.overlay-nav{position:absolute;top:50%;transform:translateY(-50%);background:none;border:1px solid var(--border);color:var(--fg);width:50px;height:50px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.2rem;z-index:10;transition:border-color .3s,background .3s}.overlay-nav:hover{border-color:var(--accent);background:rgba(200,255,0,.05)}
+.overlay-prev{left:1.5rem}.overlay-next{right:1.5rem}
+footer{padding:2rem 5vw;border-top:1px solid var(--border);display:flex;justify-content:space-between}footer span{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");background-repeat:repeat;background-size:200px}
+@media(max-width:900px){.overlay-nav{width:40px;height:40px;font-size:1rem}.overlay-prev{left:.8rem}.overlay-next{right:.8rem}}
+@media(max-width:600px){.top-bar{padding:1rem 1.2rem}.page-hero{padding:3rem 1.2rem 2rem}.scatter-canvas{padding:0 1.2rem}.image-overlay img{max-width:95vw;max-height:70vh}.overlay-close{top:1rem;right:1rem;padding:.5rem .8rem;font-size:.55rem}}
+</style>
+</head>
+<body>
+<div class="grain"></div><div class="cursor-dot" id="cursorDot"></div><div class="cursor-ring" id="cursorRing"></div>
+<div class="top-bar"><a href="./index.html">MANNORR<span class="dot"></span></a><div class="top-bar-right"><a href="./index.html">Home</a><a href="./work-with-me.html">Work With Me</a><a href="./index.html#contact">Contact</a><button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">☀</button></div></div>
+<section class="page-hero"><h1>ALL <span class="italic">Selected</span> <span class="accent">WORKS</span></h1><p>Randomized on every visit — click to expand, arrows to browse</p></section>
+<div class="scatter-canvas" id="scatterCanvas"><div class="scatter-loading" id="scatterLoading"><div class="spinner"></div><p>Loading works...</p></div></div>
+<footer><span>© 2026 Adeniran Oluwanifemi</span><span>MANNORR</span></footer>
+<div class="image-overlay" id="imageOverlay"><button class="overlay-close" onclick="closeOverlay()">Close [Esc]</button><button class="overlay-nav overlay-prev" onclick="navigateOverlay(-1)">←</button><img src="" alt="" id="overlayImg"><button class="overlay-nav overlay-next" onclick="navigateOverlay(1)">→</button><div class="overlay-info" id="overlayInfo"></div><div class="overlay-counter" id="overlayCounter"></div></div>
+<script>
+const JSONBIN_BIN_ID='69a1b1b8d0ea881f40df36ba',JSONBIN_API='https://api.jsonbin.io/v3/b';
+function toggleTheme(){const t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('nifemi-theme',t);document.getElementById('themeToggle').textContent=t==='dark'?'☀':'☾'}
+const st=localStorage.getItem('nifemi-theme')||'dark';document.documentElement.setAttribute('data-theme',st);document.getElementById('themeToggle').textContent=st==='dark'?'☀':'☾';
+const dot=document.getElementById('cursorDot'),ring=document.getElementById('cursorRing');let mouseX=0,mouseY=0,ringX=0,ringY=0;
+document.addEventListener('mousemove',e=>{mouseX=e.clientX;mouseY=e.clientY;dot.style.left=mouseX-4+'px';dot.style.top=mouseY-4+'px'});
+function animateRing(){ringX+=(mouseX-ringX)*.12;ringY+=(mouseY-ringY)*.12;ring.style.left=ringX-20+'px';ring.style.top=ringY-20+'px';requestAnimationFrame(animateRing)}animateRing();
+if('ontouchstart'in window){dot.style.display='none';ring.style.display='none'}
+let portfolioImages=[],currentOverlayIndex=0;
+function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
+function generateScatterPositions(count){const positions=[];const zones=[{xMin:2,xMax:28},{xMin:30,xMax:58},{xMin:60,xMax:88}];const sizes=[{w:280,h:350},{w:350,h:250},{w:220,h:300},{w:400,h:280},{w:260,h:380},{w:320,h:220},{w:300,h:400},{w:380,h:260}];const rots=[-5,-3,-1.5,0,1,2.5,4,-2,3,-4];for(let i=0;i<count;i++){const z=zones[i%3],s=sizes[i%8],r=rots[i%10];const x=z.xMin+Math.random()*(z.xMax-z.xMin);const row=Math.floor(i/3);const ySpread=100/Math.ceil(count/3);positions.push({x,y:row*ySpread+Math.random()*ySpread*.6,w:s.w+(Math.random()-.5)*60,h:s.h+(Math.random()-.5)*60,rotation:r+(Math.random()-.5)*2,zIndex:Math.floor(Math.random()*10)})}return positions}
+function renderScatter(images){const ld=document.getElementById('scatterLoading');if(ld)ld.remove();portfolioImages=shuffle(images||[]);if(portfolioImages.length===0){document.getElementById('scatterCanvas').innerHTML='<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;color:var(--muted)"><div style="font-family:var(--display);font-size:1.5rem;font-weight:700;margin-bottom:1rem">WORKS COMING SOON</div></div>';document.getElementById('scatterCanvas').style.minHeight='50vh';return}
+const canvas=document.getElementById('scatterCanvas');const positions=generateScatterPositions(portfolioImages.length);canvas.style.minHeight=Math.max(100,Math.ceil(portfolioImages.length/3)*50)+'vh';
+portfolioImages.forEach((img,i)=>{const pos=positions[i];const item=document.createElement('div');item.className='scatter-item';item.style.cssText=`left:${pos.x}%;top:${pos.y}%;width:${pos.w}px;height:${pos.h}px;transform:rotate(${pos.rotation}deg);z-index:${pos.zIndex}`;const thumbUrl=img.url.replace('/upload/','/upload/w_600,c_fill,q_auto,f_auto/');item.innerHTML=`<img src="${thumbUrl}" alt="${img.title}" loading="lazy"><span class="item-number">${String(i+1).padStart(2,'0')}</span><span class="item-label">${img.title}</span>`;item.addEventListener('click',()=>openOverlay(i));canvas.appendChild(item);item.style.opacity='0';item.style.transform+=' translateY(30px)';setTimeout(()=>{item.style.transition='opacity .8s ease,transform .8s cubic-bezier(.16,1,.3,1)';item.style.opacity='1';item.style.transform=`rotate(${pos.rotation}deg) translateY(0)`},100+i*120)})}
+async function loadPortfolio(){try{const res=await fetch(`${JSONBIN_API}/${JSONBIN_BIN_ID}/latest`);const data=await res.json();renderScatter(data.record?.images||data.record||[])}catch(e){renderScatter([])}}loadPortfolio();
+function openOverlay(i){currentOverlayIndex=i;updateOverlay();document.getElementById('imageOverlay').classList.add('active');document.body.style.overflow='hidden'}
+function updateOverlay(){const img=portfolioImages[currentOverlayIndex];document.getElementById('overlayImg').src=img.url.replace('/upload/','/upload/q_auto,f_auto/');document.getElementById('overlayInfo').textContent=img.title;document.getElementById('overlayCounter').textContent=`${currentOverlayIndex+1} / ${portfolioImages.length}`}
+function navigateOverlay(dir){currentOverlayIndex=(currentOverlayIndex+dir+portfolioImages.length)%portfolioImages.length;const el=document.getElementById('overlayImg');el.style.opacity='0';el.style.transform='scale(.97)';setTimeout(()=>{updateOverlay();el.style.opacity='1';el.style.transform='scale(1)'},150)}
+function closeOverlay(){document.getElementById('imageOverlay').classList.remove('active');document.body.style.overflow=''}
+document.getElementById('imageOverlay').addEventListener('click',e=>{if(e.target===e.currentTarget)closeOverlay()});
+document.addEventListener('keydown',e=>{if(!document.getElementById('imageOverlay').classList.contains('active'))return;if(e.key==='Escape')closeOverlay();if(e.key==='ArrowLeft')navigateOverlay(-1);if(e.key==='ArrowRight')navigateOverlay(1)});
+let touchStartX=0;document.getElementById('imageOverlay').addEventListener('touchstart',e=>{touchStartX=e.touches[0].clientX},{passive:true});document.getElementById('imageOverlay').addEventListener('touchend',e=>{const diff=touchStartX-e.changedTouches[0].clientX;if(Math.abs(diff)>50)navigateOverlay(diff>0?1:-1)},{passive:true});
+window.addEventListener('scroll',()=>{document.querySelectorAll('.scatter-item').forEach((item,i)=>{const offset=window.scrollY*(.02+(i%5)*.01);const base=item.style.transform.replace(/translateY\([^)]*\)/g,'');item.style.transform=base+` translateY(${-offset}px)`})});
+</script>
+</body>
+</html>

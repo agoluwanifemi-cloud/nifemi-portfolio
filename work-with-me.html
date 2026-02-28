@@ -3,13 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Work With Me — ADENIRAN OLUWANIFEMI</title>
-<meta name="description" content="Hire Nifemi for brand identity, visual design, and creative direction. Choose a package or build a custom project.">
+<title>Work With Me — MANNORR</title>
+<meta name="description" content="Hire Mannorr for brand identity, visual design, and creative direction. Choose a package or build a custom project.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
 [data-theme="dark"] {
   --bg: #0a0a0a; --fg: #e8e4df; --accent: #c8ff00; --muted: #5a5651;
   --card: #111; --card-hover: #161616; --border: rgba(255,255,255,0.06);
@@ -22,304 +21,200 @@
   --text-secondary: rgba(26,26,26,0.7); --text-tertiary: rgba(26,26,26,0.5);
   --success: #00c853; --warning: #ff8f00;
 }
-
 :root { --serif: 'Instrument Serif', serif; --mono: 'DM Mono', monospace; --display: 'Syne', sans-serif; }
-
 html { scroll-behavior: smooth; }
-body {
-  background: var(--bg); color: var(--fg); font-family: var(--mono); font-weight: 300;
-  overflow-x: hidden; transition: background 0.5s, color 0.5s;
-}
+body { background: var(--bg); color: var(--fg); font-family: var(--mono); font-weight: 300; overflow-x: hidden; transition: background 0.5s, color 0.5s; }
 
 /* NAV */
-.top-bar {
-  padding: 1.5rem 2.5rem; display: flex; justify-content: space-between; align-items: center;
-  border-bottom: 1px solid var(--border);
-}
-.top-bar a { color: var(--fg); text-decoration: none; font-family: var(--display); font-weight: 800; font-size: 1.1rem; text-transform: uppercase; letter-spacing: -0.02em; }
-.top-bar a .dot { display: inline-block; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; margin-left: 2px; }
+.top-bar { padding: 1.5rem 2.5rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
+.top-bar a.logo { color: var(--fg); text-decoration: none; font-family: var(--display); font-weight: 800; font-size: 1.1rem; text-transform: uppercase; letter-spacing: -0.02em; }
+.top-bar a.logo .dot { display: inline-block; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; margin-left: 2px; }
 .top-bar-right { display: flex; gap: 1.5rem; align-items: center; }
-.top-bar-right a { font-family: var(--mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--muted); }
+.top-bar-right a { font-family: var(--mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--muted); text-decoration: none; }
 .top-bar-right a:hover { color: var(--accent); }
-.theme-toggle {
-  background: none; border: 1px solid var(--fg); color: var(--fg); width: 28px; height: 28px;
-  border-radius: 50%; cursor: pointer; font-size: 0.75rem; display: flex; align-items: center; justify-content: center;
-}
+.theme-toggle { background: none; border: 1px solid var(--fg); color: var(--fg); width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; }
 
 /* HERO */
 .page-hero { padding: 6rem 5vw 4rem; text-align: center; }
-.page-hero h1 {
-  font-family: var(--display); font-size: clamp(2.5rem, 6vw, 5rem);
-  font-weight: 800; text-transform: uppercase; letter-spacing: -0.04em; line-height: 1;
-}
+.page-hero h1 { font-family: var(--display); font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 800; text-transform: uppercase; letter-spacing: -0.04em; line-height: 1; }
 .page-hero h1 .italic { font-family: var(--serif); font-style: italic; font-weight: 400; text-transform: none; }
 .page-hero h1 .accent { color: var(--accent); }
-.page-hero p { margin-top: 1.5rem; font-size: 0.8rem; color: var(--muted); max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.8; }
+.page-hero p { margin-top: 1.5rem; font-size: 0.8rem; color: var(--muted); max-width: 520px; margin-left: auto; margin-right: auto; line-height: 1.8; }
 
 /* MODE TOGGLE */
-.mode-toggle {
-  display: flex; justify-content: center; gap: 0; margin: 0 auto 4rem; border: 1px solid var(--border); width: fit-content;
-}
-.mode-btn {
-  background: none; border: none; color: var(--muted); font-family: var(--mono);
-  font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em;
-  padding: 0.8rem 2rem; cursor: pointer; transition: all 0.3s;
-}
+.mode-toggle { display: flex; justify-content: center; gap: 0; margin: 0 auto 3rem; border: 1px solid var(--border); width: fit-content; }
+.mode-btn { background: none; border: none; color: var(--muted); font-family: var(--mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; padding: 0.8rem 2rem; cursor: pointer; transition: all 0.3s; }
 .mode-btn.active { background: var(--accent); color: var(--bg); }
 
-/* CURRENCY SELECTOR */
-.currency-bar {
-  display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 3rem;
-}
-.currency-btn {
-  background: var(--card); border: 1px solid var(--border); color: var(--muted);
-  font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em;
-  padding: 0.5rem 1rem; cursor: pointer; transition: all 0.3s;
-}
+/* CURRENCY */
+.currency-bar { display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 3rem; }
+.currency-btn { background: var(--card); border: 1px solid var(--border); color: var(--muted); font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; padding: 0.5rem 1rem; cursor: pointer; transition: all 0.3s; }
 .currency-btn.active { border-color: var(--accent); color: var(--accent); }
 
-/* ===================== PACKAGES ===================== */
-.packages-section { padding: 0 5vw 6rem; }
-.packages-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1100px; margin: 0 auto;
-}
-.package-card {
-  background: var(--card); border: 1px solid var(--border); padding: 2.5rem 2rem;
-  transition: border-color 0.3s, transform 0.3s; position: relative; cursor: pointer;
-}
-.package-card:hover { border-color: var(--accent); transform: translateY(-4px); }
-.package-card.featured { border-color: var(--accent); }
-.package-card.featured::before {
-  content: 'MOST POPULAR'; position: absolute; top: -0.5rem; left: 2rem;
-  background: var(--accent); color: var(--bg); font-family: var(--mono);
-  font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase;
-  padding: 0.3rem 0.8rem; font-weight: 500;
-}
-.package-card.selected { border-color: var(--accent); background: var(--card-hover); }
-.package-card.selected::after {
-  content: '✓'; position: absolute; top: 1rem; right: 1rem;
-  color: var(--accent); font-size: 1.2rem;
-}
-.package-name {
-  font-family: var(--display); font-size: 1.3rem; font-weight: 700;
-  text-transform: uppercase; letter-spacing: -0.01em; margin-bottom: 0.5rem;
-}
-.package-price {
-  font-family: var(--display); font-size: 1.8rem; font-weight: 800;
-  color: var(--accent); letter-spacing: -0.02em; margin-bottom: 0.3rem;
-}
-.package-price-note { font-size: 0.6rem; color: var(--muted); margin-bottom: 1.5rem; }
-.package-desc { font-size: 0.72rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.5rem; }
-.package-includes { list-style: none; }
-.package-includes li {
-  font-size: 0.7rem; color: var(--text-tertiary); line-height: 2;
-  padding-left: 1.2rem; position: relative;
-}
-.package-includes li::before { content: '✦'; position: absolute; left: 0; color: var(--accent); font-size: 0.5rem; top: 0.15em; }
-
-/* ===================== CUSTOM BUILDER ===================== */
-.builder-section { padding: 0 5vw 4rem; display: none; }
-.builder-section.active { display: block; }
+/* ===================== PACKAGE DROPDOWNS ===================== */
+.packages-section { padding: 0 5vw 4rem; max-width: 1100px; margin: 0 auto; }
 .packages-section.hidden { display: none; }
 
-.builder-wrap { max-width: 900px; margin: 0 auto; }
+.pkg-dropdown { border: 1px solid var(--border); margin-bottom: 1.5rem; transition: border-color 0.3s; }
+.pkg-dropdown.open { border-color: rgba(200,255,0,0.2); }
 
-.service-category {
-  border: 1px solid var(--border); margin-bottom: 1rem;
-  transition: border-color 0.3s;
-}
-.service-category.has-selection { border-color: var(--accent); }
-
-.category-header {
-  padding: 1.2rem 1.5rem; display: flex; justify-content: space-between; align-items: center;
+.pkg-dropdown-header {
+  padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center;
   cursor: pointer; transition: background 0.3s;
 }
-.category-header:hover { background: var(--card); }
-.category-header h3 {
-  font-family: var(--display); font-size: 1rem; font-weight: 700;
-  text-transform: uppercase; letter-spacing: -0.01em;
+.pkg-dropdown-header:hover { background: var(--card); }
+.pkg-dropdown-header h2 { font-family: var(--display); font-size: 1.3rem; font-weight: 700; text-transform: uppercase; letter-spacing: -0.01em; }
+.pkg-dropdown-header .subtitle { font-size: 0.65rem; color: var(--muted); margin-top: 0.3rem; }
+.pkg-dropdown-header .chevron { font-size: 1.5rem; color: var(--muted); transition: transform 0.3s; }
+.pkg-dropdown.open .chevron { transform: rotate(180deg); }
+
+.pkg-dropdown-body { display: none; padding: 0 2rem 2rem; }
+.pkg-dropdown.open .pkg-dropdown-body { display: block; }
+
+/* PACKAGE CARDS */
+.pkg-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.pkg-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+
+.package-card {
+  background: var(--card); border: 1px solid var(--border); padding: 2rem 1.5rem;
+  transition: border-color 0.3s, transform 0.3s; position: relative; cursor: pointer;
 }
+.package-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+.package-card.featured { border-color: var(--accent); }
+.package-card.featured::before {
+  content: 'RECOMMENDED'; position: absolute; top: -0.5rem; left: 1.5rem;
+  background: var(--accent); color: var(--bg); font-family: var(--mono);
+  font-size: 0.45rem; letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 0.25rem 0.7rem; font-weight: 500;
+}
+.package-card.selected { border-color: var(--accent); background: var(--card-hover); }
+.package-card.selected::after { content: '✓'; position: absolute; top: 0.8rem; right: 1rem; color: var(--accent); font-size: 1.1rem; }
+
+.pkg-name { font-family: var(--display); font-size: 1.1rem; font-weight: 700; text-transform: uppercase; letter-spacing: -0.01em; margin-bottom: 0.3rem; }
+.pkg-tagline { font-size: 0.65rem; color: var(--accent); font-style: italic; font-family: var(--serif); margin-bottom: 0.8rem; }
+.pkg-price { font-family: var(--display); font-size: 1.5rem; font-weight: 800; color: var(--accent); letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+.pkg-price-note { font-size: 0.55rem; color: var(--muted); margin-bottom: 1.2rem; }
+.pkg-desc { font-size: 0.68rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.2rem; }
+
+.pkg-section-label { font-size: 0.5rem; text-transform: uppercase; letter-spacing: 0.25em; color: var(--accent); margin: 1rem 0 0.5rem; }
+.pkg-includes { list-style: none; }
+.pkg-includes li { font-size: 0.65rem; color: var(--text-tertiary); line-height: 1.9; padding-left: 1rem; position: relative; }
+.pkg-includes li::before { content: '✦'; position: absolute; left: 0; color: var(--accent); font-size: 0.45rem; top: 0.15em; }
+
+.pkg-timeline { font-size: 0.6rem; color: var(--muted); margin-top: 1rem; padding-top: 0.8rem; border-top: 1px solid var(--border); }
+
+/* ===================== CUSTOM BUILDER ===================== */
+.builder-section { padding: 0 5vw 4rem; display: none; max-width: 900px; margin: 0 auto; }
+.builder-section.active { display: block; }
+
+.service-category { border: 1px solid var(--border); margin-bottom: 1rem; transition: border-color 0.3s; }
+.service-category.has-selection { border-color: var(--accent); }
+.category-header { padding: 1.2rem 1.5rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: background 0.3s; }
+.category-header:hover { background: var(--card); }
+.category-header h3 { font-family: var(--display); font-size: 1rem; font-weight: 700; text-transform: uppercase; }
 .category-header .toggle-icon { font-size: 1.2rem; color: var(--muted); transition: transform 0.3s; }
 .category-header.open .toggle-icon { transform: rotate(45deg); }
-
 .category-body { display: none; padding: 0 1.5rem 1.5rem; }
 .category-body.open { display: block; }
 
-.service-item {
-  display: flex; align-items: flex-start; gap: 1rem; padding: 1rem 0;
-  border-bottom: 1px solid var(--border);
-}
+.service-item { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--border); }
 .service-item:last-child { border-bottom: none; }
-
-.service-check {
-  width: 20px; height: 20px; min-width: 20px; border: 1px solid var(--muted);
-  display: flex; align-items: center; justify-content: center; cursor: pointer;
-  transition: all 0.3s; margin-top: 2px; font-size: 0.7rem; color: transparent;
-}
+.service-check { width: 20px; height: 20px; min-width: 20px; border: 1px solid var(--muted); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; margin-top: 2px; font-size: 0.7rem; color: transparent; }
 .service-check.checked { border-color: var(--accent); background: var(--accent); color: var(--bg); }
-
 .service-details { flex: 1; }
 .service-name { font-size: 0.8rem; font-weight: 400; margin-bottom: 0.3rem; }
 .service-desc { font-size: 0.65rem; color: var(--muted); line-height: 1.6; margin-bottom: 0.3rem; }
 .service-price { font-size: 0.75rem; color: var(--accent); font-weight: 500; }
 
-/* RECOMMENDATION TOAST */
-.recommendation {
-  background: var(--card); border: 1px solid var(--accent); padding: 1rem 1.5rem;
-  margin: 1rem 0; display: none; animation: slideDown 0.3s ease;
-}
+.recommendation { background: var(--card); border: 1px solid var(--accent); padding: 1rem 1.5rem; margin: 1rem 0; display: none; animation: slideDown 0.3s ease; }
 .recommendation.show { display: flex; align-items: center; gap: 1rem; }
-.recommendation .rec-icon { color: var(--accent); font-size: 1rem; }
-.recommendation .rec-text { font-size: 0.7rem; color: var(--text-secondary); flex: 1; }
-.recommendation .rec-add {
-  background: none; border: 1px solid var(--accent); color: var(--accent);
-  font-family: var(--mono); font-size: 0.6rem; padding: 0.4rem 0.8rem;
-  cursor: pointer; text-transform: uppercase; letter-spacing: 0.1em;
-  transition: all 0.3s; white-space: nowrap;
-}
-.recommendation .rec-add:hover { background: var(--accent); color: var(--bg); }
-.recommendation .rec-dismiss { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 0.8rem; }
-
+.rec-icon { color: var(--accent); font-size: 1rem; }
+.rec-text { font-size: 0.7rem; color: var(--text-secondary); flex: 1; }
+.rec-add { background: none; border: 1px solid var(--accent); color: var(--accent); font-family: var(--mono); font-size: 0.6rem; padding: 0.4rem 0.8rem; cursor: pointer; text-transform: uppercase; letter-spacing: 0.1em; transition: all 0.3s; white-space: nowrap; }
+.rec-add:hover { background: var(--accent); color: var(--bg); }
+.rec-dismiss { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 0.8rem; }
 @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
-/* ===================== STICKY TOTAL ===================== */
-.sticky-total {
-  position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
-  background: var(--bg); border-top: 1px solid var(--border);
-  padding: 1rem 5vw; display: flex; justify-content: space-between; align-items: center;
-  transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  backdrop-filter: blur(20px);
-}
+/* STICKY TOTAL */
+.sticky-total { position: fixed; bottom: 0; left: 0; right: 0; z-index: 50; background: var(--bg); border-top: 1px solid var(--border); padding: 1rem 5vw; display: flex; justify-content: space-between; align-items: center; transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); backdrop-filter: blur(20px); }
 .sticky-total.visible { transform: translateY(0); }
-.sticky-total .total-info { display: flex; align-items: baseline; gap: 1rem; }
-.sticky-total .total-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--muted); }
-.sticky-total .total-amount { font-family: var(--display); font-size: 1.5rem; font-weight: 800; color: var(--accent); }
-.sticky-total .total-deposit { font-size: 0.6rem; color: var(--muted); }
-.sticky-total .total-items { font-size: 0.6rem; color: var(--muted); margin-left: 1rem; }
-.proceed-btn {
-  background: var(--accent); color: var(--bg); border: none;
-  font-family: var(--mono); font-size: 0.7rem; font-weight: 500;
-  text-transform: uppercase; letter-spacing: 0.15em;
-  padding: 0.8rem 2rem; cursor: pointer; transition: opacity 0.3s;
-}
+.total-info { display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+.total-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--muted); }
+.total-amount { font-family: var(--display); font-size: 1.5rem; font-weight: 800; color: var(--accent); }
+.total-deposit { font-size: 0.6rem; color: var(--muted); }
+.total-items { font-size: 0.6rem; color: var(--muted); }
+.proceed-btn { background: var(--accent); color: var(--bg); border: none; font-family: var(--mono); font-size: 0.7rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.15em; padding: 0.8rem 2rem; cursor: pointer; transition: opacity 0.3s; }
 .proceed-btn:hover { opacity: 0.85; }
 
-/* ===================== CLIENT FORM ===================== */
-.client-form-section {
-  display: none; padding: 4rem 5vw; max-width: 700px; margin: 0 auto;
-}
+/* CLIENT FORM */
+.client-form-section { display: none; padding: 4rem 5vw; max-width: 700px; margin: 0 auto; }
 .client-form-section.active { display: block; }
-.client-form-section h2 {
-  font-family: var(--display); font-size: 1.5rem; font-weight: 700;
-  text-transform: uppercase; margin-bottom: 0.5rem;
-}
-.client-form-section p { font-size: 0.7rem; color: var(--muted); margin-bottom: 2rem; }
-
+.client-form-section h2 { font-family: var(--display); font-size: 1.5rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem; }
+.client-form-section > p { font-size: 0.7rem; color: var(--muted); margin-bottom: 2rem; }
 .client-form { display: flex; flex-direction: column; gap: 1rem; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.client-form label {
-  font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.2em;
-  color: var(--accent); display: block; margin-bottom: 0.4rem;
-}
-.client-form input, .client-form textarea, .client-form select {
-  background: var(--card); border: 1px solid var(--border); color: var(--fg);
-  font-family: var(--mono); font-size: 0.78rem; padding: 0.8rem 1rem;
-  outline: none; transition: border-color 0.3s; width: 100%;
-}
+.client-form label { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--accent); display: block; margin-bottom: 0.4rem; }
+.client-form input, .client-form textarea, .client-form select { background: var(--card); border: 1px solid var(--border); color: var(--fg); font-family: var(--mono); font-size: 0.78rem; padding: 0.8rem 1rem; outline: none; transition: border-color 0.3s; width: 100%; }
 .client-form input:focus, .client-form textarea:focus, .client-form select:focus { border-color: var(--accent); }
 .client-form textarea { min-height: 100px; resize: vertical; }
 .client-form select { appearance: none; cursor: pointer; }
-
-.submit-order {
-  background: var(--accent); color: var(--bg); border: none;
-  font-family: var(--mono); font-size: 0.75rem; font-weight: 500;
-  text-transform: uppercase; letter-spacing: 0.15em; padding: 1rem 2rem;
-  cursor: pointer; transition: opacity 0.3s; margin-top: 1rem;
-}
+.submit-order { background: var(--accent); color: var(--bg); border: none; font-family: var(--mono); font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.15em; padding: 1rem 2rem; cursor: pointer; transition: opacity 0.3s; margin-top: 1rem; }
 .submit-order:hover { opacity: 0.85; }
 
-/* ORDER SUMMARY SIDEBAR */
-.order-summary {
-  background: var(--card); border: 1px solid var(--border); padding: 1.5rem;
-  margin-bottom: 2rem;
-}
-.order-summary h4 {
-  font-family: var(--display); font-size: 0.85rem; font-weight: 700;
-  text-transform: uppercase; margin-bottom: 1rem; letter-spacing: -0.01em;
-}
-.summary-item {
-  display: flex; justify-content: space-between; font-size: 0.7rem;
-  padding: 0.4rem 0; border-bottom: 1px solid var(--border);
-}
+.order-summary { background: var(--card); border: 1px solid var(--border); padding: 1.5rem; margin-bottom: 2rem; }
+.order-summary h4 { font-family: var(--display); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; margin-bottom: 1rem; }
+.summary-item { display: flex; justify-content: space-between; font-size: 0.7rem; padding: 0.4rem 0; border-bottom: 1px solid var(--border); }
 .summary-item:last-child { border-bottom: none; }
 .summary-item .name { color: var(--text-secondary); }
 .summary-item .price { color: var(--accent); }
-.summary-total {
-  display: flex; justify-content: space-between; font-size: 0.85rem;
-  padding-top: 1rem; margin-top: 0.5rem; border-top: 1px solid var(--accent);
-  font-weight: 500;
-}
-.summary-deposit {
-  display: flex; justify-content: space-between; font-size: 0.75rem;
-  padding-top: 0.5rem; color: var(--warning);
-}
+.summary-total { display: flex; justify-content: space-between; font-size: 0.85rem; padding-top: 1rem; margin-top: 0.5rem; border-top: 1px solid var(--accent); font-weight: 500; }
+.summary-deposit { display: flex; justify-content: space-between; font-size: 0.75rem; padding-top: 0.5rem; color: var(--warning); }
 
-/* FOOTER */
-footer {
-  padding: 2rem 5vw; border-top: 1px solid var(--border);
-  display: flex; justify-content: space-between;
-}
+footer { padding: 2rem 5vw; border-top: 1px solid var(--border); display: flex; justify-content: space-between; }
 footer span { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
 
-/* GRAIN */
-.grain {
-  position: fixed; inset: 0; pointer-events: none; z-index: 9998; opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  background-repeat: repeat; background-size: 200px;
-}
+.grain { position: fixed; inset: 0; pointer-events: none; z-index: 9998; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); background-repeat: repeat; background-size: 200px; }
 
-/* RESPONSIVE */
 @media (max-width: 900px) {
-  .packages-grid { grid-template-columns: 1fr; max-width: 450px; }
+  .pkg-grid-3 { grid-template-columns: 1fr; }
+  .pkg-grid-2 { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; }
   .sticky-total { flex-direction: column; gap: 0.8rem; text-align: center; }
 }
 @media (max-width: 600px) {
   .top-bar { padding: 1rem 1.2rem; }
   .page-hero { padding: 4rem 1.2rem 3rem; }
-  .packages-section, .builder-section { padding-left: 1.2rem; padding-right: 1.2rem; }
+  .packages-section { padding-left: 1.2rem; padding-right: 1.2rem; }
+  .builder-section { padding-left: 1.2rem; padding-right: 1.2rem; }
   .client-form-section { padding-left: 1.2rem; padding-right: 1.2rem; }
-  .package-card { padding: 2rem 1.5rem; }
+  .pkg-dropdown-header { padding: 1.2rem 1rem; }
+  .pkg-dropdown-body { padding: 0 1rem 1.5rem; }
+  .package-card { padding: 1.5rem 1.2rem; }
 }
 </style>
 </head>
 <body>
-
 <div class="grain"></div>
 
-<!-- TOP BAR -->
 <div class="top-bar">
-  <a href="./index.html">NIFEMI<span class="dot"></span></a>
+  <a href="./index.html" class="logo">MANNORR<span class="dot"></span></a>
   <div class="top-bar-right">
-    <a href="./index.html#work">Portfolio</a>
+    <a href="./portfolio.html">Portfolio</a>
     <a href="./index.html#contact">Contact</a>
     <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">☀</button>
   </div>
 </div>
 
-<!-- HERO -->
 <section class="page-hero">
   <h1>WORK <span class="italic">with</span> <span class="accent">ME</span></h1>
-  <p>Choose a package or build a custom project. Select your services, review your estimate, and let's bring your vision to life.</p>
+  <p>Choose a package tailored to your needs or build a custom project from scratch. Select, review, and let's bring your vision to life.</p>
 </section>
 
-<!-- MODE TOGGLE -->
 <div class="mode-toggle">
-  <button class="mode-btn active" onclick="showMode('packages')">Packages</button>
-  <button class="mode-btn" onclick="showMode('custom')">Build Your Own</button>
+  <button class="mode-btn active" onclick="showMode('packages', this)">Packages</button>
+  <button class="mode-btn" onclick="showMode('custom', this)">Build Your Own</button>
 </div>
 
-<!-- CURRENCY -->
 <div class="currency-bar">
   <button class="currency-btn active" onclick="setCurrency('EUR')">€ EUR</button>
   <button class="currency-btn" onclick="setCurrency('USD')">$ USD</button>
@@ -328,596 +223,339 @@ footer span { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: upperca
 
 <!-- ===== PACKAGES ===== -->
 <section class="packages-section" id="packagesSection">
-  <div class="packages-grid">
 
-    <div class="package-card" onclick="selectPackage('essential')">
-      <div class="package-name">Essential</div>
-      <div class="package-price" data-eur="750–1,200" data-usd="815–1,300" data-gbp="645–1,030">€750–€1,200</div>
-      <div class="package-price-note">Best for startups & small businesses</div>
-      <div class="package-desc">Clean, focused brand foundation. No deep strategy — just the essentials done right.</div>
-      <ul class="package-includes">
-        <li>Logo Design</li>
-        <li>Basic Color & Typography System</li>
-        <li>6 Social Media Assets</li>
-        <li>Logo Animation</li>
-        <li>Minimal revisions (2 rounds)</li>
-        <li>Final files in all formats</li>
-      </ul>
+  <!-- BRANDING DROPDOWN -->
+  <div class="pkg-dropdown" id="dd-branding">
+    <div class="pkg-dropdown-header" onclick="toggleDropdown('branding')">
+      <div>
+        <h2>Branding</h2>
+        <div class="subtitle">Brand identity, strategy, and complete visual systems</div>
+      </div>
+      <span class="chevron">▾</span>
     </div>
+    <div class="pkg-dropdown-body">
+      <div class="pkg-grid-3">
 
-    <div class="package-card featured" onclick="selectPackage('professional')">
-      <div class="package-name">Professional</div>
-      <div class="package-price" data-eur="2,000–3,500" data-usd="2,170–3,800" data-gbp="1,720–3,010">€2,000–€3,500</div>
-      <div class="package-price-note">For businesses ready to look & feel premium</div>
-      <div class="package-desc">Strategic + visual. This is where serious brands are built — positioning, identity, and assets that work.</div>
-      <ul class="package-includes">
-        <li>Brand Strategy Session (2–3 hrs)</li>
-        <li>Full Brand Identity Package</li>
-        <li>Brand Guidelines Document</li>
-        <li>10 Social Media Campaign Assets</li>
-        <li>Pitch Deck Design (15 slides)</li>
-        <li>Logo Animation</li>
-        <li>3 revision rounds</li>
-      </ul>
+        <div class="package-card" onclick="selectPackage('brand-essential', this)">
+          <div class="pkg-name">Essential</div>
+          <div class="pkg-tagline">Clean. Lean. Focused.</div>
+          <div class="pkg-price" data-eur="750–1,200" data-usd="815–1,300" data-gbp="645–1,030">€750–€1,200</div>
+          <div class="pkg-price-note">Best for startups & small businesses</div>
+          <div class="pkg-desc">Your entry-level brand foundation — no deep strategy, just the essentials done right with clear scope and minimal revisions.</div>
+          <div class="pkg-section-label">What's Included</div>
+          <ul class="pkg-includes">
+            <li>Logo Design</li>
+            <li>Basic Color & Typography System</li>
+            <li>6 Social Media Assets</li>
+            <li>Logo Animation</li>
+            <li>2 Revision Rounds</li>
+            <li>Final Files (all formats)</li>
+          </ul>
+          <div class="pkg-timeline">Timeline: 1–2 weeks</div>
+        </div>
+
+        <div class="package-card featured" onclick="selectPackage('brand-professional', this)">
+          <div class="pkg-name">Professional</div>
+          <div class="pkg-tagline">Strategic. Not just visual.</div>
+          <div class="pkg-price" data-eur="2,000–3,500" data-usd="2,170–3,800" data-gbp="1,720–3,010">€2,000–€3,500</div>
+          <div class="pkg-price-note">Where serious brands are built</div>
+          <div class="pkg-desc">This positions you as strategic, not just visual. Most serious clients should land here. Strategy + identity + assets that work together.</div>
+          <div class="pkg-section-label">What's Included</div>
+          <ul class="pkg-includes">
+            <li>Brand Strategy Session (2–3 hrs + summary)</li>
+            <li>Full Brand Identity Package</li>
+            <li>Brand Guidelines Document</li>
+            <li>10 Social Media Campaign Assets</li>
+            <li>Pitch Deck Design (15 slides)</li>
+            <li>Logo Animation</li>
+            <li>3 Revision Rounds</li>
+          </ul>
+          <div class="pkg-timeline">Timeline: 3–4 weeks</div>
+        </div>
+
+        <div class="package-card" onclick="selectPackage('brand-enterprise', this)">
+          <div class="pkg-name">Enterprise</div>
+          <div class="pkg-tagline">Shaping brand direction long-term.</div>
+          <div class="pkg-price" data-eur="4,000–5,000" data-usd="4,340–5,430" data-gbp="3,440–4,300">€4,000–€5,000</div>
+          <div class="pkg-price-note">For brands building long-term</div>
+          <div class="pkg-desc">You're not just getting design — you're getting a creative partner. Full discovery, naming, retainer, and event-level visual systems.</div>
+          <div class="pkg-section-label">What's Included</div>
+          <ul class="pkg-includes">
+            <li>Full Brand Discovery & Strategy</li>
+            <li>Extended Brand Identity System</li>
+            <li>Detailed Brand Guidelines</li>
+            <li>Brand Naming (with rationale)</li>
+            <li>1–2 Month Design Retainer</li>
+            <li>Event Visual System</li>
+            <li>Logo Animation</li>
+            <li>Unlimited Revisions (scoped)</li>
+          </ul>
+          <div class="pkg-timeline">Timeline: 5–8 weeks</div>
+        </div>
+
+      </div>
     </div>
-
-    <div class="package-card" onclick="selectPackage('enterprise')">
-      <div class="package-name">Enterprise</div>
-      <div class="package-price" data-eur="4,000–5,000" data-usd="4,340–5,430" data-gbp="3,440–4,300">€4,000–€5,000</div>
-      <div class="package-price-note">For brands building long-term direction</div>
-      <div class="package-desc">You're not just getting design — you're getting a creative partner shaping your brand direction.</div>
-      <ul class="package-includes">
-        <li>Full Brand Discovery & Strategy</li>
-        <li>Extended Brand Identity System</li>
-        <li>Detailed Brand Guidelines</li>
-        <li>Brand Naming (with rationale)</li>
-        <li>1–2 Month Design Retainer</li>
-        <li>Event Visual System</li>
-        <li>Logo Animation</li>
-        <li>Unlimited revisions (scoped)</li>
-      </ul>
-    </div>
-
   </div>
+
+  <!-- VISUAL DESIGN DROPDOWN -->
+  <div class="pkg-dropdown" id="dd-visual">
+    <div class="pkg-dropdown-header" onclick="toggleDropdown('visual')">
+      <div>
+        <h2>Visual Design</h2>
+        <div class="subtitle">Campaign builds, event visuals, and structured design systems</div>
+      </div>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="pkg-dropdown-body">
+      <div class="pkg-grid-2">
+
+        <div class="package-card" onclick="selectPackage('visual-campaign', this)">
+          <div class="pkg-name">Campaign Build</div>
+          <div class="pkg-tagline">Focused. Intentional. High impact.</div>
+          <div class="pkg-price" data-eur="900–1,500" data-usd="975–1,630" data-gbp="775–1,290">€900–€1,500</div>
+          <div class="pkg-price-note">Single events, launches, or promotions</div>
+          <div class="pkg-desc">For single events, launches, or short-term promotions. One strong key visual concept with assets built around it.</div>
+          <div class="pkg-section-label">Creative Direction</div>
+          <ul class="pkg-includes">
+            <li>Campaign concept & visual direction</li>
+            <li>Mood reference & style alignment</li>
+            <li>One strong key visual concept</li>
+          </ul>
+          <div class="pkg-section-label">Core Deliverables</div>
+          <ul class="pkg-includes">
+            <li>1 Event flyer or poster design</li>
+            <li>6–10 Social media assets</li>
+            <li>Format adaptations for different sizes</li>
+            <li>1 Simple motion version of key visual</li>
+          </ul>
+          <div class="pkg-section-label">Production</div>
+          <ul class="pkg-includes">
+            <li>Print-ready files</li>
+            <li>Social-ready exports</li>
+            <li>2 Revision rounds</li>
+          </ul>
+          <div class="pkg-timeline">Timeline: 2–3 weeks</div>
+        </div>
+
+        <div class="package-card featured" onclick="selectPackage('visual-system', this)">
+          <div class="pkg-name">Visual System</div>
+          <div class="pkg-tagline">Structured. Cohesive. Long-term.</div>
+          <div class="pkg-price" data-eur="2,500–5,000" data-usd="2,715–5,430" data-gbp="2,150–4,300">€2,500–€5,000</div>
+          <div class="pkg-price-note">Brands needing consistency across platforms</div>
+          <div class="pkg-desc">For brands or organizations that need consistency across platforms. Full visual systems, not one-off designs.</div>
+          <div class="pkg-section-label">Strategic Alignment</div>
+          <ul class="pkg-includes">
+            <li>Campaign or brand objective alignment session</li>
+            <li>Audience clarity discussion</li>
+            <li>Messaging tone direction</li>
+          </ul>
+          <div class="pkg-section-label">System Development</div>
+          <ul class="pkg-includes">
+            <li>Full campaign visual identity</li>
+            <li>Defined layout system</li>
+            <li>Typography hierarchy structure</li>
+            <li>Color application logic</li>
+            <li>Supporting graphic elements</li>
+          </ul>
+          <div class="pkg-section-label">Asset Creation</div>
+          <ul class="pkg-includes">
+            <li>10–20 Social assets</li>
+            <li>Event or campaign key visuals</li>
+            <li>Marketing collateral (banners, brochures, roll-ups)</li>
+            <li>Presentation or pitch deck styling</li>
+            <li>Light motion assets if required</li>
+          </ul>
+          <div class="pkg-section-label">Optional Add-On</div>
+          <ul class="pkg-includes">
+            <li>1 month structured design support</li>
+            <li>Editable template system</li>
+          </ul>
+          <div class="pkg-section-label">Production</div>
+          <ul class="pkg-includes">
+            <li>Print-ready & digital exports</li>
+            <li>Organized file delivery</li>
+            <li>3 Revision rounds</li>
+          </ul>
+          <div class="pkg-timeline">Timeline: 3–6 weeks</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
 </section>
 
 <!-- ===== CUSTOM BUILDER ===== -->
 <section class="builder-section" id="builderSection">
-  <div class="builder-wrap">
-
-    <!-- BRAND IDENTITY & STRATEGY -->
-    <div class="service-category" id="cat-brand">
-      <div class="category-header" onclick="toggleCategory('brand')">
-        <h3>Brand Identity & Strategy</h3>
-        <span class="toggle-icon">+</span>
-      </div>
-      <div class="category-body" id="body-brand">
-
-        <div class="service-item" data-id="brand-strategy-session" data-min-eur="350" data-max-eur="750" data-recommends="brand-discovery">
-          <div class="service-check" onclick="toggleService(this)">✓</div>
-          <div class="service-details">
-            <div class="service-name">Brand Strategy Session</div>
-            <div class="service-desc">2–3 hour clarity session covering positioning, audience, voice, and direction. Includes summary document.</div>
-            <div class="service-price" data-eur="350–750" data-usd="380–815" data-gbp="300–645">€350–€750</div>
-          </div>
-        </div>
-
-        <div class="service-item" data-id="brand-discovery" data-min-eur="1200" data-max-eur="2500">
-          <div class="service-check" onclick="toggleService(this)">✓</div>
-          <div class="service-details">
-            <div class="service-name">Brand Discovery & Strategy Development</div>
-            <div class="service-desc">Full strategic foundation — research, positioning, brand pillars, messaging direction, and strategic document.</div>
-            <div class="service-price" data-eur="1,200–2,500" data-usd="1,300–2,715" data-gbp="1,030–2,150">€1,200–€2,500</div>
-          </div>
-        </div>
-
-        <div class="service-item" data-id="logo-design" data-min-eur="800" data-max-eur="1500" data-recommends="brand-strategy-session">
-          <div class="service-check" onclick="toggleService(this)">✓</div>
-          <div class="service-details">
-            <div class="service-name">Logo Design (standalone)</div>
-            <div class="service-desc">Concept development, refinements, and final files in all formats.</div>
-            <div class="service-price" data-eur="800–1,500" data-usd="870–1,630" data-gbp="690–1,290">€800–€1,500</div>
-          </div>
-        </div>
-
-        <div class="service-item" data-id="full-brand-identity" data-min-eur="2500" data-max-eur="6000">
-          <div class="service-check" onclick="toggleService(this)">✓</div>
-          <div class="service-details">
-            <div class="service-name">Full Brand Identity Package</div>
-            <div class="service-desc">Logo, color system, typography system, brand elements, and basic usage rules.</div>
-            <div class="service-price" data-eur="2,500–6,000" data-usd="2,715–6,510" data-gbp="2,150–5,160">€2,500–€6,000</div>
-          </div>
-        </div>
-
-        <div class="service-item" data-id="extended-identity" data-min-eur="5000" data-max-eur="10000">
-          <div class="service-check" onclick="toggleService(this)">✓</div>
-          <div class="service-details">
-            <div class="service-name">Extended Brand Identity System</div>
-            <div class="service-desc">Everything in full identity + brand patterns, icon system, social templates, tone of voice guide.</div>
-            <div class="service-price" data-eur="5,000–10,000" data-usd="5,430–10,860" data-gbp="4,300–8,600">€5,000–€10,000</div>
-          </div>
-        </div>
-
-        <div class="service-item" data-id="brand-guidelines" data-min-eur="900" data-max-eur="2000">
-          <div class="service-check" onclick="toggleService(this)">✓</div>
-          <div class="service-details">
-            <div class="service-name">Brand Guidelines Document</div>
-            <div class="service-desc">Detailed PDF — rules, layout logic, visual consistency framework.</div>
-            <div class="service-price" data-eur="900–2,000" data-usd="975–2,170" data-gbp="775–1,720">€900–€2,000</div>
-          </div>
-        </div>
-
-        <div class="service-item" data-id="brand-naming" data-min-eur="600" data-max-eur="1500">
-          <div class="service-check" onclick="toggleService(this)">✓</div>
-          <div class="service-details">
-            <div class="service-name">Brand Naming (with rationale)</div>
-            <div class="service-desc">Strategic name development with meaning, positioning, and context.</div>
-            <div class="service-price" data-eur="600–1,500" data-usd="650–1,630" data-gbp="515–1,290">€600–€1,500</div>
-          </div>
-        </div>
-
-        <div class="service-item" data-id="rebrand" data-min-eur="3000" data-max-eur="12000">
-          <div class="service-check" onclick="toggleService(this)">✓</div>
-          <div class="service-details">
-            <div class="service-name">Brand Refresh / Rebrand</div>
-            <div class="service-desc">Scale depends on complexity and whether strategy is rebuilt from scratch.</div>
-            <div class="service-price" data-eur="3,000–12,000" data-usd="3,260–13,030" data-gbp="2,580–10,320">€3,000–€12,000</div>
-          </div>
-        </div>
-
-        <div id="rec-brand" class="recommendation">
-          <span class="rec-icon">💡</span>
-          <span class="rec-text" id="rec-brand-text"></span>
-          <button class="rec-add" id="rec-brand-btn">+ Add</button>
-          <button class="rec-dismiss" onclick="this.parentElement.classList.remove('show')">✕</button>
-        </div>
-
-      </div>
+  <div class="service-category" id="cat-brand">
+    <div class="category-header" onclick="toggleCategory('brand')">
+      <h3>Brand Identity & Strategy</h3>
+      <span class="toggle-icon">+</span>
     </div>
-
-    <!-- VISUAL / GRAPHIC DESIGN -->
-    <div class="service-category" id="cat-visual">
-      <div class="category-header" onclick="toggleCategory('visual')">
-        <h3>Visual / Graphic Design</h3>
-        <span class="toggle-icon">+</span>
-      </div>
-      <div class="category-body" id="body-visual">
-
-        <div class="service-item" data-id="social-campaign" data-min-eur="400" data-max-eur="1200">
-          <div class="service-check" onclick="toggleService(this)">✓</div>
-          <div class="service-details">
-            <div class="service-name">Social Media Design (campaign / 6–10 assets)</div>
-            <div class="service-desc">Cohesive campaign visuals for Instagram, LinkedIn, or multi-platform.</div>
-            <div class="service-price" data-eur="400–1,200" data-usd="435–1,300" data-gbp="345–1,030">€400–€1,200</div>
-          </div>
-        </div>
-
-        <div class="service-item" data-id="social-retainer" data-min-eur="800" data-max-eur="2500">
-          <div class="service-check" onclick="toggleService(this)">✓</div>
-          <div class="service-details">
-            <div class="service-name">Monthly Social Media Design Retainer</div>
-            <div class="service-desc">Ongoing design partnership for consistent social presence.</div>
-            <div class="service-price" data-eur="800–2,500" data-usd="870–2,715" data-gbp="690–2,150">€800–€2,500</div>
-          </div>
-        </div>
-
-        <div class="service-item" data-id="poster-flyer" data-min-eur="250" data-max-eur="600">
-          <div class="service-check" onclick="toggleService(this)">✓</div>
-          <div class="service-details">
-            <div class="service-name">Poster / Flyer Design</div>
-            <div class="service-desc">Single or series — events, promotions, announcements.</div>
-            <div class="service-price" data-eur="250–600" data-usd="270–650" data-gbp="215–515">€250–€600</div>
-          </div>
-        </div>
-
-        <div class="service-item" data-id="pitch-deck" data-min-eur="600" data-max-eur="1800">
-          <div class="service-check" onclick="toggleService(this)">✓</div>
-          <div class="service-details">
-            <div class="service-name">Pitch Deck / Presentation Design (10–20 slides)</div>
-            <div class="service-desc">Investor-ready or client-facing presentations with impact.</div>
-            <div class="service-price" data-eur="600–1,800" data-usd="650–1,955" data-gbp="515–1,548">€600–€1,800</div>
-          </div>
-        </div>
-
-        <div class="service-item" data-id="marketing-collateral" data-min-eur="400" data-max-eur="2000">
-          <div class="service-check" onclick="toggleService(this)">✓</div>
-          <div class="service-details">
-            <div class="service-name">Marketing Collateral</div>
-            <div class="service-desc">Brochures, banners, roll-ups, print-ready materials.</div>
-            <div class="service-price" data-eur="400–2,000" data-usd="435–2,170" data-gbp="345–1,720">€400–€2,000</div>
-          </div>
-        </div>
-
-        <div class="service-item" data-id="packaging" data-min-eur="900" data-max-eur="3000">
-          <div class="service-check" onclick="toggleService(this)">✓</div>
-          <div class="service-details">
-            <div class="service-name">Packaging Design (single product)</div>
-            <div class="service-desc">Label, box, or wrap — from concept to print-ready.</div>
-            <div class="service-price" data-eur="900–3,000" data-usd="975–3,260" data-gbp="775–2,580">€900–€3,000</div>
-          </div>
-        </div>
-
-        <div class="service-item" data-id="editorial" data-min-eur="700" data-max-eur="3500">
-          <div class="service-check" onclick="toggleService(this)">✓</div>
-          <div class="service-details">
-            <div class="service-name">Editorial / Layout Design</div>
-            <div class="service-desc">Magazine, report, booklet — structured layouts with typographic care.</div>
-            <div class="service-price" data-eur="700–3,500" data-usd="760–3,800" data-gbp="600–3,010">€700–€3,500</div>
-          </div>
-        </div>
-
-        <div class="service-item" data-id="event-visual" data-min-eur="1200" data-max-eur="4000">
-          <div class="service-check" onclick="toggleService(this)">✓</div>
-          <div class="service-details">
-            <div class="service-name">Event Visual System</div>
-            <div class="service-desc">Key visual + all supporting assets for conferences, summits, launches.</div>
-            <div class="service-price" data-eur="1,200–4,000" data-usd="1,300–4,340" data-gbp="1,030–3,440">€1,200–€4,000</div>
-          </div>
-        </div>
-
-      </div>
+    <div class="category-body" id="body-brand">
+      <div class="service-item" data-id="brand-strategy-session" data-min-eur="350" data-max-eur="750" data-recommends="brand-discovery"><div class="service-check" onclick="toggleService(this)">✓</div><div class="service-details"><div class="service-name">Brand Strategy Session</div><div class="service-desc">2–3 hr clarity session — positioning, audience, voice, direction. Includes summary document.</div><div class="service-price" data-eur="350–750" data-usd="380–815" data-gbp="300–645">€350–€750</div></div></div>
+      <div class="service-item" data-id="brand-discovery" data-min-eur="1200" data-max-eur="2500"><div class="service-check" onclick="toggleService(this)">✓</div><div class="service-details"><div class="service-name">Brand Discovery & Strategy Development</div><div class="service-desc">Full strategic foundation — research, positioning, brand pillars, messaging, strategic document.</div><div class="service-price" data-eur="1,200–2,500" data-usd="1,300–2,715" data-gbp="1,030–2,150">€1,200–€2,500</div></div></div>
+      <div class="service-item" data-id="logo-design" data-min-eur="800" data-max-eur="1500" data-recommends="brand-strategy-session"><div class="service-check" onclick="toggleService(this)">✓</div><div class="service-details"><div class="service-name">Logo Design (standalone)</div><div class="service-desc">Concept development, refinements, final files in all formats.</div><div class="service-price" data-eur="800–1,500" data-usd="870–1,630" data-gbp="690–1,290">€800–€1,500</div></div></div>
+      <div class="service-item" data-id="full-brand-identity" data-min-eur="2500" data-max-eur="6000"><div class="service-check" onclick="toggleService(this)">✓</div><div class="service-details"><div class="service-name">Full Brand Identity Package</div><div class="service-desc">Logo, color system, typography, brand elements, basic usage rules.</div><div class="service-price" data-eur="2,500–6,000" data-usd="2,715–6,510" data-gbp="2,150–5,160">€2,500–€6,000</div></div></div>
+      <div class="service-item" data-id="extended-identity" data-min-eur="5000" data-max-eur="10000"><div class="service-check" onclick="toggleService(this)">✓</div><div class="service-details"><div class="service-name">Extended Brand Identity System</div><div class="service-desc">Full identity + patterns, icon system, social templates, tone of voice guide.</div><div class="service-price" data-eur="5,000–10,000" data-usd="5,430–10,860" data-gbp="4,300–8,600">€5,000–€10,000</div></div></div>
+      <div class="service-item" data-id="brand-guidelines" data-min-eur="900" data-max-eur="2000"><div class="service-check" onclick="toggleService(this)">✓</div><div class="service-details"><div class="service-name">Brand Guidelines Document</div><div class="service-desc">Detailed PDF — rules, layout logic, visual consistency framework.</div><div class="service-price" data-eur="900–2,000" data-usd="975–2,170" data-gbp="775–1,720">€900–€2,000</div></div></div>
+      <div class="service-item" data-id="brand-naming" data-min-eur="600" data-max-eur="1500"><div class="service-check" onclick="toggleService(this)">✓</div><div class="service-details"><div class="service-name">Brand Naming (with rationale)</div><div class="service-desc">Strategic name development with meaning, positioning, and context.</div><div class="service-price" data-eur="600–1,500" data-usd="650–1,630" data-gbp="515–1,290">€600–€1,500</div></div></div>
+      <div class="service-item" data-id="rebrand" data-min-eur="3000" data-max-eur="12000"><div class="service-check" onclick="toggleService(this)">✓</div><div class="service-details"><div class="service-name">Brand Refresh / Rebrand</div><div class="service-desc">Scale depends on complexity and whether strategy is rebuilt from scratch.</div><div class="service-price" data-eur="3,000–12,000" data-usd="3,260–13,030" data-gbp="2,580–10,320">€3,000–€12,000</div></div></div>
+      <div id="rec-brand" class="recommendation"><span class="rec-icon">💡</span><span class="rec-text" id="rec-brand-text"></span><button class="rec-add" id="rec-brand-btn">+ Add</button><button class="rec-dismiss" onclick="this.parentElement.classList.remove('show')">✕</button></div>
     </div>
+  </div>
 
+  <div class="service-category" id="cat-visual">
+    <div class="category-header" onclick="toggleCategory('visual')">
+      <h3>Visual / Graphic Design</h3>
+      <span class="toggle-icon">+</span>
+    </div>
+    <div class="category-body" id="body-visual">
+      <div class="service-item" data-id="social-campaign" data-min-eur="400" data-max-eur="1200"><div class="service-check" onclick="toggleService(this)">✓</div><div class="service-details"><div class="service-name">Social Media Design (campaign / 6–10 assets)</div><div class="service-desc">Cohesive campaign visuals for Instagram, LinkedIn, or multi-platform.</div><div class="service-price" data-eur="400–1,200" data-usd="435–1,300" data-gbp="345–1,030">€400–€1,200</div></div></div>
+      <div class="service-item" data-id="social-retainer" data-min-eur="800" data-max-eur="2500"><div class="service-check" onclick="toggleService(this)">✓</div><div class="service-details"><div class="service-name">Monthly Social Media Design Retainer</div><div class="service-desc">Ongoing design partnership for consistent social presence.</div><div class="service-price" data-eur="800–2,500" data-usd="870–2,715" data-gbp="690–2,150">€800–€2,500</div></div></div>
+      <div class="service-item" data-id="poster-flyer" data-min-eur="250" data-max-eur="600"><div class="service-check" onclick="toggleService(this)">✓</div><div class="service-details"><div class="service-name">Poster / Flyer Design</div><div class="service-desc">Single or series — events, promotions, announcements.</div><div class="service-price" data-eur="250–600" data-usd="270–650" data-gbp="215–515">€250–€600</div></div></div>
+      <div class="service-item" data-id="pitch-deck" data-min-eur="600" data-max-eur="1800"><div class="service-check" onclick="toggleService(this)">✓</div><div class="service-details"><div class="service-name">Pitch Deck / Presentation Design (10–20 slides)</div><div class="service-desc">Investor-ready or client-facing presentations with impact.</div><div class="service-price" data-eur="600–1,800" data-usd="650–1,955" data-gbp="515–1,548">€600–€1,800</div></div></div>
+      <div class="service-item" data-id="marketing-collateral" data-min-eur="400" data-max-eur="2000"><div class="service-check" onclick="toggleService(this)">✓</div><div class="service-details"><div class="service-name">Marketing Collateral</div><div class="service-desc">Brochures, banners, roll-ups, print-ready materials.</div><div class="service-price" data-eur="400–2,000" data-usd="435–2,170" data-gbp="345–1,720">€400–€2,000</div></div></div>
+      <div class="service-item" data-id="packaging" data-min-eur="900" data-max-eur="3000"><div class="service-check" onclick="toggleService(this)">✓</div><div class="service-details"><div class="service-name">Packaging Design (single product)</div><div class="service-desc">Label, box, or wrap — concept to print-ready.</div><div class="service-price" data-eur="900–3,000" data-usd="975–3,260" data-gbp="775–2,580">€900–€3,000</div></div></div>
+      <div class="service-item" data-id="editorial" data-min-eur="700" data-max-eur="3500"><div class="service-check" onclick="toggleService(this)">✓</div><div class="service-details"><div class="service-name">Editorial / Layout Design</div><div class="service-desc">Magazine, report, booklet — structured layouts with typographic care.</div><div class="service-price" data-eur="700–3,500" data-usd="760–3,800" data-gbp="600–3,010">€700–€3,500</div></div></div>
+      <div class="service-item" data-id="event-visual" data-min-eur="1200" data-max-eur="4000"><div class="service-check" onclick="toggleService(this)">✓</div><div class="service-details"><div class="service-name">Event Visual System</div><div class="service-desc">Key visual + all supporting assets for conferences, summits, launches.</div><div class="service-price" data-eur="1,200–4,000" data-usd="1,300–4,340" data-gbp="1,030–3,440">€1,200–€4,000</div></div></div>
+    </div>
   </div>
 </section>
 
-<!-- ===== CLIENT DETAILS FORM ===== -->
+<!-- CLIENT FORM -->
 <section class="client-form-section" id="clientFormSection">
   <h2>YOUR DETAILS</h2>
   <p>Tell me about you and your project so I can prepare your invoice.</p>
-
   <div class="order-summary" id="orderSummary"></div>
-
   <form class="client-form" id="clientForm" onsubmit="submitOrder(event)">
-    <div class="form-row">
-      <div><label>Full Name *</label><input type="text" id="clientName" required placeholder="Your full name"></div>
-      <div><label>Email *</label><input type="email" id="clientEmail" required placeholder="your@email.com"></div>
-    </div>
-    <div class="form-row">
-      <div><label>Company / Brand</label><input type="text" id="clientCompany" placeholder="Company name"></div>
-      <div><label>Phone</label><input type="tel" id="clientPhone" placeholder="+353 ..."></div>
-    </div>
-    <div>
-      <label>Project Timeline</label>
-      <select id="clientTimeline">
-        <option value="">When do you need this?</option>
-        <option value="ASAP">ASAP (within 2 weeks)</option>
-        <option value="1 month">Within 1 month</option>
-        <option value="2-3 months">2–3 months</option>
-        <option value="flexible">Flexible / No rush</option>
-      </select>
-    </div>
-    <div>
-      <label>Project Brief</label>
-      <textarea id="clientBrief" placeholder="Tell me about your project, your brand, your goals..."></textarea>
-    </div>
+    <div class="form-row"><div><label>Full Name *</label><input type="text" id="clientName" required placeholder="Your full name"></div><div><label>Email *</label><input type="email" id="clientEmail" required placeholder="your@email.com"></div></div>
+    <div class="form-row"><div><label>Company / Brand</label><input type="text" id="clientCompany" placeholder="Company name"></div><div><label>Phone</label><input type="tel" id="clientPhone" placeholder="+353 ..."></div></div>
+    <div><label>Project Timeline</label><select id="clientTimeline"><option value="">When do you need this?</option><option value="ASAP">ASAP (within 2 weeks)</option><option value="1 month">Within 1 month</option><option value="2-3 months">2–3 months</option><option value="flexible">Flexible / No rush</option></select></div>
+    <div><label>Project Brief</label><textarea id="clientBrief" placeholder="Tell me about your project, your brand, your goals..."></textarea></div>
     <button type="submit" class="submit-order">Generate Invoice & Submit →</button>
   </form>
 </section>
 
-<!-- STICKY TOTAL -->
 <div class="sticky-total" id="stickyTotal">
-  <div class="total-info">
-    <span class="total-label">Estimated Total</span>
-    <span class="total-amount" id="totalAmount">€0</span>
-    <span class="total-deposit" id="totalDeposit">60% deposit: €0</span>
-    <span class="total-items" id="totalItems">0 services</span>
-  </div>
+  <div class="total-info"><span class="total-label">Estimated Total</span><span class="total-amount" id="totalAmount">€0</span><span class="total-deposit" id="totalDeposit">60% deposit: €0</span><span class="total-items" id="totalItems">0 services</span></div>
   <button class="proceed-btn" onclick="proceedToForm()">Proceed →</button>
 </div>
 
-<footer>
-  <span>© 2026 Adeniran Oluwanifemi</span>
-  <span>All prices are estimates</span>
-</footer>
+<footer><span>© 2026 Adeniran Oluwanifemi</span><span>All prices are estimates</span></footer>
 
 <script>
-// ==========================================
-// STATE
-// ==========================================
-let currentMode = 'packages';
-let currentCurrency = 'EUR';
-let selectedPackage = null;
-let selectedServices = new Set();
-let dismissedRecs = new Set();
+let currentMode = 'packages', currentCurrency = 'EUR', selectedPackage = null, selectedServices = new Set();
+const sym = { EUR: '€', USD: '$', GBP: '£' };
+const rate = { EUR: 1, USD: 1.086, GBP: 0.86 };
 
-const currencySymbols = { EUR: '€', USD: '$', GBP: '£' };
-const exchangeRates = { EUR: 1, USD: 1.086, GBP: 0.86 };
-
-const packageData = {
-  essential: {
-    name: 'Essential', minEUR: 750, maxEUR: 1200,
-    items: ['Logo Design', 'Basic Color & Typography System', '6 Social Media Assets', 'Logo Animation', '2 Revision Rounds', 'Final Files (all formats)']
-  },
-  professional: {
-    name: 'Professional', minEUR: 2000, maxEUR: 3500,
-    items: ['Brand Strategy Session (2–3 hrs)', 'Full Brand Identity Package', 'Brand Guidelines Document', '10 Social Media Campaign Assets', 'Pitch Deck Design (15 slides)', 'Logo Animation', '3 Revision Rounds']
-  },
-  enterprise: {
-    name: 'Enterprise', minEUR: 4000, maxEUR: 5000,
-    items: ['Full Brand Discovery & Strategy', 'Extended Brand Identity System', 'Detailed Brand Guidelines', 'Brand Naming (with rationale)', '1–2 Month Design Retainer', 'Event Visual System', 'Logo Animation', 'Unlimited Revisions (scoped)']
-  }
+const pkgData = {
+  'brand-essential': { name: 'Branding — Essential', minEUR: 750, maxEUR: 1200, items: ['Logo Design','Basic Color & Typography System','6 Social Media Assets','Logo Animation','2 Revision Rounds','Final Files'] },
+  'brand-professional': { name: 'Branding — Professional', minEUR: 2000, maxEUR: 3500, items: ['Brand Strategy Session (2–3 hrs)','Full Brand Identity Package','Brand Guidelines Document','10 Social Media Assets','Pitch Deck (15 slides)','Logo Animation','3 Revision Rounds'] },
+  'brand-enterprise': { name: 'Branding — Enterprise', minEUR: 4000, maxEUR: 5000, items: ['Full Brand Discovery & Strategy','Extended Brand Identity System','Detailed Brand Guidelines','Brand Naming','1–2 Month Retainer','Event Visual System','Logo Animation','Unlimited Revisions (scoped)'] },
+  'visual-campaign': { name: 'Visual Design — Campaign Build', minEUR: 900, maxEUR: 1500, items: ['Campaign concept & visual direction','Mood reference & style alignment','1 Event flyer/poster','6–10 Social media assets','Format adaptations','1 Motion version','Print & social-ready files','2 Revision Rounds'] },
+  'visual-system': { name: 'Visual Design — Visual System', minEUR: 2500, maxEUR: 5000, items: ['Objective alignment session','Full campaign visual identity','Layout system & typography hierarchy','10–20 Social assets','Event/campaign key visuals','Marketing collateral','Pitch deck styling','Light motion assets','Optional 1-month support','3 Revision Rounds'] }
 };
 
-const recommendations = {
-  'logo-design': { target: 'brand-strategy-session', text: 'Brand Strategy is highly recommended with Logo Design — it ensures your logo is built on solid positioning, not just aesthetics.' },
-  'full-brand-identity': { target: 'brand-strategy-session', text: 'Adding a Brand Strategy Session will make your identity system significantly stronger and more intentional.' },
-  'social-campaign': { target: 'brand-guidelines', text: 'A Brand Guidelines Document ensures your social assets stay consistent as your brand grows.' },
-  'rebrand': { target: 'brand-discovery', text: 'A rebrand works best with full Brand Discovery & Strategy — building from a strong foundation.' },
+const recs = {
+  'logo-design': { target: 'brand-strategy-session', text: 'Brand Strategy is highly recommended with Logo Design — ensures your logo is built on solid positioning.' },
+  'full-brand-identity': { target: 'brand-strategy-session', text: 'Adding a Brand Strategy Session will make your identity system significantly stronger.' },
+  'rebrand': { target: 'brand-discovery', text: 'A rebrand works best with full Brand Discovery & Strategy.' },
 };
 
-// ==========================================
-// THEME
-// ==========================================
 function toggleTheme() {
   const t = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
   document.documentElement.setAttribute('data-theme', t);
   localStorage.setItem('nifemi-theme', t);
   document.getElementById('themeToggle').textContent = t === 'dark' ? '☀' : '☾';
 }
-const st = localStorage.getItem('nifemi-theme') || 'dark';
-document.documentElement.setAttribute('data-theme', st);
-document.getElementById('themeToggle').textContent = st === 'dark' ? '☀' : '☾';
+const saved = localStorage.getItem('nifemi-theme') || 'dark';
+document.documentElement.setAttribute('data-theme', saved);
+document.getElementById('themeToggle').textContent = saved === 'dark' ? '☀' : '☾';
 
-// ==========================================
-// MODE TOGGLE
-// ==========================================
-function showMode(mode) {
+function showMode(mode, btn) {
   currentMode = mode;
   document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
-  event.target.classList.add('active');
-
+  btn.classList.add('active');
   document.getElementById('packagesSection').classList.toggle('hidden', mode === 'custom');
   document.getElementById('builderSection').classList.toggle('active', mode === 'custom');
   document.getElementById('clientFormSection').classList.remove('active');
-
-  // Reset selections
   if (mode === 'packages') { selectedServices.clear(); updateTotal(); }
   if (mode === 'custom') { selectedPackage = null; document.querySelectorAll('.package-card').forEach(c => c.classList.remove('selected')); updateTotal(); }
 }
 
-// ==========================================
-// CURRENCY
-// ==========================================
 function setCurrency(c) {
   currentCurrency = c;
   document.querySelectorAll('.currency-btn').forEach(b => b.classList.toggle('active', b.textContent.includes(c)));
-
-  // Update package prices
-  document.querySelectorAll('.package-price').forEach(el => {
-    const val = el.dataset[c.toLowerCase()];
-    if (val) el.textContent = currencySymbols[c] + val;
-  });
-
-  // Update service prices
-  document.querySelectorAll('.service-price').forEach(el => {
-    const val = el.dataset[c.toLowerCase()];
-    if (val) el.textContent = currencySymbols[c] + val;
-  });
-
+  document.querySelectorAll('.pkg-price, .service-price').forEach(el => { const v = el.dataset[c.toLowerCase()]; if (v) el.textContent = sym[c] + v; });
   updateTotal();
 }
 
-// ==========================================
-// PACKAGES
-// ==========================================
-function selectPackage(pkg) {
-  selectedPackage = selectedPackage === pkg ? null : pkg;
-  document.querySelectorAll('.package-card').forEach(c => c.classList.remove('selected'));
-  if (selectedPackage) {
-    event.currentTarget.classList.add('selected');
+function toggleDropdown(id) {
+  const dd = document.getElementById('dd-' + id);
+  dd.classList.toggle('open');
+}
+
+function selectPackage(pkg, el) {
+  if (selectedPackage === pkg) { selectedPackage = null; el.classList.remove('selected'); }
+  else {
+    document.querySelectorAll('.package-card').forEach(c => c.classList.remove('selected'));
+    selectedPackage = pkg; el.classList.add('selected');
   }
   updateTotal();
 }
 
-// ==========================================
-// CUSTOM BUILDER
-// ==========================================
 function toggleCategory(id) {
-  const header = document.querySelector(`#cat-${id} .category-header`);
-  const body = document.getElementById(`body-${id}`);
-  header.classList.toggle('open');
-  body.classList.toggle('open');
+  document.querySelector(`#cat-${id} .category-header`).classList.toggle('open');
+  document.getElementById(`body-${id}`).classList.toggle('open');
 }
 
 function toggleService(el) {
-  const item = el.closest('.service-item');
-  const id = item.dataset.id;
+  const item = el.closest('.service-item'), id = item.dataset.id;
   el.classList.toggle('checked');
-
-  if (el.classList.contains('checked')) {
-    selectedServices.add(id);
-    checkRecommendation(id);
-  } else {
-    selectedServices.delete(id);
-  }
-
-  // Update category border
-  const cat = item.closest('.service-category');
-  const hasChecked = cat.querySelectorAll('.service-check.checked').length > 0;
-  cat.classList.toggle('has-selection', hasChecked);
-
+  if (el.classList.contains('checked')) { selectedServices.add(id); checkRec(id); } else { selectedServices.delete(id); }
+  item.closest('.service-category').classList.toggle('has-selection', item.closest('.service-category').querySelectorAll('.service-check.checked').length > 0);
   updateTotal();
 }
 
-function checkRecommendation(serviceId) {
-  const rec = recommendations[serviceId];
-  if (!rec || selectedServices.has(rec.target) || dismissedRecs.has(serviceId)) return;
-
-  const recEl = document.getElementById('rec-brand');
-  const recText = document.getElementById('rec-brand-text');
-  const recBtn = document.getElementById('rec-brand-btn');
-
-  recText.textContent = rec.text;
-  recBtn.onclick = () => {
-    // Find and check the recommended service
-    const targetItem = document.querySelector(`[data-id="${rec.target}"]`);
-    if (targetItem) {
-      const check = targetItem.querySelector('.service-check');
-      if (!check.classList.contains('checked')) {
-        check.classList.add('checked');
-        selectedServices.add(rec.target);
-        updateTotal();
-      }
-    }
-    recEl.classList.remove('show');
-  };
-
-  recEl.classList.add('show');
+function checkRec(sid) {
+  const r = recs[sid];
+  if (!r || selectedServices.has(r.target)) return;
+  const el = document.getElementById('rec-brand'), txt = document.getElementById('rec-brand-text'), btn = document.getElementById('rec-brand-btn');
+  txt.textContent = r.text;
+  btn.onclick = () => { const t = document.querySelector(`[data-id="${r.target}"] .service-check`); if (t && !t.classList.contains('checked')) { t.classList.add('checked'); selectedServices.add(r.target); updateTotal(); } el.classList.remove('show'); };
+  el.classList.add('show');
 }
 
-// ==========================================
-// TOTAL CALCULATION
-// ==========================================
 function updateTotal() {
-  let minTotal = 0, maxTotal = 0, itemCount = 0;
-  const sym = currencySymbols[currentCurrency];
-  const rate = exchangeRates[currentCurrency];
-
-  if (currentMode === 'packages' && selectedPackage) {
-    const pkg = packageData[selectedPackage];
-    minTotal = Math.round(pkg.minEUR * rate);
-    maxTotal = Math.round(pkg.maxEUR * rate);
-    itemCount = 1;
-  } else if (currentMode === 'custom') {
-    selectedServices.forEach(id => {
-      const item = document.querySelector(`[data-id="${id}"]`);
-      if (item) {
-        minTotal += Math.round(parseInt(item.dataset.minEur) * rate);
-        maxTotal += Math.round(parseInt(item.dataset.maxEur) * rate);
-        itemCount++;
-      }
-    });
-  }
-
-  const sticky = document.getElementById('stickyTotal');
-  if (itemCount > 0) {
-    sticky.classList.add('visible');
-    document.getElementById('totalAmount').textContent = `${sym}${minTotal.toLocaleString()}–${sym}${maxTotal.toLocaleString()}`;
-    document.getElementById('totalDeposit').textContent = `60% deposit: ${sym}${Math.round(minTotal * 0.6).toLocaleString()}–${sym}${Math.round(maxTotal * 0.6).toLocaleString()}`;
-    document.getElementById('totalItems').textContent = currentMode === 'packages' ? `${selectedPackage} package` : `${itemCount} service${itemCount > 1 ? 's' : ''}`;
-  } else {
-    sticky.classList.remove('visible');
-  }
+  let min = 0, max = 0, count = 0; const s = sym[currentCurrency], r = rate[currentCurrency];
+  if (currentMode === 'packages' && selectedPackage) { const p = pkgData[selectedPackage]; min = Math.round(p.minEUR * r); max = Math.round(p.maxEUR * r); count = 1; }
+  else if (currentMode === 'custom') { selectedServices.forEach(id => { const i = document.querySelector(`[data-id="${id}"]`); if (i) { min += Math.round(parseInt(i.dataset.minEur) * r); max += Math.round(parseInt(i.dataset.maxEur) * r); count++; } }); }
+  const st = document.getElementById('stickyTotal');
+  if (count > 0) { st.classList.add('visible'); document.getElementById('totalAmount').textContent = `${s}${min.toLocaleString()}–${s}${max.toLocaleString()}`; document.getElementById('totalDeposit').textContent = `60% deposit: ${s}${Math.round(min*0.6).toLocaleString()}–${s}${Math.round(max*0.6).toLocaleString()}`; document.getElementById('totalItems').textContent = currentMode === 'packages' ? pkgData[selectedPackage]?.name : `${count} service${count>1?'s':''}`; }
+  else { st.classList.remove('visible'); }
 }
 
-// ==========================================
-// PROCEED TO FORM
-// ==========================================
 function proceedToForm() {
-  const section = document.getElementById('clientFormSection');
-  section.classList.add('active');
-
-  // Build order summary
-  const summary = document.getElementById('orderSummary');
-  const sym = currencySymbols[currentCurrency];
-  const rate = exchangeRates[currentCurrency];
-  let html = '<h4>Order Summary</h4>';
-  let minTotal = 0, maxTotal = 0;
-
-  if (currentMode === 'packages' && selectedPackage) {
-    const pkg = packageData[selectedPackage];
-    minTotal = Math.round(pkg.minEUR * rate);
-    maxTotal = Math.round(pkg.maxEUR * rate);
-    pkg.items.forEach(item => {
-      html += `<div class="summary-item"><span class="name">${item}</span><span class="price">included</span></div>`;
-    });
-    html += `<div class="summary-total"><span>${pkg.name} Package</span><span>${sym}${minTotal.toLocaleString()}–${sym}${maxTotal.toLocaleString()}</span></div>`;
-  } else {
-    selectedServices.forEach(id => {
-      const item = document.querySelector(`[data-id="${id}"]`);
-      if (item) {
-        const name = item.querySelector('.service-name').textContent;
-        const min = Math.round(parseInt(item.dataset.minEur) * rate);
-        const max = Math.round(parseInt(item.dataset.maxEur) * rate);
-        minTotal += min; maxTotal += max;
-        html += `<div class="summary-item"><span class="name">${name}</span><span class="price">${sym}${min.toLocaleString()}–${sym}${max.toLocaleString()}</span></div>`;
-      }
-    });
-    html += `<div class="summary-total"><span>Total Estimate</span><span>${sym}${minTotal.toLocaleString()}–${sym}${maxTotal.toLocaleString()}</span></div>`;
-  }
-
-  html += `<div class="summary-deposit"><span>60% Deposit Required</span><span>${sym}${Math.round(minTotal * 0.6).toLocaleString()}–${sym}${Math.round(maxTotal * 0.6).toLocaleString()}</span></div>`;
-
-  summary.innerHTML = html;
-  section.scrollIntoView({ behavior: 'smooth' });
+  const sec = document.getElementById('clientFormSection'); sec.classList.add('active');
+  const summary = document.getElementById('orderSummary'); const s = sym[currentCurrency], r = rate[currentCurrency];
+  let html = '<h4>Order Summary</h4>', min = 0, max = 0;
+  if (currentMode === 'packages' && selectedPackage) { const p = pkgData[selectedPackage]; min = Math.round(p.minEUR*r); max = Math.round(p.maxEUR*r); p.items.forEach(i => { html += `<div class="summary-item"><span class="name">${i}</span><span class="price">included</span></div>`; }); html += `<div class="summary-total"><span>${p.name}</span><span>${s}${min.toLocaleString()}–${s}${max.toLocaleString()}</span></div>`; }
+  else { selectedServices.forEach(id => { const el = document.querySelector(`[data-id="${id}"]`); if (el) { const n = el.querySelector('.service-name').textContent, mn = Math.round(parseInt(el.dataset.minEur)*r), mx = Math.round(parseInt(el.dataset.maxEur)*r); min += mn; max += mx; html += `<div class="summary-item"><span class="name">${n}</span><span class="price">${s}${mn.toLocaleString()}–${s}${mx.toLocaleString()}</span></div>`; } }); html += `<div class="summary-total"><span>Total Estimate</span><span>${s}${min.toLocaleString()}–${s}${max.toLocaleString()}</span></div>`; }
+  html += `<div class="summary-deposit"><span>60% Deposit Required</span><span>${s}${Math.round(min*0.6).toLocaleString()}–${s}${Math.round(max*0.6).toLocaleString()}</span></div>`;
+  summary.innerHTML = html; sec.scrollIntoView({ behavior: 'smooth' });
 }
 
-// ==========================================
-// SUBMIT ORDER → GENERATE INVOICE
-// ==========================================
 function submitOrder(e) {
   e.preventDefault();
-
-  const clientData = {
-    name: document.getElementById('clientName').value,
-    email: document.getElementById('clientEmail').value,
-    company: document.getElementById('clientCompany').value,
-    phone: document.getElementById('clientPhone').value,
-    timeline: document.getElementById('clientTimeline').value,
-    brief: document.getElementById('clientBrief').value,
-  };
-
-  // Build line items
-  const sym = currencySymbols[currentCurrency];
-  const rate = exchangeRates[currentCurrency];
-  const items = [];
-  let minTotal = 0, maxTotal = 0;
-
-  if (currentMode === 'packages' && selectedPackage) {
-    const pkg = packageData[selectedPackage];
-    minTotal = Math.round(pkg.minEUR * rate);
-    maxTotal = Math.round(pkg.maxEUR * rate);
-    items.push({ name: `${pkg.name} Package`, min: minTotal, max: maxTotal, details: pkg.items });
-  } else {
-    selectedServices.forEach(id => {
-      const el = document.querySelector(`[data-id="${id}"]`);
-      if (el) {
-        const name = el.querySelector('.service-name').textContent;
-        const min = Math.round(parseInt(el.dataset.minEur) * rate);
-        const max = Math.round(parseInt(el.dataset.maxEur) * rate);
-        minTotal += min; maxTotal += max;
-        items.push({ name, min, max });
-      }
-    });
-  }
-
-  // Store invoice data
-  const invoiceData = {
-    id: 'NF-' + Date.now().toString(36).toUpperCase(),
-    date: new Date().toLocaleDateString('en-IE', { year: 'numeric', month: 'long', day: 'numeric' }),
-    expiry: new Date(Date.now() + 7 * 86400000).toLocaleDateString('en-IE', { year: 'numeric', month: 'long', day: 'numeric' }),
-    client: clientData,
-    items,
-    currency: currentCurrency,
-    symbol: sym,
-    minTotal, maxTotal,
-    depositMin: Math.round(minTotal * 0.6),
-    depositMax: Math.round(maxTotal * 0.6),
-  };
-
-  localStorage.setItem('nifemi-invoice', JSON.stringify(invoiceData));
-
-  // Also send via Formspree
-  const formData = new FormData();
-  formData.append('name', clientData.name);
-  formData.append('email', clientData.email);
-  formData.append('company', clientData.company);
-  formData.append('phone', clientData.phone);
-  formData.append('timeline', clientData.timeline);
-  formData.append('brief', clientData.brief);
-  formData.append('invoice_id', invoiceData.id);
-  formData.append('services', items.map(i => i.name).join(', '));
-  formData.append('total_range', `${sym}${minTotal.toLocaleString()}–${sym}${maxTotal.toLocaleString()}`);
-  formData.append('deposit_range', `${sym}${invoiceData.depositMin.toLocaleString()}–${sym}${invoiceData.depositMax.toLocaleString()}`);
-  formData.append('currency', currentCurrency);
-
-  fetch('https://formspree.io/f/mldqqvra', {
-    method: 'POST', body: formData,
-    headers: { 'Accept': 'application/json' }
-  });
-
-  // Redirect to invoice page
+  const cd = { name: document.getElementById('clientName').value, email: document.getElementById('clientEmail').value, company: document.getElementById('clientCompany').value, phone: document.getElementById('clientPhone').value, timeline: document.getElementById('clientTimeline').value, brief: document.getElementById('clientBrief').value };
+  const s = sym[currentCurrency], r = rate[currentCurrency], items = []; let min = 0, max = 0;
+  if (currentMode === 'packages' && selectedPackage) { const p = pkgData[selectedPackage]; min = Math.round(p.minEUR*r); max = Math.round(p.maxEUR*r); items.push({ name: p.name, min, max, details: p.items }); }
+  else { selectedServices.forEach(id => { const el = document.querySelector(`[data-id="${id}"]`); if (el) { const n = el.querySelector('.service-name').textContent, mn = Math.round(parseInt(el.dataset.minEur)*r), mx = Math.round(parseInt(el.dataset.maxEur)*r); min += mn; max += mx; items.push({ name: n, min: mn, max: mx }); } }); }
+  const inv = { id: 'MN-' + Date.now().toString(36).toUpperCase(), date: new Date().toLocaleDateString('en-IE',{year:'numeric',month:'long',day:'numeric'}), expiry: new Date(Date.now()+7*86400000).toLocaleDateString('en-IE',{year:'numeric',month:'long',day:'numeric'}), client: cd, items, currency: currentCurrency, symbol: s, minTotal: min, maxTotal: max, depositMin: Math.round(min*0.6), depositMax: Math.round(max*0.6) };
+  localStorage.setItem('nifemi-invoice', JSON.stringify(inv));
+  const fd = new FormData(); fd.append('name',cd.name); fd.append('email',cd.email); fd.append('company',cd.company); fd.append('phone',cd.phone); fd.append('timeline',cd.timeline); fd.append('brief',cd.brief); fd.append('invoice_id',inv.id); fd.append('services',items.map(i=>i.name).join(', ')); fd.append('total_range',`${s}${min.toLocaleString()}–${s}${max.toLocaleString()}`); fd.append('deposit_range',`${s}${inv.depositMin.toLocaleString()}–${s}${inv.depositMax.toLocaleString()}`);
+  fetch('https://formspree.io/f/mldqqvra',{method:'POST',body:fd,headers:{'Accept':'application/json'}});
   window.location.href = './invoice.html';
 }
 </script>
