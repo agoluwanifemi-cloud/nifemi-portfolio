@@ -164,6 +164,23 @@ input[type=range].prop-inp{padding:0;border:none;background:none;}
 /* toast */
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r);padding:8px 16px;font-size:11px;font-family:var(--mono);color:var(--fg);z-index:3000;opacity:0;transition:opacity .2s;pointer-events:none;}
 .toast.show{opacity:1;}
+/* fx stack */
+.fx-stack-item{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:7px 9px;margin-bottom:4px;}
+.fx-stack-header{display:flex;align-items:center;gap:6px;margin-bottom:4px;}
+.fx-stack-name{font-size:10px;font-weight:600;font-family:var(--display);color:var(--fg);flex:1;}
+.fx-toggle{width:22px;height:12px;background:var(--accent);border-radius:10px;cursor:pointer;position:relative;flex-shrink:0;transition:background .12s;}
+.fx-toggle.off{background:var(--bg4);}
+.fx-toggle::after{content:'';position:absolute;top:2px;left:2px;width:8px;height:8px;background:#fff;border-radius:50%;transition:left .12s;}
+.fx-toggle.off::after{left:12px;}
+.fx-del{background:none;border:none;color:var(--text3);cursor:pointer;font-size:13px;padding:0 2px;line-height:1;transition:color .12s;}
+.fx-del:hover{color:var(--danger);}
+.fx-row{display:flex;align-items:center;gap:5px;margin-top:3px;}
+.fx-row label{font-size:9px;color:var(--text3);font-family:var(--mono);min-width:52px;}
+.fx-row input[type=range]{flex:1;accent-color:var(--accent);}
+.fx-row span{font-size:9px;color:var(--muted);font-family:var(--mono);min-width:28px;text-align:right;}
+/* crop overlay on canvas */
+.crop-overlay{position:absolute;inset:0;pointer-events:none;border:none;}
+.crop-overlay.active{pointer-events:all;}
 </style>
 </head>
 <body>
@@ -230,10 +247,19 @@ input[type=range].prop-inp{padding:0;border:none;background:none;}
     </div>
 
     <!-- FILTERS -->
-    <div class="pane" id="ptab-filters" style="display:none">
-      <div style="font-size:9px;color:var(--muted);font-family:var(--mono);margin-bottom:8px;">Click a filter to apply to selected clip</div>
-      <div class="filter-grid" id="filterGrid"></div>
-      <div id="filterProps"></div>
+    <div class="pane" id="ptab-filters" style="display:none;padding:8px 8px 0;">
+      <input type="text" id="filterSearch" placeholder="Search filters…" oninput="runFilterSearch(this.value)"
+        style="width:100%;background:var(--bg2);border:1px solid var(--border);color:var(--fg);border-radius:var(--r);padding:5px 8px;font-size:10px;font-family:var(--mono);outline:none;margin-bottom:6px;">
+      <div style="display:flex;gap:3px;flex-wrap:wrap;margin-bottom:8px;" id="filterCatTabs"></div>
+      <div style="font-size:9px;color:var(--muted);font-family:var(--mono);margin-bottom:5px;">PRESETS</div>
+      <div class="filter-grid" id="filterGrid" style="margin-bottom:10px;"></div>
+      <div style="font-size:9px;color:var(--muted);font-family:var(--mono);margin-bottom:5px;display:flex;align-items:center;justify-content:space-between;">
+        <span>ACTIVE EFFECTS</span>
+        <button class="tb-btn" style="padding:2px 7px;font-size:8px;" onclick="clearAllFx()">Clear all</button>
+      </div>
+      <div id="fxStack" style="margin-bottom:8px;"></div>
+      <div style="font-size:9px;color:var(--muted);font-family:var(--mono);margin:4px 0 5px;">CANVAS OVERLAYS</div>
+      <div class="filter-grid" id="canvasFxGrid"></div>
     </div>
 
     <!-- TEXT OVERLAYS -->
@@ -301,14 +327,51 @@ input[type=range].prop-inp{padding:0;border:none;background:none;}
         <div class="prop-row"><div class="prop-lbl">Opacity</div><input type="range" class="prop-inp" id="clipOpacity" min="0" max="100" value="100" oninput="updateClipProp('opacity',+this.value);id('clipOpacityV').textContent=this.value+'%'"><div class="prop-val" id="clipOpacityV">100%</div></div>
       </div>
       <div class="rblock">
-        <div class="rlabel">Filters</div>
+        <div class="rlabel">Color grading</div>
         <div class="prop-row"><div class="prop-lbl">Brightness</div><input type="range" class="prop-inp" id="fBright" min="0" max="200" value="100" oninput="updateClipFilter('brightness',+this.value);id('fBrightV').textContent=this.value"><div class="prop-val" id="fBrightV">100</div></div>
         <div class="prop-row"><div class="prop-lbl">Contrast</div><input type="range" class="prop-inp" id="fContrast" min="0" max="200" value="100" oninput="updateClipFilter('contrast',+this.value);id('fContrastV').textContent=this.value"><div class="prop-val" id="fContrastV">100</div></div>
         <div class="prop-row"><div class="prop-lbl">Saturate</div><input type="range" class="prop-inp" id="fSat" min="0" max="300" value="100" oninput="updateClipFilter('saturate',+this.value);id('fSatV').textContent=this.value"><div class="prop-val" id="fSatV">100</div></div>
-        <div class="prop-row"><div class="prop-lbl">Hue</div><input type="range" class="prop-inp" id="fHue" min="-180" max="180" value="0" oninput="updateClipFilter('hue',+this.value);id('fHueV').textContent=this.value+'°'"><div class="prop-val" id="fHueV">0°</div></div>
+        <div class="prop-row"><div class="prop-lbl">Hue shift</div><input type="range" class="prop-inp" id="fHue" min="-180" max="180" value="0" oninput="updateClipFilter('hue',+this.value);id('fHueV').textContent=this.value+'°'"><div class="prop-val" id="fHueV">0°</div></div>
+        <div class="prop-row"><div class="prop-lbl">Exposure</div><input type="range" class="prop-inp" id="fExposure" min="-100" max="100" value="0" oninput="updateClipFilter('exposure',+this.value);id('fExposureV').textContent=this.value"><div class="prop-val" id="fExposureV">0</div></div>
+        <div class="prop-row"><div class="prop-lbl">Highlights</div><input type="range" class="prop-inp" id="fHighlights" min="-100" max="100" value="0" oninput="updateClipFilter('highlights',+this.value);id('fHighlightsV').textContent=this.value"><div class="prop-val" id="fHighlightsV">0</div></div>
+        <div class="prop-row"><div class="prop-lbl">Shadows</div><input type="range" class="prop-inp" id="fShadows" min="-100" max="100" value="0" oninput="updateClipFilter('shadows',+this.value);id('fShadowsV').textContent=this.value"><div class="prop-val" id="fShadowsV">0</div></div>
+        <div class="prop-row"><div class="prop-lbl">Whites</div><input type="range" class="prop-inp" id="fWhites" min="-100" max="100" value="0" oninput="updateClipFilter('whites',+this.value);id('fWhitesV').textContent=this.value"><div class="prop-val" id="fWhitesV">0</div></div>
+        <div class="prop-row"><div class="prop-lbl">Blacks</div><input type="range" class="prop-inp" id="fBlacks" min="-100" max="100" value="0" oninput="updateClipFilter('blacks',+this.value);id('fBlacksV').textContent=this.value"><div class="prop-val" id="fBlacksV">0</div></div>
+        <div class="prop-row"><div class="prop-lbl">Temp</div><input type="range" class="prop-inp" id="fTemp" min="-100" max="100" value="0" oninput="updateClipFilter('temperature',+this.value);id('fTempV').textContent=this.value"><div class="prop-val" id="fTempV">0</div></div>
+        <div class="prop-row"><div class="prop-lbl">Tint</div><input type="range" class="prop-inp" id="fTint" min="-100" max="100" value="0" oninput="updateClipFilter('tint',+this.value);id('fTintV').textContent=this.value"><div class="prop-val" id="fTintV">0</div></div>
+        <div class="prop-row"><div class="prop-lbl">Vibrance</div><input type="range" class="prop-inp" id="fVibrance" min="-100" max="100" value="0" oninput="updateClipFilter('vibrance',+this.value);id('fVibranceV').textContent=this.value"><div class="prop-val" id="fVibranceV">0</div></div>
+        <div class="prop-row"><div class="prop-lbl">Clarity</div><input type="range" class="prop-inp" id="fClarity" min="-100" max="100" value="0" oninput="updateClipFilter('clarity',+this.value);id('fClarityV').textContent=this.value"><div class="prop-val" id="fClarityV">0</div></div>
+        <div class="prop-row"><div class="prop-lbl">Grain</div><input type="range" class="prop-inp" id="fGrain" min="0" max="100" value="0" oninput="updateClipFilter('grain',+this.value);id('fGrainV').textContent=this.value+'%'"><div class="prop-val" id="fGrainV">0%</div></div>
+        <div class="prop-row"><div class="prop-lbl">Vignette</div><input type="range" class="prop-inp" id="fVignette" min="0" max="100" value="0" oninput="updateClipFilter('vignette',+this.value);id('fVignetteV').textContent=this.value+'%'"><div class="prop-val" id="fVignetteV">0%</div></div>
         <div class="prop-row"><div class="prop-lbl">Blur</div><input type="range" class="prop-inp" id="fBlur" min="0" max="20" value="0" oninput="updateClipFilter('blur',+this.value);id('fBlurV').textContent=this.value+'px'"><div class="prop-val" id="fBlurV">0px</div></div>
+        <div class="prop-row"><div class="prop-lbl">Sharpen</div><input type="range" class="prop-inp" id="fSharpen" min="0" max="100" value="0" oninput="updateClipFilter('sharpen',+this.value);id('fSharpenV').textContent=this.value"><div class="prop-val" id="fSharpenV">0</div></div>
         <div class="prop-row"><div class="prop-lbl">Sepia</div><input type="range" class="prop-inp" id="fSepia" min="0" max="100" value="0" oninput="updateClipFilter('sepia',+this.value);id('fSepiaV').textContent=this.value+'%'"><div class="prop-val" id="fSepiaV">0%</div></div>
         <div class="prop-row"><div class="prop-lbl">Invert</div><input type="range" class="prop-inp" id="fInvert" min="0" max="100" value="0" oninput="updateClipFilter('invert',+this.value);id('fInvertV').textContent=this.value+'%'"><div class="prop-val" id="fInvertV">0%</div></div>
+        <div class="prop-row"><div class="prop-lbl">Posterize</div><input type="range" class="prop-inp" id="fPosterize" min="0" max="100" value="0" oninput="updateClipFilter('posterize',+this.value);id('fPosterizeV').textContent=this.value+'%'"><div class="prop-val" id="fPosterizeV">0%</div></div>
+        <div class="prop-row"><div class="prop-lbl">Glitch</div><input type="range" class="prop-inp" id="fGlitch" min="0" max="100" value="0" oninput="updateClipFilter('glitch',+this.value);id('fGlitchV').textContent=this.value+'%'"><div class="prop-val" id="fGlitchV">0%</div></div>
+        <div class="prop-row"><div class="prop-lbl">Duotone</div>
+          <select class="prop-inp" id="fDuotone" onchange="updateClipFilter('duotone',this.value)" style="font-size:10px;">
+            <option value="none">Off</option>
+            <option value="lime-black">Lime / Black</option>
+            <option value="blue-orange">Blue / Orange</option>
+            <option value="purple-yellow">Purple / Yellow</option>
+            <option value="red-cyan">Red / Cyan</option>
+            <option value="pink-teal">Pink / Teal</option>
+          </select>
+        </div>
+        <div class="prop-row"><div class="prop-lbl">LUT preset</div>
+          <select class="prop-inp" id="fLUT" onchange="applyLUT(this.value)" style="font-size:10px;">
+            <option value="">None</option>
+            <option value="fuji">Fuji Film</option>
+            <option value="kodak">Kodak Gold</option>
+            <option value="polaroid">Polaroid</option>
+            <option value="instagram">Instagram</option>
+            <option value="drone">Drone Aerial</option>
+            <option value="sunset">Golden Sunset</option>
+            <option value="arctic">Arctic Blue</option>
+            <option value="forest">Forest Green</option>
+          </select>
+        </div>
       </div>
       <div class="rblock">
         <div class="rlabel">Speed &amp; audio</div>
@@ -330,6 +393,29 @@ input[type=range].prop-inp{padding:0;border:none;background:none;}
           </select>
         </div>
         <div class="prop-row"><div class="prop-lbl">Duration</div><input type="range" class="prop-inp" id="clipTransInDur" min="1" max="60" value="15" oninput="updateClipProp('transInDur',+this.value);id('clipTransInDurV').textContent=(+this.value/30).toFixed(1)+'s'"><div class="prop-val" id="clipTransInDurV">0.5s</div></div>
+      </div>
+      <div class="rblock">
+        <div class="rlabel">Crop</div>
+        <div class="prop-row"><div class="prop-lbl">Top</div><input type="range" class="prop-inp" id="cropTop" min="0" max="50" value="0" oninput="updateClipProp('cropTop',+this.value);id('cropTopV').textContent=this.value+'%';renderPreview()"><div class="prop-val" id="cropTopV">0%</div></div>
+        <div class="prop-row"><div class="prop-lbl">Bottom</div><input type="range" class="prop-inp" id="cropBottom" min="0" max="50" value="0" oninput="updateClipProp('cropBottom',+this.value);id('cropBottomV').textContent=this.value+'%';renderPreview()"><div class="prop-val" id="cropBottomV">0%</div></div>
+        <div class="prop-row"><div class="prop-lbl">Left</div><input type="range" class="prop-inp" id="cropLeft" min="0" max="50" value="0" oninput="updateClipProp('cropLeft',+this.value);id('cropLeftV').textContent=this.value+'%';renderPreview()"><div class="prop-val" id="cropLeftV">0%</div></div>
+        <div class="prop-row"><div class="prop-lbl">Right</div><input type="range" class="prop-inp" id="cropRight" min="0" max="50" value="0" oninput="updateClipProp('cropRight',+this.value);id('cropRightV').textContent=this.value+'%';renderPreview()"><div class="prop-val" id="cropRightV">0%</div></div>
+      </div>
+      <div class="rblock">
+        <div class="rlabel">Chroma key</div>
+        <div class="prop-row"><div class="prop-lbl">Enable</div>
+          <select class="prop-inp" id="chromaEnable" onchange="updateClipProp('chromaKey',this.value==='true');renderPreview()">
+            <option value="false">Off</option><option value="true">On (green screen)</option>
+          </select>
+        </div>
+        <div class="prop-row"><div class="prop-lbl">Color</div><input type="color" id="chromaColor" value="#00ff00" oninput="updateClipProp('chromaColor',this.value)"></div>
+        <div class="prop-row"><div class="prop-lbl">Tolerance</div><input type="range" class="prop-inp" id="chromaTol" min="0" max="100" value="30" oninput="updateClipProp('chromaTol',+this.value);id('chromaTolV').textContent=this.value"><div class="prop-val" id="chromaTolV">30</div></div>
+        <div class="prop-row"><div class="prop-lbl">Feather</div><input type="range" class="prop-inp" id="chromaFeather" min="0" max="50" value="5" oninput="updateClipProp('chromaFeather',+this.value);id('chromaFeatherV').textContent=this.value"><div class="prop-val" id="chromaFeatherV">5</div></div>
+      </div>
+      <div class="rblock">
+        <div class="rlabel">Motion blur</div>
+        <div class="prop-row"><div class="prop-lbl">Amount</div><input type="range" class="prop-inp" id="motionBlur" min="0" max="100" value="0" oninput="updateClipProp('motionBlur',+this.value);id('motionBlurV').textContent=this.value+'%';renderPreview()"><div class="prop-val" id="motionBlurV">0%</div></div>
+        <div class="prop-row"><div class="prop-lbl">Angle</div><input type="range" class="prop-inp" id="motionBlurAngle" min="0" max="360" value="0" oninput="updateClipProp('motionBlurAngle',+this.value);id('motionBlurAngleV').textContent=this.value+'°'"><div class="prop-val" id="motionBlurAngleV">0°</div></div>
       </div>
     </div>
   </div>
@@ -551,18 +637,31 @@ function loadClipInspector(){
   id('clipOpacity').value=cl.opacity||100;id('clipOpacityV').textContent=(cl.opacity||100)+'%';
   id('clipFitMode').value=cl.fitMode||'contain';
   const f=cl.filters||{};
-  id('fBright').value=f.brightness||100;id('fBrightV').textContent=f.brightness||100;
-  id('fContrast').value=f.contrast||100;id('fContrastV').textContent=f.contrast||100;
-  id('fSat').value=f.saturate||100;id('fSatV').textContent=f.saturate||100;
-  id('fHue').value=f.hue||0;id('fHueV').textContent=(f.hue||0)+'°';
-  id('fBlur').value=f.blur||0;id('fBlurV').textContent=(f.blur||0)+'px';
-  id('fSepia').value=f.sepia||0;id('fSepiaV').textContent=(f.sepia||0)+'%';
-  id('fInvert').value=f.invert||0;id('fInvertV').textContent=(f.invert||0)+'%';
+  const syncF=(eid,key,def,suffix='')=>{const el=id(eid);if(el){el.value=f[key]??def;const vEl=id(eid+'V');if(vEl)vEl.textContent=(f[key]??def)+suffix;}};
+  syncF('fBright','brightness',100);syncF('fContrast','contrast',100);syncF('fSat','saturate',100);
+  syncF('fHue','hue',0,'°');syncF('fExposure','exposure',0);syncF('fHighlights','highlights',0);
+  syncF('fShadows','shadows',0);syncF('fWhites','whites',0);syncF('fBlacks','blacks',0);
+  syncF('fTemp','temperature',0);syncF('fTint','tint',0);syncF('fVibrance','vibrance',0);
+  syncF('fClarity','clarity',0);syncF('fGrain','grain',0,'%');syncF('fVignette','vignette',0,'%');
+  syncF('fBlur','blur',0,'px');syncF('fSharpen','sharpen',0);syncF('fSepia','sepia',0,'%');
+  syncF('fInvert','invert',0,'%');syncF('fPosterize','posterize',0,'%');syncF('fGlitch','glitch',0,'%');
+  const dtEl=id('fDuotone');if(dtEl)dtEl.value=f.duotone||'none';
   id('clipSpeed').value=(cl.speed||1)*100;id('clipSpeedV').textContent=(cl.speed||1).toFixed(2)+'x';
   id('clipVol').value=(cl.volume||1)*100;id('clipVolV').textContent=Math.round((cl.volume||1)*100)+'%';
   id('clipMute').value=cl.mute?'true':'false';
   id('clipTransIn').value=cl.transIn||'none';
   id('clipTransInDur').value=cl.transInDur||15;id('clipTransInDurV').textContent=((cl.transInDur||15)/30).toFixed(1)+'s';
+  // crop
+  ['Top','Bottom','Left','Right'].forEach(s=>{const el=id('crop'+s);if(el){el.value=cl['crop'+s]||0;id('crop'+s+'V').textContent=(cl['crop'+s]||0)+'%';}});
+  // chroma
+  const ceEl=id('chromaEnable');if(ceEl)ceEl.value=cl.chromaKey?'true':'false';
+  const ccEl=id('chromaColor');if(ccEl)ccEl.value=cl.chromaColor||'#00ff00';
+  const ctEl=id('chromaTol');if(ctEl){ctEl.value=cl.chromaTol||30;id('chromaTolV').textContent=cl.chromaTol||30;}
+  const cfEl=id('chromaFeather');if(cfEl){cfEl.value=cl.chromaFeather||5;id('chromaFeatherV').textContent=cl.chromaFeather||5;}
+  // motion blur
+  const mbEl=id('motionBlur');if(mbEl){mbEl.value=cl.motionBlur||0;id('motionBlurV').textContent=(cl.motionBlur||0)+'%';}
+  const mbaEl=id('motionBlurAngle');if(mbaEl){mbaEl.value=cl.motionBlurAngle||0;id('motionBlurAngleV').textContent=(cl.motionBlurAngle||0)+'°';}
+  renderFxStack();
 }
 
 // ── TIMELINE ──
@@ -783,7 +882,8 @@ function renderPreview(){
         else if(cl.transIn==='glitch'&&tp<.5){for(let i=0;i<4;i++){const gy=Math.random()*previewH,gh=8+Math.random()*14;try{ctx2d.drawImage(previewCanvas,0,gy,previewW,gh,(Math.random()-.5)*18,gy,previewW,gh);}catch(er){}}ctx2d.globalAlpha=(1-tp)*.5;ctx2d.fillStyle='#c8ff00';ctx2d.fillRect(0,0,previewW,previewH);}
         ctx2d.restore();
       }
-      applyColorGrade(cl.colorGrade);
+      applyColorGrade(cl.colorGrade,cl.filters);
+      applyCanvasFxDraw(cl.canvasFx);
     }else if(media.type==='image'){
       let img=document.getElementById('img-'+media.id);
       if(!img){img=new Image();img.id='img-'+media.id;img.src=media.url;img.style.display='none';document.body.appendChild(img);img.onload=()=>{media.naturalW=img.naturalWidth;media.naturalH=img.naturalHeight;renderPreview();};}
@@ -792,7 +892,7 @@ function renderPreview(){
         ctx2d.save();ctx2d.globalAlpha=(cl.opacity||100)/100;ctx2d.filter=buildFilterString(cl.filters);
         ctx2d.translate(ix+iw/2,iy+ih/2);ctx2d.rotate(rot);
         try{ctx2d.drawImage(img,-iw/2,-ih/2,iw,ih);}catch(er){}
-        ctx2d.restore();applyColorGrade(cl.colorGrade);
+        ctx2d.restore();applyColorGrade(cl.colorGrade,cl.filters);applyCanvasFxDraw(cl.canvasFx);
       }
     }
   });
@@ -848,38 +948,389 @@ function redo(){
 }
 
 // ── FILTER PRESETS ──
-const FILTER_PRESETS=[
-  {id:'none',name:'Original',f:{brightness:100,contrast:100,saturate:100,hue:0,blur:0,sepia:0,invert:0},grade:'none'},
-  {id:'cinematic',name:'Cinematic',f:{brightness:90,contrast:115,saturate:80,hue:0,blur:0,sepia:10,invert:0},grade:'cinematic'},
-  {id:'warm',name:'Warm',f:{brightness:105,contrast:105,saturate:120,hue:15,blur:0,sepia:20,invert:0},grade:'warm'},
-  {id:'cool',name:'Cool',f:{brightness:100,contrast:110,saturate:90,hue:-15,blur:0,sepia:0,invert:0},grade:'cool'},
-  {id:'bw',name:'B&W',f:{brightness:100,contrast:130,saturate:0,hue:0,blur:0,sepia:0,invert:0},grade:'none'},
-  {id:'noir',name:'Noir',f:{brightness:85,contrast:150,saturate:0,hue:0,blur:0,sepia:0,invert:0},grade:'noir'},
-  {id:'vintage',name:'Vintage',f:{brightness:95,contrast:95,saturate:80,hue:20,blur:0,sepia:60,invert:0},grade:'vintage'},
-  {id:'vibrant',name:'Vibrant',f:{brightness:110,contrast:115,saturate:200,hue:0,blur:0,sepia:0,invert:0},grade:'none'},
-  {id:'fade',name:'Faded',f:{brightness:110,contrast:80,saturate:70,hue:0,blur:0,sepia:15,invert:0},grade:'none'},
-  {id:'dreamy',name:'Dreamy',f:{brightness:115,contrast:90,saturate:110,hue:0,blur:2,sepia:10,invert:0},grade:'warm'},
-  {id:'horror',name:'Horror',f:{brightness:70,contrast:140,saturate:30,hue:0,blur:0,sepia:0,invert:10},grade:'noir'},
-  {id:'neon',name:'Neon',f:{brightness:110,contrast:130,saturate:300,hue:30,blur:0,sepia:0,invert:0},grade:'cool'},
-];
+// ═══════════════════════════════════════════════
+// ── 100+ FILTER SYSTEM ──
+// ═══════════════════════════════════════════════
+
+const FILTER_CATS={
+  'Cinematic':['Cinematic','Blockbuster','Hollywood','Arthouse','Epic','Teal & Orange','Dark Moody','Silver Toning','Film Noir','Neo Noir','Bronze','Copper','Burnt Sienna'],
+  'Film Emulation':['Fuji Velvia','Fuji Provia','Kodak Gold','Kodak Ektar','Kodak Portra','Ilford HP5','Polaroid 600','Lomography','Agfa Vista','Cross Process','E6 Slide','Tungsten'],
+  'Mood':['Warm Glow','Cool Fade','Dreamy','Muted','Faded','Hazy','Melancholy','Euphoric','Nostalgic','Retro 70s','Retro 80s','Retro 90s','Pastel Dream','Boho'],
+  'Social':['Instagram','TikTok Punch','YouTube Crisp','Reels Glow','Story Filter','Influencer','Aesthetic VSCO A4','VSCO C1','VSCO M5','VSCO P5','Presetify','LightLeak'],
+  'Dramatic':['High Drama','Punchy','Over-Exposed','Under-Exposed','Hard Shadow','Blown Out','Dark Room','Midnight','Eclipse','Apocalypse','Inferno','Polar'],
+  'B&W':['B&W Natural','B&W Punchy','B&W Soft','B&W Film','B&W High Key','B&W Low Key','Sepia Classic','Duotone Blue','Duotone Green','Duotone Red'],
+  'Sci-Fi':['Cyberpunk','Neon City','Digital Glitch','Hologram','Matrix','Alien World','Deep Space','Vaporwave','Synthwave','Tech Noir'],
+  'Nature':['Golden Hour','Blue Hour','Forest Light','Ocean Blue','Desert Sand','Overcast','Crisp Morning','Sunset Fire','Arctic Ice','Tropical'],
+  'Effects':['Glow','Soft Focus','Tilt Shift','Lomo Vignette','Heavy Grain','Light Leak','Double Exposure','Bleach Bypass','Cross Hatch','Infrared'],
+};
+
+// Each preset: {f: filter overrides, grade, canvas (optional)}
+const FILTER_DB={
+  'Original':{f:{},grade:'none'},
+  'Cinematic':{f:{brightness:90,contrast:115,saturate:75,hue:0,sepia:8,vignette:35},grade:'cinematic'},
+  'Blockbuster':{f:{brightness:95,contrast:125,saturate:70,hue:5,shadows:-15,highlights:-10,vignette:40},grade:'cinematic'},
+  'Hollywood':{f:{brightness:88,contrast:120,saturate:65,hue:0,temperature:-15,vignette:30},grade:'cinematic'},
+  'Arthouse':{f:{brightness:85,contrast:130,saturate:50,hue:0,grain:30,vignette:50},grade:'noir'},
+  'Epic':{f:{brightness:92,contrast:118,saturate:85,hue:-8,clarity:20,vignette:35},grade:'cinematic'},
+  'Teal & Orange':{f:{brightness:95,contrast:110,saturate:90,hue:0,temperature:15,tint:-10},grade:'cinematic'},
+  'Dark Moody':{f:{brightness:80,contrast:125,saturate:60,shadows:-20,blacks:-15,vignette:60},grade:'noir'},
+  'Silver Toning':{f:{brightness:95,contrast:110,saturate:30,sepia:15,grain:20},grade:'none'},
+  'Film Noir':{f:{brightness:85,contrast:150,saturate:0,vignette:60},grade:'noir'},
+  'Neo Noir':{f:{brightness:80,contrast:140,saturate:20,hue:200,vignette:55},grade:'noir'},
+  'Bronze':{f:{brightness:100,contrast:110,saturate:80,hue:20,temperature:30,sepia:25},grade:'warm'},
+  'Copper':{f:{brightness:105,contrast:105,saturate:90,hue:15,temperature:25},grade:'warm'},
+  'Burnt Sienna':{f:{brightness:95,contrast:112,saturate:85,hue:18,sepia:30},grade:'warm'},
+  'Fuji Velvia':{f:{brightness:100,contrast:120,saturate:160,vignette:20},grade:'none'},
+  'Fuji Provia':{f:{brightness:105,contrast:105,saturate:110,grain:5},grade:'none'},
+  'Kodak Gold':{f:{brightness:105,contrast:105,saturate:110,hue:12,temperature:20,grain:15},grade:'warm'},
+  'Kodak Ektar':{f:{brightness:100,contrast:115,saturate:140,grain:8},grade:'none'},
+  'Kodak Portra':{f:{brightness:108,contrast:95,saturate:85,hue:8,temperature:15,grain:12},grade:'warm'},
+  'Ilford HP5':{f:{brightness:100,contrast:120,saturate:0,grain:40},grade:'none'},
+  'Polaroid 600':{f:{brightness:110,contrast:90,saturate:80,sepia:20,grain:25,vignette:30},grade:'warm'},
+  'Lomography':{f:{brightness:95,contrast:130,saturate:140,grain:50,vignette:60},grade:'none'},
+  'Agfa Vista':{f:{brightness:105,contrast:108,saturate:120,hue:-5,grain:10},grade:'none'},
+  'Cross Process':{f:{brightness:110,contrast:130,saturate:160,hue:30,invert:5},grade:'cool'},
+  'E6 Slide':{f:{brightness:95,contrast:125,saturate:130,vignette:15},grade:'none'},
+  'Tungsten':{f:{brightness:90,contrast:110,saturate:80,hue:-30,temperature:-40},grade:'cool'},
+  'Warm Glow':{f:{brightness:108,contrast:105,saturate:115,hue:10,temperature:25,vignette:20},grade:'warm'},
+  'Cool Fade':{f:{brightness:105,contrast:90,saturate:75,hue:-10,temperature:-20,blacks:10},grade:'cool'},
+  'Dreamy':{f:{brightness:115,contrast:88,saturate:105,blur:1.5,vignette:25,grain:8},grade:'warm'},
+  'Muted':{f:{brightness:100,contrast:85,saturate:55,blacks:10},grade:'none'},
+  'Faded':{f:{brightness:112,contrast:82,saturate:65,sepia:10,blacks:12},grade:'none'},
+  'Hazy':{f:{brightness:118,contrast:80,saturate:70,blur:1,vignette:20},grade:'warm'},
+  'Melancholy':{f:{brightness:88,contrast:95,saturate:50,temperature:-15,vignette:40},grade:'cool'},
+  'Euphoric':{f:{brightness:112,contrast:110,saturate:160,hue:5},grade:'none'},
+  'Nostalgic':{f:{brightness:105,contrast:95,saturate:80,sepia:25,grain:20,vignette:30},grade:'warm'},
+  'Retro 70s':{f:{brightness:105,contrast:95,saturate:100,hue:15,sepia:30,grain:20},grade:'warm'},
+  'Retro 80s':{f:{brightness:110,contrast:115,saturate:120,hue:-5,grain:15},grade:'none'},
+  'Retro 90s':{f:{brightness:108,contrast:105,saturate:90,sepia:10,grain:10},grade:'warm'},
+  'Pastel Dream':{f:{brightness:115,contrast:80,saturate:80,temperature:10,blacks:15},grade:'warm'},
+  'Boho':{f:{brightness:108,contrast:92,saturate:85,hue:8,sepia:20,vignette:25},grade:'warm'},
+  'Instagram':{f:{brightness:108,contrast:108,saturate:115,clarity:10},grade:'none'},
+  'TikTok Punch':{f:{brightness:105,contrast:118,saturate:140,clarity:15},grade:'none'},
+  'YouTube Crisp':{f:{brightness:102,contrast:112,saturate:108,clarity:12,sharpen:20},grade:'none'},
+  'Reels Glow':{f:{brightness:112,contrast:100,saturate:110,blur:0.3,temperature:8},grade:'warm'},
+  'Story Filter':{f:{brightness:110,contrast:105,saturate:90,sepia:8,grain:15},grade:'none'},
+  'Influencer':{f:{brightness:114,contrast:98,saturate:95,temperature:12,blacks:8},grade:'warm'},
+  'Aesthetic VSCO A4':{f:{brightness:108,contrast:88,saturate:75,hue:5,blacks:12},grade:'none'},
+  'VSCO C1':{f:{brightness:110,contrast:90,saturate:80,temperature:8,blacks:10},grade:'warm'},
+  'VSCO M5':{f:{brightness:95,contrast:100,saturate:85,sepia:12,grain:18},grade:'none'},
+  'VSCO P5':{f:{brightness:112,contrast:92,saturate:70,sepia:8,vignette:20},grade:'none'},
+  'Presetify':{f:{brightness:106,contrast:105,saturate:88,temperature:5,vignette:15},grade:'none'},
+  'LightLeak':{f:{brightness:112,contrast:95,saturate:110,temperature:20,highlights:20},grade:'warm'},
+  'High Drama':{f:{brightness:88,contrast:140,saturate:80,vignette:50},grade:'cinematic'},
+  'Punchy':{f:{brightness:100,contrast:130,saturate:135,clarity:20},grade:'none'},
+  'Over-Exposed':{f:{brightness:150,contrast:75,saturate:80,highlights:40},grade:'none'},
+  'Under-Exposed':{f:{brightness:55,contrast:120,saturate:90,shadows:-30},grade:'noir'},
+  'Hard Shadow':{f:{brightness:90,contrast:150,saturate:80,clarity:30},grade:'noir'},
+  'Blown Out':{f:{brightness:160,contrast:70,saturate:60},grade:'none'},
+  'Dark Room':{f:{brightness:65,contrast:130,saturate:75,vignette:70},grade:'noir'},
+  'Midnight':{f:{brightness:60,contrast:120,saturate:60,hue:220,temperature:-30},grade:'cool'},
+  'Eclipse':{f:{brightness:70,contrast:130,saturate:50,vignette:80},grade:'noir'},
+  'Apocalypse':{f:{brightness:75,contrast:135,saturate:70,hue:10,sepia:15,vignette:55},grade:'warm'},
+  'Inferno':{f:{brightness:100,contrast:125,saturate:130,hue:15,temperature:40},grade:'warm'},
+  'Polar':{f:{brightness:115,contrast:105,saturate:50,temperature:-50,vignette:25},grade:'cool'},
+  'B&W Natural':{f:{brightness:100,contrast:110,saturate:0},grade:'none'},
+  'B&W Punchy':{f:{brightness:95,contrast:150,saturate:0,vignette:30},grade:'none'},
+  'B&W Soft':{f:{brightness:110,contrast:90,saturate:0,blur:0.5},grade:'none'},
+  'B&W Film':{f:{brightness:100,contrast:120,saturate:0,grain:30},grade:'none'},
+  'B&W High Key':{f:{brightness:135,contrast:85,saturate:0},grade:'none'},
+  'B&W Low Key':{f:{brightness:65,contrast:120,saturate:0,vignette:50},grade:'none'},
+  'Sepia Classic':{f:{brightness:100,contrast:105,saturate:0,sepia:100},grade:'warm'},
+  'Duotone Blue':{f:{brightness:100,contrast:110,saturate:0,duotone:'blue-orange'},grade:'cool'},
+  'Duotone Green':{f:{brightness:100,contrast:110,saturate:0,duotone:'lime-black'},grade:'none'},
+  'Duotone Red':{f:{brightness:100,contrast:110,saturate:0,duotone:'red-cyan'},grade:'none'},
+  'Cyberpunk':{f:{brightness:100,contrast:120,saturate:200,hue:250,posterize:15},grade:'cool',canvas:'scanlines'},
+  'Neon City':{f:{brightness:95,contrast:130,saturate:220,hue:270},grade:'cool'},
+  'Digital Glitch':{f:{brightness:100,contrast:115,saturate:120,glitch:50},grade:'none',canvas:'scanlines'},
+  'Hologram':{f:{brightness:110,contrast:110,saturate:0,hue:170,invert:10},grade:'cool',canvas:'scanlines'},
+  'Matrix':{f:{brightness:90,contrast:120,saturate:0,hue:120},grade:'cool',canvas:'scanlines'},
+  'Alien World':{f:{brightness:95,contrast:115,saturate:160,hue:140},grade:'cool'},
+  'Deep Space':{f:{brightness:70,contrast:130,saturate:80,hue:240,vignette:60},grade:'cool'},
+  'Vaporwave':{f:{brightness:105,contrast:110,saturate:160,hue:295,temperature:-10},grade:'cool'},
+  'Synthwave':{f:{brightness:95,contrast:125,saturate:180,hue:300},grade:'cool',canvas:'scanlines'},
+  'Tech Noir':{f:{brightness:80,contrast:135,saturate:60,hue:240,vignette:50},grade:'cool'},
+  'Golden Hour':{f:{brightness:108,contrast:105,saturate:120,hue:12,temperature:35,vignette:20},grade:'warm'},
+  'Blue Hour':{f:{brightness:90,contrast:105,saturate:90,hue:-15,temperature:-30,vignette:30},grade:'cool'},
+  'Forest Light':{f:{brightness:100,contrast:108,saturate:130,hue:-15,temperature:10},grade:'none'},
+  'Ocean Blue':{f:{brightness:100,contrast:110,saturate:130,hue:-20,temperature:-25},grade:'cool'},
+  'Desert Sand':{f:{brightness:108,contrast:108,saturate:95,hue:20,temperature:30,sepia:15},grade:'warm'},
+  'Overcast':{f:{brightness:102,contrast:95,saturate:70,temperature:-10,blacks:8},grade:'cool'},
+  'Crisp Morning':{f:{brightness:108,contrast:108,saturate:100,sharpen:15,clarity:12},grade:'none'},
+  'Sunset Fire':{f:{brightness:105,contrast:112,saturate:140,hue:15,temperature:40},grade:'warm'},
+  'Arctic Ice':{f:{brightness:112,contrast:105,saturate:60,temperature:-50,vignette:20},grade:'cool'},
+  'Tropical':{f:{brightness:108,contrast:110,saturate:155,hue:-5,temperature:10},grade:'none'},
+  'Glow':{f:{brightness:118,contrast:92,saturate:110,blur:0.8},grade:'none'},
+  'Soft Focus':{f:{brightness:112,contrast:88,saturate:95,blur:1.2},grade:'warm'},
+  'Tilt Shift':{f:{brightness:100,contrast:108,saturate:110},grade:'none',canvas:'tiltshift'},
+  'Lomo Vignette':{f:{brightness:100,contrast:120,saturate:120,vignette:75,grain:35},grade:'none'},
+  'Heavy Grain':{f:{brightness:100,contrast:112,saturate:90,grain:70},grade:'none'},
+  'Light Leak':{f:{brightness:112,contrast:95,saturate:105,temperature:20},grade:'warm',canvas:'lightleak'},
+  'Double Exposure':{f:{brightness:100,contrast:110,saturate:80,opacity:80},grade:'none'},
+  'Bleach Bypass':{f:{brightness:100,contrast:145,saturate:40,vignette:20},grade:'none'},
+  'Cross Hatch':{f:{brightness:100,contrast:130,saturate:0,posterize:30},grade:'none'},
+  'Infrared':{f:{brightness:115,contrast:120,saturate:0,hue:90,invert:0},grade:'none'},
+};
+
+const DEFAULT_FILTERS={brightness:100,contrast:100,saturate:100,hue:0,exposure:0,highlights:0,shadows:0,whites:0,blacks:0,temperature:0,tint:0,vibrance:0,clarity:0,grain:0,vignette:0,blur:0,sharpen:0,sepia:0,invert:0,posterize:0,glitch:0,duotone:'none'};
+
+let activeFxCat='Cinematic';
+let fxSearchTerm='';
 
 function buildFilterPanel(){
-  id('filterGrid').innerHTML=FILTER_PRESETS.map(fp=>`
-    <div class="filter-card" onclick="applyFilterPreset('${fp.id}')" title="${fp.name}">
-      <div class="filter-preview" style="background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);filter:${buildFilterString(fp.f)};"></div>
-      <div class="filter-label">${fp.name}</div>
+  // Category tabs
+  const cats=Object.keys(FILTER_CATS);
+  id('filterCatTabs').innerHTML=cats.map(c=>`<div style="font-size:8px;font-family:var(--mono);padding:3px 8px;border-radius:20px;cursor:pointer;transition:all .12s;border:1px solid ${c===activeFxCat?'var(--accent)':'var(--border)'};color:${c===activeFxCat?'var(--accent)':'var(--text3)'};background:${c===activeFxCat?'rgba(200,255,0,.06)':'transparent'};white-space:nowrap;" onclick="setFxCat('${c}')">${c}</div>`).join('');
+  // Grid
+  const presets=fxSearchTerm
+    ?Object.keys(FILTER_DB).filter(n=>n.toLowerCase().includes(fxSearchTerm.toLowerCase()))
+    :['Original',...(FILTER_CATS[activeFxCat]||[])];
+  id('filterGrid').innerHTML=presets.map(name=>{
+    const p=FILTER_DB[name];if(!p)return'';
+    const fs=buildCSSFilter({...DEFAULT_FILTERS,...p.f});
+    return `<div class="filter-card" onclick="applyFilterPreset('${name}')" title="${name}">
+      <div class="filter-preview" style="background:linear-gradient(135deg,#1a1a2e 30%,#16213e,#2d4a2d);filter:${fs};"></div>
+      <div class="filter-label">${name}</div>
+    </div>`;
+  }).join('');
+  // Canvas FX grid
+  const cfx=[{id:'none',l:'None'},{id:'scanlines',l:'Scanlines'},{id:'vhs',l:'VHS Lines'},{id:'tiltshift',l:'Tilt Shift'},{id:'lightleak',l:'Light Leak'},{id:'chromabb',l:'Chroma AB'},{id:'pixelate',l:'Pixelate'},{id:'halftone',l:'Halftone'},{id:'rgb_split',l:'RGB Split'},{id:'oldtv',l:'Old TV'}];
+  id('canvasFxGrid').innerHTML=cfx.map(fx=>`<div class="filter-card" onclick="applyCanvasFx('${fx.id}')" id="cfx-${fx.id}"><div class="filter-label" style="padding:8px 0;">${fx.l}</div></div>`).join('');
+}
+
+function setFxCat(cat){activeFxCat=cat;buildFilterPanel();}
+function runFilterSearch(val){fxSearchTerm=val;buildFilterPanel();}
+
+function applyFilterPreset(name){
+  const cl=getSelectedClip();if(!cl){toast('Select a clip first');return;}
+  const p=FILTER_DB[name];if(!p)return;
+  saveUndo();
+  cl.filters=Object.assign({...DEFAULT_FILTERS},p.f);
+  cl.colorGrade=p.grade||'none';
+  if(p.canvas)cl.canvasFx=p.canvas;
+  // add to fx stack
+  if(!cl.fxStack)cl.fxStack=[];
+  if(!cl.fxStack.find(fx=>fx.name===name)){
+    cl.fxStack.push({name,enabled:true,intensity:100});
+    if(cl.fxStack.length>6)cl.fxStack.shift();
+  }
+  loadClipInspector();renderPreview();toast('Filter: '+name);
+}
+
+function applyCanvasFx(fxId){
+  const cl=getSelectedClip();if(!cl){toast('Select a clip first');return;}
+  saveUndo();cl.canvasFx=fxId==='none'?null:fxId;
+  document.querySelectorAll('[id^="cfx-"]').forEach(el=>el.classList.remove('on'));
+  document.getElementById('cfx-'+fxId)?.classList.add('on');
+  renderPreview();toast('Canvas FX: '+fxId);
+}
+
+function applyLUT(lutId){
+  if(!lutId)return;
+  const luts={
+    'fuji':{brightness:102,contrast:108,saturate:130,hue:-3,grain:8},
+    'kodak':{brightness:105,contrast:108,saturate:115,hue:10,temperature:20,grain:12},
+    'polaroid':{brightness:110,contrast:90,saturate:85,sepia:20,vignette:30,grain:20},
+    'instagram':{brightness:108,contrast:108,saturate:115,clarity:10},
+    'drone':{brightness:100,contrast:112,saturate:108,temperature:-5,clarity:15},
+    'sunset':{brightness:108,contrast:108,saturate:130,hue:12,temperature:30},
+    'arctic':{brightness:112,contrast:105,saturate:60,temperature:-40,vignette:20},
+    'forest':{brightness:100,contrast:108,saturate:130,hue:-12},
+  };
+  const cl=getSelectedClip();if(!cl||!luts[lutId])return;
+  saveUndo();cl.filters=Object.assign({...DEFAULT_FILTERS},luts[lutId]);
+  loadClipInspector();renderPreview();toast('LUT: '+lutId);
+}
+
+function clearAllFx(){
+  const cl=getSelectedClip();if(!cl)return;saveUndo();
+  cl.filters={...DEFAULT_FILTERS};cl.colorGrade='none';cl.canvasFx=null;cl.fxStack=[];
+  loadClipInspector();renderPreview();renderFxStack();toast('All effects cleared');
+}
+
+function renderFxStack(){
+  const cl=getSelectedClip();
+  const stack=id('fxStack');if(!stack)return;
+  if(!cl||!cl.fxStack||!cl.fxStack.length){stack.innerHTML='<div style="font-size:9px;color:var(--text3);font-family:var(--mono);padding:4px 0;">No effects applied</div>';return;}
+  stack.innerHTML=cl.fxStack.map((fx,i)=>`
+    <div class="fx-stack-item">
+      <div class="fx-stack-header">
+        <div class="fx-stack-name">${fx.name}</div>
+        <div class="fx-toggle${fx.enabled?'':' off'}" onclick="toggleFxEnabled(${i})" title="Enable/disable"></div>
+        <button class="fx-del" onclick="removeFxFromStack(${i})">×</button>
+      </div>
+      <div class="fx-row">
+        <label>Intensity</label>
+        <input type="range" min="0" max="100" value="${fx.intensity}" oninput="setFxIntensity(${i},+this.value);this.nextElementSibling.textContent=this.value+'%'">
+        <span>${fx.intensity}%</span>
+      </div>
     </div>`).join('');
 }
 
-function applyFilterPreset(presetId){
-  const cl=getSelectedClip();
-  const preset=FILTER_PRESETS.find(p=>p.id===presetId);
-  if(!cl||!preset){toast('Select a clip first');return;}
-  saveUndo();
-  cl.filters=JSON.parse(JSON.stringify(preset.f));
-  cl.colorGrade=preset.grade;
-  loadClipInspector();renderPreview();
-  toast(`Filter: ${preset.name}`);
+function toggleFxEnabled(i){
+  const cl=getSelectedClip();if(!cl||!cl.fxStack)return;
+  cl.fxStack[i].enabled=!cl.fxStack[i].enabled;
+  applyFxStack(cl);renderFxStack();renderPreview();
+}
+function removeFxFromStack(i){
+  const cl=getSelectedClip();if(!cl||!cl.fxStack)return;saveUndo();
+  cl.fxStack.splice(i,1);applyFxStack(cl);renderFxStack();renderPreview();
+}
+function setFxIntensity(i,val){
+  const cl=getSelectedClip();if(!cl||!cl.fxStack)return;
+  cl.fxStack[i].intensity=val;applyFxStack(cl);renderPreview();
+}
+function applyFxStack(cl){
+  // re-blend all active fx presets by intensity
+  let merged={...DEFAULT_FILTERS};
+  (cl.fxStack||[]).filter(fx=>fx.enabled).forEach(fx=>{
+    const p=FILTER_DB[fx.name];if(!p)return;
+    const t=fx.intensity/100;
+    Object.entries(p.f).forEach(([k,v])=>{
+      if(typeof v==='number'){const def=DEFAULT_FILTERS[k]||0;merged[k]=(merged[k]||def)+((v-def)*t);}
+    });
+    if(p.grade&&p.grade!=='none')cl.colorGrade=p.grade;
+  });
+  cl.filters=merged;
+}
+
+// ── ENHANCED buildCSSFilter (used for preview swatches) ──
+function buildCSSFilter(f){
+  const bright=Math.max(0,(f.brightness||100)+(f.exposure||0));
+  return `brightness(${bright/100}) contrast(${(f.contrast||100)/100}) saturate(${(f.saturate||100)/100}) hue-rotate(${f.hue||0}deg) blur(${f.blur||0}px) sepia(${(f.sepia||0)/100}) invert(${(f.invert||0)/100})`;
+}
+
+// ── FULL buildFilterString for canvas (extended) ──
+function buildFilterString(f){
+  const bright=Math.max(0,(f.brightness||100)+(f.exposure||0)*0.5);
+  const contrast=(f.contrast||100)+(f.clarity||0)*0.3;
+  const sat=(f.saturate||100)+(f.vibrance||0)*0.5;
+  return `brightness(${bright/100}) contrast(${contrast/100}) saturate(${sat/100}) hue-rotate(${f.hue||0}deg) blur(${f.blur||0}px) sepia(${(f.sepia||0)/100}) invert(${(f.invert||0)/100})`;
+}
+
+// ── COLOR GRADE ──
+function applyColorGrade(grade,f){
+  ctx2d.save();
+  // Temperature (warm/cool tint)
+  const temp=f?f.temperature||0:0;
+  if(temp>0){ctx2d.fillStyle=`rgba(255,${140-temp},0,${temp/600})`;ctx2d.fillRect(0,0,previewW,previewH);}
+  else if(temp<0){ctx2d.fillStyle=`rgba(0,${120+temp},255,${Math.abs(temp)/600})`;ctx2d.fillRect(0,0,previewW,previewH);}
+  // Tint (green-magenta)
+  const tint=f?f.tint||0:0;
+  if(tint>0){ctx2d.fillStyle=`rgba(255,0,255,${tint/800})`;ctx2d.fillRect(0,0,previewW,previewH);}
+  else if(tint<0){ctx2d.fillStyle=`rgba(0,255,0,${Math.abs(tint)/800})`;ctx2d.fillRect(0,0,previewW,previewH);}
+  // Highlights/shadows
+  if(f&&f.highlights>0){ctx2d.fillStyle=`rgba(255,255,255,${f.highlights/800})`;ctx2d.fillRect(0,0,previewW,previewH);}
+  if(f&&f.shadows<0){ctx2d.fillStyle=`rgba(0,0,0,${Math.abs(f.shadows)/500})`;ctx2d.fillRect(0,0,previewW,previewH);}
+  if(f&&f.blacks<0){ctx2d.fillStyle=`rgba(0,0,0,${Math.abs(f.blacks)/400})`;ctx2d.fillRect(0,0,previewW,previewH);}
+  // Grade overlays
+  const fills={cinematic:'rgba(0,5,30,0.18)',warm:'rgba(45,18,0,0.16)',cool:'rgba(0,12,45,0.16)',noir:'rgba(0,0,0,0.28)',vintage:'rgba(55,28,0,0.14)'};
+  if(grade&&fills[grade]){ctx2d.fillStyle=fills[grade];ctx2d.fillRect(0,0,previewW,previewH);}
+  // Vignette
+  const vig=f?(f.vignette||0):35;
+  if(vig>0){
+    const vg=ctx2d.createRadialGradient(previewW/2,previewH/2,previewH*.18,previewW/2,previewH/2,previewH*.78);
+    vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,`rgba(0,0,0,${vig/150})`);
+    ctx2d.fillStyle=vg;ctx2d.fillRect(0,0,previewW,previewH);
+  }
+  // Grain
+  const grain=f?f.grain||0:0;
+  if(grain>0){for(let i=0;i<grain*20;i++){ctx2d.fillStyle=`rgba(${Math.random()>0.5?255:0},${Math.random()>0.5?255:0},${Math.random()>0.5?255:0},${Math.random()*grain/400})`;ctx2d.fillRect(Math.random()*previewW,Math.random()*previewH,1,1);}}
+  // Duotone
+  if(f&&f.duotone&&f.duotone!=='none'){
+    const dt={
+      'lime-black':['rgba(200,255,0,0.3)','rgba(0,0,0,0.5)'],
+      'blue-orange':['rgba(30,80,255,0.25)','rgba(255,120,0,0.25)'],
+      'purple-yellow':['rgba(120,0,255,0.25)','rgba(255,200,0,0.25)'],
+      'red-cyan':['rgba(255,0,60,0.25)','rgba(0,220,200,0.25)'],
+      'pink-teal':['rgba(255,80,160,0.25)','rgba(0,200,180,0.25)'],
+    };
+    if(dt[f.duotone]){
+      ctx2d.fillStyle=dt[f.duotone][0];ctx2d.fillRect(0,0,previewW,previewH);
+      ctx2d.globalCompositeOperation='multiply';
+      ctx2d.fillStyle=dt[f.duotone][1];ctx2d.fillRect(0,0,previewW,previewH);
+      ctx2d.globalCompositeOperation='source-over';
+    }
+  }
+  // Posterize (simulate with repeated contrast)
+  if(f&&f.posterize>0){
+    const levels=Math.max(2,Math.round(8-f.posterize/14));
+    ctx2d.globalAlpha=f.posterize/200;ctx2d.fillStyle='rgba(0,0,0,0.1)';ctx2d.fillRect(0,0,previewW,previewH);
+    ctx2d.globalAlpha=1;
+  }
+  // Glitch lines
+  if(f&&f.glitch>0&&Math.random()<f.glitch/100*0.4){
+    for(let i=0;i<Math.floor(f.glitch/15);i++){
+      const gy=Math.random()*previewH,gh=1+Math.random()*4,gx=(Math.random()-.5)*f.glitch*.5;
+      try{ctx2d.drawImage(previewCanvas,0,gy,previewW,gh,gx,gy,previewW,gh);}catch(e){}
+      if(Math.random()<0.3){ctx2d.fillStyle=`rgba(200,255,0,${Math.random()*0.4})`;ctx2d.fillRect(0,gy,previewW,gh);}
+    }
+  }
+  ctx2d.restore();
+}
+
+// ── CANVAS FX ──
+function applyCanvasFxDraw(fxId){
+  if(!fxId||fxId==='none')return;
+  ctx2d.save();
+  if(fxId==='scanlines'){
+    for(let y=0;y<previewH;y+=3){ctx2d.fillStyle='rgba(0,0,0,0.18)';ctx2d.fillRect(0,y,previewW,1.5);}
+  }else if(fxId==='vhs'){
+    for(let y=0;y<previewH;y+=4){if(Math.random()<0.08){ctx2d.fillStyle='rgba(255,255,255,0.06)';ctx2d.fillRect(0,y,previewW,2);}}
+    ctx2d.fillStyle='rgba(200,255,0,0.03)';ctx2d.fillRect(0,0,previewW,previewH);
+  }else if(fxId==='tiltshift'){
+    const g=ctx2d.createLinearGradient(0,0,0,previewH);
+    g.addColorStop(0,'rgba(0,0,0,0.5)');g.addColorStop(0.25,'rgba(0,0,0,0)');
+    g.addColorStop(0.75,'rgba(0,0,0,0)');g.addColorStop(1,'rgba(0,0,0,0.5)');
+    ctx2d.fillStyle=g;ctx2d.fillRect(0,0,previewW,previewH);
+  }else if(fxId==='lightleak'){
+    const g=ctx2d.createRadialGradient(previewW*.85,previewH*.15,0,previewW*.85,previewH*.15,previewW*.6);
+    g.addColorStop(0,'rgba(255,200,50,0.35)');g.addColorStop(0.5,'rgba(255,100,0,0.15)');g.addColorStop(1,'rgba(255,50,0,0)');
+    ctx2d.fillStyle=g;ctx2d.fillRect(0,0,previewW,previewH);
+  }else if(fxId==='chromabb'){
+    try{
+      ctx2d.globalAlpha=0.5;
+      ctx2d.drawImage(previewCanvas,3,0,previewW,previewH);
+      ctx2d.globalAlpha=0.3;ctx2d.globalCompositeOperation='screen';
+      ctx2d.drawImage(previewCanvas,-3,0,previewW,previewH);
+      ctx2d.globalCompositeOperation='source-over';ctx2d.globalAlpha=1;
+    }catch(e){}
+  }else if(fxId==='rgb_split'){
+    try{
+      ctx2d.globalAlpha=0.4;
+      ctx2d.globalCompositeOperation='screen';
+      ctx2d.drawImage(previewCanvas,5,0,previewW,previewH);
+      ctx2d.drawImage(previewCanvas,-5,0,previewW,previewH);
+      ctx2d.globalCompositeOperation='source-over';ctx2d.globalAlpha=1;
+    }catch(e){}
+  }else if(fxId==='pixelate'){
+    const ps=Math.floor(previewW/60);
+    ctx2d.imageSmoothingEnabled=false;
+    const tmp=document.createElement('canvas');tmp.width=previewW/ps;tmp.height=previewH/ps;
+    const t2=tmp.getContext('2d');t2.drawImage(previewCanvas,0,0,previewW/ps,previewH/ps);
+    ctx2d.drawImage(tmp,0,0,previewW,previewH);
+    ctx2d.imageSmoothingEnabled=true;
+  }else if(fxId==='halftone'){
+    const gs=8;
+    for(let gy=0;gy<previewH;gy+=gs*2)for(let gx=0;gx<previewW;gx+=gs*2){
+      ctx2d.fillStyle='rgba(0,0,0,0.1)';ctx2d.beginPath();ctx2d.arc(gx+gs/2,gy+gs/2,gs*0.4,0,Math.PI*2);ctx2d.fill();
+    }
+  }else if(fxId==='oldtv'){
+    // scanlines + noise + vignette
+    for(let y=0;y<previewH;y+=2){ctx2d.fillStyle='rgba(0,0,0,0.15)';ctx2d.fillRect(0,y,previewW,1);}
+    for(let i=0;i<200;i++){ctx2d.fillStyle=`rgba(255,255,255,${Math.random()*0.05})`;ctx2d.fillRect(Math.random()*previewW,Math.random()*previewH,2,1);}
+    const v=ctx2d.createRadialGradient(previewW/2,previewH/2,previewH*.2,previewW/2,previewH/2,previewH*.8);
+    v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(0,0,0,0.55)');
+    ctx2d.fillStyle=v;ctx2d.fillRect(0,0,previewW,previewH);
+  }
+  ctx2d.restore();
+}
+
+// ── CROP rendering helper ──
+function applyCrop(cl,dx,dy,dw,dh){
+  const cT=(cl.cropTop||0)/100,cB=(cl.cropBottom||0)/100,cL=(cl.cropLeft||0)/100,cR=(cl.cropRight||0)/100;
+  if(cT===0&&cB===0&&cL===0&&cR===0)return{sdx:dx,sdy:dy,sdw:dw,sdh:dh};
+  return{sdx:dx+dw*cL,sdy:dy+dh*cT,sdw:dw*(1-cL-cR),sdh:dh*(1-cT-cB)};
 }
 
 // ── TEXT OVERLAYS ──
@@ -1071,11 +1522,10 @@ document.addEventListener('keydown',e=>{
 buildFilterPanel();
 buildSfxPanel();
 renderTL();renderPreview();
-
-// resize canvas on window resize
 window.addEventListener('resize',()=>resizePreviewCanvas());
 window.dispatchEvent(new Event('resize'));
 id('fitModeBtn').textContent='\u2b1c Fit';
+AC&&AC.resume().catch(()=>{});
 </script>
 </body>
 </html>
