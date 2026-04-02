@@ -28,6 +28,7 @@
     overflow-x: hidden;
   }
 
+  /* COVER */
   .cover {
     min-height: 100vh;
     background: var(--ink);
@@ -123,6 +124,7 @@
     background: linear-gradient(to bottom, rgba(201,168,76,0.5), transparent);
   }
 
+  /* SECTIONS */
   section { padding: 96px 0; }
   .container { max-width: 1080px; margin: 0 auto; padding: 0 48px; }
 
@@ -152,6 +154,7 @@
     line-height: 1.8;
   }
 
+  /* OVERVIEW */
   .overview { background: var(--cream); border-top: 1px solid var(--border); }
 
   .cards {
@@ -190,10 +193,12 @@
     color: var(--gold);
   }
 
+  /* DARK SECTION */
   .dark { background: var(--ink); }
   .dark .sec-title { color: #fff; }
   .dark .sec-body { color: rgba(255,255,255,0.5); }
 
+  /* IMAGES */
   .poster-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -241,6 +246,7 @@
 
   .full-img img { width: 100%; height: auto; display: block; }
 
+  /* RATIONALE */
   .rationale-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -284,6 +290,7 @@
   .rat-body { font-size: 13px; line-height: 1.7; color: var(--muted); }
   .dark-card .rat-body { color: rgba(255,255,255,0.45); }
 
+  /* SWATCHES */
   .swatches {
     display: flex;
     gap: 16px;
@@ -309,6 +316,7 @@
 
   .dark .swatch-name { color: rgba(255,255,255,0.4); }
 
+  /* BILLBOARD PAIR */
   .bb-pair {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -319,12 +327,43 @@
   .bb-frame { border-radius: 4px; overflow: hidden; }
   .bb-frame img { width: 100%; height: auto; display: block; }
 
+  /* RULE */
   hr { border: none; border-top: 1px solid var(--border); }
   .dark hr { border-color: rgba(255,255,255,0.1); }
 
+  /* CLOSING NOTE */
+  .closing {
+    background: var(--ink);
+    padding: 80px 0;
+    text-align: center;
+  }
+
+  .closing-inner { max-width: 600px; margin: 0 auto; padding: 0 40px; }
+
+  .closing-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(22px, 3vw, 32px);
+    font-weight: 300;
+    font-style: italic;
+    color: #fff;
+    line-height: 1.5;
+    margin-bottom: 28px;
+  }
+
+  .closing-text em { color: var(--gold); font-style: normal; }
+
+  .closing-body {
+    font-size: 14px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.8;
+    margin-bottom: 36px;
+  }
+
+  /* FOOTER */
   footer {
     background: var(--ink);
-    padding: 56px 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 40px 0;
     text-align: center;
   }
 
@@ -361,6 +400,7 @@
 
   .footer-links a:hover { color: var(--gold); }
 
+  /* REVEAL */
   .reveal {
     opacity: 0;
     transform: translateY(28px);
@@ -386,7 +426,7 @@
 
 <!-- COVER -->
 <div class="cover">
-  <p class="eyebrow">Case Study · Film Key Art Design</p>
+  <p class="eyebrow">Creative Assessment &nbsp;·&nbsp; Film Key Art Design</p>
   <h1 class="cover-title">Situation</h1>
   <p class="cover-sub">Love or Hate</p>
   <div class="meta-row">
@@ -403,7 +443,7 @@
       <div class="meta-val">Key Art + Billboards</div>
     </div>
     <div class="meta-item">
-      <div class="meta-label">Designer</div>
+      <div class="meta-label">Submitted by</div>
       <div class="meta-val">Nifemi Adeniran</div>
     </div>
   </div>
@@ -416,17 +456,17 @@
 <!-- OVERVIEW -->
 <section class="overview reveal">
   <div class="container">
-    <p class="sec-eye">01 · The Brief</p>
-    <h2 class="sec-title">What they <em>needed</em></h2>
+    <p class="sec-eye">01 &nbsp;&middot;&nbsp; The Brief</p>
+    <h2 class="sec-title">What the <em>brief asked for</em></h2>
     <p class="sec-body">
-      FaithStream is Africa's first faith-based streaming platform. They came to me with a romantic comedy brief. They wanted two different directions, each strong on its own.
+      FaithStream is Africa's first faith-based streaming platform. The brief called for two distinct key visual concepts for a romantic comedy — each one strong enough to stand on its own, and both designed with a Nigerian Gen Z audience in mind.
     </p>
 
     <div class="cards">
       <div class="card">
         <div class="card-title">The Story</div>
         <div class="card-body">
-          A woman tries to escape family pressure at a gathering. In the moment, she says she is engaged to a stranger standing right there. The problem is, the lie starts to feel real.
+          A woman tries to dodge family pressure at a gathering. In the moment, she says she is engaged — to a complete stranger standing right there. The problem is, the lie starts to feel more real than she expected.
         </div>
         <div class="tags">
           <span class="tag">Rom-Com</span>
@@ -437,7 +477,7 @@
       <div class="card">
         <div class="card-title">The Ask</div>
         <div class="card-body">
-          Two poster ideas with different looks. Each one had to work for both posters and billboards. It had to feel Nigerian, feel current, and tell the story in its own way.
+          Two poster concepts, each with its own look. Both had to work across portrait posters and wide billboard formats. They needed to feel Nigerian, feel current, and each tell the story differently.
         </div>
         <div class="tags">
           <span class="tag">2 Concepts</span>
@@ -454,24 +494,24 @@
 <!-- OPTION A -->
 <section class="dark reveal">
   <div class="container">
-    <p class="sec-eye">02 · Option A</p>
-    <h2 class="sec-title">The Golden Era <em>warm, elevated, cinematic</em></h2>
+    <p class="sec-eye">02 &nbsp;&middot;&nbsp; Option A</p>
+    <h2 class="sec-title">The Golden Era &mdash; <em>warm, elevated, cinematic</em></h2>
     <p class="sec-body">
-      This direction leans into something timeless. A sky that moves from deep teal to warm sand. Gold lettering. A soft sunburst behind the cast. It feels like a celebration before you read the title.
+      This direction leans into something timeless. A sky that moves from deep teal to warm sand. Gold lettering. A soft sunburst behind the cast. It feels like a celebration before you have even read the title.
     </p>
 
     <div class="poster-grid">
       <div class="img-frame">
-        <img src="HOUSE-OF-FAITH---SITUATION---MOVIE---X.png">
+        <img src="HOUSE-OF-FAITH---SITUATION---MOVIE---X.png" alt="Situation Poster A — Portrait" loading="lazy">
         <div class="img-cap">Portrait Key Art</div>
       </div>
       <div class="stack">
         <div class="img-frame">
-          <img src="HOUSE-OF-FAITH---SITUATION---MOVIE---1X---landscape.png">
+          <img src="HOUSE-OF-FAITH---SITUATION---MOVIE---1X---landscape.png" alt="Situation Landscape A" loading="lazy">
           <div class="img-cap">Landscape / Banner</div>
         </div>
         <div class="img-frame">
-          <img src="BILLBOARD-11.png">
+          <img src="BILLBOARD-11.png" alt="Billboard Mockup A" loading="lazy">
           <div class="img-cap">Billboard Mockup</div>
         </div>
       </div>
@@ -482,23 +522,27 @@
         <div class="rat-num">01</div>
         <div class="rat-title">The Colours</div>
         <div class="rat-body">
-          The teal to sand gradient feels like a Lagos morning sky. Warm and familiar. The gold comes from Yoruba celebration culture. It feels rich but still local.
+          The teal to sand gradient feels like a Lagos morning sky — warm and familiar. The gold comes from Yoruba celebration culture: aso-oke, jewellery, ceremony. It feels rich but still rooted and local.
+        </div>
+        <div class="swatches">
+          <div class="swatch"><div class="swatch-dot" style="background:#7ecbca;"></div><div class="swatch-name">Sky Teal</div></div>
+          <div class="swatch"><div class="swatch-dot" style="background:#e8d5a3;"></div><div class="swatch-name">Warm Sand</div></div>
+          <div class="swatch"><div class="swatch-dot" style="background:#c9a84c;"></div><div class="swatch-name">Ceremony Gold</div></div>
+          <div class="swatch"><div class="swatch-dot" style="background:#8b1a1a;"></div><div class="swatch-name">Deep Red</div></div>
         </div>
       </div>
-
       <div class="rat-card dark-card">
         <div class="rat-num">02</div>
         <div class="rat-title">The Typography</div>
         <div class="rat-body">
-          The large S acts as the centre of the design. Almost like a wedding monogram. The rest of the title creates contrast. It is bold and easy to remember.
+          The large S acts as the centre of the design — almost like a wedding invitation monogram. The rest of the title in gold serif beside it creates contrast. It is bold, easy to remember, and a little mysterious.
         </div>
       </div>
-
       <div class="rat-card dark-card">
         <div class="rat-num">03</div>
         <div class="rat-title">The Composition</div>
         <div class="rat-body">
-          The sunburst gives it a sense of importance. The female lead is front and centre. You can tell she carries the story without reading anything.
+          The sunburst gives the whole thing a sense of occasion — fitting for a faith platform. The female lead is front and centre. You can tell she carries the story without reading a single word.
         </div>
       </div>
     </div>
@@ -508,24 +552,24 @@
 <!-- OPTION B -->
 <section class="overview reveal">
   <div class="container">
-    <p class="sec-eye">03 · Option B</p>
-    <h2 class="sec-title">The Street Code <em>bold, alive, very now</em></h2>
+    <p class="sec-eye">03 &nbsp;&middot;&nbsp; Option B</p>
+    <h2 class="sec-title">The Street Code &mdash; <em>bold, alive, very now</em></h2>
     <p class="sec-body">
-      This one speaks more to a younger audience. A textured cream base, petals in motion, and a hand-drawn title. It feels warm but full of energy. The kind of poster you pause for.
+      This one speaks directly to a younger audience. A textured cream base, rose petals in motion overhead, and a hand-drawn title with arrows. It feels warm but full of energy. The kind of poster you stop scrolling for.
     </p>
 
     <div class="poster-grid">
       <div class="img-frame">
-        <img src="HOUSE-OF-FAITH---SITUATION---MOVIE---2X.png">
+        <img src="HOUSE-OF-FAITH---SITUATION---MOVIE---2X.png" alt="Situation Poster B — Portrait" loading="lazy">
         <div class="img-cap">Portrait Key Art</div>
       </div>
       <div class="stack">
         <div class="img-frame">
-          <img src="HOUSE-OF-FAITH---SITUATION---MOVIE---2X---landscape.png">
+          <img src="HOUSE-OF-FAITH---SITUATION---MOVIE---2X---landscape.png" alt="Situation Landscape B" loading="lazy">
           <div class="img-cap">Landscape / Banner</div>
         </div>
         <div class="img-frame">
-          <img src="BILLBOARD-2.png">
+          <img src="BILLBOARD-2.png" alt="Billboard Day" loading="lazy">
           <div class="img-cap">Billboard — Day</div>
         </div>
       </div>
@@ -534,14 +578,12 @@
     <div class="full-img reveal">
       <div class="bb-pair">
         <div class="bb-frame">
-          <img src="BILLBOARD-22.png">
+          <img src="BILLBOARD-22.png" alt="Bus Stop Mockup Night" loading="lazy">
         </div>
         <div style="display:flex;align-items:center;padding:32px 16px;">
           <div>
             <p class="sec-eye" style="margin-bottom:12px;">Night OOH Mockup</p>
-            <p style="font-size:14px;color:var(--muted);line-height:1.8;">
-              The design still works at night. The background glows, and the red title stands out clearly even from a distance.
-            </p>
+            <p style="font-size:14px;color:var(--muted);line-height:1.8;">The design holds up at night too. The cream background glows warm under backlighting, and the red script title stands out clearly even from a distance. It works on every surface.</p>
           </div>
         </div>
       </div>
@@ -552,23 +594,27 @@
         <div class="rat-num">01</div>
         <div class="rat-title">The Colours</div>
         <div class="rat-body">
-          The cream background feels soft and real. The red carries the emotion. It is bold and easy to read even from far away.
+          The aged cream background feels soft and tactile — something real and handmade. The coral-red script carries all the emotion. Bold enough to read from across the road, warm enough to feel inviting.
+        </div>
+        <div class="swatches">
+          <div class="swatch"><div class="swatch-dot" style="background:#f2ece0;border:1px solid #d4c9bb;"></div><div class="swatch-name">Aged Cream</div></div>
+          <div class="swatch"><div class="swatch-dot" style="background:#e8474a;"></div><div class="swatch-name">Coral Red</div></div>
+          <div class="swatch"><div class="swatch-dot" style="background:#c0392b;"></div><div class="swatch-name">Deep Rose</div></div>
+          <div class="swatch"><div class="swatch-dot" style="background:#8b2020;"></div><div class="swatch-name">Crimson</div></div>
         </div>
       </div>
-
       <div class="rat-card">
         <div class="rat-num">02</div>
         <div class="rat-title">The Typography</div>
         <div class="rat-body">
-          The hand-drawn title adds movement. It feels alive. "Love or hate" is simple and relatable.
+          The hand-drawn title with arrows creates movement — it looks like it is going somewhere. "Love or hate" above it is short and relatable. The arrows also work as a metaphor for the push and pull between the two leads.
         </div>
       </div>
-
       <div class="rat-card">
         <div class="rat-num">03</div>
         <div class="rat-title">The Rose Petals</div>
         <div class="rat-body">
-          The petals connect to celebration. Weddings, parties, special moments. It feels familiar and rooted.
+          Roses in Nigeria mean celebration — you see them at weddings, owambes, and special occasions. Placing them as a crown above the female lead makes the design feel culturally grounded, not just decorative.
         </div>
       </div>
     </div>
@@ -577,9 +623,23 @@
 
 <hr>
 
+<!-- CLOSING NOTE -->
+<section class="closing reveal">
+  <div class="closing-inner">
+    <p class="closing-text">
+      Two directions. One story. Both designed to <em>feel Nigerian</em> and work across every format.
+    </p>
+    <p class="closing-body">
+      I approached this brief the same way I approach every project — with attention to what the audience actually responds to, and what the platform stands for. FaithStream is building something meaningful for African audiences, and I would love to be part of that team.
+    </p>
+    <p style="font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);">Nifemi Adeniran &nbsp;&middot;&nbsp; Creative Designer</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer>
   <div class="footer-name">Nifemi Adeniran</div>
-  <div class="footer-role">Creative Director · Κάλλος</div>
+  <div class="footer-role">Creative Designer</div>
   <div class="footer-links">
     <a href="https://mannorr.com">mannorr.com</a>
     <a href="mailto:Ag.oluwanifemi@gmail.com">Ag.oluwanifemi@gmail.com</a>
@@ -593,7 +653,6 @@ const obs = new IntersectionObserver(entries => {
     if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
   });
 }, { threshold: 0.08 });
-
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
 
