@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — MANNORR</title>
+<meta name="description" content="Creative Director and Visual Designer with 8+ years crafting compelling brand identities, digital campaigns, and visual systems. Based in Dublin, Ireland.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+/* ─── TOKENS ─────────────────────────────────────────── */
+[data-theme="dark"] {
+  --bg: #0a0a0a;
+  --fg: #e8e4df;
+  --accent: #c8ff00;
+  --muted: #5a5651;
+  --card: #111111;
+  --card-hover: #161616;
+  --border: rgba(255,255,255,0.06);
+  --text-secondary: rgba(232,228,223,0.7);
+  --text-tertiary: rgba(232,228,223,0.45);
+  --stroke-color: rgba(255,255,255,0.04);
+  --grain-opacity: 0.035;
+}
+[data-theme="light"] {
+  --bg: #f5f2ed;
+  --fg: #1a1a1a;
+  --accent: #5a00e6;
+  --muted: #8a8580;
+  --card: #eae6e0;
+  --card-hover: #e0dcd6;
+  --border: rgba(0,0,0,0.08);
+  --text-secondary: rgba(26,26,26,0.7);
+  --text-tertiary: rgba(26,26,26,0.45);
+  --stroke-color: rgba(0,0,0,0.06);
+  --grain-opacity: 0.02;
+}
+:root {
+  --serif: 'Instrument Serif', serif;
+  --mono: 'DM Mono', monospace;
+  --display: 'Syne', sans-serif;
+}
+
+/* ─── RESET ─────────────────────────────────────────── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--mono);
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: crosshair;
+  transition: background .5s, color .5s;
+}
+
+/* ─── GRAIN ─────────────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: var(--grain-opacity);
+  pointer-events: none;
+  z-index: 9000;
+}
+
+/* ─── CURSOR ─────────────────────────────────────────── */
+.cursor-dot {
+  position: fixed; width:8px; height:8px;
+  background: var(--accent); border-radius:50%;
+  pointer-events:none; z-index:10000; mix-blend-mode:difference;
+  transform: translate(-50%,-50%);
+  transition: transform .1s;
+}
+.cursor-ring {
+  position: fixed; width:40px; height:40px;
+  border: 1px solid var(--accent); border-radius:50%;
+  pointer-events:none; z-index:10000; mix-blend-mode:difference;
+  transform: translate(-50%,-50%);
+  transition: transform .15s, width .3s, height .3s;
+}
+
+/* ─── LOADER ─────────────────────────────────────────── */
+.loader {
+  position: fixed; inset:0; background:var(--bg);
+  z-index:9999; display:flex; align-items:center;
+  justify-content:center; flex-direction:column;
+  transition: opacity .8s, visibility .8s;
+}
+.loader.hidden { opacity:0; visibility:hidden; }
+.loader-text {
+  font-family: var(--display); font-size: clamp(2rem,8vw,5rem);
+  font-weight:800; letter-spacing:-.03em; overflow:hidden;
+}
+.loader-line {
+  width:0; height:2px; background:var(--accent);
+  margin-top:1.5rem;
+  animation: expandLine 1.6s cubic-bezier(.16,1,.3,1) .4s forwards;
+}
+@keyframes expandLine { to { width: 220px; } }
+
+/* ─── NAV ─────────────────────────────────────────── */
+nav {
+  position: fixed; top:0; left:0; right:0;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:1.5rem 5vw; z-index:200;
+  border-bottom: 1px solid var(--border);
+  background: rgba(10,10,10,0.85);
+  backdrop-filter: blur(16px);
+  transition: background .5s;
+}
+[data-theme="light"] nav { background: rgba(245,242,237,0.85); }
+
+.nav-logo {
+  font-family: var(--display); font-weight:800; font-size:1.1rem;
+  letter-spacing:-.02em; text-transform:uppercase;
+  text-decoration:none; color:var(--fg);
+}
+.nav-logo .dot {
+  display:inline-block; width:8px; height:8px;
+  background:var(--accent); border-radius:50%;
+  margin-left:2px; animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.6;transform:scale(.85)} }
+
+.nav-links { display:flex; align-items:center; gap:2.5rem; list-style:none; }
+.nav-links a {
+  color:var(--fg); text-decoration:none;
+  font-family:var(--mono); font-size:.75rem;
+  text-transform:uppercase; letter-spacing:.15em;
+  position:relative; padding-bottom:2px;
+  transition: color .3s;
+}
+.nav-links a::after {
+  content:''; position:absolute; bottom:0; left:0;
+  width:0; height:1px; background:var(--accent);
+  transition: width .4s cubic-bezier(.16,1,.3,1);
+}
+.nav-links a:hover::after, .nav-links a.active::after { width:100%; }
+.nav-links a.active { color: var(--accent); }
+
+.theme-toggle {
+  background:none; border:1px solid var(--fg); color:var(--fg);
+  width:32px; height:32px; border-radius:50%; cursor:pointer;
+  font-size:.85rem; display:flex; align-items:center; justify-content:center;
+  transition: border-color .3s, transform .3s; mix-blend-mode:difference;
+}
+.theme-toggle:hover { border-color:var(--accent); transform:rotate(180deg); }
+
+.nav-toggle { display:none; background:none; border:none; color:var(--fg); cursor:pointer; font-size:1.2rem; }
+
+/* ─── PAGE HEADER ─────────────────────────────────── */
+.page-header {
+  padding: 160px 5vw 80px;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+.page-header::before {
+  content: 'ABOUT';
+  position:absolute; top:80px; right:0;
+  font-family:var(--display); font-size:clamp(6rem,18vw,14rem);
+  font-weight:800; color:transparent;
+  -webkit-text-stroke: 1px var(--stroke-color);
+  letter-spacing:-.04em; pointer-events:none; line-height:1;
+}
+
+.page-eyebrow {
+  font-size:.6rem; text-transform:uppercase; letter-spacing:.35em;
+  color:var(--muted); margin-bottom:1.5rem;
+  display:flex; align-items:center; gap:1rem;
+}
+.page-eyebrow::before {
+  content:''; display:inline-block;
+  width:30px; height:1px; background:var(--accent);
+}
+
+.page-title {
+  font-family:var(--display);
+  font-size: clamp(3rem,8vw,7rem);
+  font-weight:800; line-height:.9;
+  letter-spacing:-.04em; text-transform:uppercase;
+  margin-bottom:2.5rem;
+}
+.page-title .italic {
+  font-family:var(--serif); font-style:italic;
+  font-weight:400; text-transform:none;
+}
+.page-title .accent { color:var(--accent); }
+
+.page-header-meta {
+  display:flex; gap:3rem; flex-wrap:wrap;
+}
+.meta-item label {
+  font-size:.55rem; text-transform:uppercase; letter-spacing:.25em;
+  color:var(--accent); display:block; margin-bottom:.35rem;
+}
+.meta-item span { font-size:.78rem; color:var(--text-secondary); }
+
+/* ─── LAYOUT ─────────────────────────────────────────── */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 5vw;
+}
+
+section.about-section {
+  padding: 100px 5vw;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-bottom: 1px solid var(--border);
+}
+
+.section-label {
+  font-size:.6rem; text-transform:uppercase; letter-spacing:.35em;
+  color:var(--accent); margin-bottom:3rem;
+  display:flex; align-items:center; gap:1rem;
+}
+.section-label::after {
+  content:''; flex:1; height:1px;
+  background: linear-gradient(to right, rgba(200,255,0,.3), transparent);
+}
+
+h2.section-title {
+  font-family:var(--display);
+  font-size: clamp(2rem,5vw,3.5rem);
+  font-weight:800; text-transform:uppercase;
+  letter-spacing:-.03em; line-height:1;
+  margin-bottom:3.5rem;
+}
+h2.section-title .italic {
+  font-family:var(--serif); font-style:italic;
+  font-weight:400; text-transform:none;
+}
+
+/* ─── BIO SECTION ─────────────────────────────────── */
+.bio-layout {
+  display:grid;
+  grid-template-columns: 1fr 420px;
+  gap:6rem;
+  align-items:start;
+}
+.bio-text p {
+  font-size:.875rem; line-height:2.1;
+  color:var(--text-secondary);
+  margin-bottom:1.5rem;
+}
+.bio-text p:last-child { margin-bottom:0; }
+.bio-text strong { color:var(--fg); font-weight:500; }
+
+.bio-sidebar { display:flex; flex-direction:column; gap:2px; }
+
+.sidebar-block {
+  background:var(--card); border:1px solid var(--border);
+  padding:2rem;
+  position:relative; overflow:hidden;
+  transition: border-color .3s;
+}
+.sidebar-block:hover { border-color:rgba(200,255,0,.2); }
+.sidebar-block::before {
+  content:''; position:absolute; top:0; left:0;
+  width:2px; height:0; background:var(--accent);
+  transition: height .5s cubic-bezier(.16,1,.3,1);
+}
+.sidebar-block:hover::before { height:100%; }
+.sidebar-block label {
+  font-size:.55rem; text-transform:uppercase; letter-spacing:.3em;
+  color:var(--accent); display:block; margin-bottom:1rem;
+}
+.sidebar-block ul { list-style:none; }
+.sidebar-block ul li {
+  font-size:.75rem; line-height:2.2;
+  color:var(--text-tertiary);
+  padding-left:.8rem; position:relative;
+}
+.sidebar-block ul li::before {
+  content:'→'; position:absolute; left:0;
+  color:var(--muted); font-size:.65rem;
+}
+
+/* ─── STATS ─────────────────────────────────────────── */
+.stats-row {
+  display:grid; grid-template-columns:repeat(4,1fr);
+  gap:2px; margin-bottom:0;
+}
+.stat-item {
+  background:var(--card); border:1px solid var(--border);
+  padding:2.5rem 2rem; text-align:center;
+  transition: border-color .3s;
+}
+.stat-item:hover { border-color:rgba(200,255,0,.2); }
+.stat-number {
+  font-family:var(--display); font-size:clamp(2.5rem,4vw,3.5rem);
+  font-weight:800; letter-spacing:-.03em; color:var(--accent);
+  line-height:1; margin-bottom:.6rem;
+}
+.stat-label {
+  font-size:.58rem; text-transform:uppercase;
+  letter-spacing:.2em; color:var(--muted);
+}
+
+/* ─── EXPERIENCE ─────────────────────────────────────── */
+.exp-list { display:flex; flex-direction:column; gap:0; }
+.exp-item {
+  display:grid; grid-template-columns:160px 1fr;
+  gap:3rem; padding:2.5rem 0;
+  border-bottom:1px solid var(--border);
+  position:relative;
+}
+.exp-item::before {
+  content:''; position:absolute; left:155px; top:0; bottom:0;
+  width:1px; background:var(--border);
+}
+.exp-date {
+  font-size:.62rem; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--muted); padding-top:.3rem; line-height:1.6;
+}
+.exp-body {}
+.exp-role {
+  font-family:var(--display); font-weight:600; font-size:1.05rem;
+  margin-bottom:.3rem; letter-spacing:-.01em;
+}
+.exp-company {
+  font-size:.72rem; color:var(--accent); letter-spacing:.06em;
+  margin-bottom:.9rem;
+}
+.exp-desc {
+  font-size:.78rem; line-height:1.95;
+  color:var(--text-tertiary); max-width:520px;
+}
+.exp-tags {
+  display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1rem;
+}
+.exp-tag {
+  font-size:.55rem; text-transform:uppercase; letter-spacing:.15em;
+  border:1px solid var(--border); padding:.3rem .8rem;
+  color:var(--muted);
+}
+
+/* ─── EDUCATION ─────────────────────────────────────── */
+.edu-list { display:flex; flex-direction:column; gap:2px; }
+.edu-item {
+  background:var(--card); border:1px solid var(--border);
+  padding:2rem 2.5rem;
+  display:grid; grid-template-columns:1fr auto;
+  align-items:center; gap:2rem;
+  transition: border-color .3s;
+}
+.edu-item:hover { border-color:rgba(200,255,0,.15); }
+.edu-degree {
+  font-family:var(--display); font-size:.95rem;
+  font-weight:700; letter-spacing:-.01em; margin-bottom:.35rem;
+}
+.edu-school {
+  font-size:.72rem; color:var(--accent); letter-spacing:.05em;
+}
+.edu-badge {
+  font-size:.55rem; text-transform:uppercase; letter-spacing:.15em;
+  color:var(--muted); border:1px solid var(--border);
+  padding:.35rem .9rem; white-space:nowrap;
+}
+
+/* ────────────────────────────────────────────────────────
+   BRAND GUIDE SECTION — embedded
+──────────────────────────────────────────────────────── */
+.brand-guide-section {
+  padding: 100px 5vw;
+  max-width:1200px;
+  margin:0 auto;
+}
+
+.bg-intro {
+  display:grid; grid-template-columns:1fr 1fr; gap:4rem;
+  margin-bottom:80px; align-items:end;
+}
+.bg-intro-copy p {
+  font-size:.82rem; line-height:2;
+  color:var(--text-secondary);
+}
+.bg-intro-meta { display:flex; flex-direction:column; gap:1rem; }
+.bg-meta-row {
+  display:flex; justify-content:space-between;
+  align-items:center; padding:.8rem 0;
+  border-bottom:1px solid var(--border);
+  font-size:.72rem;
+}
+.bg-meta-row .bm-key {
+  font-size:.55rem; text-transform:uppercase;
+  letter-spacing:.2em; color:var(--muted);
+}
+.bg-meta-row .bm-val { color:var(--fg); }
+
+/* COLOR SWATCHES */
+.bg-color-row {
+  display:flex; gap:0; overflow:hidden;
+  border:1px solid var(--border); margin-bottom:3rem;
+}
+.bg-swatch {
+  flex:1; height:160px;
+  display:flex; flex-direction:column; justify-content:flex-end;
+  padding:1rem; cursor:default;
+  transition: flex .4s cubic-bezier(.16,1,.3,1);
+}
+.bg-swatch:hover { flex:2.2; }
+.bg-swatch .sw-name {
+  font-family:var(--mono); font-size:.6rem; font-weight:500;
+  text-transform:uppercase; letter-spacing:.1em; margin-bottom:.15rem;
+}
+.bg-swatch .sw-hex { font-size:.55rem; opacity:.65; }
+
+.sw-ink { background:#0a0a0a; color:#e8e4df; }
+.sw-chalk { background:#e8e4df; color:#0a0a0a; }
+.sw-volt { background:#c8ff00; color:#0a0a0a; }
+.sw-ash { background:#5a5651; color:#e8e4df; }
+.sw-surface { background:#111111; color:#e8e4df; border-left:1px solid rgba(255,255,255,.08); }
+.sw-violet { background:#5a00e6; color:#fff; }
+
+/* TYPOGRAPHY SPECIMENS */
+.type-specimens { display:flex; flex-direction:column; gap:2px; margin-bottom:4rem; }
+.type-spec {
+  background:var(--card); border:1px solid var(--border);
+  padding:2.5rem 3rem;
+  position:relative;
+}
+.type-spec-meta {
+  display:flex; justify-content:space-between; align-items:center;
+  margin-bottom:1.5rem;
+}
+.type-spec-meta .ts-info label {
+  font-size:.5rem; text-transform:uppercase; letter-spacing:.25em;
+  color:var(--accent); display:block; margin-bottom:.2rem;
+}
+.type-spec-meta .ts-info span { font-size:.68rem; color:var(--text-secondary); }
+.type-spec-meta .ts-tag {
+  font-size:.5rem; text-transform:uppercase; letter-spacing:.18em;
+  color:var(--muted); border:1px solid var(--border); padding:.25rem .65rem;
+}
+.specimen-syne {
+  font-family:var(--display); font-size:clamp(2rem,5vw,4rem);
+  font-weight:800; letter-spacing:-.04em; text-transform:uppercase; line-height:.9;
+}
+.specimen-serif {
+  font-family:var(--serif); font-style:italic; font-size:clamp(2rem,5vw,4rem);
+  font-weight:400; line-height:1.05; color:var(--text-secondary);
+}
+.specimen-mono {
+  font-family:var(--mono); font-size:.75rem; letter-spacing:.1em;
+  line-height:2.2; color:var(--text-secondary); text-transform:uppercase;
+}
+
+/* VOICE TRAITS */
+.voice-traits {
+  display:grid; grid-template-columns:repeat(2,1fr);
+  gap:2px; margin-bottom:4rem;
+}
+.voice-trait {
+  background:var(--card); border:1px solid var(--border);
+  padding:2.5rem; position:relative; overflow:hidden;
+  transition: border-color .3s;
+}
+.voice-trait:hover { border-color:rgba(200,255,0,.15); }
+.voice-trait::before {
+  content:''; position:absolute; top:0; left:0;
+  width:0; height:2px; background:var(--accent);
+  transition: width .5s cubic-bezier(.16,1,.3,1);
+}
+.voice-trait:hover::before { width:100%; }
+.vt-label {
+  font-size:.5rem; text-transform:uppercase; letter-spacing:.3em;
+  color:var(--accent); margin-bottom:.9rem;
+}
+.vt-title {
+  font-family:var(--display); font-size:1.05rem;
+  font-weight:700; letter-spacing:-.01em; margin-bottom:.7rem;
+}
+.vt-body { font-size:.74rem; line-height:1.9; color:var(--text-secondary); }
+
+/* CORE STATEMENTS */
+.statements { display:flex; flex-direction:column; gap:2px; margin-bottom:4rem; }
+.statement-card {
+  background:var(--card); border:1px solid var(--border);
+  padding:3rem; position:relative; overflow:hidden;
+}
+.statement-card::after {
+  content:'"';
+  position:absolute; top:-1.5rem; right:2rem;
+  font-family:var(--serif); font-size:10rem;
+  color:rgba(200,255,0,.04); font-style:italic;
+  line-height:1; pointer-events:none;
+}
+.sc-label {
+  font-size:.5rem; text-transform:uppercase; letter-spacing:.3em;
+  color:var(--accent); margin-bottom:1.2rem;
+}
+.sc-statement {
+  font-family:var(--display); font-size:clamp(1.1rem,2.5vw,1.6rem);
+  font-weight:700; letter-spacing:-.02em; line-height:1.2;
+  margin-bottom:1rem;
+}
+.sc-statement .italic {
+  font-family:var(--serif); font-style:italic; font-weight:400;
+}
+.sc-sub { font-size:.74rem; line-height:1.9; color:var(--text-secondary); max-width:560px; }
+
+/* DO/DONT */
+.do-dont {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:2px; margin-bottom:4rem;
+}
+.dd-col { background:var(--card); border:1px solid var(--border); padding:2.5rem; }
+.dd-head {
+  font-size:.58rem; text-transform:uppercase; letter-spacing:.28em;
+  margin-bottom:1.5rem; display:flex; align-items:center; gap:.5rem;
+}
+.dd-col.do .dd-head { color:var(--accent); }
+.dd-col.dont .dd-head { color:var(--muted); }
+.dd-item {
+  padding:.85rem 1rem; border-left:2px solid;
+  margin-bottom:.8rem; font-size:.72rem; line-height:1.75;
+  color:var(--text-secondary);
+}
+.dd-col.do .dd-item { border-color:var(--accent); background:rgba(200,255,0,.03); }
+.dd-col.dont .dd-item { border-color:var(--muted); background:rgba(255,255,255,.02); }
+.dd-item .di-tag {
+  display:block; font-size:.5rem; text-transform:uppercase;
+  letter-spacing:.18em; margin-bottom:.3rem;
+}
+.dd-col.do .dd-item .di-tag { color:var(--accent); }
+.dd-col.dont .dd-item .di-tag { color:var(--muted); }
+
+/* TAGLINES */
+.tagline-list { list-style:none; margin-bottom:4rem; }
+.tagline-list li {
+  display:flex; align-items:baseline; gap:1.5rem;
+  padding:1.4rem 0; border-bottom:1px solid var(--border);
+  transition: padding-left .3s;
+}
+.tagline-list li:hover { padding-left:.5rem; }
+.tl-num {
+  font-family:var(--mono); font-size:.5rem;
+  color:var(--accent); letter-spacing:.1em; min-width:22px;
+}
+.tl-text {
+  font-family:var(--display); font-size:clamp(.9rem,2vw,1.3rem);
+  font-weight:700; letter-spacing:-.02em; color:var(--fg); line-height:1.2;
+}
+.tl-use {
+  margin-left:auto; font-size:.5rem; text-transform:uppercase;
+  letter-spacing:.18em; color:var(--muted); white-space:nowrap;
+}
+
+/* LOGO DISPLAY */
+.logo-variants {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:2px; margin-bottom:4rem;
+}
+.logo-box {
+  background:var(--card); border:1px solid var(--border);
+  padding:4rem; display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  gap:1.5rem; position:relative;
+}
+.logo-box.light-bg { background:#f5f2ed; }
+.logo-wordmark {
+  font-family:var(--display); font-weight:800;
+  font-size:clamp(2.5rem,5vw,4rem);
+  letter-spacing:.06em; text-transform:uppercase; color:var(--fg);
+}
+.logo-box.light-bg .logo-wordmark { color:#0a0a0a; }
+.logo-wordmark .ld {
+  display:inline-block; width:10px; height:10px;
+  background:var(--accent); border-radius:50%; margin-left:3px; vertical-align:middle;
+}
+.logo-box.light-bg .logo-wordmark .ld { background:#5a00e6; }
+.logo-box-label {
+  font-size:.5rem; text-transform:uppercase; letter-spacing:.22em;
+  color:var(--muted); position:absolute; bottom:1rem; right:1.5rem;
+}
+
+/* QUICK REF TABLE */
+.ref-table {
+  width:100%; border-collapse:collapse; margin-bottom:3rem;
+}
+.ref-table th {
+  font-size:.5rem; text-transform:uppercase; letter-spacing:.25em;
+  color:var(--accent); text-align:left; padding:.9rem 1.2rem;
+  border-bottom:1px solid var(--border);
+  background:rgba(200,255,0,.025);
+}
+.ref-table td {
+  padding:1.1rem 1.2rem; border-bottom:1px solid var(--border);
+  font-size:.72rem; color:var(--text-secondary); line-height:1.8;
+  vertical-align:top;
+}
+.ref-table td:first-child {
+  color:var(--fg); font-weight:500; white-space:nowrap; width:180px;
+}
+.ref-table tr:last-child td { border-bottom:none; }
+.ref-table tr:hover td { background:rgba(255,255,255,.013); }
+
+/* HIGHLIGHT BOX */
+.highlight {
+  border:1px solid rgba(200,255,0,.18);
+  background:rgba(200,255,0,.025);
+  padding:2.5rem; margin-bottom:3rem; position:relative;
+}
+.highlight::before {
+  content:'✦'; position:absolute; top:1rem; left:1.5rem;
+  font-size:.6rem; color:var(--accent);
+}
+.highlight p {
+  font-size:.8rem; line-height:2; color:var(--text-secondary);
+  padding-left:1.5rem;
+}
+.highlight strong { color:var(--fg); font-weight:500; }
+
+/* DIVIDER */
+.divider {
+  display:flex; align-items:center; gap:1.5rem;
+  color:var(--muted); font-size:.58rem; letter-spacing:.28em;
+  text-transform:uppercase; margin:3.5rem 0;
+}
+.divider::before, .divider::after {
+  content:''; flex:1; height:1px; background:var(--border);
+}
+
+/* CTA SECTION */
+.cta-section {
+  padding:100px 5vw; text-align:center;
+  border-top:1px solid var(--border);
+  max-width:1200px; margin:0 auto;
+}
+.cta-eyebrow {
+  font-size:.58rem; text-transform:uppercase; letter-spacing:.35em;
+  color:var(--muted); margin-bottom:1.5rem;
+}
+.cta-title {
+  font-family:var(--display);
+  font-size:clamp(2.5rem,8vw,6rem);
+  font-weight:800; text-transform:uppercase;
+  letter-spacing:-.04em; line-height:1; margin-bottom:1.5rem;
+}
+.cta-title .italic {
+  font-family:var(--serif); font-style:italic;
+  font-weight:400; text-transform:none;
+}
+.cta-sub {
+  font-size:.8rem; color:var(--text-secondary); margin-bottom:3rem;
+  max-width:420px; margin-left:auto; margin-right:auto; line-height:1.9;
+}
+.cta-buttons { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+.btn-primary {
+  display:inline-flex; align-items:center; gap:.8rem;
+  font-family:var(--mono); font-size:.7rem; text-transform:uppercase;
+  letter-spacing:.15em; color:var(--bg); background:var(--accent);
+  text-decoration:none; padding:.9rem 2rem;
+  transition: opacity .3s;
+}
+.btn-primary:hover { opacity:.85; }
+.btn-secondary {
+  display:inline-flex; align-items:center; gap:.6rem;
+  font-family:var(--mono); font-size:.7rem; text-transform:uppercase;
+  letter-spacing:.15em; color:var(--muted);
+  border:1px solid var(--border); text-decoration:none;
+  padding:.9rem 2rem; transition: border-color .3s, color .3s;
+}
+.btn-secondary:hover { border-color:var(--fg); color:var(--fg); }
+
+/* FOOTER */
+footer {
+  padding:3rem 5vw; border-top:1px solid var(--border);
+  display:flex; justify-content:space-between; align-items:center;
+  flex-wrap:wrap; gap:1rem;
+}
+footer .fl { font-family:var(--display); font-size:.9rem; font-weight:800; color:var(--fg); letter-spacing:.04em; }
+footer span { font-size:.58rem; text-transform:uppercase; letter-spacing:.18em; color:var(--muted); }
+
+/* REVEAL */
+.reveal {
+  opacity:0; transform:translateY(28px);
+  transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1);
+}
+.reveal.visible { opacity:1; transform:translateY(0); }
+.reveal-delay-1 { transition-delay:.1s; }
+.reveal-delay-2 { transition-delay:.2s; }
+.reveal-delay-3 { transition-delay:.3s; }
+.reveal-delay-4 { transition-delay:.4s; }
+
+/* MOBILE */
+@media (max-width:900px) {
+  .nav-links { display:none; }
+  .nav-toggle { display:block; }
+  .nav-links.mobile-open {
+    display:flex; flex-direction:column; position:fixed; inset:0;
+    background:var(--bg); align-items:center; justify-content:center;
+    gap:2.5rem; z-index:150;
+  }
+  .nav-links.mobile-open a { font-size:1.2rem; }
+  .bio-layout { grid-template-columns:1fr; gap:3rem; }
+  .bg-intro { grid-template-columns:1fr; gap:2.5rem; }
+  .voice-traits, .do-dont, .logo-variants { grid-template-columns:1fr; }
+  .stats-row { grid-template-columns:repeat(2,1fr); }
+  .exp-item { grid-template-columns:1fr; gap:.5rem; }
+  .exp-item::before { display:none; }
+}
+@media (max-width:600px) {
+  .page-header { padding:120px 5vw 60px; }
+  .stats-row { grid-template-columns:1fr 1fr; }
+  .bg-color-row { flex-wrap:wrap; }
+  .bg-swatch { flex:none; width:50%; height:120px; }
+  .cta-buttons { flex-direction:column; align-items:center; }
+  footer { flex-direction:column; text-align:center; }
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <div class="loader-text">MANNORR</div>
+  <div class="loader-line"></div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">MANNORR<span class="dot"></span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Work</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="index.html#experience">Experience</a></li>
+    <li><a href="work-with-me.html">Work With Me</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">☀</button>
+  <button class="nav-toggle" id="navToggle" onclick="toggleNav()">☰</button>
+</nav>
+
+<!-- ─── PAGE HEADER ─────────────────────────────────────── -->
+<header class="page-header">
+  <div class="page-eyebrow">Adeniran Oluwanifemi — Creative Director</div>
+  <h1 class="page-title">
+    The <span class="italic">mind</span><br>
+    behind the <span class="accent">work</span>
+  </h1>
+  <div class="page-header-meta">
+    <div class="meta-item">
+      <label>Discipline</label>
+      <span>Visual & Brand Design</span>
+    </div>
+    <div class="meta-item">
+      <label>Experience</label>
+      <span>8+ Years</span>
+    </div>
+    <div class="meta-item">
+      <label>Based</label>
+      <span>Dublin, Ireland</span>
+    </div>
+    <div class="meta-item">
+      <label>Available</label>
+      <span>Open to Enquiries</span>
+    </div>
+  </div>
+</header>
+
+<!-- ─── BIO ─────────────────────────────────────────── -->
+<section class="about-section">
+  <div class="section-label reveal">01 — Who I Am</div>
+  <h2 class="section-title reveal">I turn <span class="italic">abstract ideas</span><br>into visual systems</h2>
+
+  <div class="bio-layout">
+    <div class="bio-text">
+      <p class="reveal">Creative Director and Visual Designer with 8+ years of experience crafting compelling brand identities, digital campaigns, and visual systems across <strong>technology, wellness, ministry, and startup environments.</strong></p>
+      <p class="reveal reveal-delay-1">Skilled in translating abstract ideas into strategic visual solutions that drive engagement, clarity, and audience connection. Recognised for creative leadership and mentorship, guiding emerging designers to produce high-quality, consistent work.</p>
+      <p class="reveal reveal-delay-2">Strong foundation in visual communication, typography, layout systems, and storytelling — combined with hands-on experience in UI/UX design, digital product thinking, and interactive media.</p>
+      <p class="reveal reveal-delay-3">The work isn't just visual. <strong>It's strategic.</strong> Every system I build is designed to reduce ambiguity, increase team confidence, and create consistency that holds together over time — whether it's a brand identity for a startup or a campaign visual system for a global ministry.</p>
+    </div>
+
+    <div class="bio-sidebar reveal reveal-delay-2">
+      <div class="sidebar-block">
+        <label>Services</label>
+        <ul>
+          <li>Brand Identity Systems</li>
+          <li>Logo Design & Visual Identity</li>
+          <li>Campaign Development</li>
+          <li>Typography & Editorial Layout</li>
+          <li>UI/UX Design & Prototyping</li>
+          <li>Social Media Visual Strategy</li>
+          <li>Creative Direction</li>
+          <li>Design Systems & Frameworks</li>
+        </ul>
+      </div>
+      <div class="sidebar-block">
+        <label>Tools</label>
+        <ul>
+          <li>Adobe Photoshop, Illustrator, InDesign</li>
+          <li>Figma & Webflow</li>
+          <li>Generative AI Tools</li>
+          <li>HTML / CSS</li>
+        </ul>
+      </div>
+      <div class="sidebar-block">
+        <label>Education</label>
+        <ul>
+          <li>MSc Interactive Digital Media — Griffith College Dublin</li>
+          <li>BSc Computer & Information Systems — Babcock University</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── STATS ─────────────────────────────────────────── -->
+<section class="about-section" style="padding-top:0; border-top:none;">
+  <div class="stats-row">
+    <div class="stat-item reveal">
+      <div class="stat-number" data-target="8" data-suffix="+">0</div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-1">
+      <div class="stat-number" data-target="500" data-suffix="+">0</div>
+      <div class="stat-label">Assets Delivered</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-2">
+      <div class="stat-number" data-target="30" data-suffix="+">0</div>
+      <div class="stat-label">Campaigns Led</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-3">
+      <div class="stat-number" data-target="400">0</div>
+      <div class="stat-label">Designers Mentored</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── EXPERIENCE ─────────────────────────────────────── -->
+<section class="about-section">
+  <div class="section-label reveal">02 — Experience</div>
+  <h2 class="section-title reveal">Where the <span class="italic">work</span> happened</h2>
+
+  <div class="exp-list">
+    <div class="exp-item reveal">
+      <div class="exp-date">July 2025<br>Present</div>
+      <div class="exp-body">
+        <div class="exp-role">Graphic Designer</div>
+        <div class="exp-company">Financefair — Dublin, Ireland</div>
+        <div class="exp-desc">Played a key role in a company-wide visual rebrand. Delivered 100+ branded assets and introduced reusable layout systems that reduced turnaround by ~30%.</div>
+        <div class="exp-tags">
+          <span class="exp-tag">Rebrand</span>
+          <span class="exp-tag">Layout Systems</span>
+          <span class="exp-tag">Brand Assets</span>
+        </div>
+      </div>
+    </div>
+    <div class="exp-item reveal">
+      <div class="exp-date">Nov 2022<br>Dec 2024</div>
+      <div class="exp-body">
+        <div class="exp-role">Lead Visual Designer</div>
+        <div class="exp-company">Celebration Church International — Global</div>
+        <div class="exp-desc">Led visual direction for 30+ sermon series and conferences. Delivered 350+ assets annually and mentored a team of 4–6 designers across multiple time zones.</div>
+        <div class="exp-tags">
+          <span class="exp-tag">Creative Direction</span>
+          <span class="exp-tag">Mentorship</span>
+          <span class="exp-tag">Campaign Design</span>
+          <span class="exp-tag">Global</span>
+        </div>
+      </div>
+    </div>
+    <div class="exp-item reveal">
+      <div class="exp-date">Jan 2019<br>Oct 2022</div>
+      <div class="exp-body">
+        <div class="exp-role">Lead Graphic / Brand Designer</div>
+        <div class="exp-company">PPI and KOG Nigeria Ltd — Lagos</div>
+        <div class="exp-desc">Contributed to a structured brand refresh. Designed 70+ brand assets and reduced revision cycles by ~25% through clearer visual systems and documented design standards.</div>
+        <div class="exp-tags">
+          <span class="exp-tag">Brand Identity</span>
+          <span class="exp-tag">Visual Systems</span>
+          <span class="exp-tag">Brand Refresh</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── EDUCATION ─────────────────────────────────────── -->
+<section class="about-section">
+  <div class="section-label reveal">03 — Education</div>
+  <h2 class="section-title reveal">The <span class="italic">foundations</span></h2>
+
+  <div class="edu-list reveal">
+    <div class="edu-item">
+      <div>
+        <div class="edu-degree">MSc Interactive Digital Media</div>
+        <div class="edu-school">Griffith College Dublin</div>
+      </div>
+      <span class="edu-badge">Postgraduate</span>
+    </div>
+    <div class="edu-item">
+      <div>
+        <div class="edu-degree">BSc Computer & Information Systems</div>
+        <div class="edu-school">Babcock University, Nigeria</div>
+      </div>
+      <span class="edu-badge">Undergraduate</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     BRAND GUIDE — embedded section
+═══════════════════════════════════════════════════════ -->
+<div style="border-top:3px solid var(--border); margin:0 5vw;"></div>
+
+<section class="about-section" style="border-top:none;">
+  <div class="section-label reveal" style="color:var(--accent);">04 — Brand Guide</div>
+  <h2 class="section-title reveal">The brand <span class="italic">behind</span> the design</h2>
+
+  <div class="highlight reveal">
+    <p>This section documents the visual language, voice, and messaging framework of <strong>MANNORR</strong> — so every touchpoint communicates with the same intention the work carries. Use it when writing copy, designing collateral, or briefing collaborators.</p>
+  </div>
+</section>
+
+<!-- BG: IDENTITY -->
+<section class="about-section" style="border-top:none; padding-top:0;">
+  <div class="section-label reveal">04.1 — Brand Identity</div>
+
+  <div class="bg-intro">
+    <div class="bg-intro-copy reveal">
+      <p><strong style="color:var(--fg);">Brand Essence:</strong> MANNORR exists at the intersection of creative intuition and strategic thinking. The work isn't decoration — it's translation. Abstract ideas, complex organisations, and bold visions become coherent, resonant visual systems.</p>
+      <br>
+      <p><strong style="color:var(--fg);">The difference:</strong> Where most designers hand off a logo, MANNORR builds a system. Where most creatives stop at beautiful, MANNORR asks what the work needs to <em>do</em>.</p>
+    </div>
+    <div class="bg-intro-meta reveal reveal-delay-1">
+      <div class="bg-meta-row">
+        <span class="bm-key">Brand Name</span>
+        <span class="bm-val">MANNORR</span>
+      </div>
+      <div class="bg-meta-row">
+        <span class="bm-key">Principal</span>
+        <span class="bm-val">Adeniran Oluwanifemi</span>
+      </div>
+      <div class="bg-meta-row">
+        <span class="bm-key">Position</span>
+        <span class="bm-val">Creative Director & Visual Designer</span>
+      </div>
+      <div class="bg-meta-row">
+        <span class="bm-key">Tone in 3 words</span>
+        <span class="bm-val" style="color:var(--accent);">Confident. Precise. Intentional.</span>
+      </div>
+      <div class="bg-meta-row">
+        <span class="bm-key">Core promise</span>
+        <span class="bm-val">Designed with intention.</span>
+      </div>
+      <div class="bg-meta-row">
+        <span class="bm-key">Version</span>
+        <span class="bm-val">1.0 — 2026</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BG: COLOR -->
+<section class="about-section" style="border-top:none; padding-top:0;">
+  <div class="section-label reveal">04.2 — Color System</div>
+
+  <div class="bg-color-row reveal">
+    <div class="bg-swatch sw-ink"><span class="sw-name">Ink</span><span class="sw-hex">#0A0A0A · Primary BG</span></div>
+    <div class="bg-swatch sw-chalk"><span class="sw-name">Chalk</span><span class="sw-hex">#E8E4DF · Foreground</span></div>
+    <div class="bg-swatch sw-volt"><span class="sw-name">Volt</span><span class="sw-hex">#C8FF00 · Accent</span></div>
+    <div class="bg-swatch sw-ash"><span class="sw-name">Ash</span><span class="sw-hex">#5A5651 · Muted</span></div>
+    <div class="bg-swatch sw-surface"><span class="sw-name">Surface</span><span class="sw-hex">#111111 · Card</span></div>
+    <div class="bg-swatch sw-violet"><span class="sw-name">Violet</span><span class="sw-hex">#5A00E6 · Light Accent</span></div>
+  </div>
+
+  <div class="highlight reveal">
+    <p><strong>Volt is sacred.</strong> Never use it as a background fill. It earns its power through scarcity — a stroke, a dot, a highlighted number, a CTA. Warmth over purity: avoid pure white and pure black. MANNORR's palette signals craft through temperature.</p>
+  </div>
+</section>
+
+<!-- BG: TYPOGRAPHY -->
+<section class="about-section" style="border-top:none; padding-top:0;">
+  <div class="section-label reveal">04.3 — Typography</div>
+
+  <div class="type-specimens">
+    <div class="type-spec reveal">
+      <div class="type-spec-meta">
+        <div class="ts-info"><label>Display Font</label><span>Syne — Weight 800 · Headlines, Titles, Nav</span></div>
+        <span class="ts-tag">Uppercase · -0.04em tracking</span>
+      </div>
+      <div class="specimen-syne">CRAFTING<br>VISUAL SYSTEMS</div>
+    </div>
+    <div class="type-spec reveal">
+      <div class="type-spec-meta">
+        <div class="ts-info"><label>Accent Serif</label><span>Instrument Serif — Italic · Taglines, Contrast, Emphasis</span></div>
+        <span class="ts-tag">Italic only · Lowercase preferred</span>
+      </div>
+      <div class="specimen-serif">that resonate</div>
+    </div>
+    <div class="type-spec reveal">
+      <div class="type-spec-meta">
+        <div class="ts-info"><label>Body & UI Font</label><span>DM Mono — Weight 300/500 · Body, Labels, Captions, UI</span></div>
+        <span class="ts-tag">+0.15em tracking on labels</span>
+      </div>
+      <div class="specimen-mono">Strategic · Visual Communication · Typography · Brand Systems<br>8+ Years · Dublin, Ireland · Creative Direction · Mentorship</div>
+    </div>
+  </div>
+</section>
+
+<!-- BG: VOICE -->
+<section class="about-section" style="border-top:none; padding-top:0;">
+  <div class="section-label reveal">04.4 — Voice & Tone</div>
+
+  <div class="voice-traits">
+    <div class="voice-trait reveal">
+      <div class="vt-label">Trait 01</div>
+      <div class="vt-title">Confident Without Bravado</div>
+      <div class="vt-body">MANNORR doesn't over-sell. Credentials are cited precisely — "350+ assets annually," "reduced revision cycles by ~25%." Confidence comes from specificity, not volume.</div>
+    </div>
+    <div class="voice-trait reveal reveal-delay-1">
+      <div class="vt-label">Trait 02</div>
+      <div class="vt-title">Strategic, Not Just Visual</div>
+      <div class="vt-body">The language always connects design to outcome. Never "I made a logo" — always "I built a system that does X." Every creative decision is framed in terms of what it achieves.</div>
+    </div>
+    <div class="voice-trait reveal">
+      <div class="vt-label">Trait 03</div>
+      <div class="vt-title">Direct, Structured, Clear</div>
+      <div class="vt-body">No filler language. No "passionate about," no "leveraging synergies." What needs to be said is said plainly, then stopped. White space exists in the writing as much as the design.</div>
+    </div>
+    <div class="voice-trait reveal reveal-delay-1">
+      <div class="vt-label">Trait 04</div>
+      <div class="vt-title">Warm but Professional</div>
+      <div class="vt-body">Not cold. Not corporate. Human — but not over-explaining or over-apologising. The warmth is in the listening, not the performance of it.</div>
+    </div>
+    <div class="voice-trait reveal">
+      <div class="vt-label">Trait 05</div>
+      <div class="vt-title">Intentional Over Impulsive</div>
+      <div class="vt-body">"Visual systems" over "designs." "Strategic solutions" over "good work." "Craft" over "art." Every word earns its place — like every element on a layout.</div>
+    </div>
+    <div class="voice-trait reveal reveal-delay-1">
+      <div class="vt-label">Trait 06</div>
+      <div class="vt-title">Mentorship Energy</div>
+      <div class="vt-body">Having led teams of 4–6 designers, the voice carries a natural generosity of perspective. It explains when needed, and communicates with the clarity of someone who has translated complex ideas many times before.</div>
+    </div>
+  </div>
+
+  <div class="divider">Do & Don't</div>
+
+  <div class="do-dont reveal">
+    <div class="dd-col do">
+      <div class="dd-head">✦ Write Like This</div>
+      <div class="dd-item"><span class="di-tag">About</span>"Creative Director and Visual Designer with 8+ years crafting brand identities, digital campaigns, and visual systems."</div>
+      <div class="dd-item"><span class="di-tag">Results</span>"Delivered 350+ assets annually and mentored a team of 4–6 designers."</div>
+      <div class="dd-item"><span class="di-tag">CTA</span>"Let's create something extraordinary."</div>
+      <div class="dd-item"><span class="di-tag">Services</span>"This positions you as strategic, not just visual."</div>
+      <div class="dd-item"><span class="di-tag">Tagline</span>"Designed with intention."</div>
+    </div>
+    <div class="dd-col dont">
+      <div class="dd-head">— Avoid This</div>
+      <div class="dd-item"><span class="di-tag">Avoid</span>"I'm passionate about creating beautiful designs that make people feel something!" — Vague, no specificity.</div>
+      <div class="dd-item"><span class="di-tag">Avoid</span>"I've worked with many clients." — Always cite numbers and context.</div>
+      <div class="dd-item"><span class="di-tag">Avoid</span>"Hit me up!" — Too casual for the brand register.</div>
+      <div class="dd-item"><span class="di-tag">Avoid</span>"World-class, unmatched, best-in-class…" — Let specifics speak instead.</div>
+      <div class="dd-item"><span class="di-tag">Avoid</span>"I just do what the client wants." — Undermines strategic authority.</div>
+    </div>
+  </div>
+</section>
+
+<!-- BG: MESSAGING -->
+<section class="about-section" style="border-top:none; padding-top:0;">
+  <div class="section-label reveal">04.5 — Core Messaging</div>
+
+  <div class="statements">
+    <div class="statement-card reveal">
+      <div class="sc-label">Primary Brand Statement</div>
+      <div class="sc-statement">I turn <span class="italic">abstract ideas</span> into strategic visual solutions.</div>
+      <div class="sc-sub">The core of everything. Use this verbatim or as the structural spine for any variation. It signals capability, translation, and systems thinking in one line.</div>
+    </div>
+    <div class="statement-card reveal">
+      <div class="sc-label">Extended Hero Statement</div>
+      <div class="sc-statement">8+ years translating abstract ideas into strategic visual solutions — brand identities, digital campaigns, and visual systems that drive connection.</div>
+      <div class="sc-sub">The full form. Use in bios, about sections, and anywhere a single sentence needs to carry full weight.</div>
+    </div>
+    <div class="statement-card reveal">
+      <div class="sc-label">Design Philosophy</div>
+      <div class="sc-statement">Not just visual. <span class="italic">Strategic.</span></div>
+      <div class="sc-sub">The sharpest expression of what differentiates MANNORR. Use in service framing, proposals, and positioning conversations.</div>
+    </div>
+  </div>
+
+  <div class="divider">Taglines</div>
+
+  <ul class="tagline-list reveal">
+    <li><span class="tl-num">01</span><span class="tl-text">Crafting Visual Systems That Resonate</span><span class="tl-use">Hero / Primary</span></li>
+    <li><span class="tl-num">02</span><span class="tl-text">Designed with Intention</span><span class="tl-use">Footer / Sign-off</span></li>
+    <li><span class="tl-num">03</span><span class="tl-text">Not Just Visual. Strategic.</span><span class="tl-use">Positioning / Sales</span></li>
+    <li><span class="tl-num">04</span><span class="tl-text">Build the Brand. Build the System.</span><span class="tl-use">Enterprise Clients</span></li>
+    <li><span class="tl-num">05</span><span class="tl-text">Let's Create Something Extraordinary</span><span class="tl-use">CTA / Contact</span></li>
+    <li><span class="tl-num">06</span><span class="tl-text">Where Serious Brands Are Built</span><span class="tl-use">Professional Package</span></li>
+  </ul>
+</section>
+
+<!-- BG: LOGO -->
+<section class="about-section" style="border-top:none; padding-top:0;">
+  <div class="section-label reveal">04.6 — Logo & Usage</div>
+
+  <div class="logo-variants reveal">
+    <div class="logo-box">
+      <div class="logo-wordmark">MANNORR<span class="ld"></span></div>
+      <span class="logo-box-label">Dark — Primary</span>
+    </div>
+    <div class="logo-box light-bg">
+      <div class="logo-wordmark">MANNORR<span class="ld"></span></div>
+      <span class="logo-box-label" style="color:#8a8580;">Light — Adapted</span>
+    </div>
+  </div>
+
+  <table class="ref-table reveal">
+    <thead><tr><th>Element</th><th>Rule</th></tr></thead>
+    <tbody>
+      <tr><td>Wordmark</td><td>Syne 800 · Uppercase · Letter-spacing +0.06em. Wider tracking than headline Syne — distinguishes logo from body use.</td></tr>
+      <tr><td>Signal Dot</td><td>7–12px circle in Volt. Light mode: Violet (#5A00E6). 3–4px margin from final R. Pulses in animated contexts. Never omit in branded environments.</td></tr>
+      <tr><td>Min Size</td><td>80px digital · 20mm print. Below threshold: wordmark only, drop dot.</td></tr>
+      <tr><td>Clear Space</td><td>Cap-height of wordmark on all four sides. Nothing enters this zone.</td></tr>
+      <tr><td>Never</td><td>Stretch, rotate, gradient, shadow, or change the wordmark font. Never use Volt as the wordmark colour — Volt is for the dot only.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- BG: QUICK REF -->
+<section class="about-section" style="border-top:none; padding-top:0;">
+  <div class="section-label reveal">04.7 — Quick Reference</div>
+
+  <table class="ref-table reveal">
+    <thead><tr><th>Category</th><th>Specification</th></tr></thead>
+    <tbody>
+      <tr><td>Brand Name</td><td>MANNORR — always uppercase, always with Volt signal dot in branded contexts</td></tr>
+      <tr><td>Fonts</td><td>Syne 800 (display) · Instrument Serif Italic (accent) · DM Mono 300/500 (body/UI)</td></tr>
+      <tr><td>Primary Palette</td><td>Ink #0A0A0A · Chalk #E8E4DF · Volt #C8FF00 · Ash #5A5651</td></tr>
+      <tr><td>Core Statement</td><td>"I turn abstract ideas into strategic visual solutions."</td></tr>
+      <tr><td>Primary Tagline</td><td>"Crafting Visual Systems That Resonate"</td></tr>
+      <tr><td>Tone in 3 words</td><td>Confident. Precise. Intentional.</td></tr>
+      <tr><td>Never say</td><td>"Passionate about…" · "World-class…" · vague superlatives · "Hit me up"</td></tr>
+      <tr><td>Always say</td><td>Specific numbers · discipline + outcome pairings · "system" not just "design"</td></tr>
+      <tr><td>Cursor</td><td>Crosshair — brand signature in all interactive contexts</td></tr>
+      <tr><td>Footer close</td><td>Always: "Designed with intention."</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ─── CTA ─────────────────────────────────────────── -->
+<section class="cta-section">
+  <div class="cta-eyebrow">Ready when you are</div>
+  <h2 class="cta-title">Let's create<br><span class="italic">something</span><br>extraordinary</h2>
+  <p class="cta-sub">Whether you need a brand identity, a campaign system, or a long-term creative partner — let's talk.</p>
+  <div class="cta-buttons">
+    <a href="work-with-me.html" class="btn-primary">Work With Me →</a>
+    <a href="ADENIRAN_OLUWANIFEMI_CV.pdf" download class="btn-secondary">↓ Download CV</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="fl">MANNORR</span>
+  <span>© 2026 Adeniran Oluwanifemi</span>
+  <span>Designed with intention</span>
+</footer>
+
+<script>
+/* THEME */
+(function(){
+  const saved = localStorage.getItem('nifemi-theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', saved);
+  document.getElementById('themeToggle').textContent = saved === 'dark' ? '☀' : '☾';
+})();
+function toggleTheme(){
+  const t = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', t);
+  localStorage.setItem('nifemi-theme', t);
+  document.getElementById('themeToggle').textContent = t === 'dark' ? '☀' : '☾';
+}
+
+/* NAV MOBILE */
+function toggleNav(){
+  document.getElementById('navLinks').classList.toggle('mobile-open');
+}
+
+/* LOADER */
+window.addEventListener('load', () => {
+  setTimeout(() => document.getElementById('loader').classList.add('hidden'), 1800);
+});
+
+/* CURSOR */
+const dot = document.getElementById('cursorDot');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+function animCursor(){
+  dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+  rx += (mx - rx) * .12; ry += (my - ry) * .12;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(animCursor);
+}
+animCursor();
+document.querySelectorAll('a,button').forEach(el => {
+  el.addEventListener('mouseenter', () => { ring.style.width='60px'; ring.style.height='60px'; });
+  el.addEventListener('mouseleave', () => { ring.style.width='40px'; ring.style.height='40px'; });
+});
+
+/* REVEAL ON SCROLL */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+/* STAT COUNTER */
+function animateStats(){
+  document.querySelectorAll('.stat-number').forEach(el => {
+    const target = parseInt(el.dataset.target);
+    const suffix = el.dataset.suffix || '';
+    const duration = 2000;
+    const step = target / (duration / 16);
+    let current = 0;
+    function update(){
+      current += step;
+      if(current >= target){ el.textContent = target + suffix; return; }
+      el.textContent = Math.floor(current) + suffix;
+      requestAnimationFrame(update);
+    }
+    update();
+  });
+}
+const statsObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ animateStats(); statsObserver.disconnect(); } });
+}, { threshold: 0.3 });
+const statsEl = document.querySelector('.stats-row');
+if(statsEl) statsObserver.observe(statsEl);
+</script>
+</body>
+</html>
