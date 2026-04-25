@@ -541,9 +541,7 @@ async function uploadDesigns() {
     // Fetch existing portfolio data
     let existing = [];
     try {
-      const res = await fetch(`${JSONBIN_API}/${getBinId()}/latest`, {
-        headers: { 'X-Access-Key': '$2a$10$placeholder' }
-      });
+      const res = await fetch(`${JSONBIN_API}/${getBinId()}/latest`);
       const data = await res.json();
       existing = data.record?.images || data.record || [];
     } catch (e) {}
