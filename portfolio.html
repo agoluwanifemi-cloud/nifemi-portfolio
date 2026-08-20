@@ -320,18 +320,21 @@ async function getBin(id){
 async function loadAll(){
   const [projRes,archRes]=await Promise.allSettled([getBin(PROJECTS_BIN),getBin(ARCHIVE_BIN)]);
 
+  // Personal store: the archive images AND the ids hidden from this site only.
+  // Managed from admin.html — never touches the Kallos side.
+  let archive=[],siteHidden=[];
+  if(archRes.status==='fulfilled'){
+    const rec=archRes.value;
+    archive=(rec?.images||(Array.isArray(rec)?rec:[])||[]).filter(i=>i&&i.url);
+    siteHidden=rec?.siteHidden||[];
+  }else{console.error('Archive bin failed:',archRes.reason)}
+
   let projects=[];
   if(projRes.status==='fulfilled'){
     const rec=projRes.value;
     projects=(rec?.projects||rec||[])
-      .filter(p=>p&&p.visible!==false&&!EXCLUDE.includes(p.id));
+      .filter(p=>p&&p.visible!==false&&!EXCLUDE.includes(p.id)&&!siteHidden.includes(p.id));
   }else{console.error('Projects bin failed:',projRes.reason)}
-
-  let archive=[];
-  if(archRes.status==='fulfilled'){
-    const rec=archRes.value;
-    archive=(rec?.images||rec||[]).filter(i=>i&&i.url);
-  }else{console.error('Archive bin failed:',archRes.reason)}
 
   // Fold the loose uploads into a single Visual Design archive project
   if(archive.length){
