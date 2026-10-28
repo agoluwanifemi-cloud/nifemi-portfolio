@@ -1,0 +1,70 @@
+/* ═══════════════════════════════════════════════════════
+   MANNORR — shared look for the inner pages
+   Loaded after each page's own <style>, so it only restyles:
+   colours, type, nav, page header and buttons. Content and
+   page scripts are untouched.
+═══════════════════════════════════════════════════════ */
+
+/* Colours: same palette as the homepage */
+:root:root[data-theme="light"]{
+  --bg:#FAF8F5;--fg:#141312;--accent:#E4291C;--muted:#6B665F;
+  --card:#ECE8E2;--card-hover:#E4DFD8;--border:rgba(20,19,18,.1);--border-2:rgba(20,19,18,.16);
+  --overlay-bg:rgba(250,248,245,.96);--text-secondary:rgba(20,19,18,.72);--text-tertiary:rgba(20,19,18,.5);
+  --faint:rgba(20,19,18,.12);--accent-fg:#FFFFFF;--accent-soft:rgba(228,41,28,.08);--stroke-color:rgba(20,19,18,.06);
+  --warning:#B45309;
+}
+:root:root[data-theme="dark"]{
+  --bg:#0A0A0A;--fg:#E8E4DF;--accent:#C8FF00;--muted:#9A958F;
+  --card:#141413;--card-hover:#1B1A19;--border:rgba(232,228,223,.1);--border-2:rgba(232,228,223,.16);
+  --overlay-bg:rgba(10,10,10,.96);--text-secondary:rgba(232,228,223,.72);--text-tertiary:rgba(232,228,223,.5);
+  --faint:rgba(232,228,223,.1);--accent-fg:#0A0A0A;--accent-soft:rgba(200,255,0,.08);--stroke-color:rgba(232,228,223,.05);
+}
+
+/* Type: Instrument Serif display, DM Mono body (as on the homepage) */
+:root:root{--display:'Instrument Serif',Georgia,'Times New Roman',serif;--brand-blue:#6A8DB8}
+html{font-synthesis:none}
+h1,h2,h3{letter-spacing:-.015em}
+
+/* Remove the old custom cursor and grain */
+.cursor-dot,.cursor-ring,.grain{display:none!important}
+body{cursor:auto!important}
+
+/* ── Pill nav (replaces the old top bar) ── */
+.top-bar{display:none!important}
+.mn{position:fixed;z-index:800;top:calc(14px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);width:min(380px,calc(100% - 32px));font-family:'DM Mono',ui-monospace,monospace}
+.mn-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px;border-radius:999px;background:#141312;color:#F2EFEA;box-shadow:0 10px 30px rgba(0,0,0,.18)}
+:root[data-theme="dark"] .mn-bar,:root[data-theme="dark"] .mn-menu{background:#1C1B1A;border:1px solid rgba(232,228,223,.14)}
+.mn-btn{width:44px;height:44px;border-radius:999px;border:0;display:grid;place-items:center;cursor:pointer;color:inherit;background:rgba(242,239,234,.1);transition:background .3s}
+.mn-btn:hover{background:rgba(242,239,234,.18)}
+.mn-btn.mn-menu-btn{background:var(--accent);color:var(--accent-fg)}
+.mn-burger{position:relative;width:18px;height:10px}
+.mn-burger i{position:absolute;left:0;width:100%;height:1.5px;background:currentColor;transition:transform .45s cubic-bezier(.22,1,.36,1),top .45s cubic-bezier(.22,1,.36,1)}
+.mn-burger i:first-child{top:0}.mn-burger i:last-child{top:8.5px}
+.mn.open .mn-burger i:first-child{top:4.25px;transform:rotate(45deg)}
+.mn.open .mn-burger i:last-child{top:4.25px;transform:rotate(-45deg)}
+.mn-mark{font-family:'Syne','Helvetica Neue',Arial,sans-serif;font-weight:700;font-size:17px;letter-spacing:.02em;text-decoration:none;color:inherit;display:inline-flex;align-items:center;gap:6px}
+.mn-mark i{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block}
+.mn-menu{margin-top:8px;border-radius:28px;background:#141312;color:#F2EFEA;padding:28px 24px;display:grid;gap:6px;text-align:center;transform-origin:top center;transition:opacity .45s cubic-bezier(.22,1,.36,1),transform .45s cubic-bezier(.22,1,.36,1),visibility .45s;opacity:0;transform:translateY(-8px) scale(.97);visibility:hidden;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.mn.open .mn-menu{opacity:1;transform:none;visibility:visible}
+.mn-menu a{font-family:'Instrument Serif',Georgia,serif;font-size:34px;line-height:1.05;text-transform:uppercase;text-decoration:none;color:inherit;transition:color .25s}
+.mn-menu a:hover{color:var(--accent)}
+.mn :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* ── Page header: brand-blue band, aligned left like the homepage hero ── */
+.page-hero{background:var(--brand-blue);color:#FFFFFF;text-align:left!important;
+  padding:clamp(130px,18vh,180px) max(16px,5vw) clamp(48px,8vh,80px)!important}
+.page-hero h1{font-weight:400!important;font-size:clamp(3.2rem,9vw,8rem)!important;line-height:.9!important;letter-spacing:-.02em!important}
+.page-hero h1 .accent,.page-hero h1 .italic{color:#FFFFFF!important}
+.page-hero p,.page-hero p.lede{color:rgba(255,255,255,.88)!important;margin-left:0!important;margin-right:0!important;max-width:520px}
+.page-hero .hero-eyebrow{color:#FFFFFF;padding-bottom:16px;margin-bottom:28px;border-bottom:1px solid rgba(255,255,255,.4);font-size:11px;letter-spacing:.18em;text-transform:uppercase}
+.page-hero .hero-eyebrow *{color:inherit}
+
+/* Sticky bars sit under the pill nav */
+.fbar{top:84px!important}
+
+/* ── Buttons: pills ── */
+.bcta,.lb-btn,.proceed-btn,.submit-order,.rec-add,.sign-btn,.currency-btn,.mode-btn,.inv-actions button,.pay-tab{border-radius:999px!important}
+.mode-toggle{border-radius:999px;overflow:hidden;margin-top:clamp(40px,6vh,64px)!important}
+.cta h2,.cta h2 .italic{font-weight:400}
+
+@media (prefers-reduced-motion: reduce){.mn-menu,.mn-burger i{transition:none}}
