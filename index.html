@@ -154,6 +154,15 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
 .next .t{font-size:clamp(40px,8vw,112px);letter-spacing:-.055em;line-height:.9}
 
 [hidden]{display:none!important}
+.formnote{font:13px var(--f-sans);color:var(--dim)}
+.formnote.is-info{color:var(--bone)}
+.formnote.is-error{color:#fff;background:rgba(228,41,28,.18);border:1px solid rgba(228,41,28,.5);border-radius:12px;padding:10px 14px}
+.btn.is-busy{opacity:.6;cursor:progress}
+.sent-panel{margin-top:32px;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,4vw,40px);display:grid;gap:12px;justify-items:start;background:var(--ink-2)}
+.sent-panel h3{font-size:clamp(28px,3.4vw,44px)}
+.sent-panel p{color:#cfcbc5;max-width:46ch}
+.sent-tick{display:grid;place-items:center;width:44px;height:44px;border-radius:999px;background:var(--red);color:#fff;font:600 20px var(--f-sans)}
+
 .card .media.fit{isolation:isolate}
 .card .media.fit .fit-bg{position:absolute;inset:-12%;width:124%;height:124%;object-fit:cover;filter:blur(26px) saturate(1.15) brightness(.75);transform:scale(1.05);z-index:0}
 .card .media.fit::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(17,17,17,.18));box-shadow:inset 0 0 0 1px rgba(242,240,236,.08);border-radius:inherit;pointer-events:none}
@@ -162,6 +171,15 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
 .card .media.fit .chip,.card .media.fit .onimg{z-index:3}
 
 .view[hidden]{display:none!important}
+.formnote{font:13px var(--f-sans);color:var(--dim)}
+.formnote.is-info{color:var(--bone)}
+.formnote.is-error{color:#fff;background:rgba(228,41,28,.18);border:1px solid rgba(228,41,28,.5);border-radius:12px;padding:10px 14px}
+.btn.is-busy{opacity:.6;cursor:progress}
+.sent-panel{margin-top:32px;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,4vw,40px);display:grid;gap:12px;justify-items:start;background:var(--ink-2)}
+.sent-panel h3{font-size:clamp(28px,3.4vw,44px)}
+.sent-panel p{color:#cfcbc5;max-width:46ch}
+.sent-tick{display:grid;place-items:center;width:44px;height:44px;border-radius:999px;background:var(--red);color:#fff;font:600 20px var(--f-sans)}
+
 .hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0}
 .lane-form .label.full{grid-column:1/-1;margin-bottom:4px}
 .lanes.three{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -576,6 +594,7 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
     document.getElementById('lane-steps').innerHTML=d.steps.map(function(x){return '<li>'+x+'</li>';}).join('');
     document.getElementById('lane-pkg').hidden=(l!=='design');
     document.getElementById('lane-note').hidden=(l!=='learn');
+    document.querySelectorAll('.sent-panel').forEach(function(p){p.remove();});
     document.querySelectorAll('.lane-form').forEach(function(f){f.hidden=(f.getAttribute('data-form')!==l);});
   }
   ['design','ministry','learn'].forEach(function(k){document.getElementById('lane-'+k).addEventListener('click',function(){setLane(k);});});
@@ -586,7 +605,8 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
   function send(fd, formKey){
     fd.append('form', formKey); fd.append('page', location.hash||'#home'); fd.append('t', String(Date.now()-openedAt));
     if(DB_ENDPOINT){
-      return fetch(DB_ENDPOINT,{method:'POST',body:fd}).then(function(r){return r.json();})
+      var timer=new Promise(function(_,rej){setTimeout(function(){rej(new Error('timeout'));},20000);});
+      return Promise.race([fetch(DB_ENDPOINT,{method:'POST',body:fd}).then(function(r){return r.json();}),timer])
         .catch(function(){
           /* response unreadable: send blind to the sheet and keep a copy in Formspree so nothing is lost */
           var copy=new FormData(); fd.forEach(function(v,k){copy.append(k,v);}); copy.append('_subject','mannorr.com · '+formKey+' (backup)');
@@ -604,19 +624,29 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
   var DONE={design:'Thank you. Your enquiry is in, and I will reply soon.',ministry:'Thank you. Your request is in, and I will be in touch to confirm.',learn:'Thank you for applying. I will reach out on WhatsApp about next steps.'};
   var NAMES={name:'name',email:'email',phone:'phone number'};
   document.querySelectorAll('.lane-form').forEach(function(f){
+    var btn=f.querySelector('button[type=submit]'), label=btn.textContent;
     f.addEventListener('submit',function(e){
       e.preventDefault();
-      var key=f.getAttribute('data-form'), note=f.querySelector('.formnote'), btn=f.querySelector('button[type=submit]');
+      var key=f.getAttribute('data-form'), note=f.querySelector('.formnote');
+      note.className='formnote';
       if((f.querySelector('[name=website]')||{}).value) return;
       var miss=Array.prototype.filter.call(f.querySelectorAll('[required]'),function(el){return !el.value.trim();});
-      if(miss.length){ note.textContent='Please add your '+miss.map(function(el){return NAMES[el.name]||el.name;}).join(', ')+'.'; miss[0].focus(); return; }
+      if(miss.length){ note.className='formnote is-error'; note.textContent='Please add your '+miss.map(function(el){return NAMES[el.name]||el.name;}).join(', ')+'.'; miss[0].focus(); return; }
       var fd=new FormData();
       Array.prototype.forEach.call(f.querySelectorAll('.field [name]'),function(el){ fd.append(el.name, el.value.trim()); });
-      btn.disabled=true; note.textContent='Sending…';
+      btn.disabled=true; btn.classList.add('is-busy'); btn.textContent='Sending…';
+      note.className='formnote is-info'; note.textContent='Sending your details. This can take a few seconds.';
       send(fd,key).then(function(r){
-        if(r&&r.ok){ note.textContent=DONE[key]+(r.ref?' Reference: '+r.ref+'.':''); f.reset(); }
-        else { note.textContent=(r&&r.error)||''; if(!note.textContent) fail(note); }
-      }).catch(function(){fail(note);}).then(function(){btn.disabled=false;});
+        if(r&&r.ok){
+          var who=(f.querySelector('[name=name]').value.trim().split(' ')[0])||'';
+          var panel=document.createElement('div'); panel.className='sent-panel'; panel.setAttribute('role','status');
+          panel.innerHTML='<span class="sent-tick" aria-hidden="true">✓</span><h3>Sent'+(who?', thank you '+who.replace(/[<>&"]/g,'')+'.':'.')+'</h3><p>'+DONE[key]+'</p>'+(r.ref?'<p class="mono">Reference '+r.ref+'</p>':'')+'<p class="mono dim">A confirmation is on its way to your email.</p><button type="button" class="btn">Send another</button>';
+          panel.querySelector('button').addEventListener('click',function(){panel.remove();f.hidden=false;});
+          f.reset(); note.textContent=''; f.hidden=true; f.parentNode.insertBefore(panel,f.nextSibling);
+          if(panel.scrollIntoView) panel.scrollIntoView({block:'center',behavior:'smooth'});
+        } else { note.className='formnote is-error'; note.textContent=(r&&r.error)||"That didn't send. Please try again, or email "+EMAIL+"."; }
+      }).catch(function(){ note.className='formnote is-error'; note.textContent="That didn't send. Please try again, or email "+EMAIL+"."; })
+        .then(function(){ btn.disabled=false; btn.classList.remove('is-busy'); btn.textContent=label; });
     });
   });
 
