@@ -8,14 +8,14 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#0a0a0a;--fg:#e8e4df;--accent:#c8ff00;--accent-fg:#0a0a0a;--muted:#5a5651;
-  --card:#111;--card-2:#161616;--border:rgba(255,255,255,.07);--border-2:rgba(255,255,255,.14);
-  --faint:rgba(232,228,223,.10);--danger:#ff5c46;--warn:#ffb020;
-  --serif:'Instrument Serif',serif;--mono:'DM Mono',monospace;--display:'Syne',sans-serif;
+  --bg:#111111;--fg:#f2f0ec;--accent:#e4291c;--accent-fg:#ffffff;--muted:#8f8b85;
+  --card:#1b1b1b;--card-2:#222;--border:rgba(255,255,255,.07);--border-2:rgba(255,255,255,.14);
+  --faint:rgba(232,228,223,.10);--danger:#ff9a62;--warn:#ffb020;
+  --serif:'Inter Tight','Helvetica Neue',Arial,sans-serif;--mono:'DM Mono',monospace;--display:'Inter Tight','Helvetica Neue',Arial,sans-serif;
   --eout:cubic-bezier(.16,1,.3,1);
 }
 body{background:var(--bg);color:var(--fg);font-family:var(--mono);font-weight:300;font-size:13px;-webkit-font-smoothing:antialiased}
@@ -79,7 +79,7 @@ select.inp{cursor:pointer}
 .row2{display:grid;grid-template-columns:1fr 92px;gap:.7rem}
 
 .dz{border:1px dashed var(--border-2);padding:1.2rem;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;position:relative}
-.dz:hover,.dz.over{border-color:var(--accent);background:rgba(200,255,0,.03)}
+.dz:hover,.dz.over{border-color:var(--accent);background:rgba(228,41,28,.03)}
 .dz input{display:none}
 .dz .ic{font-size:1.3rem;color:var(--accent);display:block;margin-bottom:.35rem}
 .dz .lbl{font-size:.62rem;line-height:1.8;color:var(--muted)}
@@ -136,7 +136,7 @@ select.inp{cursor:pointer}
 .pt{font-family:var(--display);font-weight:600;font-size:.82rem;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ps{display:flex;gap:.35rem;flex-wrap:wrap;margin-top:.3rem}
 .bd{font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;padding:.15rem .38rem;border:1px solid var(--border)}
-.bd.c{color:var(--accent);border-color:rgba(200,255,0,.28)}
+.bd.c{color:var(--accent);border-color:rgba(228,41,28,.28)}
 .bd.y,.bd.mc{color:var(--muted)}
 .bd.ft{color:var(--warn);border-color:rgba(255,176,32,.3)}
 .acts{display:flex;gap:3px}
@@ -202,6 +202,13 @@ body.selmode .aitem .tick{display:flex}
   .handle{display:none}
   .acts,.vis{grid-column:2}
 }
+
+/* ── MANNORR hub look ── */
+.brand,.login-box .mark{font-weight:600!important;letter-spacing:.14em!important;font-size:.95rem}
+.login-box .mark{font-size:1.4rem}
+.panel h2{font-weight:600!important;letter-spacing:-.02em!important;text-transform:none!important;font-size:1.15rem!important}
+.login-box button,.btn,button.primary{border-radius:999px}
+.inp,.login-box input{border-radius:10px}
 </style>
 </head>
 <body>

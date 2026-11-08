@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Invoice — MANNORR</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 [data-theme="dark"] { --bg: #0a0a0a; --fg: #e8e4df; --accent: #c8ff00; --muted: #5a5651; --card: #111; --border: rgba(255,255,255,0.06); --warning: #ffab00; }
@@ -129,6 +129,13 @@ footer span { font-size: 0.55rem; color: var(--muted); letter-spacing: 0.15em; t
   .inv-actions, .sign-btn, .payment-tabs { display: none; }
   .payment-detail { display: block !important; margin-bottom: 1rem; }
 }
+
+/* ── MANNORR hub look ── */
+[data-theme="dark"],[data-theme="light"]{--bg:#111111;--fg:#f2f0ec;--accent:#e4291c;--muted:#8f8b85;--card:#1b1b1b;--border:rgba(242,240,236,.10);--accent-fg:#ffffff;--accent-soft:rgba(228,41,28,.10);--grain-opacity:0}
+:root{--serif:'Inter Tight','Helvetica Neue',Arial,sans-serif;--display:'Inter Tight','Helvetica Neue',Arial,sans-serif;color-scheme:dark}
+body{cursor:auto}
+.cursor-dot,.cursor-ring,.grain,.theme-toggle{display:none!important}
+h1,h2,h3{font-weight:500!important;letter-spacing:-.04em}
 </style>
 </head>
 <body>

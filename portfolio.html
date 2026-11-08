@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portfolio — MANNORR</title>
+<title>Design Portfolio — MANNORR</title>
 <meta name="description" content="Selected works by Adeniran Oluwanifemi — brand identities, visual systems, campaigns and digital products.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 [data-theme="dark"]{--bg:#0a0a0a;--fg:#e8e4df;--accent:#c8ff00;--muted:#5a5651;--card:#111;--card-hover:#161616;--border:rgba(255,255,255,0.06);--border-2:rgba(255,255,255,0.12);--faint:rgba(232,228,223,0.10);--overlay-bg:rgba(10,10,10,0.97);--text-secondary:rgba(232,228,223,0.7);--text-tertiary:rgba(232,228,223,0.5);--grain-opacity:0.035;--accent-fg:#0a0a0a;--accent-soft:rgba(200,255,0,.08)}
@@ -196,6 +196,63 @@ footer span{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:
   .cta{padding:4rem 1.2rem}
   footer{padding:1.5rem 1.2rem}
 }
+
+/* ══ MANNORR hub look: one dark look, Inter Tight, one red ══ */
+[data-theme="dark"],[data-theme="light"]{--bg:#111111;--fg:#f2f0ec;--accent:#e4291c;--muted:#8f8b85;--card:#1b1b1b;--card-hover:#202020;--border:rgba(242,240,236,.10);--border-2:rgba(242,240,236,.18);--faint:rgba(242,240,236,.14);--overlay-bg:rgba(17,17,17,.97);--text-secondary:rgba(242,240,236,.78);--text-tertiary:rgba(242,240,236,.55);--grain-opacity:0;--accent-fg:#ffffff;--accent-soft:rgba(228,41,28,.10)}
+:root{--serif:'Inter Tight','Helvetica Neue',Arial,sans-serif;--display:'Inter Tight','Helvetica Neue',Arial,sans-serif;color-scheme:dark}
+body{cursor:auto;font-weight:400}
+.cursor-dot,.cursor-ring,.grain,.theme-toggle{display:none!important}
+.card,.ftab,.lbd,.lb-th,.lbp,.lbn,.lb-x,.lb-site-open{cursor:pointer}
+.top-bar{padding:18px max(16px,5vw)}
+.top-bar>a{font-weight:600;font-size:13px;letter-spacing:.14em}
+.top-bar>a .dot{display:none}
+.top-bar-right{gap:clamp(14px,4vw,48px)}
+.top-bar-right a{font-family:var(--display);font-size:13px;text-transform:none;letter-spacing:0;color:var(--fg);opacity:.85}
+.top-bar-right a:hover{opacity:1;color:var(--fg)}
+.hero-eyebrow{font-size:12px;letter-spacing:.04em;text-transform:none;color:var(--accent)}
+.hero-eyebrow::before{content:'// ';width:auto;height:auto;background:none}
+.page-hero h1{font-weight:500;text-transform:none;letter-spacing:-.06em;line-height:.86;font-size:clamp(56px,13vw,184px)}
+.page-hero h1 .italic{font-style:normal;font-weight:500;letter-spacing:-.06em}
+.page-hero p.lede{font-family:var(--display);font-size:clamp(20px,2.2vw,28px);letter-spacing:-.025em;line-height:1.2;color:var(--fg);max-width:30ch}
+.page-hero p.lede .red{color:var(--accent)}
+.fbar{gap:10px;border-top:none;padding-block:12px}
+.ftab{font-family:var(--display);font-size:13px;text-transform:none;letter-spacing:0;padding:8px 16px;border:1px solid var(--border);border-radius:999px;margin:0}
+.ftab.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.ftab .fcnt{vertical-align:baseline;font-family:var(--mono);font-size:11px;margin-left:6px}
+.ftab.on .fcnt{color:var(--accent)}
+.grid{gap:16px}
+.card{background:transparent;border-radius:18px}
+.card:hover{background:transparent}
+.cmedia,.site-preview,.site-ph{border-radius:18px}
+.cfoot{border-top:none;padding:14px 2px 6px}
+.ccat{font-size:11px;letter-spacing:.04em;text-transform:none}
+.ccat::before{content:'// '}
+.ctitle{font-weight:500;font-size:clamp(18px,1.8vw,24px);letter-spacing:-.035em;text-transform:uppercase;line-height:1}
+.carr{border-radius:999px}
+.cyr,.cmc{border-radius:999px;background:rgba(17,17,17,.6);color:var(--fg);border:1px solid rgba(242,240,236,.25);backdrop-filter:blur(6px);letter-spacing:.04em}
+.arch-badge,.site-tag{border-radius:999px;letter-spacing:.06em}
+.cph span,.state .eg,.lb-slide .lb-ph,.lb-no-desc{font-style:normal}
+.state p{letter-spacing:.06em;text-transform:none;font-size:12px}
+.cta{text-align:left}
+.cta p{color:var(--accent);letter-spacing:.04em;text-transform:none;font-size:12px}
+.cta p::before{content:'// '}
+.cta h2{font-weight:500;text-transform:none;letter-spacing:-.06em;line-height:.9;font-size:clamp(48px,9vw,128px)}
+.cta h2 .italic{font-style:normal;font-weight:500}
+.bcta{font-family:var(--display);text-transform:none;letter-spacing:0;font-size:14px;font-weight:500;border-radius:999px;background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.bcta:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+footer span{letter-spacing:.04em;text-transform:none;font-size:12px}
+.lb-cat{letter-spacing:.04em;text-transform:none;font-size:12px}
+.lb-cat::before{content:'// ';width:auto;height:auto;background:none}
+.lb-title{font-weight:500;letter-spacing:-.045em;line-height:.95;font-size:clamp(28px,3vw,44px)}
+.lb-rule{display:none}
+.lb-desc{font-family:var(--display);font-size:15px;line-height:1.6}
+.lb-btn{font-family:var(--display);text-transform:none;letter-spacing:0;font-size:14px;border-radius:999px;background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.lb-btn:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.lb-btn.ghost{background:transparent}
+.lbp,.lbn,.lb-x{border-radius:999px}
+.lb-site-open{border-radius:999px}
+.fbar{top:54px}
+@media(max-width:600px){.top-bar-right{gap:14px}.top-bar-right a{font-size:12px}}
 </style>
 </head>
 <body>
@@ -206,21 +263,19 @@ footer span{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:
 <div class="top-bar">
   <a href="/">MANNORR<span class="dot"></span></a>
   <div class="top-bar-right">
-    <a href="/">Home</a>
-    <a href="/about">About</a>
-    <a href="/work-with-me">Work With Me</a>
-    <a href="/#contact">Contact</a>
+    <a href="/#about">About</a>
+    <a href="/#works">Works</a>
+    <a href="/#work-with-me">Work With Me</a>
     <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">☀</button>
   </div>
 </div>
 
 <section class="page-hero">
-  <p class="hero-eyebrow"><span>Selected Work — 2023 to 2026</span></p>
+  <p class="hero-eyebrow"><span>Design · Portfolio</span></p>
   <h1>
-    <span class="line"><span>THE</span></span>
-    <span class="line"><span><span class="italic">Portfolio</span> <span class="accent">✦</span></span></span>
+    <span class="line"><span>Design</span></span>
   </h1>
-  <p class="lede">Brand identities, visual systems, campaigns and digital products. Click any project to open the full case.</p>
+  <p class="lede">Brand identity and creative direction for teams that care how they look <span class="red">and what they mean.</span></p>
 </section>
 
 <div class="fbar" id="fbar"></div>
@@ -232,12 +287,12 @@ footer span{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:
 </div>
 
 <section class="cta">
-  <p>Ready to build something</p>
-  <h2>Let's make it <span class="italic">matter</span></h2>
-  <a href="/work-with-me" class="bcta">Start a Project <span>→</span></a>
+  <p>Work With Me</p>
+  <h2>Let's make it <span class="italic">matter.</span></h2>
+  <a href="/#work-with-me" class="bcta">Start a project <span>→</span></a>
 </section>
 
-<footer><span>© 2026 Adeniran Oluwanifemi</span><span>MANNORR</span></footer>
+<footer><span>© 2026 Nifemi Adeniran · Lagos</span><span>MANNORR</span></footer>
 
 <!-- LIGHTBOX -->
 <div class="lb" id="lb">
@@ -290,7 +345,7 @@ const ORDER = ['brand','visual','web','print','event'];
 
 /* ── THEME ─────────────────────────────── */
 function toggleTheme(){const t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('nifemi-theme',t);document.getElementById('themeToggle').textContent=t==='dark'?'☀':'☾'}
-const _st=localStorage.getItem('nifemi-theme')||'dark';
+const _st='dark';
 document.documentElement.setAttribute('data-theme',_st);
 document.getElementById('themeToggle').textContent=_st==='dark'?'☀':'☾';
 
@@ -496,7 +551,7 @@ function openLB(id){
     acts.appendChild(a);
   }
   const b=document.createElement('a');
-  b.className='lb-btn ghost';b.href='/work-with-me';
+  b.className='lb-btn ghost';b.href='/#work-with-me';
   b.innerHTML='<span>Start a project like this</span><span>→</span>';
   acts.appendChild(b);
 

@@ -235,7 +235,7 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
     <div class="head"><span class="label">Works</span><a class="mono dim" href="#works">All works →</a></div>
     <div class="cards">
       <a class="card" href="#music"><div class="media"><img src="images/inyou-sq.jpg" alt=""><span class="chip">Music</span><span class="onimg">New single, 8 Jan 2027</span></div><h3>In You</h3><p class="cdesc">Worship, songwriting</p></a>
-      <a class="card" href="#design"><div class="media"><div class="ph">Image: a signature brand project</div><span class="chip">Design</span><span class="onimg">8+ years of brand work</span></div><h3>Design</h3><p class="cdesc">Identity, direction, campaigns</p></a>
+      <a class="card" href="#design"><div class="media" data-design-cover><div class="ph">Design</div><span class="chip">Design</span><span class="onimg">8+ years of brand work</span></div><h3>Design</h3><p class="cdesc">Identity, direction, campaigns</p></a>
       <a class="card" href="#apologetics"><div class="media"><div class="ph type">Apolo&shy;getics<br>Nigeria</div><span class="chip">Teaching</span></div><h3>Apologetics Nigeria</h3><p class="cdesc">Teaching, courses, events</p></a>
       <a class="card" href="#viral-church"><div class="media"><div class="ph">Image: a Viral gathering</div><span class="chip">Church</span></div><h3>The Viral Church</h3><p class="cdesc">Coming soon · @viralchurchglobal</p></a>
     </div>
@@ -295,7 +295,7 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
   <section class="sec wrap"><div class="inner">
     <div class="cards" style="grid-template-columns:repeat(2,minmax(0,1fr))">
       <a class="card" href="#music"><div class="media" style="aspect-ratio:4/3"><img src="images/inyou.jpg" alt=""><span class="chip">Music</span><span class="onimg">Out 8 January 2027</span></div><h3>In You</h3><p class="cdesc">A new single, the story behind it, lyrics and where to listen.</p></a>
-      <a class="card" href="#design"><div class="media" style="aspect-ratio:4/3"><div class="ph">Image: a signature brand project</div><span class="chip">Design</span></div><h3>Design</h3><p class="cdesc">Selected brand identities, campaigns and creative direction.</p></a>
+      <a class="card" href="#design"><div class="media" style="aspect-ratio:4/3" data-design-cover><div class="ph">Design</div><span class="chip">Design</span></div><h3>Design</h3><p class="cdesc">Selected brand identities, campaigns and creative direction.</p></a>
       <a class="card" href="#apologetics"><div class="media" style="aspect-ratio:4/3"><div class="ph type">Apologetics<br>Nigeria</div><span class="chip">Teaching</span></div><h3>Apologetics Nigeria</h3><p class="cdesc">Equipping believers to give a reason for the hope.</p></a>
       <a class="card" href="#viral-church"><div class="media" style="aspect-ratio:4/3"><div class="ph">Image: a Viral gathering</div><span class="chip">Church</span></div><h3>The Viral Church</h3><p class="cdesc">Coming soon. Vision, mission and what VIRAL stands for.</p></a>
     </div>
@@ -359,13 +359,14 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
   </div></header>
 
   <section class="sec wrap"><div class="inner">
-    <div class="head"><span class="label">Selected work</span><span class="mono dim">3–6 case studies</span></div>
-    <div class="cards">
-      <a class="card" href="#design"><div class="media"><div class="ph">Image: project 01</div><span class="chip">Identity</span><span class="onimg">[One result or line]</span></div><h3>[Project title]</h3><p class="cdesc">[Client] · [Year]</p></a>
-      <a class="card" href="#design"><div class="media"><div class="ph">Image: project 02</div><span class="chip">Campaign</span></div><h3>[Project title]</h3><p class="cdesc">[Client] · [Year]</p></a>
-      <a class="card" href="#design"><div class="media"><div class="ph">Image: project 03</div><span class="chip">Direction</span></div><h3>[Project title]</h3><p class="cdesc">[Client] · [Year]</p></a>
-      <a class="card" href="#design"><div class="media"><div class="ph">Image: project 04</div><span class="chip">Systems</span></div><h3>[Project title]</h3><p class="cdesc">[Client] · [Year]</p></a>
+    <div class="head"><span class="label">Selected work</span><a class="mono dim" href="/portfolio">Full portfolio →</a></div>
+    <div class="cards" id="dsWork">
+      <a class="card" href="/portfolio"><div class="media"><div class="ph">Loading work…</div></div><h3>&nbsp;</h3></a>
+      <a class="card" href="/portfolio"><div class="media"><div class="ph">&nbsp;</div></div><h3>&nbsp;</h3></a>
+      <a class="card" href="/portfolio"><div class="media"><div class="ph">&nbsp;</div></div><h3>&nbsp;</h3></a>
+      <a class="card" href="/portfolio"><div class="media"><div class="ph">&nbsp;</div></div><h3>&nbsp;</h3></a>
     </div>
+    <div class="btn-row"><a class="btn solid" href="/portfolio">View the full portfolio →</a></div>
   </div></section>
 
   <section class="sec wrap"><div class="inner">
@@ -450,26 +451,27 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
         <p class="intro" id="lane-lede" style="margin:0;font-size:clamp(28px,3.6vw,48px)">Brand identity and direction <span class="red">for teams that care.</span></p>
         <div style="margin-top:40px"><span class="label">What I offer</span><ul class="rows" id="lane-offer" style="margin-top:16px"></ul></div>
         <div style="margin-top:40px"><span class="label">How it works</span><ol class="steps" id="lane-steps" style="margin-top:16px"></ol></div>
+        <div style="margin-top:28px" id="lane-pkg"><a class="btn" href="/work-with-me">Packages and pricing →</a></div>
         <div style="margin-top:28px" id="lane-pack" hidden><button class="btn" type="button" data-inert>Ministry pack (PDF)</button></div>
       </div>
       <div>
         <span class="label">Enquiry</span>
         <form id="enquiry" novalidate>
-          <div class="field"><label for="f-name">Your name</label><input id="f-name" type="text" value="Adaeze Okafor"></div>
-          <div class="field"><label for="f-email">Email</label><input id="f-email" type="email" value="adaeze@example.com"></div>
-          <div class="field" data-lane="design"><label for="f-company">Company or brand</label><input id="f-company" type="text" value="Kiln Coffee Co."></div>
+          <div class="field"><label for="f-name">Your name</label><input id="f-name" type="text" placeholder="Full name"></div>
+          <div class="field"><label for="f-email">Email</label><input id="f-email" type="email" placeholder="you@example.com" required></div>
+          <div class="field" data-lane="design"><label for="f-company">Company or brand</label><input id="f-company" type="text" placeholder="Kiln Coffee Co."></div>
           <div class="field" data-lane="design"><label for="f-type">Project type</label><select id="f-type"><option>Brand identity</option><option>Campaign</option><option>Creative direction</option><option>Other</option></select></div>
-          <div class="field" data-lane="design"><label for="f-budget">Budget range</label><select id="f-budget"><option>Under ₦300k</option><option selected>₦300k – ₦1m</option><option>₦1m+</option></select></div>
-          <div class="field" data-lane="design"><label for="f-when">Timeline</label><input id="f-when" type="text" value="Launch in March"></div>
-          <div class="field" data-lane="ministry" hidden><label for="f-org">Church or organisation</label><input id="f-org" type="text" value="Grace Assembly, Ikeja"></div>
-          <div class="field" data-lane="ministry" hidden><label for="f-event">Event type</label><select id="f-event"><option>Sunday service</option><option selected>Conference</option><option>Campus fellowship</option><option>Other</option></select></div>
-          <div class="field" data-lane="ministry" hidden><label for="f-date">Date and city</label><input id="f-date" type="text" value="14 March 2027, Lagos"></div>
-          <div class="field" data-lane="ministry" hidden><label for="f-what">I'd like you to</label><select id="f-what"><option>Minister in song</option><option>Teach</option><option selected>Both</option></select></div>
-          <div class="field full"><label for="f-msg">Tell me more</label><textarea id="f-msg">We're refreshing our brand ahead of a second location and want it to feel warmer and more confident.</textarea></div>
+          <div class="field" data-lane="design"><label for="f-budget">Budget range</label><select id="f-budget"><option>Under ₦300k</option><option>₦300k – ₦1m</option><option>₦1m+</option></select></div>
+          <div class="field" data-lane="design"><label for="f-when">Timeline</label><input id="f-when" type="text" placeholder="Launch in March"></div>
+          <div class="field" data-lane="ministry" hidden><label for="f-org">Church or organisation</label><input id="f-org" type="text" placeholder="Grace Assembly, Ikeja"></div>
+          <div class="field" data-lane="ministry" hidden><label for="f-event">Event type</label><select id="f-event"><option>Sunday service</option><option>Conference</option><option>Campus fellowship</option><option>Other</option></select></div>
+          <div class="field" data-lane="ministry" hidden><label for="f-date">Date and city</label><input id="f-date" type="text" placeholder="14 March 2027, Lagos"></div>
+          <div class="field" data-lane="ministry" hidden><label for="f-what">I'd like you to</label><select id="f-what"><option>Minister in song</option><option>Teach</option><option>Both</option></select></div>
+          <div class="field full"><label for="f-msg">Tell me more</label><textarea id="f-msg"></textarea></div>
           <div class="field full" style="justify-items:start"><button class="btn solid" type="submit">Send enquiry →</button></div>
           <p class="formnote" id="formnote" aria-live="polite"></p>
         </form>
-        <p class="mono dim" style="margin-top:20px">Example entries shown. Prefer email? ag.oluwanifemi@gmail.com</p>
+        <p class="mono dim" style="margin-top:20px">Prefer email? ag.oluwanifemi@gmail.com</p>
       </div>
     </div>
   </div></section>
@@ -511,9 +513,9 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
     document.getElementById('lane-lede').innerHTML=d.lede;
     document.getElementById('lane-offer').innerHTML=d.offer.map(function(o){return '<li>'+o[0]+' <span class="mono">'+o[1]+'</span></li>';}).join('');
     document.getElementById('lane-steps').innerHTML=d.steps.map(function(s){return '<li>'+s+'</li>';}).join('');
-    document.getElementById('lane-pack').hidden=(l!=='ministry');
+    document.getElementById('lane-pack').hidden=(l!=='ministry');document.getElementById('lane-pkg').hidden=(l!=='design');
     document.querySelectorAll('[data-lane]').forEach(function(f){f.hidden=(f.getAttribute('data-lane')!==l);});
-    document.getElementById('f-msg').value = l==='design'
+    document.getElementById('f-msg').placeholder = l==='design'
       ? "We're refreshing our brand ahead of a second location and want it to feel warmer and more confident."
       : "Our annual youth conference has around 400 attendees. We'd love a ministration and a 30-minute talk on why the resurrection matters.";
     document.getElementById('formnote').textContent='';
@@ -521,7 +523,40 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
   document.getElementById('lane-design').addEventListener('click',function(){setLane('design');});
   document.getElementById('lane-ministry').addEventListener('click',function(){setLane('ministry');});
   setLane('design');
-  document.getElementById('enquiry').addEventListener('submit',function(e){e.preventDefault();document.getElementById('formnote').textContent='Preview only. On the live site this sends to your inbox.';});
+  document.getElementById('enquiry').addEventListener('submit',function(e){
+    e.preventDefault();
+    var note=document.getElementById('formnote'), lane=document.getElementById('lane-ministry').getAttribute('aria-pressed')==='true'?'Ministry':'Design';
+    var fd=new FormData(); fd.append('_subject','mannorr.com enquiry: '+lane); fd.append('lane',lane);
+    document.querySelectorAll('#enquiry .field').forEach(function(f){ if(f.hidden) return; var el=f.querySelector('input,select,textarea'), lb=f.querySelector('label'); if(el&&lb) fd.append(lb.textContent, el.value); });
+    var em=document.getElementById('f-email').value; if(em) fd.append('email', em);
+    note.textContent='Sending…';
+    fetch('https://formspree.io/f/mldqqvra',{method:'POST',body:fd,headers:{'Accept':'application/json'}})
+      .then(function(r){ note.textContent = r.ok ? 'Thank you. Your enquiry is in, and I will reply by email.' : 'That didn\'t send. Please email ag.oluwanifemi@gmail.com instead.'; if(r.ok) e.target.reset(); })
+      .catch(function(){ note.textContent='That didn\'t send. Please email ag.oluwanifemi@gmail.com instead.'; });
+  });
+
+  /* live design work, from the same store the admin page manages */
+  (function(){
+    var API='https://api.jsonbin.io/v3/b', PROJ='69c12f68c3097a1dd54fdec5', ARCH='69a1b1b8d0ea881f40df36ba';
+    var CATS={brand:'Brand Identity',visual:'Visual Design',print:'Print & Packaging',event:'Events',web:'Website Design'};
+    function get(id){return fetch(API+'/'+id+'/latest').then(function(r){if(!r.ok)throw r.status;return r.json();}).then(function(j){return j.record;});}
+    function cld(u,t){return typeof u==='string'&&u.indexOf('/upload/')>-1?u.replace('/upload/','/upload/'+t+'/'):u;}
+    function esc(x){return String(x==null?'':x).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+    Promise.allSettled([get(PROJ),get(ARCH)]).then(function(res){
+      var hidden=res[1].status==='fulfilled'?(res[1].value&&res[1].value.siteHidden)||[]:[];
+      var list=res[0].status==='fulfilled'?((res[0].value&&res[0].value.projects)||res[0].value||[]):[];
+      list=list.filter(function(p){return p&&p.visible!==false&&hidden.indexOf(p.id)<0&&p.media&&p.media.length&&p.media[0].type!=='video';});
+      list.sort(function(a,b){return (b.featured?1:0)-(a.featured?1:0);});
+      var pick=list.slice(0,4), box=document.getElementById('dsWork');
+      if(!pick.length){ box.innerHTML='<p class="mono dim">See the full portfolio for selected work.</p>'; return; }
+      box.innerHTML=pick.map(function(p){
+        var img=cld(p.media[0].thumb||p.media[0].url,'w_700,h_934,c_fill,q_auto,f_auto');
+        return '<a class="card" href="/portfolio"><div class="media"><img src="'+esc(img)+'" alt="'+esc(p.title)+'" loading="lazy"><span class="chip">'+esc(CATS[p.cat]||p.cat)+'</span>'+(p.year?'<span class="onimg">'+esc(p.year)+'</span>':'')+'</div><h3>'+esc(p.title)+'</h3><p class="cdesc">'+esc(CATS[p.cat]||'')+'</p></a>';
+      }).join('');
+      var cov=cld(pick[0].media[0].thumb||pick[0].media[0].url,'w_900,h_1200,c_fill,q_auto,f_auto');
+      document.querySelectorAll('[data-design-cover] .ph').forEach(function(ph){ var im=document.createElement('img'); im.src=cov; im.alt=''; im.loading='lazy'; ph.replaceWith(im); });
+    }).catch(function(){});
+  })();
   document.querySelectorAll('[data-inert]').forEach(function(b){b.addEventListener('click',function(){b.textContent=b.textContent.replace(/ \(.*\)$/,'')+' (added at launch)';},{once:true});});
 })();
 </script>
