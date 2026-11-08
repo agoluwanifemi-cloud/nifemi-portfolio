@@ -510,7 +510,7 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
 (function(){
   /* Paste the Google Apps Script web app URL here (see apps-script/README.md).
      While it is empty, forms fall back to the existing Formspree form. */
-  var DB_ENDPOINT = ''; // https://script.google.com/macros/s/AKfycbyzKa-chQU-xFbxOcHIjiYop6ZNw-2EEZ7b2iIn5MHp3Isoh7-xVnsU6RkpKuKSE3qVuQ/exec (re-enable once access is Anyone)
+  var DB_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyzKa-chQU-xFbxOcHIjiYop6ZNw-2EEZ7b2iIn5MHp3Isoh7-xVnsU6RkpKuKSE3qVuQ/exec';
   var FALLBACK = 'https://formspree.io/f/mldqqvra';
   var EMAIL = 'ag.oluwanifemi@gmail.com';
   var openedAt = Date.now();
@@ -565,7 +565,14 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
     fd.append('form', formKey); fd.append('page', location.hash||'#home'); fd.append('t', String(Date.now()-openedAt));
     if(DB_ENDPOINT){
       return fetch(DB_ENDPOINT,{method:'POST',body:fd}).then(function(r){return r.json();})
-        .catch(function(){ return fetch(DB_ENDPOINT,{method:'POST',body:fd,mode:'no-cors'}).then(function(){return {ok:true,ref:''};}); });
+        .catch(function(){
+          /* response unreadable: send blind to the sheet and keep a copy in Formspree so nothing is lost */
+          var copy=new FormData(); fd.forEach(function(v,k){copy.append(k,v);}); copy.append('_subject','mannorr.com · '+formKey+' (backup)');
+          return Promise.allSettled([
+            fetch(DB_ENDPOINT,{method:'POST',body:fd,mode:'no-cors'}),
+            fetch(FALLBACK,{method:'POST',body:copy,headers:{'Accept':'application/json'}})
+          ]).then(function(){return {ok:true,ref:''};});
+        });
     }
     fd.append('_subject','mannorr.com · '+formKey);
     return fetch(FALLBACK,{method:'POST',body:fd,headers:{'Accept':'application/json'}}).then(function(r){return {ok:r.ok};});
