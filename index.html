@@ -234,10 +234,10 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
   <section class="sec wrap"><div class="inner">
     <div class="head"><span class="label">Works</span><a class="mono dim" href="#works">All works →</a></div>
     <div class="cards">
-      <a class="card" href="#music"><div class="media"><img src="images/inyou-sq.jpg" alt=""><span class="chip">Music</span><span class="onimg">New single, 8 Jan 2027</span></div><h3>In You</h3><p class="cdesc">Worship, songwriting</p></a>
-      <a class="card" href="#design"><div class="media" data-design-cover><div class="ph">Design</div><span class="chip">Design</span><span class="onimg">8+ years of brand work</span></div><h3>Design</h3><p class="cdesc">Identity, direction, campaigns</p></a>
-      <a class="card" href="#apologetics"><div class="media"><div class="ph type">Apolo&shy;getics<br>Nigeria</div><span class="chip">Teaching</span></div><h3>Apologetics Nigeria</h3><p class="cdesc">Teaching, courses, events</p></a>
-      <a class="card" href="#viral-church"><div class="media"><div class="ph">Image: a Viral gathering</div><span class="chip">Church</span></div><h3>The Viral Church</h3><p class="cdesc">Coming soon · @viralchurchglobal</p></a>
+      <a class="card" href="#music"><div class="media"><img src="images/cover-songs.jpg" alt=""><span class="chip">Music</span><span class="onimg">In You · out 8 Jan 2027</span></div><h3>Songs</h3><p class="cdesc">Worship, songwriting</p></a>
+      <a class="card" href="#design"><div class="media"><img src="images/cover-design.jpg" alt=""><span class="chip">Design</span><span class="onimg">8+ years of brand work</span></div><h3>Design</h3><p class="cdesc">Identity, direction, campaigns</p></a>
+      <a class="card" href="#apologetics"><div class="media"><img src="images/cover-apologetics.jpg" alt=""><span class="chip">Teaching</span></div><h3>Apologetics Nigeria</h3><p class="cdesc">Teaching, courses, events</p></a>
+      <a class="card" href="#viral-church"><div class="media"><img src="images/cover-church.jpg" alt=""><span class="chip">Church</span></div><h3>The Viral Church</h3><p class="cdesc">Coming soon · @viralchurchglobal</p></a>
     </div>
   </div></section>
 
@@ -294,10 +294,10 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
   </div></header>
   <section class="sec wrap"><div class="inner">
     <div class="cards" style="grid-template-columns:repeat(2,minmax(0,1fr))">
-      <a class="card" href="#music"><div class="media" style="aspect-ratio:4/3"><img src="images/inyou.jpg" alt=""><span class="chip">Music</span><span class="onimg">Out 8 January 2027</span></div><h3>In You</h3><p class="cdesc">A new single, the story behind it, lyrics and where to listen.</p></a>
-      <a class="card" href="#design"><div class="media" style="aspect-ratio:4/3" data-design-cover><div class="ph">Design</div><span class="chip">Design</span></div><h3>Design</h3><p class="cdesc">Selected brand identities, campaigns and creative direction.</p></a>
-      <a class="card" href="#apologetics"><div class="media" style="aspect-ratio:4/3"><div class="ph type">Apologetics<br>Nigeria</div><span class="chip">Teaching</span></div><h3>Apologetics Nigeria</h3><p class="cdesc">Equipping believers to give a reason for the hope.</p></a>
-      <a class="card" href="#viral-church"><div class="media" style="aspect-ratio:4/3"><div class="ph">Image: a Viral gathering</div><span class="chip">Church</span></div><h3>The Viral Church</h3><p class="cdesc">Coming soon. Vision, mission and what VIRAL stands for.</p></a>
+      <a class="card" href="#music"><div class="media" style="aspect-ratio:4/3"><img src="images/cover-songs.jpg" alt=""><span class="chip">Music</span><span class="onimg">In You · out 8 January 2027</span></div><h3>Songs</h3><p class="cdesc">A new single, the story behind it, lyrics and where to listen.</p></a>
+      <a class="card" href="#design"><div class="media" style="aspect-ratio:4/3"><img src="images/cover-design.jpg" alt=""><span class="chip">Design</span></div><h3>Design</h3><p class="cdesc">Selected brand identities, campaigns and creative direction.</p></a>
+      <a class="card" href="#apologetics"><div class="media" style="aspect-ratio:4/3"><img src="images/cover-apologetics.jpg" alt=""><span class="chip">Teaching</span></div><h3>Apologetics Nigeria</h3><p class="cdesc">Equipping believers to give a reason for the hope.</p></a>
+      <a class="card" href="#viral-church"><div class="media" style="aspect-ratio:4/3"><img src="images/cover-church.jpg" alt=""><span class="chip">Church</span></div><h3>The Viral Church</h3><p class="cdesc">Coming soon. Vision, mission and what VIRAL stands for.</p></a>
     </div>
   </div></section>
 </main>
@@ -433,7 +433,7 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
     </div>
     <p class="mono dim" style="margin-top:32px">Gatherings, location and how to join will be announced here.</p>
   </div></section>
-  <a class="next wrap" href="#music"><div class="inner" style="display:flex;justify-content:space-between;align-items:end;width:100%;gap:16px"><span class="label">Next work</span><span class="t">In You →</span></div></a>
+  <a class="next wrap" href="#music"><div class="inner" style="display:flex;justify-content:space-between;align-items:end;width:100%;gap:16px"><span class="label">Next work</span><span class="t">Songs →</span></div></a>
 </main>
 
 <!-- ========== WORK WITH ME ========== -->
@@ -553,8 +553,6 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
         var img=cld(p.media[0].thumb||p.media[0].url,'w_700,h_934,c_fill,q_auto,f_auto');
         return '<a class="card" href="/portfolio"><div class="media"><img src="'+esc(img)+'" alt="'+esc(p.title)+'" loading="lazy"><span class="chip">'+esc(CATS[p.cat]||p.cat)+'</span>'+(p.year?'<span class="onimg">'+esc(p.year)+'</span>':'')+'</div><h3>'+esc(p.title)+'</h3><p class="cdesc">'+esc(CATS[p.cat]||'')+'</p></a>';
       }).join('');
-      var cov=cld(pick[0].media[0].thumb||pick[0].media[0].url,'w_900,h_1200,c_fill,q_auto,f_auto');
-      document.querySelectorAll('[data-design-cover] .ph').forEach(function(ph){ var im=document.createElement('img'); im.src=cov; im.alt=''; im.loading='lazy'; ph.replaceWith(im); });
     }).catch(function(){});
   })();
   document.querySelectorAll('[data-inert]').forEach(function(b){b.addEventListener('click',function(){b.textContent=b.textContent.replace(/ \(.*\)$/,'')+' (added at launch)';},{once:true});});
