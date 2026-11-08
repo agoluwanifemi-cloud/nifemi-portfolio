@@ -17,7 +17,7 @@
 
 const CONFIG = {
   NOTIFY_EMAIL: "hellomannorr@gmail.com",
-  OWNER_NAME: "Nifemi Adeniran (MANNORR)",
+  OWNER_NAME: "Nifemi Adeniran · MANNORR",
   SEND_CONFIRMATION: true,          // thank-you email to the person, when they give an email
   DEFAULT_COUNTRY_CODE: "234",      // turns 0803… into 234803… for WhatsApp
   DUPLICATE_WINDOW_SECONDS: 120,    // same email + same form within this window = same submission
@@ -178,52 +178,144 @@ function doPost(e) {
 }
 
 /* ---------- emails ---------- */
-function notifyOwner(form, d, waUrl) {
-  const rows = form.columns
-    .filter(c => !["ref", "received", "status", "wa", "notes", "name"].includes(c[1]) && d[c[1]])
-    .map(c => `<tr><td style="padding:8px 16px 8px 0;color:#E4291C;font:11px Arial;letter-spacing:1px;vertical-align:top;white-space:nowrap">${c[0]}</td><td style="padding:8px 0;font:15px Arial;color:#111">${esc(d[c[1]])}</td></tr>`)
+// Table-based, inline-styled HTML so it renders cleanly in Gmail, Outlook and Apple Mail.
+
+const BRAND = {
+  ink: "#111111", paper: "#F2F0EC", grey: "#EBEAE8", muted: "#6B6660", line: "#E4E1DC", red: "#E4291C",
+  font: "'Helvetica Neue',Helvetica,Arial,sans-serif", mono: "'SFMono-Regular',Menlo,Consolas,monospace",
+  site: "https://mannorr.com", instagram: "https://www.instagram.com/_mannorr/"
+};
+
+const COPY = {
+  design: {
+    kicker: "Design enquiry",
+    title: "Your project enquiry is in.",
+    intro: "Thank you for thinking of me for your project. I read every brief myself, and I'll come back to you with questions or a time to talk.",
+    steps: ["I review your brief", "A short discovery call", "A proposal, timeline and next steps"],
+    alert: "New design enquiry"
+  },
+  ministry: {
+    kicker: "Ministry booking",
+    title: "Your booking request is in.",
+    intro: "Thank you for inviting me. I'll pray over it, check the date, and get back to you to confirm the details.",
+    steps: ["I check the date and pray over it", "We confirm the brief and logistics", "The ministration"],
+    alert: "New ministry booking"
+  },
+  learn: {
+    kicker: "Student application",
+    title: "Your application is in.",
+    intro: "Thank you for wanting to learn design with me. I'll go through your application and reach out on WhatsApp about the next steps.",
+    steps: ["I review your application", "A short call on WhatsApp", "We confirm your place and schedule"],
+    alert: "New student application"
+  }
+};
+
+function formKeyOf(form) { return Object.keys(FORMS).find(k => FORMS[k] === form); }
+
+function shell(preheader, inner) {
+  return `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light only"><title>MANNORR</title></head>
+<body style="margin:0;padding:0;background:${BRAND.grey}">
+<div style="display:none;max-height:0;overflow:hidden;opacity:0">${esc(preheader)}</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${BRAND.grey}" style="background:${BRAND.grey}">
+<tr><td align="center" style="padding:32px 12px">
+<table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px">
+${inner}
+<tr><td style="padding:24px 8px 0;font:12px/1.6 ${BRAND.font};color:${BRAND.muted};text-align:center">
+<a href="${BRAND.site}" style="color:${BRAND.muted};text-decoration:none">mannorr.com</a> &nbsp;·&nbsp;
+<a href="${BRAND.instagram}" style="color:${BRAND.muted};text-decoration:none">Instagram @_mannorr</a> &nbsp;·&nbsp;
+<a href="mailto:${CONFIG.NOTIFY_EMAIL}" style="color:${BRAND.muted};text-decoration:none">${CONFIG.NOTIFY_EMAIL}</a>
+</td></tr>
+</table></td></tr></table></body></html>`;
+}
+
+function header(kicker, ref) {
+  return `<tr><td bgcolor="${BRAND.ink}" style="background:${BRAND.ink};padding:22px 32px">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+<td style="font:600 14px ${BRAND.font};letter-spacing:4px;color:${BRAND.paper}">MANNORR</td>
+<td align="right" style="font:12px ${BRAND.mono};color:${BRAND.red}">// ${esc(kicker)}${ref ? " · " + esc(ref) : ""}</td>
+</tr></table></td></tr>
+<tr><td bgcolor="${BRAND.red}" style="background:${BRAND.red};height:3px;line-height:3px;font-size:0">&nbsp;</td></tr>`;
+}
+
+function button(href, label, dark) {
+  const bg = dark ? BRAND.ink : BRAND.red;
+  return `<td style="padding:0 8px 8px 0"><a href="${href}" style="display:inline-block;background:${bg};color:#ffffff;font:600 14px ${BRAND.font};text-decoration:none;padding:13px 22px;border-radius:999px">${label}</a></td>`;
+}
+
+function detailRows(form, d, skip) {
+  return form.columns
+    .filter(c => !skip.includes(c[1]) && d[c[1]])
+    .map(c => `<tr>
+<td valign="top" style="padding:12px 16px 12px 0;border-top:1px solid ${BRAND.line};font:12px ${BRAND.mono};color:${BRAND.muted};white-space:nowrap;width:120px">${esc(c[0])}</td>
+<td valign="top" style="padding:12px 0;border-top:1px solid ${BRAND.line};font:15px/1.5 ${BRAND.font};color:${BRAND.ink}">${esc(d[c[1]])}</td></tr>`)
     .join("");
-  const btn = (href, label, bg, fg) => `<a href="${href}" style="display:inline-block;padding:12px 20px;margin:0 8px 8px 0;background:${bg};color:${fg};font:bold 13px Arial;text-decoration:none;border-radius:999px">${label}</a>`;
-  const html = `
-  <div style="background:#EBEAE8;padding:28px">
-    <div style="max-width:560px;margin:0 auto;background:#ffffff">
-      <div style="background:#111111;padding:20px 28px;color:#F2F0EC;font:12px Arial;letter-spacing:1px">// MANNORR · ${form.label} · ${d.ref}</div>
-      <div style="padding:28px">
-        <div style="font:600 28px Arial;letter-spacing:-1px;color:#111">${esc(d.name || d.email)}</div>
-        <div style="margin:18px 0 6px">${waUrl ? btn(waUrl, "WhatsApp", "#111111", "#F2F0EC") : ""}${d.email ? btn("mailto:" + d.email, "Reply by email", "#E4291C", "#ffffff") : ""}</div>
-        <table style="border-collapse:collapse;margin-top:12px;width:100%">${rows}</table>
-        <p style="font:12px Arial;color:#5F5B56;margin-top:24px">Update the Status of ${d.ref} in the ${form.sheet} tab once you have been in touch.</p>
-      </div>
-    </div>
-  </div>`;
+}
+
+function notifyOwner(form, d, waUrl) {
+  const key = formKeyOf(form), c = COPY[key] || { kicker: form.label, alert: form.label };
+  const when = Utilities.formatDate(d.received, "Africa/Lagos", "EEE d MMM yyyy, h:mm a");
+  let sheetUrl = "";
+  try { sheetUrl = SpreadsheetApp.getActiveSpreadsheet().getUrl() + "#gid=" + sheetFor(form).getSheetId(); } catch (e) {}
+  const msg = d.message ? `<tr><td style="padding:8px 32px 0"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+<td style="border-left:3px solid ${BRAND.red};padding:4px 0 4px 16px;font:16px/1.6 ${BRAND.font};color:${BRAND.ink}">${esc(d.message)}</td></tr></table></td></tr>` : "";
+  const inner = header(c.kicker, d.ref) + `
+<tr><td bgcolor="#ffffff" style="background:#ffffff;padding:32px 32px 8px">
+<div style="font:12px ${BRAND.mono};color:${BRAND.muted}">${esc(c.alert)} · ${esc(when)}</div>
+<div style="font:600 34px/1.05 ${BRAND.font};letter-spacing:-1px;color:${BRAND.ink};margin-top:10px">${esc(d.name || d.email)}</div>
+${d.org || d.company ? `<div style="font:16px ${BRAND.font};color:${BRAND.muted};margin-top:6px">${esc(d.org || d.company)}</div>` : ""}
+</td></tr>
+<tr><td bgcolor="#ffffff" style="background:#ffffff;padding:20px 32px 8px"><table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+${waUrl ? button(waUrl, "WhatsApp", true) : ""}${d.email ? button("mailto:" + d.email + "?subject=" + encodeURIComponent("Re: " + d.ref), "Reply by email", false) : ""}
+</tr></table></td></tr>
+${msg ? msg.replace('<tr><td style="padding:8px 32px 0">', `<tr><td bgcolor="#ffffff" style="background:#ffffff;padding:16px 32px 0">`) : ""}
+<tr><td bgcolor="#ffffff" style="background:#ffffff;padding:20px 32px 8px"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+${detailRows(form, d, ["ref", "received", "status", "wa", "notes", "name", "message", "page"])}
+</table></td></tr>
+<tr><td bgcolor="#ffffff" style="background:#ffffff;padding:16px 32px 32px;font:13px/1.6 ${BRAND.font};color:${BRAND.muted}">
+${sheetUrl ? `<a href="${sheetUrl}" style="color:${BRAND.ink};font-weight:600">Open the ${esc(form.sheet)} tab</a> and move ${esc(d.ref)} along once you've been in touch.` : `Update ${esc(d.ref)} in the ${esc(form.sheet)} tab once you've been in touch.`}
+</td></tr>`;
   MailApp.sendEmail({
     to: CONFIG.NOTIFY_EMAIL,
-    subject: `${form.label} ${d.ref} · ${d.name || d.email}`,
-    htmlBody: html,
-    body: `${form.label} ${d.ref}\n${d.name}\n${d.email}\n${waUrl ? "WhatsApp: " + waUrl + "\n" : ""}${d.message || ""}`,
+    subject: `${c.alert} · ${d.name || d.email} · ${d.ref}`,
+    htmlBody: shell(`${d.name || d.email}: ${d.message || c.alert}`, inner),
+    body: `${c.alert} ${d.ref}\n${d.name}\n${d.email}\n${waUrl ? "WhatsApp: " + waUrl + "\n" : ""}\n${d.message || ""}`,
     replyTo: d.email || CONFIG.NOTIFY_EMAIL,
     name: "mannorr.com"
   });
 }
 
 function confirmPerson(form, d) {
-  const what = { design: "your design enquiry", ministry: "your booking request", learn: "your application to learn design" }[
-    Object.keys(FORMS).find(k => FORMS[k] === form)] || "your message";
-  const html = `
-  <div style="background:#EBEAE8;padding:28px">
-    <div style="max-width:520px;margin:0 auto;background:#111111;color:#F2F0EC;padding:36px 32px">
-      <div style="font:12px Arial;letter-spacing:1px;color:#E4291C">// MANNORR · ${d.ref}</div>
-      <div style="font:600 30px Arial;letter-spacing:-1px;margin:18px 0 14px">Thank you, ${esc(firstName(d.name))}.</div>
-      <p style="font:15px/1.6 Arial;color:#CFCBC5">I have received ${what}. I'll get back to you personally${d.phone ? " by WhatsApp or email" : " by email"} soon.</p>
-      <p style="font:15px/1.6 Arial;color:#CFCBC5">Please keep your reference, ${d.ref}, for any questions.</p>
-      <p style="font:15px/1.6 Arial;color:#CFCBC5;margin-top:24px">Nifemi Adeniran<br><span style="color:#8F8B85">Designer, preacher, songwriter · mannorr.com</span></p>
-    </div>
-  </div>`;
+  const key = formKeyOf(form), c = COPY[key];
+  if (!c) return;
+  const steps = c.steps.map((s, i) => `<tr>
+<td valign="top" style="padding:12px 14px 12px 0;border-top:1px solid ${BRAND.line};font:12px ${BRAND.mono};color:${BRAND.red};width:28px">0${i + 1}</td>
+<td valign="top" style="padding:12px 0;border-top:1px solid ${BRAND.line};font:15px ${BRAND.font};color:${BRAND.ink}">${esc(s)}</td></tr>`).join("");
+  const inner = header(c.kicker, d.ref) + `
+<tr><td bgcolor="#ffffff" style="background:#ffffff;padding:40px 32px 8px">
+<div style="font:600 36px/1.05 ${BRAND.font};letter-spacing:-1.2px;color:${BRAND.ink}">Thank you, ${esc(firstName(d.name))}.</div>
+<div style="font:600 36px/1.05 ${BRAND.font};letter-spacing:-1.2px;color:${BRAND.red}">${esc(c.title)}</div>
+<p style="font:16px/1.65 ${BRAND.font};color:#3d3a36;margin:20px 0 0">${esc(c.intro)}</p>
+</td></tr>
+<tr><td bgcolor="#ffffff" style="background:#ffffff;padding:28px 32px 4px">
+<div style="font:12px ${BRAND.mono};color:${BRAND.red};padding-bottom:10px">// What happens next</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">${steps}</table>
+</td></tr>
+<tr><td bgcolor="#ffffff" style="background:#ffffff;padding:28px 32px 4px">
+<div style="font:12px ${BRAND.mono};color:${BRAND.red};padding-bottom:10px">// What you sent</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+${detailRows(form, d, ["ref", "received", "status", "wa", "notes", "page", "phone"])}
+</table></td></tr>
+<tr><td bgcolor="#ffffff" style="background:#ffffff;padding:28px 32px 36px">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${BRAND.grey}" style="background:${BRAND.grey};border-radius:14px"><tr>
+<td style="padding:18px 20px;font:13px/1.6 ${BRAND.font};color:${BRAND.muted}">Your reference is <strong style="color:${BRAND.ink};font-family:${BRAND.mono}">${esc(d.ref)}</strong>. Reply to this email any time and it comes straight to me.</td>
+</tr></table>
+<p style="font:15px/1.6 ${BRAND.font};color:${BRAND.ink};margin:28px 0 0">Nifemi Adeniran<br><span style="color:${BRAND.muted}">Designer · Preacher · Songwriter</span></p>
+</td></tr>`;
   MailApp.sendEmail({
     to: d.email,
-    subject: `Received · ${d.ref}`,
-    htmlBody: html,
-    body: `Thank you, ${firstName(d.name)}. I have received ${what} (${d.ref}) and will get back to you soon. Nifemi Adeniran, mannorr.com`,
+    subject: `${c.title.replace(/\.$/, "")} · ${d.ref}`,
+    htmlBody: shell(`${c.title} Reference ${d.ref}.`, inner),
+    body: `Thank you, ${firstName(d.name)}. ${c.title}\n\n${c.intro}\n\nWhat happens next:\n${c.steps.map((s, i) => (i + 1) + ". " + s).join("\n")}\n\nReference: ${d.ref}\n\nNifemi Adeniran\nmannorr.com`,
     replyTo: CONFIG.NOTIFY_EMAIL,
     name: CONFIG.OWNER_NAME
   });

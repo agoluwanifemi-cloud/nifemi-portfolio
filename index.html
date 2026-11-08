@@ -72,6 +72,13 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .intro-sub{max-width:44ch;margin:40px 0 0 auto;color:var(--dim);font-size:15px}
 .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 20px;border-radius:999px;border:1px solid var(--line);background:transparent;color:inherit;font:500 14px var(--f-sans);text-decoration:none;cursor:pointer}
 .btn:hover{border-color:var(--bone)}
+.btn{transition:background-color .18s ease,border-color .18s ease,color .18s ease,transform .12s ease}
+.btn:hover{background:rgba(242,240,236,.08)}
+.btn.solid:hover,.lane-form .btn.solid:hover,#notify .btn:hover{background:var(--red);border-color:var(--red);color:#fff}
+.btn.redbtn:hover{background:#c71f13;border-color:#c71f13}
+.btn:active{transform:scale(.97)}
+.btn:disabled{cursor:progress}
+.lane-form button[type=submit]{position:relative;z-index:1}
 .btn.solid{background:var(--bone);color:var(--ink);border-color:var(--bone)}
 .btn.redbtn{background:var(--red);border-color:var(--red);color:#fff}
 .btn-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
@@ -348,7 +355,7 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
         <h1 class="ptitle red" style="margin-top:20px">In You</h1>
         <p class="mono" style="margin-top:20px">MANNORR · Single · Coming soon</p>
         <form id="notify" class="notify" novalidate>
-          <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <input type="text" name="mn_trap_x" class="hp" tabindex="-1" autocomplete="new-password" aria-hidden="true" readonly onfocus="this.removeAttribute('readonly')">
           <label for="n-email" class="mono" style="color:var(--dim-paper)">Get an email the day it's out</label>
           <div class="notify-row"><input id="n-email" name="email" type="email" placeholder="you@example.com" required><button class="btn redbtn" type="submit">Notify me →</button></div>
           <p class="formnote" id="notifynote" aria-live="polite" style="color:var(--ink)"></p>
@@ -496,7 +503,7 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
       </div>
       <div>
         <form class="lane-form" data-form="design" id="form-design" novalidate>
-          <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <input type="text" name="mn_trap_x" class="hp" tabindex="-1" autocomplete="new-password" aria-hidden="true" readonly onfocus="this.removeAttribute('readonly')">
           <span class="label full">Start a project</span>
           <div class="field"><label for="d-name">Your name</label><input id="d-name" name="name" type="text" placeholder="Full name" required></div>
           <div class="field"><label for="d-email">Email</label><input id="d-email" name="email" type="email" placeholder="you@company.com" required></div>
@@ -509,7 +516,7 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
         </form>
 
         <form class="lane-form" data-form="ministry" id="form-ministry" novalidate hidden>
-          <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <input type="text" name="mn_trap_x" class="hp" tabindex="-1" autocomplete="new-password" aria-hidden="true" readonly onfocus="this.removeAttribute('readonly')">
           <span class="label full">Book a ministration</span>
           <div class="field"><label for="m-name">Your name</label><input id="m-name" name="name" type="text" placeholder="Full name" required></div>
           <div class="field"><label for="m-org">Church or organisation</label><input id="m-org" name="org" type="text" placeholder="Grace Assembly, Ikeja"></div>
@@ -524,7 +531,7 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
         </form>
 
         <form class="lane-form" data-form="learn" id="form-learn" novalidate hidden>
-          <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <input type="text" name="mn_trap_x" class="hp" tabindex="-1" autocomplete="new-password" aria-hidden="true" readonly onfocus="this.removeAttribute('readonly')">
           <span class="label full">Apply to learn</span>
           <div class="field"><label for="l-name">Your name</label><input id="l-name" name="name" type="text" placeholder="Full name" required></div>
           <div class="field"><label for="l-phone">WhatsApp number</label><input id="l-phone" name="phone" type="tel" placeholder="0803 000 0000" required></div>
@@ -537,6 +544,28 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
           <p class="formnote" aria-live="polite"></p>
         </form>
         <p class="mono dim" style="margin-top:20px">Prefer email? <a href="mailto:hellomannorr@gmail.com">hellomannorr@gmail.com</a></p>
+      </div>
+    </div>
+  </div></section>
+</main>
+
+<!-- ========== THANK YOU ========== -->
+<main class="view" id="v-thank-you" hidden>
+  <header class="hero wrap"><div class="inner">
+    <nav class="nav"><a class="mark" href="#home">MANNORR</a><div class="links"><a href="#about">About</a><a href="#works">Works</a><a href="#work-with-me">Work With Me</a></div></nav>
+    <div style="padding-block:48px 72px">
+      <span class="label" id="ty-kicker">Sent</span>
+      <h1 class="ptitle" style="margin-top:20px;font-size:clamp(52px,10vw,148px)"><span id="ty-hello">Thank you.</span><br><span class="red" id="ty-title">Your message is in.</span></h1>
+      <p class="lede" id="ty-intro" style="margin-top:28px">I read every message myself and will get back to you soon.</p>
+      <p class="mono" id="ty-ref" style="margin-top:20px" hidden></p>
+    </div>
+  </div></header>
+  <section class="sec wrap"><div class="inner">
+    <div class="pgrid" style="align-items:start">
+      <div><span class="label">What happens next</span><ol class="steps" id="ty-steps" style="margin-top:16px"><li>I read your message</li><li>I get back to you by email or WhatsApp</li></ol></div>
+      <div><span class="label">Meanwhile</span>
+        <p class="body-copy" id="ty-mail" style="margin-top:16px">A confirmation is on its way to your inbox. If you can't see it in a few minutes, check your spam or promotions folder.</p>
+        <div class="btn-row"><a class="btn solid" href="#home">Back to home</a><a class="btn" href="#works">Explore my work</a><a class="btn" href="https://www.instagram.com/_mannorr/" target="_blank" rel="noopener">Instagram ↗</a></div>
       </div>
     </div>
   </div></section>
@@ -561,7 +590,7 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
   var EMAIL = 'hellomannorr@gmail.com';
   var openedAt = Date.now();
 
-  var views=['home','about','works','music','design','apologetics','viral-church','work-with-me'];
+  var views=['home','about','works','music','design','apologetics','viral-church','work-with-me','thank-you'];
   function show(){
     var h=(location.hash||'#home').slice(1), lane=null;
     if(h==='learn'){ h='work-with-me'; lane='learn'; }
@@ -621,6 +650,24 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
   }
   function fail(note){ note.textContent="That didn't send. Please email "+EMAIL+" instead."; }
 
+  var THANKS={
+    design:{kicker:'Design enquiry',title:'Your project enquiry is in.',intro:'Thank you for thinking of me for your project. I read every brief myself and will come back to you with questions or a time to talk.',steps:['I review your brief','A short discovery call','A proposal, timeline and next steps']},
+    ministry:{kicker:'Ministry booking',title:'Your booking request is in.',intro:"Thank you for inviting me. I'll pray over it, check the date, and get back to you to confirm the details.",steps:['I check the date and pray over it','We confirm the brief and logistics','The ministration']},
+    learn:{kicker:'Student application',title:'Your application is in.',intro:"Thank you for wanting to learn design with me. I'll go through your application and reach out on WhatsApp about the next steps.",steps:['I review your application','A short call on WhatsApp','We confirm your place and schedule']}
+  };
+  function showThanks(key,name,email,ref){
+    var t=THANKS[key]; if(!t) return;
+    var first=(name||'').split(' ')[0];
+    document.getElementById('ty-kicker').textContent=t.kicker;
+    document.getElementById('ty-hello').textContent='Thank you'+(first?', '+first:'')+'.';
+    document.getElementById('ty-title').textContent=t.title;
+    document.getElementById('ty-intro').textContent=t.intro;
+    var rf=document.getElementById('ty-ref'); rf.hidden=!ref; rf.textContent=ref?'Reference '+ref:'';
+    document.getElementById('ty-steps').innerHTML=t.steps.map(function(x){return '<li>'+x+'</li>';}).join('');
+    document.getElementById('ty-mail').textContent='A confirmation is on its way to '+(email||'your inbox')+". If you can't see it in a few minutes, check your spam or promotions folder.";
+    location.hash='thank-you';
+  }
+
   var DONE={design:'Thank you. Your enquiry is in, and I will reply soon.',ministry:'Thank you. Your request is in, and I will be in touch to confirm.',learn:'Thank you for applying. I will reach out on WhatsApp about next steps.'};
   var NAMES={name:'name',email:'email',phone:'phone number'};
   document.querySelectorAll('.lane-form').forEach(function(f){
@@ -629,21 +676,17 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
       e.preventDefault();
       var key=f.getAttribute('data-form'), note=f.querySelector('.formnote');
       note.className='formnote';
-      if((f.querySelector('[name=website]')||{}).value) return;
+      var trapped=!!(f.querySelector('[name=mn_trap_x]')||{}).value;
       var miss=Array.prototype.filter.call(f.querySelectorAll('[required]'),function(el){return !el.value.trim();});
       if(miss.length){ note.className='formnote is-error'; note.textContent='Please add your '+miss.map(function(el){return NAMES[el.name]||el.name;}).join(', ')+'.'; miss[0].focus(); return; }
       var fd=new FormData();
       Array.prototype.forEach.call(f.querySelectorAll('.field [name]'),function(el){ fd.append(el.name, el.value.trim()); });
       btn.disabled=true; btn.classList.add('is-busy'); btn.textContent='Sending…';
       note.className='formnote is-info'; note.textContent='Sending your details. This can take a few seconds.';
-      send(fd,key).then(function(r){
+      (trapped?Promise.resolve({ok:true,ref:''}):send(fd,key)).then(function(r){
         if(r&&r.ok){
-          var who=(f.querySelector('[name=name]').value.trim().split(' ')[0])||'';
-          var panel=document.createElement('div'); panel.className='sent-panel'; panel.setAttribute('role','status');
-          panel.innerHTML='<span class="sent-tick" aria-hidden="true">✓</span><h3>Sent'+(who?', thank you '+who.replace(/[<>&"]/g,'')+'.':'.')+'</h3><p>'+DONE[key]+'</p>'+(r.ref?'<p class="mono">Reference '+r.ref+'</p>':'')+'<p class="mono dim">A confirmation is on its way to your email.</p><button type="button" class="btn">Send another</button>';
-          panel.querySelector('button').addEventListener('click',function(){panel.remove();f.hidden=false;});
-          f.reset(); note.textContent=''; f.hidden=true; f.parentNode.insertBefore(panel,f.nextSibling);
-          if(panel.scrollIntoView) panel.scrollIntoView({block:'center',behavior:'smooth'});
+          showThanks(key, f.querySelector('[name=name]').value.trim(), f.querySelector('[name=email]').value.trim(), r.ref||'');
+          f.reset(); note.textContent=''; note.className='formnote';
         } else { note.className='formnote is-error'; note.textContent=(r&&r.error)||"That didn't send. Please try again, or email "+EMAIL+"."; }
       }).catch(function(){ note.className='formnote is-error'; note.textContent="That didn't send. Please try again, or email "+EMAIL+"."; })
         .then(function(){ btn.disabled=false; btn.classList.remove('is-busy'); btn.textContent=label; });
@@ -653,7 +696,7 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
   document.getElementById('notify').addEventListener('submit',function(e){
     e.preventDefault();
     var f=e.target, note=document.getElementById('notifynote');
-    if((f.querySelector('[name=website]')||{}).value) return;
+    if((f.querySelector('[name=mn_trap_x]')||{}).value){ note.textContent="You're on the list."; return; }
     var em=f.querySelector('[name=email]').value.trim();
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){ note.textContent='Please check your email address.'; return; }
     var fd=new FormData(); fd.append('email',em); fd.append('interest','In You release');
