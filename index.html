@@ -152,6 +152,12 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
 .next .t{font-size:clamp(40px,8vw,112px);letter-spacing:-.055em;line-height:.9}
 
 .view[hidden]{display:none!important}
+.hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0}
+.lanes.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.notify{display:grid;gap:10px;margin-top:28px;max-width:460px;position:relative}
+.notify-row{display:flex;gap:10px;flex-wrap:wrap}
+.notify-row input{flex:1 1 220px;min-width:0;background:transparent;border:1px solid var(--line-paper);border-radius:999px;padding:12px 18px;font:15px var(--f-sans);color:var(--ink)}
+@media (max-width:860px){.lanes.three{grid-template-columns:1fr}}
 .home-hero{background:#e3e3e3}
 .hh-nav{position:absolute;left:0;right:0;top:0;z-index:4}
 .hh-media{position:relative}
@@ -225,8 +231,8 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
         <p class="mono dim">MANNORR · Single</p>
         <h2>In You</h2>
         <p class="lede" style="margin-top:20px">A worship song about the exchange at the cross. He gave Himself, so we could live in Him.</p>
-        <div class="meta mono"><span>Out 8 January 2027</span><span class="dim">All platforms</span></div>
-        <div class="btn-row"><a class="btn redbtn" href="#music">Pre-save →</a><a class="btn" href="#music">The story</a></div>
+        <div class="meta mono"><span>Coming soon</span><span class="dim">All platforms</span></div>
+        <div class="btn-row"><a class="btn redbtn" href="#music">Get notified →</a><a class="btn" href="#music">The story</a></div>
       </div>
     </div>
   </div></section>
@@ -234,7 +240,7 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
   <section class="sec wrap"><div class="inner">
     <div class="head"><span class="label">Works</span><a class="mono dim" href="#works">All works →</a></div>
     <div class="cards">
-      <a class="card" href="#music"><div class="media"><img src="images/cover-songs.jpg" alt=""><span class="chip">Music</span><span class="onimg">In You · out 8 Jan 2027</span></div><h3>Songs</h3><p class="cdesc">Worship, songwriting</p></a>
+      <a class="card" href="#music"><div class="media"><img src="images/cover-songs.jpg" alt=""><span class="chip">Music</span><span class="onimg">In You · coming soon</span></div><h3>Songs</h3><p class="cdesc">Worship, songwriting</p></a>
       <a class="card" href="#design"><div class="media"><img src="images/cover-design.jpg" alt=""><span class="chip">Design</span><span class="onimg">8+ years of brand work</span></div><h3>Design</h3><p class="cdesc">Identity, direction, campaigns</p></a>
       <a class="card" href="#apologetics"><div class="media"><img src="images/cover-apologetics.jpg" alt=""><span class="chip">Teaching</span></div><h3>Apologetics Nigeria</h3><p class="cdesc">Teaching, courses, events</p></a>
       <a class="card" href="#viral-church"><div class="media"><img src="images/cover-church.jpg" alt=""><span class="chip">Church</span></div><h3>The Viral Church</h3><p class="cdesc">Coming soon · @viralchurchglobal</p></a>
@@ -243,9 +249,10 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
 
   <section class="sec wrap"><div class="inner">
     <div class="head"><span class="label">Work With Me</span></div>
-    <div class="lanes">
+    <div class="lanes three">
       <a class="lane" href="#work-with-me" style="text-decoration:none"><span class="mono dim">For brands and businesses</span><h3>Design</h3><p>Brand identity, creative direction and campaigns for teams that care how they look and what they mean.</p><span class="btn" style="justify-self:start">Start a project →</span></a>
       <a class="lane" href="#work-with-me" style="text-decoration:none"><span class="mono dim">For churches and events</span><h3>Ministry</h3><p>Worship ministration and teaching on apologetics and the faith, for services, conferences and fellowships.</p><span class="btn" style="justify-self:start">Book me →</span></a>
+      <a class="lane" href="#learn" style="text-decoration:none"><span class="mono dim">For new designers</span><h3>Learn</h3><p>A hands-on design programme with weekly sessions and real assignments, for beginners ready to put in the work.</p><span class="btn" style="justify-self:start">Apply to learn →</span></a>
     </div>
   </div></section>
 </main>
@@ -294,7 +301,7 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
   </div></header>
   <section class="sec wrap"><div class="inner">
     <div class="cards" style="grid-template-columns:repeat(2,minmax(0,1fr))">
-      <a class="card" href="#music"><div class="media" style="aspect-ratio:4/3"><img src="images/cover-songs.jpg" alt=""><span class="chip">Music</span><span class="onimg">In You · out 8 January 2027</span></div><h3>Songs</h3><p class="cdesc">A new single, the story behind it, lyrics and where to listen.</p></a>
+      <a class="card" href="#music"><div class="media" style="aspect-ratio:4/3"><img src="images/cover-songs.jpg" alt=""><span class="chip">Music</span><span class="onimg">In You · coming soon</span></div><h3>Songs</h3><p class="cdesc">A new single, the story behind it, lyrics and where to listen.</p></a>
       <a class="card" href="#design"><div class="media" style="aspect-ratio:4/3"><img src="images/cover-design.jpg" alt=""><span class="chip">Design</span></div><h3>Design</h3><p class="cdesc">Selected brand identities, campaigns and creative direction.</p></a>
       <a class="card" href="#apologetics"><div class="media" style="aspect-ratio:4/3"><img src="images/cover-apologetics.jpg" alt=""><span class="chip">Teaching</span></div><h3>Apologetics Nigeria</h3><p class="cdesc">Equipping believers to give a reason for the hope.</p></a>
       <a class="card" href="#viral-church"><div class="media" style="aspect-ratio:4/3"><img src="images/cover-church.jpg" alt=""><span class="chip">Church</span></div><h3>The Viral Church</h3><p class="cdesc">Coming soon. Vision, mission and what VIRAL stands for.</p></a>
@@ -310,9 +317,13 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
       <div>
         <span class="label">Music</span>
         <h1 class="ptitle red" style="margin-top:20px">In You</h1>
-        <p class="mono" style="margin-top:20px">MANNORR · Single · 8 January 2027</p>
-        <div class="btn-row"><a class="btn redbtn" href="#music">Pre-save on Spotify →</a><a class="btn" href="#music" style="border-color:var(--line-paper)">Apple Music</a><a class="btn" href="#music" style="border-color:var(--line-paper)">Boomplay</a></div>
-        <p class="mono" style="margin-top:14px;color:var(--dim-paper)">Switches to streaming links on release day</p>
+        <p class="mono" style="margin-top:20px">MANNORR · Single · Coming soon</p>
+        <form id="notify" class="notify" novalidate>
+          <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <label for="n-email" class="mono" style="color:var(--dim-paper)">Get an email the day it's out</label>
+          <div class="notify-row"><input id="n-email" name="email" type="email" placeholder="you@example.com" required><button class="btn redbtn" type="submit">Notify me →</button></div>
+          <p class="formnote" id="notifynote" aria-live="polite" style="color:var(--ink)"></p>
+        </form>
       </div>
       <img src="images/inyou-sq.jpg" alt="In You single artwork" style="border-radius:18px;justify-self:end;width:min(100%,520px)">
     </div>
@@ -444,7 +455,7 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
   </div></header>
 
   <section class="sec wrap"><div class="inner">
-    <div class="seg" role="group" aria-label="Choose a lane"><button type="button" id="lane-design" aria-pressed="true">Design</button><button type="button" id="lane-ministry" aria-pressed="false">Ministry</button></div>
+    <div class="seg" role="group" aria-label="Choose a lane"><button type="button" id="lane-design" aria-pressed="true">Design</button><button type="button" id="lane-ministry" aria-pressed="false">Ministry</button><button type="button" id="lane-learn" aria-pressed="false">Learn</button></div>
 
     <div class="pgrid" style="align-items:start;margin-top:48px">
       <div>
@@ -452,23 +463,31 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
         <div style="margin-top:40px"><span class="label">What I offer</span><ul class="rows" id="lane-offer" style="margin-top:16px"></ul></div>
         <div style="margin-top:40px"><span class="label">How it works</span><ol class="steps" id="lane-steps" style="margin-top:16px"></ol></div>
         <div style="margin-top:28px" id="lane-pkg"><a class="btn" href="/work-with-me">Packages and pricing →</a></div>
-        <div style="margin-top:28px" id="lane-pack" hidden><button class="btn" type="button" data-inert>Ministry pack (PDF)</button></div>
+        <p class="mono dim" style="margin-top:28px" id="lane-note" hidden>Fees and the next start date are shared after you apply.</p>
       </div>
       <div>
-        <span class="label">Enquiry</span>
+        <span class="label" id="form-label">Enquiry</span>
         <form id="enquiry" novalidate>
-          <div class="field"><label for="f-name">Your name</label><input id="f-name" type="text" placeholder="Full name"></div>
-          <div class="field"><label for="f-email">Email</label><input id="f-email" type="email" placeholder="you@example.com" required></div>
-          <div class="field" data-lane="design"><label for="f-company">Company or brand</label><input id="f-company" type="text" placeholder="Kiln Coffee Co."></div>
-          <div class="field" data-lane="design"><label for="f-type">Project type</label><select id="f-type"><option>Brand identity</option><option>Campaign</option><option>Creative direction</option><option>Other</option></select></div>
-          <div class="field" data-lane="design"><label for="f-budget">Budget range</label><select id="f-budget"><option>Under ₦300k</option><option>₦300k – ₦1m</option><option>₦1m+</option></select></div>
-          <div class="field" data-lane="design"><label for="f-when">Timeline</label><input id="f-when" type="text" placeholder="Launch in March"></div>
-          <div class="field" data-lane="ministry" hidden><label for="f-org">Church or organisation</label><input id="f-org" type="text" placeholder="Grace Assembly, Ikeja"></div>
-          <div class="field" data-lane="ministry" hidden><label for="f-event">Event type</label><select id="f-event"><option>Sunday service</option><option>Conference</option><option>Campus fellowship</option><option>Other</option></select></div>
-          <div class="field" data-lane="ministry" hidden><label for="f-date">Date and city</label><input id="f-date" type="text" placeholder="14 March 2027, Lagos"></div>
-          <div class="field" data-lane="ministry" hidden><label for="f-what">I'd like you to</label><select id="f-what"><option>Minister in song</option><option>Teach</option><option>Both</option></select></div>
-          <div class="field full"><label for="f-msg">Tell me more</label><textarea id="f-msg"></textarea></div>
-          <div class="field full" style="justify-items:start"><button class="btn solid" type="submit">Send enquiry →</button></div>
+          <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" type="text" placeholder="Full name" required></div>
+          <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" placeholder="you@example.com" required></div>
+          <div class="field"><label for="f-phone">Phone or WhatsApp</label><input id="f-phone" name="phone" type="tel" placeholder="0803 000 0000"></div>
+          <div class="field" data-lane="design"><label for="f-company">Company or brand</label><input id="f-company" name="company" type="text" placeholder="Kiln Coffee Co."></div>
+          <div class="field" data-lane="design"><label for="f-type">Project type</label><select id="f-type" name="project"><option>Brand identity</option><option>Campaign</option><option>Creative direction</option><option>Other</option></select></div>
+          <div class="field" data-lane="design"><label for="f-budget">Budget range</label><select id="f-budget" name="budget"><option>Under ₦300k</option><option>₦300k – ₦1m</option><option>₦1m+</option></select></div>
+          <div class="field" data-lane="design"><label for="f-when">Timeline</label><input id="f-when" name="timeline" type="text" placeholder="Launch in March"></div>
+          <div class="field" data-lane="ministry" hidden><label for="f-org">Church or organisation</label><input id="f-org" name="org" type="text" placeholder="Grace Assembly, Ikeja"></div>
+          <div class="field" data-lane="ministry" hidden><label for="f-event">Event type</label><select id="f-event" name="event"><option>Sunday service</option><option>Conference</option><option>Campus fellowship</option><option>Other</option></select></div>
+          <div class="field" data-lane="ministry" hidden><label for="f-date">Date</label><input id="f-date" name="date" type="text" placeholder="14 March 2027"></div>
+          <div class="field" data-lane="ministry learn" hidden><label for="f-city">City</label><input id="f-city" name="city" type="text" placeholder="Lagos"></div>
+          <div class="field" data-lane="ministry" hidden><label for="f-what">I'd like you to</label><select id="f-what" name="request"><option>Minister in song</option><option>Teach</option><option>Both</option></select></div>
+          <div class="field" data-lane="learn" hidden><label for="f-level">Where you are now</label><select id="f-level" name="level"><option>Complete beginner</option><option>Some experience</option><option>Already designing, want to grow</option></select></div>
+          <div class="field" data-lane="learn" hidden><label for="f-focus">What you want to learn</label><select id="f-focus" name="focus"><option>Social and marketing graphics</option><option>Brand identity</option><option>Design for church and ministry</option><option>Not sure yet</option></select></div>
+          <div class="field" data-lane="learn" hidden><label for="f-format">How you'd like to learn</label><select id="f-format" name="format"><option>In person, Lagos</option><option>Online</option><option>Either</option></select></div>
+          <div class="field" data-lane="learn" hidden><label for="f-laptop">Do you have a laptop?</label><select id="f-laptop" name="laptop"><option>Yes, with Photoshop</option><option>Yes, without Photoshop</option><option>Not yet</option></select></div>
+          <div class="field" data-lane="learn" hidden><label for="f-start">When you can start</label><input id="f-start" name="start" type="text" placeholder="As soon as possible"></div>
+          <div class="field full"><label for="f-msg" id="f-msg-label">Tell me more</label><textarea id="f-msg" name="message"></textarea></div>
+          <div class="field full" style="justify-items:start"><button class="btn solid" type="submit" id="f-submit">Send enquiry →</button></div>
           <p class="formnote" id="formnote" aria-live="polite"></p>
         </form>
         <p class="mono dim" style="margin-top:20px">Prefer email? ag.oluwanifemi@gmail.com</p>
@@ -480,7 +499,7 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
 <footer class="foot wrap"><div class="inner">
   <div class="big">MANNORR</div>
   <div class="cols">
-    <div><span class="label">Pages</span><a href="#about">About</a><a href="#works">Works</a><a href="#work-with-me">Work With Me</a></div>
+    <div><span class="label">Pages</span><a href="#about">About</a><a href="#works">Works</a><a href="#work-with-me">Work With Me</a><a href="#learn">Learn design</a></div>
     <div><span class="label">Works</span><a href="#music">In You</a><a href="#design">Design</a><a href="#apologetics">Apologetics Nigeria</a><a href="#viral-church">Viral Church</a></div>
     <div><span class="label">Elsewhere</span><span>Instagram @_mannorr</span><span>@viralchurchglobal</span><span>ag.oluwanifemi@gmail.com</span><span>apologeticsnigeria.com</span><span>wearekallos.com</span></div>
     <div class="mono dim" style="align-self:end">© 2026 Nifemi Adeniran · Lagos</div>
@@ -489,50 +508,99 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
 
 <script>
 (function(){
+  /* Paste the Google Apps Script web app URL here (see apps-script/README.md).
+     While it is empty, forms fall back to the existing Formspree form. */
+  var DB_ENDPOINT = '';
+  var FALLBACK = 'https://formspree.io/f/mldqqvra';
+  var EMAIL = 'ag.oluwanifemi@gmail.com';
+  var openedAt = Date.now();
+
   var views=['home','about','works','music','design','apologetics','viral-church','work-with-me'];
   function show(){
-    var h=(location.hash||'#home').slice(1); if(views.indexOf(h)<0) h='home';
+    var h=(location.hash||'#home').slice(1), lane=null;
+    if(h==='learn'){ h='work-with-me'; lane='learn'; }
+    if(views.indexOf(h)<0) h='home';
     views.forEach(function(v){document.getElementById('v-'+v).hidden=(v!==h);});
-    
+    if(lane) setLane(lane);
     window.scrollTo(0,0);
   }
-  window.addEventListener('hashchange',show); show();
 
   var lanes={
-    design:{lede:'Brand identity and direction <span class="red">for teams that care.</span>',
+    design:{lede:'Brand identity and direction <span class="red">for teams that care.</span>', label:'Enquiry', submit:'Send enquiry →', msg:'Tell me more',
       offer:[['Brand identity systems','Identity'],['Creative direction','Direction'],['Campaign development','Campaign'],['Design systems','Systems']],
-      steps:['Send an enquiry','Discovery call','Proposal and timeline','Design and review','Handover and guidelines']},
-    ministry:{lede:'Worship and teaching <span class="red">for your congregation.</span>',
+      steps:['Send an enquiry','Discovery call','Proposal and timeline','Design and review','Handover and guidelines'],
+      ph:"We're refreshing our brand ahead of a second location and want it to feel warmer and more confident."},
+    ministry:{lede:'Worship and teaching <span class="red">for your congregation.</span>', label:'Booking', submit:'Send booking request →', msg:'Tell me more',
       offer:[['Worship ministration','Song'],['Teaching and apologetics talks','Word'],['Design in ministry training','Workshop']],
-      steps:['Send an enquiry','Confirm the date and brief','Logistics and travel','Ministration']}
+      steps:['Send a request','Confirm the date and brief','Logistics and travel','Ministration'],
+      ph:"Our annual youth conference has around 400 attendees. We'd love a ministration and a 30-minute talk on why the resurrection matters."},
+    learn:{lede:'Learn design <span class="red">with me.</span>', label:'Application', submit:'Apply to learn →', msg:'Why do you want to learn design?',
+      offer:[['Two-month programme','8 weeks'],['Weekly hands-on session','1:1 or small group'],['Assignments between sessions','Real briefs'],['Social and marketing graphics in Photoshop','Beginner friendly']],
+      steps:['Apply','A short call','Confirm your place and schedule','Weekly sessions and assignments'],
+      ph:"I'm starting from zero and want to design for my church and small businesses."}
   };
+  var current='design';
   function setLane(l){
-    var d=lanes[l];
-    document.getElementById('lane-design').setAttribute('aria-pressed',l==='design');
-    document.getElementById('lane-ministry').setAttribute('aria-pressed',l==='ministry');
+    var d=lanes[l]; current=l;
+    ['design','ministry','learn'].forEach(function(k){document.getElementById('lane-'+k).setAttribute('aria-pressed',k===l);});
     document.getElementById('lane-lede').innerHTML=d.lede;
     document.getElementById('lane-offer').innerHTML=d.offer.map(function(o){return '<li>'+o[0]+' <span class="mono">'+o[1]+'</span></li>';}).join('');
-    document.getElementById('lane-steps').innerHTML=d.steps.map(function(s){return '<li>'+s+'</li>';}).join('');
-    document.getElementById('lane-pack').hidden=(l!=='ministry');document.getElementById('lane-pkg').hidden=(l!=='design');
-    document.querySelectorAll('[data-lane]').forEach(function(f){f.hidden=(f.getAttribute('data-lane')!==l);});
-    document.getElementById('f-msg').placeholder = l==='design'
-      ? "We're refreshing our brand ahead of a second location and want it to feel warmer and more confident."
-      : "Our annual youth conference has around 400 attendees. We'd love a ministration and a 30-minute talk on why the resurrection matters.";
+    document.getElementById('lane-steps').innerHTML=d.steps.map(function(x){return '<li>'+x+'</li>';}).join('');
+    document.getElementById('lane-pkg').hidden=(l!=='design');
+    document.getElementById('lane-note').hidden=(l!=='learn');
+    document.getElementById('form-label').textContent=d.label;
+    document.getElementById('f-submit').textContent=d.submit;
+    document.getElementById('f-msg-label').textContent=d.msg;
+    document.getElementById('f-msg').placeholder=d.ph;
+    document.getElementById('f-phone').required=(l!=='design');
+    document.querySelectorAll('[data-lane]').forEach(function(f){f.hidden=f.getAttribute('data-lane').split(' ').indexOf(l)<0;});
     document.getElementById('formnote').textContent='';
   }
-  document.getElementById('lane-design').addEventListener('click',function(){setLane('design');});
-  document.getElementById('lane-ministry').addEventListener('click',function(){setLane('ministry');});
+  ['design','ministry','learn'].forEach(function(k){document.getElementById('lane-'+k).addEventListener('click',function(){setLane(k);});});
   setLane('design');
+  window.addEventListener('hashchange',show); show();
+
+  /* send any form: to the Google Sheet when connected, otherwise to Formspree */
+  function send(fd, formKey){
+    fd.append('form', formKey); fd.append('page', location.hash||'#home'); fd.append('t', String(Date.now()-openedAt));
+    if(DB_ENDPOINT){
+      return fetch(DB_ENDPOINT,{method:'POST',body:fd}).then(function(r){return r.json();})
+        .catch(function(){ return fetch(DB_ENDPOINT,{method:'POST',body:fd,mode:'no-cors'}).then(function(){return {ok:true,ref:''};}); });
+    }
+    fd.append('_subject','mannorr.com · '+formKey);
+    return fetch(FALLBACK,{method:'POST',body:fd,headers:{'Accept':'application/json'}}).then(function(r){return {ok:r.ok};});
+  }
+  function fail(note){ note.textContent="That didn't send. Please email "+EMAIL+" instead."; }
+
   document.getElementById('enquiry').addEventListener('submit',function(e){
     e.preventDefault();
-    var note=document.getElementById('formnote'), lane=document.getElementById('lane-ministry').getAttribute('aria-pressed')==='true'?'Ministry':'Design';
-    var fd=new FormData(); fd.append('_subject','mannorr.com enquiry: '+lane); fd.append('lane',lane);
-    document.querySelectorAll('#enquiry .field').forEach(function(f){ if(f.hidden) return; var el=f.querySelector('input,select,textarea'), lb=f.querySelector('label'); if(el&&lb) fd.append(lb.textContent, el.value); });
-    var em=document.getElementById('f-email').value; if(em) fd.append('email', em);
-    note.textContent='Sending…';
-    fetch('https://formspree.io/f/mldqqvra',{method:'POST',body:fd,headers:{'Accept':'application/json'}})
-      .then(function(r){ note.textContent = r.ok ? 'Thank you. Your enquiry is in, and I will reply by email.' : 'That didn\'t send. Please email ag.oluwanifemi@gmail.com instead.'; if(r.ok) e.target.reset(); })
-      .catch(function(){ note.textContent='That didn\'t send. Please email ag.oluwanifemi@gmail.com instead.'; });
+    var f=e.target, note=document.getElementById('formnote');
+    if(f.website.value) return;
+    var need=['name','email'].concat(current==='design'?[]:['phone']);
+    var miss=need.filter(function(n){return !f[n].value.trim();});
+    if(miss.length){ note.textContent='Please add your '+miss.join(', ')+'.'; f[miss[0]].focus(); return; }
+    var fd=new FormData();
+    Array.prototype.forEach.call(f.querySelectorAll('.field'),function(box){ if(box.hidden) return; var el=box.querySelector('input,select,textarea'); if(el&&el.name) fd.append(el.name, el.value.trim()); });
+    var key={design:'design',ministry:'ministry',learn:'learn'}[current];
+    var btn=document.getElementById('f-submit'); btn.disabled=true; note.textContent='Sending…';
+    send(fd,key).then(function(r){
+      if(r&&r.ok){
+        var done={design:'Thank you. Your enquiry is in, and I will reply soon.',ministry:'Thank you. Your request is in, and I will be in touch to confirm.',learn:'Thank you for applying. I will reach out about next steps.'}[current];
+        note.textContent=done+(r.ref?' Reference: '+r.ref+'.':''); f.reset(); setLane(current);
+      } else { note.textContent=(r&&r.error)||''; if(!note.textContent) fail(note); }
+    }).catch(function(){fail(note);}).then(function(){btn.disabled=false;});
+  });
+
+  document.getElementById('notify').addEventListener('submit',function(e){
+    e.preventDefault();
+    var f=e.target, note=document.getElementById('notifynote');
+    if(f.website.value) return;
+    var em=f.email.value.trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){ note.textContent='Please check your email address.'; return; }
+    var fd=new FormData(); fd.append('email',em); fd.append('interest','In You release');
+    note.textContent='Adding you…';
+    send(fd,'updates').then(function(r){ note.textContent = r&&r.ok ? "You're on the list. I'll email you the day it's out." : ((r&&r.error)||"That didn't work. Please try again."); if(r&&r.ok) f.reset(); })
+      .catch(function(){ note.textContent="That didn't work. Please try again."; });
   });
 
   /* live design work, from the same store the admin page manages */
