@@ -269,13 +269,13 @@ footer span{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:
   <div class="loader-line"></div>
 </div>
 <nav>
-  <a href="./index.html" class="nav-logo">MANNORR<span class="dot"></span></a>
+  <a href="/" class="nav-logo">MANNORR<span class="dot"></span></a>
   <div class="nav-right">
     <ul class="nav-links" id="navLinks">
       <li><a href="#work" onclick="closeNav()">Work</a></li>
-      <li><a href="./about.html" onclick="closeNav()">About</a></li>
+      <li><a href="/about" onclick="closeNav()">About</a></li>
       <li><a href="#experience" onclick="closeNav()">Experience</a></li>
-      <li><a href="./work-with-me.html" onclick="closeNav()">Work With Me</a></li>
+      <li><a href="/work-with-me" onclick="closeNav()">Work With Me</a></li>
       <li><a href="#contact" onclick="closeNav()">Contact</a></li>
     </ul>
     <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle theme">☀</button>
@@ -293,8 +293,8 @@ footer span{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:
     </h1>
     <p class="hero-subtitle">8+ years translating abstract ideas into strategic visual solutions — brand identities, digital campaigns, and visual systems that drive connection.</p>
     <div class="hero-buttons">
-      <a href="./portfolio.html" class="hero-cta">View Works <span class="arrow">→</span></a>
-      <a href="./work-with-me.html" class="hero-cta">Work With Me <span class="arrow">→</span></a>
+      <a href="/portfolio" class="hero-cta">View Works <span class="arrow">→</span></a>
+      <a href="/work-with-me" class="hero-cta">Work With Me <span class="arrow">→</span></a>
       <a href="./ADENIRAN_OLUWANIFEMI_CV.pdf" download class="hero-cta-secondary">↓ Download CV</a>
     </div>
   </div>
@@ -325,7 +325,7 @@ footer span{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:
 <section class="portfolio-preview" id="work">
   <div class="portfolio-preview-header reveal">
     <h2>SELECTED <span class="italic">Works</span></h2>
-    <a href="./portfolio.html" class="view-all-link">View All Works →</a>
+    <a href="/portfolio" class="view-all-link">View All Works →</a>
   </div>
   <div class="preview-canvas" id="previewCanvas">
     <div class="scatter-loading" id="scatterLoading"><div class="spinner"></div><p>Loading works...</p></div>
@@ -340,7 +340,7 @@ footer span{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:
       <p>Skilled in translating abstract ideas into strategic visual solutions that drive engagement, clarity, and audience connection. Recognized for creative leadership and mentorship, guiding emerging designers to produce high-quality, consistent work.</p>
       <p>Strong foundation in visual communication, typography, layout systems, and storytelling — combined with hands-on experience in UI/UX design, digital product thinking, and interactive media.</p>
     </div>
-    <a href="./about.html" class="hero-cta" style="margin-top:2rem;display:inline-flex;">Full Story + Brand Guide →</a>
+    <a href="/about" class="hero-cta" style="margin-top:2rem;display:inline-flex;">Full Story + Brand Guide →</a>
   </div>
   <div class="about-right reveal">
     <div class="about-block"><label>Services</label><ul><li>Brand Identity Systems</li><li>Logo Design & Visual Identity</li><li>Campaign Development</li><li>Typography & Editorial Layout</li><li>UI/UX Design & Prototyping</li><li>Social Media Visual Strategy</li><li>Creative Direction</li><li>Design Systems & Frameworks</li></ul></div>
@@ -549,7 +549,7 @@ function openLB(id){
 
   const acts=document.getElementById('lbActions');acts.innerHTML='';
   if(p.siteUrl){const a=document.createElement('a');a.className='lb-btn';a.href=normUrl(p.siteUrl);a.target='_blank';a.rel='noopener';a.innerHTML='<span>Visit Live Site</span><span>↗</span>';acts.appendChild(a)}
-  const more=document.createElement('a');more.className='lb-btn ghost';more.href='./portfolio.html';more.innerHTML='<span>See the full portfolio</span><span>→</span>';acts.appendChild(more);
+  const more=document.createElement('a');more.className='lb-btn ghost';more.href='/portfolio';more.innerHTML='<span>See the full portfolio</span><span>→</span>';acts.appendChild(more);
 
   lbMedia.querySelectorAll('.lb-slide,.lb-site-wrap').forEach(s=>s.remove());
   lbDots.innerHTML='';lbRail.innerHTML='';lbRail.classList.add('hide');lbMedia.classList.remove('has-rail');lbDots.classList.add('hide');

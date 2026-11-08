@@ -197,11 +197,11 @@ footer span { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: upperca
 <div class="grain"></div>
 
 <div class="top-bar">
-  <a href="./index.html" class="logo">MANNORR<span class="dot"></span></a>
+  <a href="/" class="logo">MANNORR<span class="dot"></span></a>
   <div class="top-bar-right">
-    <a href="./portfolio.html">Portfolio</a>
-    <a href="./about.html">About</a>
-    <a href="./index.html#contact">Contact</a>
+    <a href="/portfolio">Portfolio</a>
+    <a href="/about">About</a>
+    <a href="/#contact">Contact</a>
     <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">☀</button>
   </div>
 </div>
@@ -557,7 +557,7 @@ function submitOrder(e) {
   localStorage.setItem('nifemi-invoice', JSON.stringify(inv));
   const fd = new FormData(); fd.append('name',cd.name); fd.append('email',cd.email); fd.append('company',cd.company); fd.append('phone',cd.phone); fd.append('timeline',cd.timeline); fd.append('brief',cd.brief); fd.append('invoice_id',inv.id); fd.append('services',items.map(i=>i.name).join(', ')); fd.append('total_range',`${s}${min.toLocaleString()}–${s}${max.toLocaleString()}`); fd.append('deposit_range',`${s}${inv.depositMin.toLocaleString()}–${s}${inv.depositMax.toLocaleString()}`);
   fetch('https://formspree.io/f/mldqqvra',{method:'POST',body:fd,headers:{'Accept':'application/json'}});
-  window.location.href = './invoice.html';
+  window.location.href = '/invoice';
 }
 </script>
 </body>
