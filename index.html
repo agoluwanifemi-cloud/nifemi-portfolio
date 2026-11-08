@@ -153,8 +153,9 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
 
 .view[hidden]{display:none!important}
 .hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0}
+.lane-form .label.full{grid-column:1/-1;margin-bottom:4px}
 .lanes.three{grid-template-columns:repeat(3,minmax(0,1fr))}
-.notify{display:grid;gap:10px;margin-top:28px;max-width:460px;position:relative}
+.notify{display:grid;grid-template-columns:1fr;gap:10px;margin-top:28px;max-width:460px;position:relative}
 .notify-row{display:flex;gap:10px;flex-wrap:wrap}
 .notify-row input{flex:1 1 220px;min-width:0;background:transparent;border:1px solid var(--line-paper);border-radius:999px;padding:12px 18px;font:15px var(--f-sans);color:var(--ink)}
 @media (max-width:860px){.lanes.three{grid-template-columns:1fr}}
@@ -466,29 +467,46 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
         <p class="mono dim" style="margin-top:28px" id="lane-note" hidden>Fees and the next start date are shared after you apply.</p>
       </div>
       <div>
-        <span class="label" id="form-label">Enquiry</span>
-        <form id="enquiry" novalidate>
+        <form class="lane-form" data-form="design" id="form-design" novalidate>
           <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" type="text" placeholder="Full name" required></div>
-          <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" placeholder="you@example.com" required></div>
-          <div class="field"><label for="f-phone">Phone or WhatsApp</label><input id="f-phone" name="phone" type="tel" placeholder="0803 000 0000"></div>
-          <div class="field" data-lane="design"><label for="f-company">Company or brand</label><input id="f-company" name="company" type="text" placeholder="Kiln Coffee Co."></div>
-          <div class="field" data-lane="design"><label for="f-type">Project type</label><select id="f-type" name="project"><option>Brand identity</option><option>Campaign</option><option>Creative direction</option><option>Other</option></select></div>
-          <div class="field" data-lane="design"><label for="f-budget">Budget range</label><select id="f-budget" name="budget"><option>Under ₦300k</option><option>₦300k – ₦1m</option><option>₦1m+</option></select></div>
-          <div class="field" data-lane="design"><label for="f-when">Timeline</label><input id="f-when" name="timeline" type="text" placeholder="Launch in March"></div>
-          <div class="field" data-lane="ministry" hidden><label for="f-org">Church or organisation</label><input id="f-org" name="org" type="text" placeholder="Grace Assembly, Ikeja"></div>
-          <div class="field" data-lane="ministry" hidden><label for="f-event">Event type</label><select id="f-event" name="event"><option>Sunday service</option><option>Conference</option><option>Campus fellowship</option><option>Other</option></select></div>
-          <div class="field" data-lane="ministry" hidden><label for="f-date">Date</label><input id="f-date" name="date" type="text" placeholder="14 March 2027"></div>
-          <div class="field" data-lane="ministry learn" hidden><label for="f-city">City</label><input id="f-city" name="city" type="text" placeholder="Lagos"></div>
-          <div class="field" data-lane="ministry" hidden><label for="f-what">I'd like you to</label><select id="f-what" name="request"><option>Minister in song</option><option>Teach</option><option>Both</option></select></div>
-          <div class="field" data-lane="learn" hidden><label for="f-level">Where you are now</label><select id="f-level" name="level"><option>Complete beginner</option><option>Some experience</option><option>Already designing, want to grow</option></select></div>
-          <div class="field" data-lane="learn" hidden><label for="f-focus">What you want to learn</label><select id="f-focus" name="focus"><option>Social and marketing graphics</option><option>Brand identity</option><option>Design for church and ministry</option><option>Not sure yet</option></select></div>
-          <div class="field" data-lane="learn" hidden><label for="f-format">How you'd like to learn</label><select id="f-format" name="format"><option>In person, Lagos</option><option>Online</option><option>Either</option></select></div>
-          <div class="field" data-lane="learn" hidden><label for="f-laptop">Do you have a laptop?</label><select id="f-laptop" name="laptop"><option>Yes, with Photoshop</option><option>Yes, without Photoshop</option><option>Not yet</option></select></div>
-          <div class="field" data-lane="learn" hidden><label for="f-start">When you can start</label><input id="f-start" name="start" type="text" placeholder="As soon as possible"></div>
-          <div class="field full"><label for="f-msg" id="f-msg-label">Tell me more</label><textarea id="f-msg" name="message"></textarea></div>
-          <div class="field full" style="justify-items:start"><button class="btn solid" type="submit" id="f-submit">Send enquiry →</button></div>
-          <p class="formnote" id="formnote" aria-live="polite"></p>
+          <span class="label full">Start a project</span>
+          <div class="field"><label for="d-name">Your name</label><input id="d-name" name="name" type="text" placeholder="Full name" required></div>
+          <div class="field"><label for="d-email">Email</label><input id="d-email" name="email" type="email" placeholder="you@company.com" required></div>
+          <div class="field"><label for="d-company">Company or brand</label><input id="d-company" name="company" type="text" placeholder="Kiln Coffee Co."></div>
+          <div class="field"><label for="d-project">What you need</label><select id="d-project" name="project"><option>Brand identity</option><option>Campaign</option><option>Creative direction</option><option>Something else</option></select></div>
+          <div class="field full"><label for="d-budget">Budget range</label><select id="d-budget" name="budget"><option>Under ₦300k</option><option>₦300k – ₦1m</option><option>₦1m+</option><option>Not sure yet</option></select></div>
+          <div class="field full"><label for="d-msg">Tell me about the project</label><textarea id="d-msg" name="message" placeholder="What you're building, who it's for, and when you'd like to launch."></textarea></div>
+          <div class="field full" style="justify-items:start"><button class="btn solid" type="submit">Send enquiry →</button></div>
+          <p class="formnote" aria-live="polite"></p>
+        </form>
+
+        <form class="lane-form" data-form="ministry" id="form-ministry" novalidate hidden>
+          <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <span class="label full">Book a ministration</span>
+          <div class="field"><label for="m-name">Your name</label><input id="m-name" name="name" type="text" placeholder="Full name" required></div>
+          <div class="field"><label for="m-org">Church or organisation</label><input id="m-org" name="org" type="text" placeholder="Grace Assembly, Ikeja"></div>
+          <div class="field"><label for="m-email">Email</label><input id="m-email" name="email" type="email" placeholder="you@church.org" required></div>
+          <div class="field"><label for="m-phone">Phone or WhatsApp</label><input id="m-phone" name="phone" type="tel" placeholder="0803 000 0000" required></div>
+          <div class="field"><label for="m-date">Date</label><input id="m-date" name="date" type="text" placeholder="14 March 2027"></div>
+          <div class="field"><label for="m-city">City</label><input id="m-city" name="city" type="text" placeholder="Lagos"></div>
+          <div class="field full"><label for="m-what">I'd like you to</label><select id="m-what" name="request"><option>Minister in song</option><option>Teach</option><option>Both</option></select></div>
+          <div class="field full"><label for="m-msg">About the gathering</label><textarea id="m-msg" name="message" placeholder="The occasion, expected attendance, and the theme or topic you have in mind."></textarea></div>
+          <div class="field full" style="justify-items:start"><button class="btn solid" type="submit">Send booking request →</button></div>
+          <p class="formnote" aria-live="polite"></p>
+        </form>
+
+        <form class="lane-form" data-form="learn" id="form-learn" novalidate hidden>
+          <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <span class="label full">Apply to learn</span>
+          <div class="field"><label for="l-name">Your name</label><input id="l-name" name="name" type="text" placeholder="Full name" required></div>
+          <div class="field"><label for="l-phone">WhatsApp number</label><input id="l-phone" name="phone" type="tel" placeholder="0803 000 0000" required></div>
+          <div class="field full"><label for="l-email">Email</label><input id="l-email" name="email" type="email" placeholder="you@example.com" required></div>
+          <div class="field"><label for="l-level">Where you are now</label><select id="l-level" name="level"><option>Complete beginner</option><option>Some experience</option><option>Already designing, want to grow</option></select></div>
+          <div class="field"><label for="l-format">How you'd like to learn</label><select id="l-format" name="format"><option>In person, Lagos</option><option>Online</option><option>Either</option></select></div>
+          <div class="field full"><label for="l-laptop">Do you have a laptop?</label><select id="l-laptop" name="laptop"><option>Yes, with Photoshop</option><option>Yes, without Photoshop</option><option>Not yet</option></select></div>
+          <div class="field full"><label for="l-msg">Why do you want to learn design?</label><textarea id="l-msg" name="message" placeholder="A few lines about you and what you hope to do with design."></textarea></div>
+          <div class="field full" style="justify-items:start"><button class="btn solid" type="submit">Apply to learn →</button></div>
+          <p class="formnote" aria-live="polite"></p>
         </form>
         <p class="mono dim" style="margin-top:20px">Prefer email? ag.oluwanifemi@gmail.com</p>
       </div>
@@ -548,13 +566,7 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
     document.getElementById('lane-steps').innerHTML=d.steps.map(function(x){return '<li>'+x+'</li>';}).join('');
     document.getElementById('lane-pkg').hidden=(l!=='design');
     document.getElementById('lane-note').hidden=(l!=='learn');
-    document.getElementById('form-label').textContent=d.label;
-    document.getElementById('f-submit').textContent=d.submit;
-    document.getElementById('f-msg-label').textContent=d.msg;
-    document.getElementById('f-msg').placeholder=d.ph;
-    document.getElementById('f-phone').required=(l!=='design');
-    document.querySelectorAll('[data-lane]').forEach(function(f){f.hidden=f.getAttribute('data-lane').split(' ').indexOf(l)<0;});
-    document.getElementById('formnote').textContent='';
+    document.querySelectorAll('.lane-form').forEach(function(f){f.hidden=(f.getAttribute('data-form')!==l);});
   }
   ['design','ministry','learn'].forEach(function(k){document.getElementById('lane-'+k).addEventListener('click',function(){setLane(k);});});
   setLane('design');
@@ -579,30 +591,30 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
   }
   function fail(note){ note.textContent="That didn't send. Please email "+EMAIL+" instead."; }
 
-  document.getElementById('enquiry').addEventListener('submit',function(e){
-    e.preventDefault();
-    var f=e.target, note=document.getElementById('formnote');
-    if(f.website.value) return;
-    var need=['name','email'].concat(current==='design'?[]:['phone']);
-    var miss=need.filter(function(n){return !f[n].value.trim();});
-    if(miss.length){ note.textContent='Please add your '+miss.join(', ')+'.'; f[miss[0]].focus(); return; }
-    var fd=new FormData();
-    Array.prototype.forEach.call(f.querySelectorAll('.field'),function(box){ if(box.hidden) return; var el=box.querySelector('input,select,textarea'); if(el&&el.name) fd.append(el.name, el.value.trim()); });
-    var key={design:'design',ministry:'ministry',learn:'learn'}[current];
-    var btn=document.getElementById('f-submit'); btn.disabled=true; note.textContent='Sending…';
-    send(fd,key).then(function(r){
-      if(r&&r.ok){
-        var done={design:'Thank you. Your enquiry is in, and I will reply soon.',ministry:'Thank you. Your request is in, and I will be in touch to confirm.',learn:'Thank you for applying. I will reach out about next steps.'}[current];
-        note.textContent=done+(r.ref?' Reference: '+r.ref+'.':''); f.reset(); setLane(current);
-      } else { note.textContent=(r&&r.error)||''; if(!note.textContent) fail(note); }
-    }).catch(function(){fail(note);}).then(function(){btn.disabled=false;});
+  var DONE={design:'Thank you. Your enquiry is in, and I will reply soon.',ministry:'Thank you. Your request is in, and I will be in touch to confirm.',learn:'Thank you for applying. I will reach out on WhatsApp about next steps.'};
+  var NAMES={name:'name',email:'email',phone:'phone number'};
+  document.querySelectorAll('.lane-form').forEach(function(f){
+    f.addEventListener('submit',function(e){
+      e.preventDefault();
+      var key=f.getAttribute('data-form'), note=f.querySelector('.formnote'), btn=f.querySelector('button[type=submit]');
+      if((f.querySelector('[name=website]')||{}).value) return;
+      var miss=Array.prototype.filter.call(f.querySelectorAll('[required]'),function(el){return !el.value.trim();});
+      if(miss.length){ note.textContent='Please add your '+miss.map(function(el){return NAMES[el.name]||el.name;}).join(', ')+'.'; miss[0].focus(); return; }
+      var fd=new FormData();
+      Array.prototype.forEach.call(f.querySelectorAll('.field [name]'),function(el){ fd.append(el.name, el.value.trim()); });
+      btn.disabled=true; note.textContent='Sending…';
+      send(fd,key).then(function(r){
+        if(r&&r.ok){ note.textContent=DONE[key]+(r.ref?' Reference: '+r.ref+'.':''); f.reset(); }
+        else { note.textContent=(r&&r.error)||''; if(!note.textContent) fail(note); }
+      }).catch(function(){fail(note);}).then(function(){btn.disabled=false;});
+    });
   });
 
   document.getElementById('notify').addEventListener('submit',function(e){
     e.preventDefault();
     var f=e.target, note=document.getElementById('notifynote');
-    if(f.website.value) return;
-    var em=f.email.value.trim();
+    if((f.querySelector('[name=website]')||{}).value) return;
+    var em=f.querySelector('[name=email]').value.trim();
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){ note.textContent='Please check your email address.'; return; }
     var fd=new FormData(); fd.append('email',em); fd.append('interest','In You release');
     note.textContent='Adding you…';
