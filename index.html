@@ -1,630 +1,530 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<!doctype html>
+<html lang="en">
 <head>
-
-  <meta name="p:domain_verify" content="137373578855f1720e0e2530a08a5737"/>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MANNORR — Visual & Brand Designer</title>
-<meta name="description" content="Creative Director and Visual Designer with 8+ years crafting compelling brand identities, digital campaigns, and visual systems. Based in Dublin, Ireland.">
-<meta name="author" content="Adeniran Oluwanifemi">
-<meta property="og:type" content="website">
-<meta property="og:title" content="MANNORR — Visual & Brand Designer">
-<meta property="og:description" content="Creative Director with 8+ years crafting brand identities, digital campaigns, and visual systems that drive connection.">
-<meta property="og:image" content="./hero.png">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="MANNORR — Visual & Brand Designer">
-<meta name="twitter:description" content="Creative Director with 8+ years crafting brand identities, digital campaigns, and visual systems.">
-<meta name="twitter:image" content="./hero.png">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
-<script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','GA_MEASUREMENT_ID');</script>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Nifemi Adeniran (MANNORR): designer, worship minister and teacher of the Word, based in Lagos. Music, design, Apologetics Nigeria and The Viral Church.">
+<meta property="og:title" content="MANNORR — Nifemi Adeniran">
+<meta property="og:image" content="images/header.jpg">
+<title>MANNORR — Nifemi Adeniran · Designer, Minister, Teacher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
 <style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-[data-theme="dark"]{--bg:#0a0a0a;--fg:#e8e4df;--accent:#c8ff00;--muted:#5a5651;--card:#111;--card-hover:#161616;--border:rgba(255,255,255,0.06);--overlay-bg:rgba(10,10,10,0.96);--hero-gradient:linear-gradient(to right,#0a0a0a 0%,transparent 30%);--hero-gradient-bottom:linear-gradient(to top,#0a0a0a,transparent);--grain-opacity:0.035;--text-secondary:rgba(232,228,223,0.7);--text-tertiary:rgba(232,228,223,0.5);--stroke-color:rgba(255,255,255,0.04);--border-2:rgba(255,255,255,0.12);--faint:rgba(232,228,223,0.10);--accent-fg:#0a0a0a;--accent-soft:rgba(200,255,0,.08)}
-[data-theme="light"]{--bg:#f5f2ed;--fg:#1a1a1a;--accent:#5a00e6;--muted:#8a8580;--card:#eae6e0;--card-hover:#e0dcd6;--border:rgba(0,0,0,0.08);--overlay-bg:rgba(245,242,237,0.96);--hero-gradient:linear-gradient(to right,#f5f2ed 0%,transparent 30%);--hero-gradient-bottom:linear-gradient(to top,#f5f2ed,transparent);--grain-opacity:0.02;--text-secondary:rgba(26,26,26,0.7);--text-tertiary:rgba(26,26,26,0.5);--stroke-color:rgba(0,0,0,0.06);--border-2:rgba(0,0,0,0.14);--faint:rgba(26,26,26,0.10);--accent-fg:#f5f2ed;--accent-soft:rgba(90,0,230,.07)}
-:root{--serif:'Instrument Serif',serif;--mono:'DM Mono',monospace;--display:'Syne',sans-serif;--eout:cubic-bezier(.16,1,.3,1)}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--fg);font-family:var(--mono);font-weight:300;overflow-x:hidden;cursor:crosshair;transition:background .5s,color .5s}
-.cursor-dot{position:fixed;width:8px;height:8px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:10000;mix-blend-mode:difference}
-.cursor-ring{position:fixed;width:40px;height:40px;border:1px solid var(--accent);border-radius:50%;pointer-events:none;z-index:10000;mix-blend-mode:difference;transition:transform .15s}
-.loader{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity .8s,visibility .8s}
-.loader.hidden{opacity:0;visibility:hidden;pointer-events:none}
-.loader-text{font-family:var(--display);font-size:clamp(2rem,8vw,6rem);font-weight:800;letter-spacing:-.03em;overflow:hidden}
-.loader-text span{display:inline-block;transform:translateY(120%);animation:slideUp .6s cubic-bezier(.16,1,.3,1) forwards}
-.loader-line{width:0;height:2px;background:var(--accent);margin-top:1.5rem;animation:expandLine 1.8s cubic-bezier(.16,1,.3,1) .5s forwards}
-@keyframes slideUp{to{transform:translateY(0)}}
-@keyframes expandLine{to{width:200px}}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 2.5rem;display:flex;justify-content:space-between;align-items:center;mix-blend-mode:difference}
-.nav-logo{font-family:var(--display);font-weight:800;font-size:1.1rem;letter-spacing:-.02em;text-transform:uppercase;text-decoration:none;color:var(--fg)}
-.nav-logo .dot{display:inline-block;width:8px;height:8px;background:var(--accent);border-radius:50%;margin-left:2px;animation:pulse 2s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.nav-right{display:flex;align-items:center;gap:2rem}
-.nav-links{display:flex;gap:2rem;list-style:none}
-.nav-links a{color:var(--fg);text-decoration:none;font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.15em;position:relative;padding-bottom:2px}
-.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--accent);transition:width .4s cubic-bezier(.16,1,.3,1)}
-.nav-links a:hover::after{width:100%}
-.theme-toggle{background:none;border:1px solid var(--fg);color:var(--fg);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:.85rem;display:flex;align-items:center;justify-content:center;transition:border-color .3s,transform .3s;mix-blend-mode:difference}
-.theme-toggle:hover{border-color:var(--accent);transform:rotate(180deg)}
-.nav-toggle{display:none;background:none;border:none;cursor:pointer;width:28px;height:20px;position:relative;z-index:200}
-.nav-toggle span{display:block;width:100%;height:1.5px;background:var(--fg);position:absolute;left:0;transition:all .3s}
-.nav-toggle span:nth-child(1){top:0}.nav-toggle span:nth-child(2){top:9px}.nav-toggle span:nth-child(3){top:18px}
-.nav-toggle.active span:nth-child(1){top:9px;transform:rotate(45deg)}.nav-toggle.active span:nth-child(2){opacity:0}.nav-toggle.active span:nth-child(3){top:9px;transform:rotate(-45deg)}
-.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:end;position:relative;overflow:hidden}
-.hero-content{padding:0 0 8vh 5vw;display:flex;flex-direction:column;justify-content:flex-end;min-height:100vh;z-index:3}
-.hero-eyebrow{font-family:var(--mono);font-size:.65rem;text-transform:uppercase;letter-spacing:.25em;color:var(--muted);margin-bottom:1.5rem;opacity:0;animation:fadeIn 1s ease 2.5s forwards}
-.hero-title{font-family:var(--display);font-size:clamp(2.5rem,6.5vw,7rem);font-weight:800;line-height:.92;letter-spacing:-.04em;text-transform:uppercase}
-.hero-title .line{display:block;overflow:hidden}
-.hero-title .line span{display:inline-block;transform:translateY(110%);opacity:0;animation:heroReveal 1s cubic-bezier(.16,1,.3,1) forwards}
-.hero-title .line:nth-child(1) span{animation-delay:2.2s}.hero-title .line:nth-child(2) span{animation-delay:2.35s}.hero-title .line:nth-child(3) span{animation-delay:2.5s}
-@keyframes heroReveal{to{transform:translateY(0);opacity:1}}
-@keyframes fadeIn{to{opacity:1}}
-.hero-title .italic{font-family:var(--serif);font-style:italic;font-weight:400}
-.hero-title .accent{color:var(--accent)}
-.hero-subtitle{margin-top:2rem;font-size:.78rem;letter-spacing:.05em;color:var(--muted);max-width:380px;line-height:1.8;opacity:0;animation:fadeIn 1s ease 3s forwards}
-.hero-buttons{margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:fadeIn 1s ease 3.3s forwards}
-.hero-cta{display:inline-flex;align-items:center;gap:.8rem;font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;color:var(--accent);text-decoration:none;padding:.8rem 1.5rem;border:1px solid var(--accent);transition:all .4s cubic-bezier(.16,1,.3,1)}
-.hero-cta:hover{background:var(--accent);color:var(--bg)}
-.hero-cta .arrow{transition:transform .3s}.hero-cta:hover .arrow{transform:translateX(4px)}
-.hero-cta-secondary{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;color:var(--muted);text-decoration:none;padding:.8rem 1.5rem;border:1px solid var(--border);transition:all .3s}
-.hero-cta-secondary:hover{border-color:var(--fg);color:var(--fg)}
-.hero-image-wrap{position:relative;height:100vh;display:flex;align-items:flex-end;justify-content:center;overflow:hidden}
-.hero-image{width:100%;height:85vh;object-fit:cover;object-position:center top;opacity:0;animation:heroImgReveal 1.4s cubic-bezier(.16,1,.3,1) 2.4s forwards;-webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 8%,black 92%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 0%,black 8%,black 92%,transparent 100%)}
-@keyframes heroImgReveal{0%{opacity:0;transform:scale(1.05);filter:brightness(.3)}100%{opacity:1;transform:scale(1);filter:brightness(1)}}
-.hero-image-overlay{position:absolute;inset:0;background:var(--hero-gradient);z-index:2;pointer-events:none}
-.hero-image-overlay-bottom{position:absolute;bottom:0;left:0;right:0;height:25%;background:var(--hero-gradient-bottom);z-index:2;pointer-events:none}
-.hero-float{position:absolute;right:15%;top:10%;width:200px;height:200px;border:1px solid rgba(255,255,255,.1);border-radius:50%;z-index:3;pointer-events:none;animation:floatRotate 20s linear infinite,fadeIn 2s ease 3s forwards;opacity:0}
-.hero-float::before{content:'✦';position:absolute;top:-8px;left:50%;font-size:.9rem;color:var(--accent);animation:floatRotate 20s linear infinite reverse}
-@keyframes floatRotate{to{transform:rotate(360deg)}}
-.hero-scroll{position:absolute;bottom:3rem;left:5vw;writing-mode:vertical-rl;font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);z-index:5;opacity:0;animation:fadeIn 1s ease 3.5s forwards}
-.hero-scroll::before{content:'';display:block;width:1px;height:40px;background:var(--accent);margin:0 auto 1rem;animation:scrollLine 2s ease-in-out infinite}
-@keyframes scrollLine{0%,100%{transform:scaleY(1);opacity:1}50%{transform:scaleY(.3);opacity:.3}}
-.marquee-section{padding:2rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden}
-.marquee-track{display:flex;animation:marquee 25s linear infinite;width:max-content}
-.marquee-track span{font-family:var(--display);font-size:clamp(1.2rem,3vw,2.5rem);font-weight:700;text-transform:uppercase;letter-spacing:-.02em;white-space:nowrap;padding:0 1.5rem;color:transparent;-webkit-text-stroke:1px var(--muted)}
-.marquee-track span.filled{color:var(--fg);-webkit-text-stroke:none}
-.marquee-track span .star{color:var(--accent);font-size:.6em;vertical-align:middle;margin:0 .8rem}
-@keyframes marquee{to{transform:translateX(-50%)}}
-.stats{padding:5rem 5vw;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;border-bottom:1px solid var(--border)}
-.stat-item{text-align:center}
-.stat-number{font-family:var(--display);font-size:clamp(2rem,4vw,3.5rem);font-weight:800;letter-spacing:-.03em;color:var(--accent)}
-.stat-label{font-size:.6rem;text-transform:uppercase;letter-spacing:.2em;color:var(--muted);margin-top:.5rem}
-
-/* PORTFOLIO PREVIEW */
-.portfolio-preview{padding:8rem 0;position:relative}
-.portfolio-preview-header{padding:0 5vw;margin-bottom:4rem;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem}
-.portfolio-preview-header h2{font-family:var(--display);font-size:clamp(2rem,5vw,4rem);font-weight:800;text-transform:uppercase;letter-spacing:-.03em}
-.portfolio-preview-header h2 .italic{font-family:var(--serif);font-style:italic;font-weight:400;text-transform:none}
-.view-all-link{font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;color:var(--accent);text-decoration:none;padding:.7rem 1.5rem;border:1px solid var(--accent);transition:all .3s;white-space:nowrap}
-.view-all-link:hover{background:var(--accent);color:var(--bg)}
-/* Project cards — same system as portfolio.html */
-.preview-canvas{width:100%;padding:0 5vw;display:grid;grid-template-columns:repeat(3,1fr);gap:4px;position:relative;min-height:200px}
-.card{position:relative;display:flex;flex-direction:column;overflow:hidden;background:var(--card);cursor:crosshair;opacity:0;transform:translateY(18px);transition:opacity .7s var(--eout),transform .7s var(--eout),background .35s}
-.card.in{opacity:1;transform:none}
-.card:hover{background:var(--card-hover)}
-.cmedia{position:relative;flex:1 1 auto;min-height:0;overflow:hidden;width:100%;background:var(--card)}
-.cmedia img,.cmedia video{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s var(--eout),filter .5s}
-.card:hover .cmedia img,.card:hover .cmedia video{transform:scale(1.045);filter:brightness(1.08)}
-.cph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--card)}
-.cph span{font-family:var(--serif);font-style:italic;font-size:clamp(2.5rem,5vw,4.5rem);color:var(--faint)}
-.covl{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6) 0%,transparent 55%);opacity:0;transition:opacity .35s;pointer-events:none}
-.card:hover .covl{opacity:1}
-.cyr{position:absolute;top:10px;left:10px;font-family:var(--mono);font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;background:var(--bg);color:var(--muted);padding:.28rem .55rem;z-index:2}
-.cmc{position:absolute;top:10px;right:10px;font-family:var(--mono);font-size:.55rem;letter-spacing:.1em;background:rgba(0,0,0,.62);color:#fff;padding:.28rem .55rem;z-index:2}
-.cfoot{flex-shrink:0;padding:1rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:.6rem;border-top:1px solid var(--border)}
-.ccat{font-family:var(--mono);font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:.4rem}
-.ctitle{font-family:var(--display);font-weight:700;font-size:.95rem;line-height:1.15;letter-spacing:-.01em;color:var(--fg)}
-.carr{width:28px;height:28px;border:1px solid var(--faint);display:flex;align-items:center;justify-content:center;color:var(--muted);flex-shrink:0;transition:border-color .25s,color .25s,transform .4s var(--eout),background .25s}
-.card:hover .carr{border-color:var(--accent);color:var(--accent);transform:rotate(-45deg);background:var(--accent-soft)}
-.site-preview{position:relative;flex:1 1 auto;min-height:0;width:100%;overflow:hidden;background:var(--card)}
-.site-frame-wrap{position:absolute;inset:0;overflow:hidden;pointer-events:none}
-.site-frame-wrap iframe{position:absolute;top:0;left:0;width:250%;height:250%;transform:scale(.4);transform-origin:top left;border:none;background:#fff}
-.site-overlay{position:absolute;inset:0;z-index:2;display:flex;align-items:flex-end;padding:.7rem .8rem;background:linear-gradient(to top,rgba(0,0,0,.5) 0%,transparent 60%);opacity:0;transition:opacity .3s}
-.card:hover .site-overlay{opacity:1}
-.site-tag{font-family:var(--mono);font-size:.55rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;background:var(--accent);color:var(--accent-fg);padding:.28rem .55rem}
-.card.archive .cmedia::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.55),transparent 60%);pointer-events:none}
-.arch-badge{position:absolute;bottom:10px;left:10px;z-index:3;font-family:var(--mono);font-size:.55rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-fg);background:var(--accent);padding:.32rem .6rem}
-.arch-stack{position:absolute;top:10px;right:10px;z-index:3;display:flex;gap:3px}
-.arch-stack i{display:block;width:14px;height:18px;border:1px solid rgba(255,255,255,.55);background:rgba(0,0,0,.35)}
-
-/* Lightbox */
-.lb{position:fixed;inset:0;z-index:9000;opacity:0;pointer-events:none;transition:opacity .4s var(--eout)}
-.lb.open{opacity:1;pointer-events:all}
-.lb-bg{position:absolute;inset:0;background:var(--overlay-bg);backdrop-filter:blur(24px)}
-.lb-panel{position:relative;z-index:1;height:100%;display:grid;grid-template-columns:1fr 400px;transform:translateY(22px);transition:transform .45s var(--eout)}
-.lb.open .lb-panel{transform:none}
-.lb-media{position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;min-width:0}
-.lb-slide{position:absolute;inset:3.5rem 4.5rem;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;pointer-events:none}
-.lb-slide.on{opacity:1}
-.lb.open .lb-slide.on{pointer-events:auto}
-.lb-slide img{max-width:100%;max-height:100%;object-fit:contain;display:block;user-select:none}
-.lb-slide video{max-width:100%;max-height:100%;object-fit:contain}
-.lb-slide .lb-ph{font-family:var(--serif);font-style:italic;font-size:5rem;color:var(--faint)}
-.lbp,.lbn{position:absolute;top:50%;transform:translateY(-50%);z-index:6;width:44px;height:44px;background:none;border:1px solid var(--border-2);color:var(--fg);cursor:crosshair;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:border-color .25s,background .25s,color .25s}
-.lbp:hover,.lbn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
-.lbp{left:1rem}.lbn{right:1rem}
-.lb-ctr{position:absolute;bottom:1rem;right:1.4rem;font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;color:var(--muted);z-index:6}
-.lb-rail{position:absolute;bottom:0;left:0;right:0;z-index:5;display:flex;gap:3px;padding:.6rem 1rem;overflow-x:auto;background:linear-gradient(to top,var(--bg),transparent)}
-.lb-rail::-webkit-scrollbar{height:3px}.lb-rail::-webkit-scrollbar-thumb{background:var(--border-2)}
-.lb-rail.hide{display:none}
-.lb-media.has-rail .lb-slide{bottom:4.2rem}
-.lb-media.has-rail .lb-ctr{bottom:3.6rem}
-.lb-th{flex:0 0 auto;width:46px;height:34px;border:1px solid transparent;opacity:.4;cursor:crosshair;padding:0;background:var(--card);transition:opacity .25s,border-color .25s}
-.lb-th img{width:100%;height:100%;object-fit:cover;display:block}
-.lb-th.on,.lb-th:hover{opacity:1;border-color:var(--accent)}
-.lb-dots{position:absolute;bottom:1rem;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:6}
-.lb-dots.hide{display:none}
-.lbd{width:5px;height:5px;border-radius:50%;background:var(--faint);border:none;cursor:crosshair;padding:0;transition:background .25s,transform .25s}
-.lbd.on{background:var(--accent);transform:scale(1.5)}
-.lb-info{background:var(--bg);border-left:1px solid var(--border);padding:4rem 2.4rem 2.4rem;display:flex;flex-direction:column;overflow-y:auto;transition:background .5s}
-.lb-x{position:absolute;top:1rem;right:1rem;z-index:20;width:36px;height:36px;background:none;border:1px solid var(--border-2);color:var(--fg);cursor:crosshair;display:flex;align-items:center;justify-content:center;font-size:.85rem;transition:border-color .25s,color .25s,background .25s}
-.lb-x:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
-.lb-cat{font-family:var(--mono);font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;display:flex;align-items:center;gap:.6rem}
-.lb-cat::before{content:'';width:18px;height:1px;background:var(--accent);flex-shrink:0}
-.lb-title{font-family:var(--display);font-weight:800;font-size:clamp(1.5rem,2.4vw,2.2rem);line-height:1.05;letter-spacing:-.03em;text-transform:uppercase;margin-bottom:.5rem}
-.lb-year{font-family:var(--mono);font-size:.65rem;color:var(--muted);letter-spacing:.12em;margin-bottom:1.5rem}
-.lb-rule{width:36px;height:1px;background:var(--accent);margin-bottom:1.4rem}
-.lb-desc{font-size:.78rem;line-height:2;color:var(--text-secondary);flex:1}
-.lb-desc p+p{margin-top:.9rem}
-.lb-no-desc{font-family:var(--serif);font-style:italic;font-size:.85rem;color:var(--faint)}
-.lb-meta{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:1.6rem;padding-top:1.1rem;border-top:1px solid var(--border)}
-.lb-actions{display:flex;flex-direction:column;gap:.6rem;margin-top:1.8rem}
-.lb-btn{display:inline-flex;align-items:center;justify-content:space-between;gap:.8rem;font-family:var(--mono);font-size:.65rem;text-transform:uppercase;letter-spacing:.15em;text-decoration:none;padding:.85rem 1.2rem;border:1px solid var(--accent);color:var(--accent);transition:background .3s,color .3s}
-.lb-btn:hover{background:var(--accent);color:var(--accent-fg)}
-.lb-btn.ghost{border-color:var(--border-2);color:var(--muted)}
-.lb-btn.ghost:hover{border-color:var(--fg);color:var(--fg)}
-.lb-site-wrap{position:absolute;inset:0;display:flex;flex-direction:column;z-index:3}
-.lb-site-bar{background:var(--card);padding:.65rem 1rem;display:flex;align-items:center;gap:.7rem;flex-shrink:0;border-bottom:1px solid var(--border)}
-.lb-site-url{font-family:var(--mono);font-size:.62rem;color:var(--muted);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.lb-site-open{font-family:var(--mono);font-size:.58rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-fg);background:var(--accent);border:none;padding:.35rem .8rem;cursor:crosshair;text-decoration:none;white-space:nowrap}
-.lb-site{flex:1;width:100%;border:none;background:#fff}
-
-.about{padding:10rem 5vw;display:grid;grid-template-columns:1fr 1fr;gap:6rem;position:relative}
-.about::before{content:'ABOUT';position:absolute;top:3rem;right:5vw;font-family:var(--display);font-size:clamp(5rem,15vw,12rem);font-weight:800;color:transparent;-webkit-text-stroke:1px var(--stroke-color);letter-spacing:-.04em;pointer-events:none}
-.about-left h3{font-family:var(--display);font-size:clamp(1.8rem,3vw,2.5rem);font-weight:700;line-height:1.2;letter-spacing:-.02em;margin-bottom:2rem}
-.about-left h3 .italic{font-family:var(--serif);font-style:italic;font-weight:400}
-.about-left h3 .accent{color:var(--accent)}
-.about-bio{font-size:.85rem;line-height:2;color:var(--text-secondary);max-width:480px}
-.about-bio p+p{margin-top:1.5rem}
-.about-right{display:flex;flex-direction:column;gap:3rem;padding-top:1rem}
-.about-block label{font-size:.6rem;text-transform:uppercase;letter-spacing:.3em;color:var(--accent);display:block;margin-bottom:1rem}
-.about-block ul{list-style:none}
-.about-block ul li{font-size:.8rem;line-height:2.2;color:var(--text-tertiary);position:relative;padding-left:1rem}
-.about-block ul li::before{content:'→';position:absolute;left:0;color:var(--muted);font-size:.7rem}
-.experience{padding:8rem 5vw;border-top:1px solid var(--border)}
-.experience h2{font-family:var(--display);font-size:clamp(2rem,5vw,4rem);font-weight:800;text-transform:uppercase;letter-spacing:-.03em;margin-bottom:4rem}
-.exp-item{display:grid;grid-template-columns:200px 1fr;gap:3rem;padding:2.5rem 0;border-bottom:1px solid var(--border);transition:background .4s}
-.exp-item:hover{background:rgba(128,128,128,.03)}
-.exp-date{font-size:.65rem;text-transform:uppercase;letter-spacing:.15em;color:var(--muted);padding-top:.3rem}
-.exp-role{font-family:var(--display);font-weight:600;font-size:1.1rem;margin-bottom:.3rem}
-.exp-company{font-size:.75rem;color:var(--accent);letter-spacing:.05em;margin-bottom:.8rem}
-.exp-desc{font-size:.78rem;line-height:1.9;color:var(--text-tertiary);max-width:550px}
-.contact{padding:10rem 5vw;text-align:center}
-.contact-eyebrow{font-size:.65rem;text-transform:uppercase;letter-spacing:.4em;color:var(--muted);margin-bottom:2rem}
-.contact h2{font-family:var(--display);font-size:clamp(2.5rem,8vw,7rem);font-weight:800;text-transform:uppercase;letter-spacing:-.04em;line-height:1}
-.contact h2 .italic{font-family:var(--serif);font-style:italic;font-weight:400;text-transform:none}
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;max-width:900px;margin:4rem auto 0;text-align:left}
-.contact-info-side{display:flex;flex-direction:column;gap:2rem}
-.contact-info-item label{font-size:.6rem;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);display:block;margin-bottom:.5rem}
-.contact-info-item a,.contact-info-item p{font-size:.8rem;color:var(--fg);text-decoration:none;line-height:1.6}
-.contact-info-item a:hover{color:var(--accent)}
-.contact-socials-list{display:flex;gap:1.5rem}
-.contact-socials-list a{font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;color:var(--muted);text-decoration:none;transition:color .3s}
-.contact-socials-list a:hover{color:var(--accent)}
-.contact-form{display:flex;flex-direction:column;gap:1rem}
-.contact-form input,.contact-form textarea{background:var(--card);border:1px solid var(--border);color:var(--fg);font-family:var(--mono);font-size:.78rem;padding:.9rem 1rem;outline:none;transition:border-color .3s;width:100%;resize:vertical}
-.contact-form input:focus,.contact-form textarea:focus{border-color:var(--accent)}
-.contact-form textarea{min-height:120px}
-.contact-form button{background:var(--accent);color:var(--bg);border:none;font-family:var(--mono);font-size:.75rem;font-weight:500;text-transform:uppercase;letter-spacing:.15em;padding:1rem;cursor:pointer;transition:opacity .3s;align-self:flex-start}
-.contact-form button:hover{opacity:.85}
-.form-success{font-size:.75rem;color:var(--accent);display:none;margin-top:.5rem}
-footer{padding:2rem 5vw;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
-footer span{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
-.grain{position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:var(--grain-opacity);background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");background-repeat:repeat;background-size:200px;animation:grainShift .5s steps(1) infinite}
-@keyframes grainShift{0%{transform:translate(0,0)}25%{transform:translate(-5%,5%)}50%{transform:translate(5%,-5%)}75%{transform:translate(-3%,-8%)}100%{transform:translate(3%,3%)}}
-.scatter-loading{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
-.scatter-loading .spinner{width:30px;height:30px;border:2px solid var(--muted);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 1rem}
-@keyframes spin{to{transform:rotate(360deg)}}
-.scatter-loading p{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
-.reveal{opacity:0;transform:translateY(50px);transition:opacity .9s ease,transform .9s cubic-bezier(.16,1,.3,1)}
-.reveal.visible{opacity:1;transform:translateY(0)}
-.reveal-delay-1{transition-delay:.1s}.reveal-delay-2{transition-delay:.2s}.reveal-delay-3{transition-delay:.3s}
-@media(max-width:1024px){.hero{grid-template-columns:1fr}.hero-content{min-height:auto;padding:10rem 5vw 3rem}.hero-image-wrap{height:50vh}.hero-image{height:100%}.hero-float{display:none}.hero-scroll{display:none}.stats{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:900px){.nav-links{display:none}.nav-toggle{display:block}.nav-links.mobile-open{display:flex;flex-direction:column;position:fixed;inset:0;background:var(--bg);align-items:center;justify-content:center;gap:2.5rem;z-index:150}.nav-links.mobile-open a{font-size:1.2rem}.about{grid-template-columns:1fr;gap:3rem}.exp-item{grid-template-columns:1fr;gap:.5rem}.contact-grid{grid-template-columns:1fr;gap:2rem}.preview-canvas{grid-template-columns:repeat(2,1fr)}.lb-panel{grid-template-columns:1fr;grid-template-rows:52vh 1fr}.lb-info{border-left:none;border-top:1px solid var(--border);padding:1.8rem 1.4rem 2.4rem}.lb-slide{inset:1rem 3.2rem 3.2rem}.lbp{left:.5rem}.lbn{right:.5rem}.lbp,.lbn{width:36px;height:36px}.lb-site-bar{padding-right:3.2rem}.card,.lbd,.lb-th,.lbp,.lbn,.lb-x,.lb-site-open{cursor:pointer}}
-@media(max-width:600px){nav{padding:1rem 1.2rem}.hero-content{padding:8rem 1.2rem 2rem}.hero-image-wrap{height:40vh}.hero-title{font-size:clamp(2rem,10vw,3.5rem)}.hero-buttons{flex-direction:column}.hero-cta,.hero-cta-secondary{width:100%;justify-content:center}.about{padding:5rem 1.2rem}.experience{padding:5rem 1.2rem}.contact{padding:5rem 1.2rem}.portfolio-preview-header{padding:0 1.2rem}.preview-canvas{padding:0 1.2rem;grid-template-columns:1fr}.stats{padding:3rem 1.2rem;grid-template-columns:repeat(2,1fr);gap:1.5rem}}
-@media(max-width:380px){.hero-title{font-size:2rem}}
-
-/* ── Full-bleed header photo, text on the left ── */
-.hero{display:block;background:#628BAD}
-.hero-image-wrap{position:absolute;inset:0;height:auto;z-index:0;background:#628BAD}
-.hero-image{position:absolute;top:0;left:70%;height:100%;width:auto;max-width:none;object-fit:cover;translate:-48% 0;-webkit-mask-image:linear-gradient(to right,transparent 0%,#000 12%);mask-image:linear-gradient(to right,transparent 0%,#000 12%)}
-.hero-image-wrap::before{content:"";position:absolute;inset:0 0 auto;height:22%;background:linear-gradient(to bottom,rgba(8,10,14,.6),rgba(8,10,14,0));z-index:3;pointer-events:none}
-.hero-image-overlay{background:linear-gradient(to right,rgba(8,10,14,.82) 0%,rgba(8,10,14,.55) 32%,rgba(8,10,14,0) 58%)!important}
-.hero-image-overlay-bottom{height:30%;background:linear-gradient(to top,rgba(8,10,14,.55),rgba(8,10,14,0))!important}
-.hero-content{position:relative;max-width:min(640px,52vw)}
-.hero .hero-title{color:#F2EFEA}
-.hero .hero-eyebrow,.hero .hero-subtitle,.hero .hero-scroll{color:rgba(242,239,234,.78)}
-.hero .hero-cta-secondary{color:rgba(242,239,234,.85);border-color:rgba(242,239,234,.35)}
-.hero .hero-cta-secondary:hover{color:#fff;border-color:#fff}
-[data-theme="light"] .hero .hero-title .accent{color:#C8FF00}
-[data-theme="light"] .hero .hero-cta{color:#fff;border-color:#fff}
-[data-theme="light"] .hero .hero-cta:hover{background:#fff;color:#141312}
-@media(max-width:1024px){
-  .hero{display:flex;flex-direction:column-reverse;align-items:stretch}
-  .hero-image-wrap{position:relative;inset:auto;height:62vh}
-  .hero-image{left:0;right:0;top:0;bottom:0;width:100%;height:100%;translate:none;object-fit:cover;object-position:50% 15%;-webkit-mask-image:none;mask-image:none}
-  .hero-image-overlay{background:linear-gradient(to top,rgba(8,10,14,.6),rgba(8,10,14,0) 45%)!important}
-  .hero-content{max-width:none;background:#0d1117;padding-top:2.5rem!important}
-  .hero-float{display:none}
+/* Layout: a single committed look. Light-grey portrait bands, near-black body sections,
+   one red. Huge tight grotesque headlines, mono labels, hairline rows, tall rounded work cards. */
+:root{
+  --ink:#111111;        /* section ground */
+  --ink-2:#1b1b1b;      /* raised tiles */
+  --paper:#ebeae8;      /* hero bands, warm light grey */
+  --bone:#f2f0ec;       /* text on dark */
+  --dim:#8f8b85;        /* quiet text on dark */
+  --dim-paper:#5f5b56;  /* quiet text on paper */
+  --line:rgba(242,240,236,.14);
+  --line-paper:rgba(17,17,17,.14);
+  --red:#e4291c;
+  --f-sans:'Inter Tight','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --f-mono:'DM Mono',ui-monospace,Menlo,monospace;
+  --gl:max(16px, env(safe-area-inset-left, 0px));
+  --gr:max(16px, env(safe-area-inset-right, 0px));
+  color-scheme:dark;
 }
+*{box-sizing:border-box}
+body{margin:0;background:var(--ink);color:var(--bone);font-family:var(--f-sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--ink)}
+a{color:inherit}
+img{display:block;max-width:100%}
+.wrap{padding-left:var(--gl);padding-right:var(--gr)}
+.inner{max-width:1240px;margin:0 auto}
+.mono{font-family:var(--f-mono);font-size:12px;letter-spacing:.04em}
+.label{font-family:var(--f-mono);font-size:12px;color:var(--red);letter-spacing:.04em}
+.label::before{content:"// "}
+.dim{color:var(--dim)}
+h1,h2,h3{margin:0;font-weight:500;letter-spacing:-.045em;line-height:.92;text-wrap:balance}
+p{margin:0}
+.red{color:var(--red)}
+
+/* preview bar + page switcher */
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+
+/* site nav (inside each page) */
+.nav{display:flex;justify-content:space-between;align-items:center;padding-block:18px;font-size:13px;gap:16px}
+.nav .mark{font-weight:600;letter-spacing:.14em;font-size:13px;text-decoration:none}
+.nav .links{display:flex;gap:clamp(14px,4vw,48px)}
+.nav .links a{text-decoration:none;opacity:.85}
+.nav .links a:hover{opacity:1}
+
+/* hero (paper band) */
+.hero{background:var(--paper);color:var(--ink);position:relative;overflow:hidden}
+.hero .nav{position:relative;z-index:3}
+.hero-stage{position:relative;min-height:clamp(440px,62vw,720px)}
+.hero-name{position:absolute;left:0;right:0;top:44%;transform:translateY(-50%);font-size:clamp(64px,15.5vw,224px);font-weight:500;letter-spacing:-.06em;line-height:.85;white-space:nowrap;z-index:1}
+.hero-name span{display:block}
+.hero-name .b{padding-left:.9em}
+.hero-portrait{position:absolute;left:50%;bottom:0;width:clamp(260px,40vw,520px);transform:translateX(-38%);z-index:2;mix-blend-mode:multiply}
+.hero-roles{position:absolute;right:0;bottom:28px;z-index:3;font-size:clamp(22px,3.2vw,44px);font-weight:500;letter-spacing:-.04em;line-height:1;text-align:left}
+.hero-social{position:absolute;left:0;bottom:28px;z-index:3;display:grid;gap:8px;font-size:13px}
+.hero-social a{text-decoration:none}
+
+/* sections */
+.sec{border-top:1px solid var(--line);padding-block:20px clamp(64px,9vw,120px)}
+.sec .head{display:flex;justify-content:space-between;gap:16px;margin-bottom:clamp(40px,7vw,96px)}
+.intro{font-size:clamp(30px,4.6vw,64px);font-weight:500;letter-spacing:-.045em;line-height:1.02;max-width:20ch;margin-left:clamp(0px,10vw,140px);text-wrap:balance}
+.intro-sub{max-width:44ch;margin:40px 0 0 auto;color:var(--dim);font-size:15px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:12px 20px;border-radius:999px;border:1px solid var(--line);background:transparent;color:inherit;font:500 14px var(--f-sans);text-decoration:none;cursor:pointer}
+.btn:hover{border-color:var(--bone)}
+.btn.solid{background:var(--bone);color:var(--ink);border-color:var(--bone)}
+.btn.redbtn{background:var(--red);border-color:var(--red);color:#fff}
+.btn-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+
+/* page title block */
+.ptitle{font-size:clamp(56px,13vw,184px);letter-spacing:-.06em;line-height:.86}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,72px);align-items:end}
+.lede{font-size:clamp(20px,2.2vw,28px);letter-spacing:-.025em;line-height:1.2;max-width:30ch}
+.body-copy{display:grid;gap:18px;max-width:62ch;color:#cfcbc5}
+
+/* numbered service groups */
+.group{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:clamp(24px,5vw,72px);padding-block:clamp(32px,5vw,64px);border-top:1px solid var(--line)}
+.group:first-of-type{border-top:0}
+.outline-num{font-size:clamp(96px,16vw,220px);font-weight:400;line-height:.8;letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1.2px var(--dim)}
+.group h3{font-size:clamp(30px,4vw,52px);margin-bottom:12px}
+.group .gsub{color:var(--dim);font-size:14px;max-width:46ch;margin-bottom:28px}
+.rows{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.rows li{display:flex;justify-content:space-between;gap:16px;padding:14px 4px;border-bottom:1px solid var(--line);font-size:14px;font-weight:500}
+.rows li .mono{color:var(--dim)}
+
+/* work cards */
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;align-items:start}
+.cards .card:nth-child(even){margin-top:56px}
+.card{display:block;text-decoration:none;color:inherit}
+.card .media{position:relative;aspect-ratio:3/4;border-radius:18px;overflow:hidden;background:var(--ink-2);max-width:100%}
+.card .media img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.22,1,.36,1)}
+.card:hover .media img{transform:scale(1.04)}
+.chip{position:absolute;top:12px;left:12px;font:500 11px var(--f-mono);padding:5px 10px;border-radius:999px;background:rgba(17,17,17,.55);color:var(--bone);border:1px solid rgba(242,240,236,.25);backdrop-filter:blur(6px)}
+.card .onimg{position:absolute;left:14px;right:14px;bottom:14px;font-size:13px;line-height:1.3;color:var(--bone)}
+.card h3{font-size:clamp(20px,2vw,28px);letter-spacing:-.035em;line-height:1;margin-top:16px;text-transform:uppercase}
+.card .cdesc{font-size:13px;color:var(--dim);margin-top:6px}
+.ph{width:100%;height:100%;display:grid;place-items:center;text-align:center;padding:20px;font:12px var(--f-mono);color:var(--dim);background:repeating-linear-gradient(135deg,var(--ink-2) 0 12px,#161616 12px 24px)}
+.ph.type{background:var(--ink-2);font:500 clamp(28px,3vw,40px)/.95 var(--f-sans);letter-spacing:-.04em;color:var(--bone);text-transform:uppercase;align-content:end;justify-items:start;text-align:left}
+
+/* feature (Now) */
+.feature{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,72px);align-items:center}
+.feature .cover{border-radius:18px;overflow:hidden;max-width:100%}
+.feature h2{font-size:clamp(72px,12vw,168px);color:var(--red);letter-spacing:-.06em}
+.feature .meta{display:flex;gap:24px;flex-wrap:wrap;margin-top:20px}
+
+/* lanes */
+.lanes{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.lane{border:1px solid var(--line);border-radius:18px;padding:clamp(20px,3vw,36px);display:grid;gap:20px;align-content:start}
+.lane h3{font-size:clamp(32px,4vw,56px)}
+.lane p{color:var(--dim);font-size:14px;max-width:44ch}
+
+/* scripture / lyrics */
+.verses{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.verse{border-top:1px solid var(--line);padding-top:16px;display:grid;gap:10px}
+.verse .ref{font:500 12px var(--f-mono);color:var(--red)}
+.verse p{font-size:clamp(18px,1.8vw,22px);letter-spacing:-.02em;line-height:1.25}
+.lyrics{columns:2;column-gap:clamp(24px,5vw,72px);font-size:clamp(18px,2vw,24px);letter-spacing:-.02em;line-height:1.35}
+.lyrics p{break-inside:avoid;margin-bottom:28px}
+.lyrics .tagline{font:500 11px var(--f-mono);color:var(--dim);display:block;margin-bottom:6px;letter-spacing:.04em}
+
+/* form */
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:4px;gap:4px}
+.seg button{border:0;background:transparent;color:var(--dim);font:500 14px var(--f-sans);padding:10px 20px;border-radius:999px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--bone);color:var(--ink)}
+form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
+.field{display:grid;gap:8px;min-width:0}
+.field.full{grid-column:1/-1}
+.field label{font:12px var(--f-mono);color:var(--dim);letter-spacing:.04em}
+.field input,.field select,.field textarea{width:100%;background:transparent;border:0;border-bottom:1px solid var(--line);color:var(--bone);font:16px var(--f-sans);padding:10px 0;border-radius:0}
+.field select option{background:var(--ink)}
+.field textarea{min-height:96px;resize:vertical}
+.formnote{grid-column:1/-1;font:12px var(--f-mono);color:var(--red);min-height:1.2em}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:0;border-top:1px solid var(--line);counter-reset:s}
+.steps li{display:grid;grid-template-columns:48px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);font-size:14px;counter-increment:s}
+.steps li::before{content:counter(s,decimal-leading-zero);font:12px var(--f-mono);color:var(--red);padding-top:2px}
+
+/* footer */
+.foot{border-top:1px solid var(--line);padding-block:40px calc(32px + env(safe-area-inset-bottom,0px))}
+.foot .big{font-size:clamp(48px,11vw,160px);letter-spacing:-.06em;line-height:.85;font-weight:500}
+.foot .cols{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;margin-top:40px;font-size:13px}
+.foot .cols div{display:grid;gap:6px}
+.next{display:flex;justify-content:space-between;align-items:end;gap:16px;text-decoration:none;border-top:1px solid var(--line);padding-block:28px 48px}
+.next .t{font-size:clamp(40px,8vw,112px);letter-spacing:-.055em;line-height:.9}
+
+.view[hidden]{display:none!important}
+.home-hero{background:#e3e3e3}
+.hh-nav{position:absolute;left:0;right:0;top:0;z-index:4}
+.hh-media{position:relative}
+.hh-media img{width:100%;aspect-ratio:16/9;object-fit:cover;object-position:50% 30%;max-width:100%}
+.hh-over{position:absolute;inset:0;pointer-events:none}
+.hh-over-in{position:relative;height:100%}
+.hh-over a{pointer-events:auto}
+.hh-name{position:absolute;left:0;right:0;bottom:6%;text-align:center;font-size:clamp(40px,10.6vw,190px);font-weight:600;letter-spacing:-.045em;line-height:.9;white-space:nowrap;color:#fff4ec;mix-blend-mode:difference;z-index:2;pointer-events:none}
+.home-hero .hero-roles{top:52%;bottom:auto}
+@media (max-width:860px){.hh-media img{aspect-ratio:4/5;object-position:50% 20%}.hh-name{bottom:5%;font-size:12vw}.home-hero .hero-roles{display:none}}
+.viral{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.viral li{display:grid;grid-template-columns:clamp(72px,12vw,160px) minmax(0,1fr);align-items:baseline;gap:16px;border-bottom:1px solid var(--line);padding-block:clamp(10px,1.6vw,20px)}
+.viral .vl{font-size:clamp(64px,10vw,140px);font-weight:500;letter-spacing:-.05em;line-height:.85;color:transparent;-webkit-text-stroke:1.2px var(--red)}
+.viral .vt{font-size:clamp(22px,3.4vw,48px);font-weight:500;letter-spacing:-.04em;line-height:1}
+.vm{font-size:clamp(22px,2.6vw,34px);font-weight:500;letter-spacing:-.035em;line-height:1.1;color:var(--bone)!important;max-width:none!important}
+.light-sec{background:var(--paper);color:var(--ink)}
+.light-sec .dim,.light-sec .body-copy{color:var(--dim-paper)}
+
+@media (max-width:860px){
+  .cards{grid-template-columns:1fr 1fr}
+  .cards .card:nth-child(even){margin-top:32px}
+  .pgrid,.feature,.lanes,.group,form{grid-template-columns:1fr}
+  .verses{grid-template-columns:1fr}
+  .lyrics{columns:1}
+  .hero-name{top:30%}
+  .hero-portrait{transform:translateX(-50%);width:70vw}
+  .hero-roles{bottom:20px}
+  .hero-social{display:none}
+  .nav .links{gap:14px}
+  .intro{margin-left:0}
+}
+@media (max-width:480px){
+  .nav .links a.hide-sm{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.rise{animation:rise .7s cubic-bezier(.22,1,.36,1) both}
+@keyframes rise{from{transform:translateY(14px)}to{transform:none}}
 </style>
 </head>
 <body>
-<div class="grain"></div>
-<div class="cursor-dot" id="cursorDot"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-<div class="loader" id="loader">
-  <div class="loader-text"><span style="animation-delay:.1s">M</span><span style="animation-delay:.15s">A</span><span style="animation-delay:.2s">N</span><span style="animation-delay:.25s">N</span><span style="animation-delay:.3s">O</span><span style="animation-delay:.35s">R</span><span style="animation-delay:.4s">R</span></div>
-  <div class="loader-line"></div>
-</div>
-<nav>
-  <a href="/" class="nav-logo">MANNORR<span class="dot"></span></a>
-  <div class="nav-right">
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#work" onclick="closeNav()">Work</a></li>
-      <li><a href="/about" onclick="closeNav()">About</a></li>
-      <li><a href="#experience" onclick="closeNav()">Experience</a></li>
-      <li><a href="/work-with-me" onclick="closeNav()">Work With Me</a></li>
-      <li><a href="#contact" onclick="closeNav()">Contact</a></li>
+
+
+
+
+<!-- ========== HOME ========== -->
+<main class="view" id="v-home">
+  <header class="hero home-hero">
+    <div class="wrap hh-nav"><div class="inner"><nav class="nav"><a class="mark" href="#home">MANNORR</a><div class="links"><a href="#about">About</a><a href="#works">Works</a><a href="#work-with-me">Work With Me</a></div></nav></div></div>
+    <div class="hh-media">
+      <img src="images/header.jpg" alt="Portrait of Nifemi Adeniran">
+      <h1 class="hh-name">Adeniran Nifemi</h1>
+      <div class="wrap hh-over"><div class="inner hh-over-in">
+        <div class="hero-social"><a href="#home">Instagram</a><a href="#home">YouTube</a><a href="#home">Spotify</a></div>
+        <div class="hero-roles">// Designer<br>Minister<br>Teacher</div>
+      </div></div>
+    </div>
+  </header>
+
+  <section class="sec wrap"><div class="inner">
+    <div class="head"><span class="label">Intro</span><span class="mono dim">Lagos, Nigeria</span></div>
+    <p class="intro">I'm a designer and worship minister <span class="red">making the truth beautiful</span>, through brands, songs and teaching.</p>
+    <p class="intro-sub">Eight years of brand and visual design. A new single in January. A ministry that gives reasons for the faith. A church called The Viral Church, coming soon. One calling behind all of it.</p>
+    <div class="btn-row" style="justify-content:flex-end"><a class="btn" href="#about">About me →</a></div>
+  </div></section>
+
+  <section class="sec wrap"><div class="inner">
+    <div class="head"><span class="label">Now</span><span class="mono dim">New single</span></div>
+    <div class="feature">
+      <div class="cover"><img src="images/inyou-sq.jpg" alt="In You single artwork"></div>
+      <div>
+        <p class="mono dim">MANNORR · Single</p>
+        <h2>In You</h2>
+        <p class="lede" style="margin-top:20px">A worship song about the exchange at the cross. He gave Himself, so we could live in Him.</p>
+        <div class="meta mono"><span>Out 8 January 2027</span><span class="dim">All platforms</span></div>
+        <div class="btn-row"><a class="btn redbtn" href="#music">Pre-save →</a><a class="btn" href="#music">The story</a></div>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="sec wrap"><div class="inner">
+    <div class="head"><span class="label">Works</span><a class="mono dim" href="#works">All works →</a></div>
+    <div class="cards">
+      <a class="card" href="#music"><div class="media"><img src="images/inyou-sq.jpg" alt=""><span class="chip">Music</span><span class="onimg">New single, 8 Jan 2027</span></div><h3>In You</h3><p class="cdesc">Worship, songwriting</p></a>
+      <a class="card" href="#design"><div class="media"><div class="ph">Image: a signature brand project</div><span class="chip">Design</span><span class="onimg">8+ years of brand work</span></div><h3>Design</h3><p class="cdesc">Identity, direction, campaigns</p></a>
+      <a class="card" href="#apologetics"><div class="media"><div class="ph type">Apolo&shy;getics<br>Nigeria</div><span class="chip">Teaching</span></div><h3>Apologetics Nigeria</h3><p class="cdesc">The MANNORR Show, resources</p></a>
+      <a class="card" href="#viral-church"><div class="media"><div class="ph">Image: a Viral gathering</div><span class="chip">Church</span></div><h3>The Viral Church</h3><p class="cdesc">Coming soon · @viralchurchglobal</p></a>
+    </div>
+  </div></section>
+
+  <section class="sec wrap"><div class="inner">
+    <div class="head"><span class="label">Work With Me</span></div>
+    <div class="lanes">
+      <a class="lane" href="#work-with-me" style="text-decoration:none"><span class="mono dim">For brands and businesses</span><h3>Design</h3><p>Brand identity, creative direction and campaigns for teams that care how they look and what they mean.</p><span class="btn" style="justify-self:start">Start a project →</span></a>
+      <a class="lane" href="#work-with-me" style="text-decoration:none"><span class="mono dim">For churches and events</span><h3>Ministry</h3><p>Worship ministration and teaching on apologetics and the faith, for services, conferences and fellowships.</p><span class="btn" style="justify-self:start">Book me →</span></a>
+    </div>
+  </div></section>
+</main>
+
+<!-- ========== ABOUT ========== -->
+<main class="view" id="v-about" hidden>
+  <header class="hero wrap"><div class="inner">
+    <nav class="nav"><a class="mark" href="#home">MANNORR</a><div class="links"><a href="#about">About</a><a href="#works">Works</a><a href="#work-with-me">Work With Me</a></div></nav>
+    <div class="pgrid" style="padding-block:24px 0">
+      <div style="padding-bottom:40px"><span class="label">About</span><h1 class="ptitle" style="margin-top:20px">About</h1><p class="lede" style="margin-top:28px">Designer, worship minister and teacher of the Word. Based in Lagos, with ties to Dublin.</p></div>
+      <img src="images/profile.jpg" alt="Nifemi Adeniran looking upward" style="mix-blend-mode:multiply;justify-self:end;width:min(100%,520px)">
+    </div>
+  </div></header>
+
+  <section class="sec wrap"><div class="inner">
+    <div class="head"><span class="label">Story</span></div>
+    <div class="pgrid" style="align-items:start">
+      <p class="intro" style="margin:0;font-size:clamp(28px,3.6vw,48px)">I make things that <span class="red">point past themselves.</span></p>
+      <div class="body-copy">
+        <p>[Draft] I'm Nifemi Adeniran, known as MANNORR. For more than eight years I've designed brand identities, campaigns and visual systems for businesses, churches and creators.</p>
+        <p>I hold an MSc in Interactive Digital Media from Griffith College Dublin. I founded Apologetics Nigeria to help people think clearly about the faith, and I lead the Viral community.</p>
+        <p>In January 2027 I release In You, a song about living in Christ. Design, music and teaching are different crafts serving the same calling.</p>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="sec wrap"><div class="inner">
+    <div class="head"><span class="label">What I believe</span></div>
+    <p class="intro" style="margin-left:0;max-width:24ch">Truth deserves to be made beautiful, and beauty should always <span class="red">tell the truth.</span></p>
+    <p class="intro-sub">[Draft] A short statement of conviction: why you make things, what you will and won't do, and the faith behind it. Two or three sentences, written by you.</p>
+  </div></section>
+
+  <section class="sec wrap"><div class="inner">
+    <div class="head"><span class="label">Experience</span><span class="mono dim">Roles and years to confirm</span></div>
+    <div class="group"><div class="outline-num">01</div><div><h3>Work</h3><p class="gsub">Studio, church and in-house roles.</p><ul class="rows"><li>Kallos Creative Agency <span class="mono">Founder</span></li><li>Celebration Church International <span class="mono">[Role]</span></li><li>Financefair <span class="mono">[Role]</span></li><li>PPI and KOG Nigeria Ltd <span class="mono">[Role]</span></li></ul></div></div>
+    <div class="group"><div class="outline-num">02</div><div><h3>Education</h3><p class="gsub">Formal study in design and computing.</p><ul class="rows"><li>MSc Interactive Digital Media <span class="mono">Griffith College Dublin</span></li><li>BSc Computer &amp; Information Systems <span class="mono">[School]</span></li></ul></div></div>
+    <div class="btn-row"><button class="btn" type="button" data-inert>Bio and press kit (PDF)</button><a class="btn solid" href="#work-with-me">Work with me →</a></div>
+  </div></section>
+</main>
+
+<!-- ========== WORKS ========== -->
+<main class="view" id="v-works" hidden>
+  <header class="wrap"><div class="inner">
+    <nav class="nav"><a class="mark" href="#home">MANNORR</a><div class="links"><a href="#about">About</a><a href="#works">Works</a><a href="#work-with-me">Work With Me</a></div></nav>
+    <div style="padding-block:40px 56px"><span class="label">Works</span><h1 class="ptitle" style="margin-top:20px">Works</h1><p class="lede" style="margin-top:28px">Four ways of serving one calling: songs, design, teaching and church.</p></div>
+  </div></header>
+  <section class="sec wrap"><div class="inner">
+    <div class="cards" style="grid-template-columns:repeat(2,minmax(0,1fr))">
+      <a class="card" href="#music"><div class="media" style="aspect-ratio:4/3"><img src="images/inyou.jpg" alt=""><span class="chip">Music</span><span class="onimg">Out 8 January 2027</span></div><h3>In You</h3><p class="cdesc">A new single, the story behind it, lyrics and where to listen.</p></a>
+      <a class="card" href="#design"><div class="media" style="aspect-ratio:4/3"><div class="ph">Image: a signature brand project</div><span class="chip">Design</span></div><h3>Design</h3><p class="cdesc">Selected brand identities, campaigns and creative direction.</p></a>
+      <a class="card" href="#apologetics"><div class="media" style="aspect-ratio:4/3"><div class="ph type">Apologetics<br>Nigeria</div><span class="chip">Teaching</span></div><h3>Apologetics Nigeria</h3><p class="cdesc">The ministry, the MANNORR Show and teaching resources.</p></a>
+      <a class="card" href="#viral-church"><div class="media" style="aspect-ratio:4/3"><div class="ph">Image: a Viral gathering</div><span class="chip">Church</span></div><h3>The Viral Church</h3><p class="cdesc">Coming soon. Vision, mission and what VIRAL stands for.</p></a>
+    </div>
+  </div></section>
+</main>
+
+<!-- ========== MUSIC ========== -->
+<main class="view" id="v-music" hidden>
+  <header class="hero wrap"><div class="inner">
+    <nav class="nav"><a class="mark" href="#home">MANNORR</a><div class="links"><a href="#about">About</a><a href="#works">Works</a><a href="#work-with-me">Work With Me</a></div></nav>
+    <div class="pgrid" style="padding-block:24px 48px;align-items:center">
+      <div>
+        <span class="label">Music</span>
+        <h1 class="ptitle red" style="margin-top:20px">In You</h1>
+        <p class="mono" style="margin-top:20px">MANNORR · Single · 8 January 2027</p>
+        <div class="btn-row"><a class="btn redbtn" href="#music">Pre-save on Spotify →</a><a class="btn" href="#music" style="border-color:var(--line-paper)">Apple Music</a><a class="btn" href="#music" style="border-color:var(--line-paper)">Boomplay</a></div>
+        <p class="mono" style="margin-top:14px;color:var(--dim-paper)">Switches to streaming links on release day</p>
+      </div>
+      <img src="images/inyou-sq.jpg" alt="In You single artwork" style="border-radius:18px;justify-self:end;width:min(100%,520px)">
+    </div>
+  </div></header>
+
+  <section class="sec wrap"><div class="inner">
+    <div class="head"><span class="label">The story</span></div>
+    <div class="pgrid" style="align-items:start">
+      <p class="intro" style="margin:0;font-size:clamp(28px,3.6vw,48px)">He gave Himself away, <span class="red">so I could live in Him.</span></p>
+      <div class="body-copy"><p>[Draft] Where the song came from, what was happening when you wrote it, and what you hope people carry away. Three short paragraphs in your voice.</p><p>[Draft] The recording: who produced it, where it was made, one detail from the session.</p></div>
+    </div>
+  </div></section>
+
+  <section class="sec wrap"><div class="inner">
+    <div class="head"><span class="label">The scriptures</span><span class="mono dim">Behind the lyrics</span></div>
+    <div class="verses">
+      <div class="verse"><span class="ref">Acts 17:28</span><p>In Him we live and move and have our being.</p></div>
+      <div class="verse"><span class="ref">Galatians 2:20</span><p>The Son of God, who loved me and gave Himself for me.</p></div>
+      <div class="verse"><span class="ref">John 8:36</span><p>If the Son sets you free, you will be free indeed.</p></div>
+    </div>
+  </div></section>
+
+  <section class="sec wrap"><div class="inner">
+    <div class="head"><span class="label">Lyrics</span></div>
+    <div class="lyrics">
+      <p><span class="tagline">VERSE</span>You gave Yourself away<br>You gave Your love<br>You gave Your life away<br>So I could live in You</p>
+      <p><span class="tagline">CHORUS</span>In You I live<br>In You I move<br>I have my being<br>Joy and peace I find in You<br>I'm free indeed</p>
+      <p><span class="tagline">BRIDGE</span>You gave Yourself<br>You gave Your love<br>You gave Your strength<br>And righteousness</p>
+    </div>
+  </div></section>
+
+  <section class="sec wrap"><div class="inner">
+    <div class="head"><span class="label">Credits</span></div>
+    <ul class="rows"><li>Written by <span class="mono">MANNORR [+ co-writers]</span></li><li>Produced by <span class="mono">[Producer]</span></li><li>Artwork <span class="mono">MANNORR</span></li></ul>
+  </div></section>
+  <a class="next wrap" href="#design"><div class="inner" style="display:flex;justify-content:space-between;align-items:end;width:100%;gap:16px"><span class="label">Next work</span><span class="t">Design →</span></div></a>
+</main>
+
+<!-- ========== DESIGN ========== -->
+<main class="view" id="v-design" hidden>
+  <header class="wrap"><div class="inner">
+    <nav class="nav"><a class="mark" href="#home">MANNORR</a><div class="links"><a href="#about">About</a><a href="#works">Works</a><a href="#work-with-me">Work With Me</a></div></nav>
+    <div style="padding-block:40px 56px"><span class="label">Design</span><h1 class="ptitle" style="margin-top:20px">Design</h1><p class="lede" style="margin-top:28px">Brand identity and creative direction for teams that care how they look <span class="red">and what they mean.</span></p></div>
+  </div></header>
+
+  <section class="sec wrap"><div class="inner">
+    <div class="head"><span class="label">Selected work</span><span class="mono dim">3–6 case studies</span></div>
+    <div class="cards">
+      <a class="card" href="#design"><div class="media"><div class="ph">Image: project 01</div><span class="chip">Identity</span><span class="onimg">[One result or line]</span></div><h3>[Project title]</h3><p class="cdesc">[Client] · [Year]</p></a>
+      <a class="card" href="#design"><div class="media"><div class="ph">Image: project 02</div><span class="chip">Campaign</span></div><h3>[Project title]</h3><p class="cdesc">[Client] · [Year]</p></a>
+      <a class="card" href="#design"><div class="media"><div class="ph">Image: project 03</div><span class="chip">Direction</span></div><h3>[Project title]</h3><p class="cdesc">[Client] · [Year]</p></a>
+      <a class="card" href="#design"><div class="media"><div class="ph">Image: project 04</div><span class="chip">Systems</span></div><h3>[Project title]</h3><p class="cdesc">[Client] · [Year]</p></a>
+    </div>
+  </div></section>
+
+  <section class="sec wrap"><div class="inner">
+    <div class="head"><span class="label">Services</span></div>
+    <div class="group"><div class="outline-num">01</div><div><h3>Identity</h3><p class="gsub">Brands that are clear, distinct and built to last.</p><ul class="rows"><li>Brand identity systems <span class="mono">01</span></li><li>Logo design and visual identity <span class="mono">02</span></li><li>Typography and editorial layout <span class="mono">03</span></li><li>Design systems and frameworks <span class="mono">04</span></li></ul></div></div>
+    <div class="group"><div class="outline-num">02</div><div><h3>Direction</h3><p class="gsub">The idea, the look and the rollout, kept consistent.</p><ul class="rows"><li>Creative direction <span class="mono">01</span></li><li>Campaign development <span class="mono">02</span></li><li>Social media visual strategy <span class="mono">03</span></li><li>UI/UX design and prototyping <span class="mono">04</span></li></ul></div></div>
+  </div></section>
+
+  <section class="sec wrap"><div class="inner">
+    <div class="head"><span class="label">Clients</span><span class="mono dim">Selected, with Kallos</span></div>
+    <ul class="rows"><li>It Ends With Me podcast <span class="mono">Identity</span></li><li>Kiwi &amp; Yam <span class="mono">Fashion</span></li><li>The Ascension concert <span class="mono">Campaign</span></li></ul>
+    <div class="btn-row"><a class="btn solid" href="#work-with-me">Start a design project →</a><a class="btn" href="#design">Studio projects: Kallos ↗</a></div>
+  </div></section>
+  <a class="next wrap" href="#apologetics"><div class="inner" style="display:flex;justify-content:space-between;align-items:end;width:100%;gap:16px"><span class="label">Next work</span><span class="t">Apologetics →</span></div></a>
+</main>
+
+<!-- ========== APOLOGETICS ========== -->
+<main class="view" id="v-apologetics" hidden>
+  <header class="hero wrap"><div class="inner">
+    <nav class="nav"><a class="mark" href="#home">MANNORR</a><div class="links"><a href="#about">About</a><a href="#works">Works</a><a href="#work-with-me">Work With Me</a></div></nav>
+    <div style="padding-block:40px 64px"><span class="label">Teaching</span><h1 class="ptitle" style="margin-top:20px">Apologetics<br>Nigeria</h1><p class="lede" style="margin-top:28px">A ministry giving clear, honest reasons for the hope we have.</p><p class="mono" style="margin-top:12px;color:var(--dim-paper)">1 Peter 3:15</p></div>
+  </div></header>
+
+  <section class="sec wrap"><div class="inner">
+    <div class="head"><span class="label">The MANNORR Show</span><span class="mono dim">Latest on YouTube</span></div>
+    <div class="cards" style="grid-template-columns:repeat(3,minmax(0,1fr))">
+      <a class="card" href="#apologetics"><div class="media" style="aspect-ratio:16/10"><div class="ph">Thumbnail: latest episode</div><span class="chip">Episode</span></div><h3 style="text-transform:none">[Episode title]</h3><p class="cdesc">[Date] · [Length]</p></a>
+      <a class="card" href="#apologetics"><div class="media" style="aspect-ratio:16/10"><div class="ph">Thumbnail</div><span class="chip">Episode</span></div><h3 style="text-transform:none">[Episode title]</h3><p class="cdesc">[Date] · [Length]</p></a>
+      <a class="card" href="#apologetics"><div class="media" style="aspect-ratio:16/10"><div class="ph">Thumbnail</div><span class="chip">Episode</span></div><h3 style="text-transform:none">[Episode title]</h3><p class="cdesc">[Date] · [Length]</p></a>
+    </div>
+  </div></section>
+
+  <section class="sec wrap"><div class="inner">
+    <div class="head"><span class="label">Go deeper</span></div>
+    <div class="group"><div class="outline-num">01</div><div><h3>Resources</h3><p class="gsub">Teaching decks and study material on the evidence for the faith, free on the ministry site.</p><ul class="rows"><li>Teaching decks <span class="mono">apologeticsnigeria.org</span></li><li>Sermon and study notes <span class="mono">apologeticsnigeria.org</span></li></ul></div></div>
+    <div class="group"><div class="outline-num">02</div><div><h3>Conference 2027</h3><p class="gsub">Apologetics Nigeria 2027, a speaking conference in Lagos. Date and venue to be announced.</p><ul class="rows"><li>Get updates <span class="mono">[Sign-up link]</span></li></ul></div></div>
+    <div class="btn-row"><a class="btn solid" href="#apologetics">Visit apologeticsnigeria.org ↗</a><a class="btn" href="#work-with-me">Invite me to teach</a></div>
+  </div></section>
+  <a class="next wrap" href="#viral-church"><div class="inner" style="display:flex;justify-content:space-between;align-items:end;width:100%;gap:16px"><span class="label">Next work</span><span class="t">The Viral Church →</span></div></a>
+</main>
+
+<!-- ========== VIRAL CHURCH ========== -->
+<main class="view" id="v-viral-church" hidden>
+  <header class="wrap"><div class="inner">
+    <nav class="nav"><a class="mark" href="#home">MANNORR</a><div class="links"><a href="#about">About</a><a href="#works">Works</a><a href="#work-with-me">Work With Me</a></div></nav>
+    <div style="padding-block:40px 56px"><span class="label">Church</span><h1 class="ptitle" style="margin-top:20px">The Viral<br>Church</h1><p class="lede" style="margin-top:28px">Coming soon. <span class="red">Follow along on Instagram</span> while we prepare.</p><div class="btn-row"><a class="btn redbtn" href="https://www.instagram.com/viralchurchglobal/" target="_blank" rel="noopener">@viralchurchglobal ↗</a></div></div>
+  </div></header>
+
+  <section class="sec wrap"><div class="inner">
+    <div class="head"><span class="label">What VIRAL means</span></div>
+    <ul class="viral">
+      <li><span class="vl">V</span><span class="vt">Victorious in Christ Jesus</span></li>
+      <li><span class="vl">I</span><span class="vt">Indoctrinated in His Word</span></li>
+      <li><span class="vl">R</span><span class="vt">Rejuvenated in devotion</span></li>
+      <li><span class="vl">A</span><span class="vt">Ambassadors for Christ</span></li>
+      <li><span class="vl">L</span><span class="vt">Light of the Word</span></li>
     </ul>
-    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle theme">☀</button>
-    <button class="nav-toggle" id="navToggle" onclick="toggleNav()"><span></span><span></span><span></span></button>
-  </div>
-</nav>
+  </div></section>
 
-<section class="hero">
-  <div class="hero-content">
-    <p class="hero-eyebrow">Creative Director — Brand & Visual Designer — Dublin, Ireland</p>
-    <h1 class="hero-title">
-      <span class="line"><span>CRAFTING</span></span>
-      <span class="line"><span><span class="italic">visual</span> <span class="accent">SYSTEMS</span></span></span>
-      <span class="line"><span>THAT RESONATE</span></span>
-    </h1>
-    <p class="hero-subtitle">8+ years translating abstract ideas into strategic visual solutions — brand identities, digital campaigns, and visual systems that drive connection.</p>
-    <div class="hero-buttons">
-      <a href="/portfolio" class="hero-cta">View Works <span class="arrow">→</span></a>
-      <a href="/work-with-me" class="hero-cta">Work With Me <span class="arrow">→</span></a>
-      <a href="./ADENIRAN_OLUWANIFEMI_CV.pdf" download class="hero-cta-secondary">↓ Download CV</a>
+  <section class="sec wrap"><div class="inner">
+    <div class="lanes">
+      <div class="lane"><span class="label">Vision</span><p class="vm">We envision that the gospel becomes <span class="red">commonplace</span> in this generation and the next.</p></div>
+      <div class="lane"><span class="label">Mission</span><p class="vm">We equip men for ministry with the sound and balanced teaching of the Word, till the whole world is filled with the <span class="red">knowledge and the glory of God.</span></p></div>
     </div>
-  </div>
-  <div class="hero-image-wrap">
-    <img src="./hero-header.jpg" srcset="./hero-header-sm.jpg 960w, ./hero-header.jpg 1920w" sizes="(max-width:1024px) 100vw, 50vw" alt="Adeniran Oluwanifemi" class="hero-image">
-    <div class="hero-image-overlay"></div>
-    <div class="hero-image-overlay-bottom"></div>
-    <div class="hero-float"></div>
-  </div>
-  <div class="hero-scroll">Scroll</div>
-</section>
+    <p class="mono dim" style="margin-top:32px">Gatherings, location and how to join will be announced here.</p>
+  </div></section>
+  <a class="next wrap" href="#music"><div class="inner" style="display:flex;justify-content:space-between;align-items:end;width:100%;gap:16px"><span class="label">Next work</span><span class="t">In You →</span></div></a>
+</main>
 
-<section class="marquee-section">
-  <div class="marquee-track">
-    <span>Brand Identity <span class="star">✦</span></span><span class="filled">Visual Systems <span class="star">✦</span></span><span>Typography <span class="star">✦</span></span><span class="filled">Campaign Design <span class="star">✦</span></span><span>Creative Direction <span class="star">✦</span></span><span class="filled">UI/UX Design <span class="star">✦</span></span><span>Editorial Layout <span class="star">✦</span></span><span class="filled">Digital Products <span class="star">✦</span></span>
-    <span>Brand Identity <span class="star">✦</span></span><span class="filled">Visual Systems <span class="star">✦</span></span><span>Typography <span class="star">✦</span></span><span class="filled">Campaign Design <span class="star">✦</span></span><span>Creative Direction <span class="star">✦</span></span><span class="filled">UI/UX Design <span class="star">✦</span></span><span>Editorial Layout <span class="star">✦</span></span><span class="filled">Digital Products <span class="star">✦</span></span>
-  </div>
-</section>
+<!-- ========== WORK WITH ME ========== -->
+<main class="view" id="v-work-with-me" hidden>
+  <header class="wrap"><div class="inner">
+    <nav class="nav"><a class="mark" href="#home">MANNORR</a><div class="links"><a href="#about">About</a><a href="#works">Works</a><a href="#work-with-me">Work With Me</a></div></nav>
+    <div style="padding-block:40px 40px"><span class="label">Work With Me</span><h1 class="ptitle" style="margin-top:20px">Work<br>with me</h1></div>
+  </div></header>
 
-<section class="stats" id="stats">
-  <div class="stat-item reveal"><div class="stat-number" data-target="8">0</div><div class="stat-label">Years Experience</div></div>
-  <div class="stat-item reveal reveal-delay-1"><div class="stat-number" data-target="500" data-suffix="+">0</div><div class="stat-label">Assets Delivered</div></div>
-  <div class="stat-item reveal reveal-delay-2"><div class="stat-number" data-target="30" data-suffix="+">0</div><div class="stat-label">Campaigns Led</div></div>
-  <div class="stat-item reveal reveal-delay-3"><div class="stat-number" data-target="400">0</div><div class="stat-label">Designers Mentored</div></div>
-</section>
+  <section class="sec wrap"><div class="inner">
+    <div class="seg" role="group" aria-label="Choose a lane"><button type="button" id="lane-design" aria-pressed="true">Design</button><button type="button" id="lane-ministry" aria-pressed="false">Ministry</button></div>
 
-<!-- PORTFOLIO PREVIEW — 5-6 random pieces -->
-<section class="portfolio-preview" id="work">
-  <div class="portfolio-preview-header reveal">
-    <h2>SELECTED <span class="italic">Works</span></h2>
-    <a href="/portfolio" class="view-all-link">View All Works →</a>
-  </div>
-  <div class="preview-canvas" id="previewCanvas">
-    <div class="scatter-loading" id="scatterLoading"><div class="spinner"></div><p>Loading works...</p></div>
-  </div>
-</section>
-
-<section class="about" id="about">
-  <div class="about-left reveal">
-    <h3>I turn <span class="italic">abstract ideas</span> into <span class="accent">strategic visual</span> solutions</h3>
-    <div class="about-bio">
-      <p>Creative Director and Visual Designer with 8+ years of experience crafting compelling brand identities, digital campaigns, and visual systems across technology, wellness, ministry, and startup environments.</p>
-      <p>Skilled in translating abstract ideas into strategic visual solutions that drive engagement, clarity, and audience connection. Recognized for creative leadership and mentorship, guiding emerging designers to produce high-quality, consistent work.</p>
-      <p>Strong foundation in visual communication, typography, layout systems, and storytelling — combined with hands-on experience in UI/UX design, digital product thinking, and interactive media.</p>
+    <div class="pgrid" style="align-items:start;margin-top:48px">
+      <div>
+        <p class="intro" id="lane-lede" style="margin:0;font-size:clamp(28px,3.6vw,48px)">Brand identity and direction <span class="red">for teams that care.</span></p>
+        <div style="margin-top:40px"><span class="label">What I offer</span><ul class="rows" id="lane-offer" style="margin-top:16px"></ul></div>
+        <div style="margin-top:40px"><span class="label">How it works</span><ol class="steps" id="lane-steps" style="margin-top:16px"></ol></div>
+        <div style="margin-top:28px" id="lane-pack" hidden><button class="btn" type="button" data-inert>Ministry pack (PDF)</button></div>
+      </div>
+      <div>
+        <span class="label">Enquiry</span>
+        <form id="enquiry" novalidate>
+          <div class="field"><label for="f-name">Your name</label><input id="f-name" type="text" value="Adaeze Okafor"></div>
+          <div class="field"><label for="f-email">Email</label><input id="f-email" type="email" value="adaeze@example.com"></div>
+          <div class="field" data-lane="design"><label for="f-company">Company or brand</label><input id="f-company" type="text" value="Kiln Coffee Co."></div>
+          <div class="field" data-lane="design"><label for="f-type">Project type</label><select id="f-type"><option>Brand identity</option><option>Campaign</option><option>Creative direction</option><option>Other</option></select></div>
+          <div class="field" data-lane="design"><label for="f-budget">Budget range</label><select id="f-budget"><option>Under ₦300k</option><option selected>₦300k – ₦1m</option><option>₦1m+</option></select></div>
+          <div class="field" data-lane="design"><label for="f-when">Timeline</label><input id="f-when" type="text" value="Launch in March"></div>
+          <div class="field" data-lane="ministry" hidden><label for="f-org">Church or organisation</label><input id="f-org" type="text" value="Grace Assembly, Ikeja"></div>
+          <div class="field" data-lane="ministry" hidden><label for="f-event">Event type</label><select id="f-event"><option>Sunday service</option><option selected>Conference</option><option>Campus fellowship</option><option>Other</option></select></div>
+          <div class="field" data-lane="ministry" hidden><label for="f-date">Date and city</label><input id="f-date" type="text" value="14 March 2027, Lagos"></div>
+          <div class="field" data-lane="ministry" hidden><label for="f-what">I'd like you to</label><select id="f-what"><option>Minister in song</option><option>Teach</option><option selected>Both</option></select></div>
+          <div class="field full"><label for="f-msg">Tell me more</label><textarea id="f-msg">We're refreshing our brand ahead of a second location and want it to feel warmer and more confident.</textarea></div>
+          <div class="field full" style="justify-items:start"><button class="btn solid" type="submit">Send enquiry →</button></div>
+          <p class="formnote" id="formnote" aria-live="polite"></p>
+        </form>
+        <p class="mono dim" style="margin-top:20px">Example entries shown. Prefer email? ag.oluwanifemi@gmail.com</p>
+      </div>
     </div>
-    <a href="/about" class="hero-cta" style="margin-top:2rem;display:inline-flex;">Full Story + Brand Guide →</a>
-  </div>
-  <div class="about-right reveal">
-    <div class="about-block"><label>Services</label><ul><li>Brand Identity Systems</li><li>Logo Design & Visual Identity</li><li>Campaign Development</li><li>Typography & Editorial Layout</li><li>UI/UX Design & Prototyping</li><li>Social Media Visual Strategy</li><li>Creative Direction</li><li>Design Systems & Frameworks</li></ul></div>
-    <div class="about-block"><label>Tools</label><ul><li>Adobe Photoshop, Illustrator, InDesign</li><li>Figma & Webflow</li><li>Generative AI Tools</li><li>HTML / CSS</li></ul></div>
-    <div class="about-block"><label>Education</label><ul><li>MSc Interactive Digital Media — Griffith College Dublin</li><li>BSc Computer & Information Systems — Babcock University</li></ul></div>
-  </div>
-</section>
+  </div></section>
+</main>
 
-<section class="experience" id="experience">
-  <h2 class="reveal">EXPERIENCE</h2>
-  <div class="exp-item reveal"><div class="exp-date">July 2025</div><div><div class="exp-role">Graphic Designer</div><div class="exp-company">Financefair — Dublin, Ireland</div><div class="exp-desc">Played a key role in a company-wide visual rebrand. Delivered 100+ branded assets and introduced reusable layout systems that reduced turnaround by ~30%.</div></div></div>
-  <div class="exp-item reveal"><div class="exp-date">Nov 2022 — Dec 2024</div><div><div class="exp-role">Lead Visual Designer</div><div class="exp-company">Celebration Church International — Global</div><div class="exp-desc">Led visual direction for 30+ sermon series and conferences. Delivered 350+ assets annually and mentored a team of 4–6 designers.</div></div></div>
-  <div class="exp-item reveal"><div class="exp-date">Jan 2019 — Oct 2022</div><div><div class="exp-role">Lead Graphic / Brand Designer</div><div class="exp-company">PPI and KOG Nigeria Ltd — Lagos</div><div class="exp-desc">Contributed to a structured brand refresh. Designed 70+ brand assets and reduced revision cycles by ~25% through clearer visual systems.</div></div></div>
-</section>
-
-<section class="contact" id="contact">
-  <p class="contact-eyebrow reveal">Let's create something extraordinary</p>
-  <h2 class="reveal">GET IN <span class="italic">Touch</span></h2>
-  <div class="contact-grid reveal">
-    <div class="contact-info-side">
-      <div class="contact-info-item"><label>Email</label><a href="mailto:Ag.oluwanifemi@gmail.com">Ag.oluwanifemi@gmail.com</a></div>
-      <div class="contact-info-item"><label>Phone</label><a href="tel:+353899705747">+353 899 705 747</a></div>
-      <div class="contact-info-item"><label>Location</label><p>Dublin, Ireland</p></div>
-      <div class="contact-info-item"><label>Socials</label><div class="contact-socials-list"><a href="https://www.instagram.com/Mannorr_design" target="_blank">Instagram</a><a href="https://www.linkedin.com/in/adeniran-oluwanifemi-075b94212/" target="_blank">LinkedIn</a></div></div>
-    </div>
-    <form class="contact-form" id="contactForm" action="https://formspree.io/f/mldqqvra" method="POST">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
-      <input type="text" name="subject" placeholder="Subject">
-      <textarea name="message" placeholder="Tell me about your project..." required></textarea>
-      <button type="submit">Send Message →</button>
-      <p class="form-success" id="formSuccess">✓ Message sent! I'll get back to you soon.</p>
-    </form>
+<footer class="foot wrap"><div class="inner">
+  <div class="big">MANNORR</div>
+  <div class="cols">
+    <div><span class="label">Pages</span><a href="#about">About</a><a href="#works">Works</a><a href="#work-with-me">Work With Me</a></div>
+    <div><span class="label">Works</span><a href="#music">In You</a><a href="#design">Design</a><a href="#apologetics">Apologetics Nigeria</a><a href="#viral-church">Viral Church</a></div>
+    <div><span class="label">Elsewhere</span><span>Instagram @_mannorr</span><span>@viralchurchglobal</span><span>ag.oluwanifemi@gmail.com</span><span>apologeticsnigeria.org</span><span>wearekallos.com</span></div>
+    <div class="mono dim" style="align-self:end">© 2026 Nifemi Adeniran · Lagos</div>
   </div>
-</section>
-
-<footer><span>© 2026 Adeniran Oluwanifemi</span><span>Designed with intention</span></footer>
-
-<div class="lb" id="lb">
-  <div class="lb-bg" id="lbBg"></div>
-  <div class="lb-panel">
-    <div class="lb-media" id="lbMedia">
-      <button class="lbp" id="lbPrev" aria-label="Previous">←</button>
-      <button class="lbn" id="lbNext" aria-label="Next">→</button>
-      <div class="lb-dots hide" id="lbDots"></div>
-      <div class="lb-rail hide" id="lbRail"></div>
-      <div class="lb-ctr" id="lbCtr"></div>
-    </div>
-    <div class="lb-info">
-      <button class="lb-x" id="lbX" aria-label="Close">✕</button>
-      <div class="lb-cat" id="lbCat"></div>
-      <div class="lb-title" id="lbTitle"></div>
-      <div class="lb-year" id="lbYear"></div>
-      <div class="lb-rule"></div>
-      <div class="lb-desc" id="lbDesc"></div>
-      <div class="lb-meta" id="lbMeta"></div>
-      <div class="lb-actions" id="lbActions"></div>
-    </div>
-  </div>
-</div>
+</div></footer>
 
 <script>
-/* ═══════════════════════════════════════════════════════
-   PORTFOLIO SOURCES — merged in the browser.
-   PROJECTS_BIN : project-based portfolio (shared with wearekallos.com)
-   ARCHIVE_BIN  : legacy loose visual designs, folded into one archive card
-   EXCLUDE      : project ids to hide from THIS site only
-   Mirrors the config block in portfolio.html — keep the two in sync.
-═══════════════════════════════════════════════════════ */
-const JBAPI        = 'https://api.jsonbin.io/v3/b';
-const PROJECTS_BIN = '69c12f68c3097a1dd54fdec5';
-const ARCHIVE_BIN  = '69a1b1b8d0ea881f40df36ba';
-const EXCLUDE      = [];
-const PREVIEW_COUNT=6;
-const CATS={brand:'Brand Identity',visual:'Visual Design',print:'Print & Packaging',event:'Events',web:'Website Design'};
-const ARCHIVE={id:'visual-archive',title:'Visual Design Archive',cat:'visual',year:'2019 — 2026',
-  desc:'An ongoing archive of standalone visual design — campaign frames, social systems, posters, editorial layouts and type experiments produced across ministry, tech, wellness and startup work.\nThese pieces live outside the named case studies: individual executions rather than full identity builds.',
-  archive:true};
-
-function toggleTheme(){const t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('nifemi-theme',t);document.getElementById('themeToggle').textContent=t==='dark'?'☀':'☾'}
-const st=localStorage.getItem('nifemi-theme')||'dark';document.documentElement.setAttribute('data-theme',st);document.getElementById('themeToggle').textContent=st==='dark'?'☀':'☾';
-
-const dot=document.getElementById('cursorDot'),ring=document.getElementById('cursorRing');let mouseX=0,mouseY=0,ringX=0,ringY=0;
-document.addEventListener('mousemove',e=>{mouseX=e.clientX;mouseY=e.clientY;dot.style.left=mouseX-4+'px';dot.style.top=mouseY-4+'px'});
-function animateRing(){ringX+=(mouseX-ringX)*.12;ringY+=(mouseY-ringY)*.12;ring.style.left=ringX-20+'px';ring.style.top=ringY-20+'px';requestAnimationFrame(animateRing)}animateRing();
-if('ontouchstart'in window){dot.style.display='none';ring.style.display='none'}
-
-window.addEventListener('load',()=>{setTimeout(()=>document.getElementById('loader').classList.add('hidden'),2000)});
-function toggleNav(){document.getElementById('navLinks').classList.toggle('mobile-open');document.getElementById('navToggle').classList.toggle('active')}
-function closeNav(){document.getElementById('navLinks').classList.remove('mobile-open');document.getElementById('navToggle').classList.remove('active')}
-
-let statsAnimated=false;
-const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');if(e.target.closest('#stats')&&!statsAnimated){statsAnimated=true;animateStats()}}})},{threshold:.15});
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
-
-function animateStats(){document.querySelectorAll('.stat-number').forEach(el=>{const target=parseInt(el.dataset.target),suffix=el.dataset.suffix||'',duration=2000,step=target/(duration/16);let current=0;function update(){current+=step;if(current>=target){el.textContent=target+suffix;return}el.textContent=Math.floor(current)+suffix;requestAnimationFrame(update)}update()})}
-
-/* ── PORTFOLIO PREVIEW — project cards + archive ─────── */
-const canvas=document.getElementById('previewCanvas');
-let allProjects=[],previewProjects=[];
-
-function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
-function cld(url,t){return typeof url==='string'&&url.includes('/upload/')?url.replace('/upload/','/upload/'+t+'/'):url}
-function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
-function normUrl(u){return /^https?:\/\//i.test(u)?u:'https://'+u}
-
-async function getBin(id){const r=await fetch(JBAPI+'/'+id+'/latest');if(!r.ok)throw new Error(id+' → '+r.status);return (await r.json()).record}
-
-async function loadPortfolio(){
-  const [projRes,archRes]=await Promise.allSettled([getBin(PROJECTS_BIN),getBin(ARCHIVE_BIN)]);
-  // Personal store carries both the archive images and the ids hidden from this site only
-  let archive=[],siteHidden=[];
-  if(archRes.status==='fulfilled'){const rec=archRes.value;archive=(rec?.images||(Array.isArray(rec)?rec:[])||[]).filter(i=>i&&i.url);siteHidden=rec?.siteHidden||[]}
-  else console.error('Archive bin failed:',archRes.reason);
-
-  let projects=[];
-  if(projRes.status==='fulfilled'){const rec=projRes.value;projects=(rec?.projects||rec||[]).filter(p=>p&&p.visible!==false&&!EXCLUDE.includes(p.id)&&!siteHidden.includes(p.id))}
-  else console.error('Projects bin failed:',projRes.reason);
-
-  let archiveCard=null;
-  if(archive.length){
-    const sh=shuffle(archive);
-    archiveCard={...ARCHIVE,
-      media:sh.map((img,i)=>({type:'image',url:cld(img.url,'q_auto,f_auto'),thumb:cld(img.url,'w_400,h_300,c_fill,q_auto,f_auto'),title:img.title&&img.title!=='portfolio'?img.title:'Untitled '+String(i+1).padStart(3,'0')})),
-      cover:cld(sh[0].url,'w_900,h_680,c_fill,q_auto,f_auto'),count:archive.length};
+(function(){
+  var views=['home','about','works','music','design','apologetics','viral-church','work-with-me'];
+  function show(){
+    var h=(location.hash||'#home').slice(1); if(views.indexOf(h)<0) h='home';
+    views.forEach(function(v){document.getElementById('v-'+v).hidden=(v!==h);});
+    
+    window.scrollTo(0,0);
   }
+  window.addEventListener('hashchange',show); show();
 
-  // Homepage shows featured first, then a random spread — archive always gets a slot
-  const feat=projects.filter(p=>p.featured);
-  const rest=shuffle(projects.filter(p=>!p.featured));
-  const slots=archiveCard?PREVIEW_COUNT-1:PREVIEW_COUNT;
-  previewProjects=[...feat,...rest].slice(0,slots);
-  if(archiveCard)previewProjects.push(archiveCard);
-  allProjects=previewProjects;
-  renderPreview();
-}
-
-function renderPreview(){
-  const ld=document.getElementById('scatterLoading');if(ld)ld.remove();
-  if(!previewProjects.length){
-    canvas.innerHTML='<div style="padding:4rem;text-align:center;color:var(--muted);grid-column:1/-1"><div style="font-family:var(--display);font-size:1.5rem;font-weight:700">WORKS COMING SOON</div></div>';
-    return;
+  var lanes={
+    design:{lede:'Brand identity and direction <span class="red">for teams that care.</span>',
+      offer:[['Brand identity systems','Identity'],['Creative direction','Direction'],['Campaign development','Campaign'],['Design systems','Systems']],
+      steps:['Send an enquiry','Discovery call','Proposal and timeline','Design and review','Handover and guidelines']},
+    ministry:{lede:'Worship and teaching <span class="red">for your congregation.</span>',
+      offer:[['Worship ministration','Song'],['Teaching and apologetics talks','Word'],['Design in ministry training','Workshop']],
+      steps:['Send an enquiry','Confirm the date and brief','Logistics and travel','Ministration']}
+  };
+  function setLane(l){
+    var d=lanes[l];
+    document.getElementById('lane-design').setAttribute('aria-pressed',l==='design');
+    document.getElementById('lane-ministry').setAttribute('aria-pressed',l==='ministry');
+    document.getElementById('lane-lede').innerHTML=d.lede;
+    document.getElementById('lane-offer').innerHTML=d.offer.map(function(o){return '<li>'+o[0]+' <span class="mono">'+o[1]+'</span></li>';}).join('');
+    document.getElementById('lane-steps').innerHTML=d.steps.map(function(s){return '<li>'+s+'</li>';}).join('');
+    document.getElementById('lane-pack').hidden=(l!=='ministry');
+    document.querySelectorAll('[data-lane]').forEach(function(f){f.hidden=(f.getAttribute('data-lane')!==l);});
+    document.getElementById('f-msg').value = l==='design'
+      ? "We're refreshing our brand ahead of a second location and want it to feel warmer and more confident."
+      : "Our annual youth conference has around 400 attendees. We'd love a ministration and a 30-minute talk on why the resurrection matters.";
+    document.getElementById('formnote').textContent='';
   }
-  canvas.innerHTML='';
-  previewProjects.forEach((p,i)=>{
-    const media=p.media||[],mc=media.length;
-    const card=document.createElement('div');
-    card.className='card'+(p.archive?' archive':'');
-    card.dataset.id=p.id;
-
-    if(p.archive){
-      const cm=document.createElement('div');cm.className='cmedia';cm.style.aspectRatio='4/3';
-      cm.innerHTML='<img src="'+esc(p.cover)+'" alt="Visual design archive" loading="lazy">'
-        +'<div class="arch-stack"><i></i><i></i><i></i></div><span class="arch-badge">✦ '+p.count+' Pieces</span>';
-      card.appendChild(cm);
-    }else if(p.cat==='web'&&p.siteUrl){
-      const sp=document.createElement('div');sp.className='site-preview';sp.style.aspectRatio=p.ratio||'16/10';
-      const fw=document.createElement('div');fw.className='site-frame-wrap';
-      const ifr=document.createElement('iframe');
-      ifr.src=normUrl(p.siteUrl);ifr.title=p.title;
-      ifr.setAttribute('loading','lazy');ifr.setAttribute('sandbox','allow-scripts allow-same-origin');
-      fw.appendChild(ifr);sp.appendChild(fw);
-      const so=document.createElement('div');so.className='site-overlay';
-      so.innerHTML='<span class="site-tag">Live Site</span>';sp.appendChild(so);
-      card.appendChild(sp);
-    }else{
-      const cm=document.createElement('div');cm.className='cmedia';cm.style.aspectRatio=p.ratio||'4/3';
-      if(!mc){cm.innerHTML='<div class="cph"><span>'+esc((p.title||'?').slice(0,2).toUpperCase())+'</span></div>'}
-      else{
-        const m=media[0];
-        if(m.type==='video'){const v=document.createElement('video');v.src=m.thumb||m.url;v.autoplay=true;v.muted=true;v.loop=true;v.playsInline=true;cm.appendChild(v)}
-        else{const img=document.createElement('img');img.src=m.thumb||m.url;img.alt=p.title;img.loading='lazy';cm.appendChild(img)}
-      }
-      const ovl=document.createElement('div');ovl.className='covl';cm.appendChild(ovl);
-      if(p.year){const yr=document.createElement('span');yr.className='cyr';yr.textContent=p.year;cm.appendChild(yr)}
-      if(mc>1){const ct=document.createElement('span');ct.className='cmc';ct.textContent='1/'+mc;cm.appendChild(ct)}
-      card.appendChild(cm);
-    }
-
-    const foot=document.createElement('div');foot.className='cfoot';
-    foot.innerHTML='<div><div class="ccat">'+esc(CATS[p.cat]||p.cat)+'</div><div class="ctitle">'+esc(p.title)+'</div></div><div class="carr">↗</div>';
-    card.appendChild(foot);
-    card.addEventListener('click',()=>openLB(p.id));
-    canvas.appendChild(card);
-    setTimeout(()=>card.classList.add('in'),50+i*70);
-  });
-}
-loadPortfolio();
-
-/* ── LIGHTBOX ────────────────────────────────────────── */
-const lb=document.getElementById('lb'),lbBg=document.getElementById('lbBg'),lbX=document.getElementById('lbX'),
-      lbPrev=document.getElementById('lbPrev'),lbNext=document.getElementById('lbNext'),
-      lbDots=document.getElementById('lbDots'),lbRail=document.getElementById('lbRail'),
-      lbCtr=document.getElementById('lbCtr'),lbMedia=document.getElementById('lbMedia');
-let slides=[],cur=0;
-
-function openLB(id){
-  const p=allProjects.find(x=>x.id===id);if(!p)return;
-  const media=p.media||[];
-  document.getElementById('lbCat').textContent=CATS[p.cat]||p.cat;
-  document.getElementById('lbTitle').textContent=p.title;
-  document.getElementById('lbYear').textContent=p.year?'— '+p.year:'';
-  const descEl=document.getElementById('lbDesc');
-  descEl.innerHTML=p.desc?p.desc.split('\n').filter(Boolean).map(l=>'<p>'+esc(l)+'</p>').join(''):'<p class="lb-no-desc">No description added yet.</p>';
-  document.getElementById('lbMeta').textContent=p.archive?p.count+' pieces in this archive':(media.length?media.length+' item'+(media.length>1?'s':'')+' in this project':'');
-
-  const acts=document.getElementById('lbActions');acts.innerHTML='';
-  if(p.siteUrl){const a=document.createElement('a');a.className='lb-btn';a.href=normUrl(p.siteUrl);a.target='_blank';a.rel='noopener';a.innerHTML='<span>Visit Live Site</span><span>↗</span>';acts.appendChild(a)}
-  const more=document.createElement('a');more.className='lb-btn ghost';more.href='/portfolio';more.innerHTML='<span>See the full portfolio</span><span>→</span>';acts.appendChild(more);
-
-  lbMedia.querySelectorAll('.lb-slide,.lb-site-wrap').forEach(s=>s.remove());
-  lbDots.innerHTML='';lbRail.innerHTML='';lbRail.classList.add('hide');lbMedia.classList.remove('has-rail');lbDots.classList.add('hide');
-  slides=[];
-
-  if(p.cat==='web'&&p.siteUrl&&!media.length){
-    const wrap=document.createElement('div');wrap.className='lb-site-wrap';
-    const bar=document.createElement('div');bar.className='lb-site-bar';
-    bar.innerHTML='<span class="lb-site-url">'+esc(normUrl(p.siteUrl))+'</span>';
-    const ob=document.createElement('a');ob.href=normUrl(p.siteUrl);ob.target='_blank';ob.rel='noopener';ob.className='lb-site-open';ob.textContent='Open ↗';
-    bar.appendChild(ob);wrap.appendChild(bar);
-    const ifr=document.createElement('iframe');ifr.src=normUrl(p.siteUrl);ifr.className='lb-site';ifr.title=p.title;
-    ifr.setAttribute('sandbox','allow-scripts allow-same-origin allow-forms allow-popups');
-    wrap.appendChild(ifr);lbMedia.insertBefore(wrap,lbPrev);slides=[wrap];
-    lbPrev.style.display='none';lbNext.style.display='none';lbCtr.textContent='';
-  }else if(!media.length){
-    const s=document.createElement('div');s.className='lb-slide on';
-    s.innerHTML='<span class="lb-ph">'+esc((p.title||'?').slice(0,2).toUpperCase())+'</span>';
-    lbMedia.insertBefore(s,lbPrev);slides.push(s);
-    lbPrev.style.display='none';lbNext.style.display='none';lbCtr.textContent='';
-  }else{
-    media.forEach((m,i)=>{
-      const s=document.createElement('div');s.className='lb-slide'+(i===0?' on':'');
-      if(m.type==='video'){const v=document.createElement('video');v.src=m.url;v.controls=true;s.appendChild(v)}
-      else{const img=document.createElement('img');if(i<3){img.src=m.url}else{img.dataset.src=m.url}img.alt=m.title||p.title;s.appendChild(img)}
-      lbMedia.insertBefore(s,lbPrev);slides.push(s);
-    });
-    if(media.length>1){
-      lbPrev.style.display='flex';lbNext.style.display='flex';
-      if(media.length>10){
-        lbRail.classList.remove('hide');lbMedia.classList.add('has-rail');
-        media.forEach((m,i)=>{const t=document.createElement('button');t.className='lb-th'+(i===0?' on':'');t.innerHTML='<img src="'+esc(m.thumb||m.url)+'" alt="" loading="lazy">';t.addEventListener('click',e=>{e.stopPropagation();goLB(i)});lbRail.appendChild(t)});
-      }else{
-        lbDots.classList.remove('hide');
-        media.forEach((m,i)=>{const d=document.createElement('button');d.className='lbd'+(i===0?' on':'');d.addEventListener('click',e=>{e.stopPropagation();goLB(i)});lbDots.appendChild(d)});
-      }
-      lbCtr.textContent='1 / '+media.length;
-    }else{lbPrev.style.display='none';lbNext.style.display='none';lbCtr.textContent=''}
-  }
-  cur=0;lb.classList.add('open');document.body.style.overflow='hidden';
-}
-
-function goLB(i){
-  if(!slides.length)return;
-  slides.forEach((s,j)=>{s.classList.toggle('on',j===i);const v=s.querySelector('video');if(v){if(j===i){v.play().catch(()=>{})}else{v.pause();v.currentTime=0}}});
-  [i-1,i,i+1].forEach(k=>{const s=slides[k];if(!s)return;const img=s.querySelector('img[data-src]');if(img){img.src=img.dataset.src;img.removeAttribute('data-src')}});
-  [...lbDots.children].forEach((d,j)=>d.classList.toggle('on',j===i));
-  const ths=[...lbRail.children];ths.forEach((t,j)=>t.classList.toggle('on',j===i));
-  if(ths[i])ths[i].scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
-  lbCtr.textContent=(i+1)+' / '+slides.length;cur=i;
-}
-
-function closeLB(){
-  lb.classList.remove('open');document.body.style.overflow='';
-  slides.forEach(s=>{const v=s.querySelector('video');if(v){v.pause();v.currentTime=0}const ifr=s.querySelector('iframe');if(ifr)ifr.src=''});
-  setTimeout(()=>lbMedia.querySelectorAll('.lb-site-wrap').forEach(w=>w.remove()),400);
-}
-
-lbPrev.addEventListener('click',e=>{e.stopPropagation();goLB((cur-1+slides.length)%slides.length)});
-lbNext.addEventListener('click',e=>{e.stopPropagation();goLB((cur+1)%slides.length)});
-lbX.addEventListener('click',closeLB);
-lbBg.addEventListener('click',closeLB);
-document.addEventListener('keydown',e=>{
-  if(!lb.classList.contains('open'))return;
-  if(e.key==='Escape')closeLB();
-  if(e.key==='ArrowLeft')goLB((cur-1+slides.length)%slides.length);
-  if(e.key==='ArrowRight')goLB((cur+1)%slides.length);
-});
-let touchStartX=0;
-lbMedia.addEventListener('touchstart',e=>{touchStartX=e.touches[0].clientX},{passive:true});
-lbMedia.addEventListener('touchend',e=>{const d=touchStartX-e.changedTouches[0].clientX;if(Math.abs(d)>50&&slides.length>1)goLB(d>0?(cur+1)%slides.length:(cur-1+slides.length)%slides.length)},{passive:true});
-
-document.getElementById('contactForm').addEventListener('submit',async function(e){e.preventDefault();const form=this,btn=form.querySelector('button'),success=document.getElementById('formSuccess');btn.textContent='Sending...';btn.disabled=true;try{const res=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}});if(res.ok){success.style.display='block';form.reset();setTimeout(()=>success.style.display='none',4000)}}catch(err){}btn.textContent='Send Message →';btn.disabled=false});
-
-document.querySelectorAll('a[href^="#"]').forEach(link=>{link.addEventListener('click',e=>{e.preventDefault();document.querySelector(link.getAttribute('href'))?.scrollIntoView({behavior:'smooth'})})});
+  document.getElementById('lane-design').addEventListener('click',function(){setLane('design');});
+  document.getElementById('lane-ministry').addEventListener('click',function(){setLane('ministry');});
+  setLane('design');
+  document.getElementById('enquiry').addEventListener('submit',function(e){e.preventDefault();document.getElementById('formnote').textContent='Preview only. On the live site this sends to your inbox.';});
+  document.querySelectorAll('[data-inert]').forEach(function(b){b.addEventListener('click',function(){b.textContent=b.textContent.replace(/ \(.*\)$/,'')+' (added at launch)';},{once:true});});
+})();
 </script>
+
 </body>
 </html>
