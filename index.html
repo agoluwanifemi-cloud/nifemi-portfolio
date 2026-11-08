@@ -154,6 +154,13 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
 .next .t{font-size:clamp(40px,8vw,112px);letter-spacing:-.055em;line-height:.9}
 
 [hidden]{display:none!important}
+.card .media.fit{isolation:isolate}
+.card .media.fit .fit-bg{position:absolute;inset:-12%;width:124%;height:124%;object-fit:cover;filter:blur(26px) saturate(1.15) brightness(.75);transform:scale(1.05);z-index:0}
+.card .media.fit::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(17,17,17,.18));box-shadow:inset 0 0 0 1px rgba(242,240,236,.08);border-radius:inherit;pointer-events:none}
+.card .media.fit .fit-fg{position:relative;z-index:2;width:100%;height:100%;object-fit:contain;padding:14px;filter:drop-shadow(0 10px 24px rgba(0,0,0,.35))}
+.card:hover .media.fit .fit-fg{transform:scale(1.03)}
+.card .media.fit .chip,.card .media.fit .onimg{z-index:3}
+
 .view[hidden]{display:none!important}
 .hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0}
 .lane-form .label.full{grid-column:1/-1;margin-bottom:4px}
@@ -640,8 +647,8 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
       var pick=list.slice(0,4), box=document.getElementById('dsWork');
       if(!pick.length){ box.innerHTML='<p class="mono dim">See the full portfolio for selected work.</p>'; return; }
       box.innerHTML=pick.map(function(p){
-        var img=cld(p.media[0].thumb||p.media[0].url,'w_700,h_934,c_fill,q_auto,f_auto');
-        return '<a class="card" href="/portfolio"><div class="media"><img src="'+esc(img)+'" alt="'+esc(p.title)+'" loading="lazy"><span class="chip">'+esc(CATS[p.cat]||p.cat)+'</span>'+(p.year?'<span class="onimg">'+esc(p.year)+'</span>':'')+'</div><h3>'+esc(p.title)+'</h3><p class="cdesc">'+esc(CATS[p.cat]||'')+'</p></a>';
+        var img=cld(p.media[0].url,'w_900,c_limit,q_auto,f_auto'), blur=cld(p.media[0].url,'w_80,q_auto,f_auto');
+        return '<a class="card" href="/portfolio"><div class="media fit"><img class="fit-bg" src="'+esc(blur)+'" alt="" aria-hidden="true" loading="lazy"><img class="fit-fg" src="'+esc(img)+'" alt="'+esc(p.title)+'" loading="lazy"><span class="chip">'+esc(CATS[p.cat]||p.cat)+'</span>'+(p.year?'<span class="onimg">'+esc(p.year)+'</span>':'')+'</div><h3>'+esc(p.title)+'</h3><p class="cdesc">'+esc(CATS[p.cat]||'')+'</p></a>';
       }).join('');
     }).catch(function(){});
   })();
