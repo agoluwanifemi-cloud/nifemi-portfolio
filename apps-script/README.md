@@ -11,7 +11,7 @@ Every form on mannorr.com sends to one Google Sheet that you own, through Google
 
 ## One-time setup (about 10 minutes)
 
-Do this signed in to **ag.oluwanifemi@gmail.com**.
+Do this signed in to **hellomannorr@gmail.com**, the official site address. The account that deploys the script is the one that owns the sheet and sends the emails.
 
 1. **Create the sheet.** Go to sheets.new and name it `MANNORR Database`.
 2. **Open Apps Script.** In the sheet: *Extensions → Apps Script*.
@@ -26,7 +26,7 @@ Do this signed in to **ag.oluwanifemi@gmail.com**.
    var DB_ENDPOINT = 'https://script.google.com/macros/s/……/exec';
    ```
    Commit and push. Until this is set, the forms fall back to the existing Formspree form, so nothing is lost in the meantime.
-7. **Test.** Send a form on the live site. A row should appear in the right tab, and an email should arrive at ag.oluwanifemi@gmail.com.
+7. **Test.** Send a form on the live site. A row should appear in the right tab, and an email should arrive at hellomannorr@gmail.com.
 
 Optional: run `testStudent` in the editor to add a test row without using the site.
 

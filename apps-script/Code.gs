@@ -16,7 +16,7 @@
  */
 
 const CONFIG = {
-  NOTIFY_EMAIL: "ag.oluwanifemi@gmail.com",
+  NOTIFY_EMAIL: "hellomannorr@gmail.com",
   OWNER_NAME: "Nifemi Adeniran (MANNORR)",
   SEND_CONFIRMATION: true,          // thank-you email to the person, when they give an email
   DEFAULT_COUNTRY_CODE: "234",      // turns 0803… into 234803… for WhatsApp
