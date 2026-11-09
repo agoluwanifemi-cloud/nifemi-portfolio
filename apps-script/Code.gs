@@ -54,7 +54,7 @@ const FORMS = {
               ["Format","format"],["Laptop","laptop"],["Start","start"],["Goals","message"],["Page","page"],["Notes","notes"]]
   },
   updates: {
-    sheet: "Updates", prefix: "UP-", label: "Updates sign-up", notify: false,
+    sheet: "Updates", prefix: "UP-", label: "Waitlist sign-up", notify: true,
     statuses: ["Subscribed", "Unsubscribed"],
     required: ["email"],
     columns: [["Reference","ref"],["Received","received"],["Status","status"],["Name","name"],["Email","email"],
@@ -207,6 +207,13 @@ const COPY = {
     intro: "Thank you for wanting to learn design with me. I'll go through your application and reach out on WhatsApp about the next steps.",
     steps: ["I review your application", "A short call on WhatsApp", "We confirm your place and schedule"],
     alert: "New student application"
+  },
+  updates: {
+    kicker: "In You · Waitlist",
+    title: "You're on the list.",
+    intro: "Thank you for wanting to hear In You. It has been almost seven years in the making, and I can't wait to share it with you. You'll be among the first to know when it's out.",
+    steps: ["You get one email the day In You is released", "Listen, share it, and sing along"],
+    alert: "New waitlist sign-up"
   }
 };
 
@@ -292,7 +299,7 @@ function confirmPerson(form, d) {
 <td valign="top" style="padding:12px 0;border-top:1px solid ${BRAND.line};font:15px ${BRAND.font};color:${BRAND.ink}">${esc(s)}</td></tr>`).join("");
   const inner = header(c.kicker, d.ref) + `
 <tr><td bgcolor="#ffffff" style="background:#ffffff;padding:40px 32px 8px">
-<div style="font:600 36px/1.05 ${BRAND.font};letter-spacing:-1.2px;color:${BRAND.ink}">Thank you, ${esc(firstName(d.name))}.</div>
+<div style="font:600 36px/1.05 ${BRAND.font};letter-spacing:-1.2px;color:${BRAND.ink}">Thank you${d.name ? ", " + esc(firstName(d.name)) : ""}.</div>
 <div style="font:600 36px/1.05 ${BRAND.font};letter-spacing:-1.2px;color:${BRAND.red}">${esc(c.title)}</div>
 <p style="font:16px/1.65 ${BRAND.font};color:#3d3a36;margin:20px 0 0">${esc(c.intro)}</p>
 </td></tr>
@@ -315,7 +322,7 @@ ${detailRows(form, d, ["ref", "received", "status", "wa", "notes", "page", "phon
     to: d.email,
     subject: `${c.title.replace(/\.$/, "")} · ${d.ref}`,
     htmlBody: shell(`${c.title} Reference ${d.ref}.`, inner),
-    body: `Thank you, ${firstName(d.name)}. ${c.title}\n\n${c.intro}\n\nWhat happens next:\n${c.steps.map((s, i) => (i + 1) + ". " + s).join("\n")}\n\nReference: ${d.ref}\n\nNifemi Adeniran\nmannorr.com`,
+    body: `Thank you${d.name ? ", " + firstName(d.name) : ""}. ${c.title}\n\n${c.intro}\n\nWhat happens next:\n${c.steps.map((s, i) => (i + 1) + ". " + s).join("\n")}\n\nReference: ${d.ref}\n\nNifemi Adeniran\nmannorr.com`,
     replyTo: CONFIG.NOTIFY_EMAIL,
     name: CONFIG.OWNER_NAME
   });
