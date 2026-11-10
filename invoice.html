@@ -158,7 +158,7 @@ if (!data) {
     <div style="text-align:center;padding:6rem 2rem;">
       <h2 style="font-family:var(--display);font-size:1.5rem;font-weight:700;margin-bottom:1rem;">No Invoice Found</h2>
       <p style="font-size:0.75rem;color:var(--muted);margin-bottom:2rem;">Start by selecting services on the Work With Me page.</p>
-      <a href="/work-with-me" style="color:var(--accent);font-size:0.75rem;">← Go to Work With Me</a>
+      <a href="/packages" style="color:var(--accent);font-size:0.75rem;">← Go to Work With Me</a>
     </div>`;
 } else {
   renderInvoice(data);
@@ -306,7 +306,7 @@ function renderInvoice(inv) {
     <!-- ACTIONS -->
     <div class="inv-actions">
       <button onclick="window.print()">Print / Save PDF</button>
-      <a href="/work-with-me"><button>← Back to Services</button></a>
+      <a href="/packages"><button>← Back to Services</button></a>
       <a href="/about"><button>About MANNORR</button></a>
       <a href="/"><button>Visit Portfolio</button></a>
     </div>

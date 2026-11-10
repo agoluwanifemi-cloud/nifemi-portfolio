@@ -3,274 +3,30 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Nifemi Adeniran (MANNORR): visual and brand designer, preacher and songwriter. One heart, different expressions. Music, design, Apologetics Nigeria and The Viral Church.">
-<meta property="og:title" content="MANNORR — Nifemi Adeniran">
-<meta property="og:image" content="images/header.jpg">
-<title>MANNORR — Nifemi Adeniran · Designer, Preacher, Songwriter</title>
+<title>MANNORR · Nifemi Adeniran, Designer, Preacher, Songwriter</title>
+<meta name="description" content="Nifemi Adeniran (MANNORR): visual and brand designer, preacher and songwriter. One heart, different expressions.">
+<meta property="og:title" content="MANNORR · Nifemi Adeniran, Designer, Preacher, Songwriter">
+<meta property="og:description" content="Nifemi Adeniran (MANNORR): visual and brand designer, preacher and songwriter. One heart, different expressions.">
+<meta property="og:image" content="https://mannorr.com/images/header.jpg">
+<meta name="theme-color" content="#111111">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
-<style>
-/* Layout: a single committed look. Light-grey portrait bands, near-black body sections,
-   one red. Huge tight grotesque headlines, mono labels, hairline rows, tall rounded work cards. */
-:root{
-  --ink:#111111;        /* section ground */
-  --ink-2:#1b1b1b;      /* raised tiles */
-  --paper:#ebeae8;      /* hero bands, warm light grey */
-  --bone:#f2f0ec;       /* text on dark */
-  --dim:#8f8b85;        /* quiet text on dark */
-  --dim-paper:#5f5b56;  /* quiet text on paper */
-  --line:rgba(242,240,236,.14);
-  --line-paper:rgba(17,17,17,.14);
-  --red:#e4291c;
-  --f-sans:'Inter Tight','Helvetica Neue',Helvetica,Arial,sans-serif;
-  --f-mono:'DM Mono',ui-monospace,Menlo,monospace;
-  --gl:max(16px, env(safe-area-inset-left, 0px));
-  --gr:max(16px, env(safe-area-inset-right, 0px));
-  color-scheme:dark;
-}
-*{box-sizing:border-box}
-body{margin:0;background:var(--ink);color:var(--bone);font-family:var(--f-sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--ink)}
-a{color:inherit}
-img{display:block;max-width:100%}
-.wrap{padding-left:var(--gl);padding-right:var(--gr)}
-.inner{max-width:1240px;margin:0 auto}
-.mono{font-family:var(--f-mono);font-size:12px;letter-spacing:.04em}
-.label{font-family:var(--f-mono);font-size:12px;color:var(--red);letter-spacing:.04em}
-.label::before{content:"// "}
-.dim{color:var(--dim)}
-h1,h2,h3{margin:0;font-weight:500;letter-spacing:-.045em;line-height:.92;text-wrap:balance}
-p{margin:0}
-.red{color:var(--red)}
-
-/* preview bar + page switcher */
-a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--red);outline-offset:2px}
-
-/* site nav (inside each page) */
-.nav{display:flex;justify-content:space-between;align-items:center;padding-block:18px;font-size:13px;gap:16px}
-.nav .mark{font-weight:600;letter-spacing:.14em;font-size:13px;text-decoration:none}
-.nav .links{display:flex;gap:clamp(14px,4vw,48px)}
-.nav .links a{text-decoration:none;opacity:.85}
-.nav .links a:hover{opacity:1}
-
-/* hero (paper band) */
-.hero{background:var(--paper);color:var(--ink);position:relative;overflow:hidden}
-.hero .nav{position:relative;z-index:3}
-.hero-stage{position:relative;min-height:clamp(440px,62vw,720px)}
-.hero-name{position:absolute;left:0;right:0;top:44%;transform:translateY(-50%);font-size:clamp(64px,15.5vw,224px);font-weight:500;letter-spacing:-.06em;line-height:.85;white-space:nowrap;z-index:1}
-.hero-name span{display:block}
-.hero-name .b{padding-left:.9em}
-.hero-portrait{position:absolute;left:50%;bottom:0;width:clamp(260px,40vw,520px);transform:translateX(-38%);z-index:2;mix-blend-mode:multiply}
-.hero-roles{position:absolute;right:0;bottom:28px;z-index:3;font-size:clamp(22px,3.2vw,44px);font-weight:500;letter-spacing:-.04em;line-height:1;text-align:left}
-.hero-social{position:absolute;left:0;bottom:28px;z-index:3;display:grid;gap:8px;font-size:13px}
-.hero-social a{text-decoration:none}
-
-/* sections */
-.sec{border-top:1px solid var(--line);padding-block:20px clamp(64px,9vw,120px)}
-.sec .head{display:flex;justify-content:space-between;gap:16px;margin-bottom:clamp(40px,7vw,96px)}
-.intro{font-size:clamp(30px,4.6vw,64px);font-weight:500;letter-spacing:-.045em;line-height:1.02;max-width:20ch;margin-left:clamp(0px,10vw,140px);text-wrap:balance}
-.intro-sub{max-width:44ch;margin:40px 0 0 auto;color:var(--dim);font-size:15px}
-.btn{display:inline-flex;align-items:center;gap:10px;padding:12px 20px;border-radius:999px;border:1px solid var(--line);background:transparent;color:inherit;font:500 14px var(--f-sans);text-decoration:none;cursor:pointer}
-.btn:hover{border-color:var(--bone)}
-.btn{transition:background-color .18s ease,border-color .18s ease,color .18s ease,transform .12s ease}
-.btn:hover{background:rgba(242,240,236,.08)}
-.btn.solid:hover,.lane-form .btn.solid:hover,#notify .btn:hover{background:var(--red);border-color:var(--red);color:#fff}
-.btn.redbtn:hover{background:#c71f13;border-color:#c71f13}
-.btn:active{transform:scale(.97)}
-.btn:disabled{cursor:progress}
-.lane-form button[type=submit]{position:relative;z-index:1}
-.btn.solid{background:var(--bone);color:var(--ink);border-color:var(--bone)}
-.btn.redbtn{background:var(--red);border-color:var(--red);color:#fff}
-.btn-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
-
-/* page title block */
-.ptitle{font-size:clamp(56px,13vw,184px);letter-spacing:-.06em;line-height:.86}
-.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,72px);align-items:end}
-.lede{font-size:clamp(20px,2.2vw,28px);letter-spacing:-.025em;line-height:1.2;max-width:30ch}
-.body-copy{display:grid;gap:18px;max-width:62ch;color:#cfcbc5}
-
-/* numbered service groups */
-.group{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:clamp(24px,5vw,72px);padding-block:clamp(32px,5vw,64px);border-top:1px solid var(--line)}
-.group:first-of-type{border-top:0}
-.outline-num{font-size:clamp(96px,16vw,220px);font-weight:400;line-height:.8;letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1.2px var(--dim)}
-.group h3{font-size:clamp(30px,4vw,52px);margin-bottom:12px}
-.group .gsub{color:var(--dim);font-size:14px;max-width:46ch;margin-bottom:28px}
-.rows{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
-.rows li{display:flex;justify-content:space-between;gap:16px;padding:14px 4px;border-bottom:1px solid var(--line);font-size:14px;font-weight:500}
-.rows li .mono{color:var(--dim)}
-
-/* work cards */
-.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;align-items:start}
-.cards .card:nth-child(even){margin-top:56px}
-.card{display:block;text-decoration:none;color:inherit}
-.card .media{position:relative;aspect-ratio:3/4;border-radius:18px;overflow:hidden;background:var(--ink-2);max-width:100%}
-.card .media img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.22,1,.36,1)}
-.card:hover .media img{transform:scale(1.04)}
-.chip{position:absolute;top:12px;left:12px;font:500 11px var(--f-mono);padding:5px 10px;border-radius:999px;background:rgba(17,17,17,.55);color:var(--bone);border:1px solid rgba(242,240,236,.25);backdrop-filter:blur(6px)}
-.card .onimg{position:absolute;left:14px;right:14px;bottom:14px;font-size:13px;line-height:1.3;color:var(--bone)}
-.card h3{font-size:clamp(20px,2vw,28px);letter-spacing:-.035em;line-height:1;margin-top:16px;text-transform:uppercase}
-.card .cdesc{font-size:13px;color:var(--dim);margin-top:6px}
-.ph{width:100%;height:100%;display:grid;place-items:center;text-align:center;padding:20px;font:12px var(--f-mono);color:var(--dim);background:repeating-linear-gradient(135deg,var(--ink-2) 0 12px,#161616 12px 24px)}
-.ph.type{background:var(--ink-2);font:500 clamp(28px,3vw,40px)/.95 var(--f-sans);letter-spacing:-.04em;color:var(--bone);text-transform:uppercase;align-content:end;justify-items:start;text-align:left}
-
-/* feature (Now) */
-.feature{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,72px);align-items:center}
-.feature .cover{border-radius:18px;overflow:hidden;max-width:100%}
-.feature h2{font-size:clamp(72px,12vw,168px);color:var(--red);letter-spacing:-.06em}
-.feature .meta{display:flex;gap:24px;flex-wrap:wrap;margin-top:20px}
-
-/* lanes */
-.lanes{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.lane{border:1px solid var(--line);border-radius:18px;padding:clamp(20px,3vw,36px);display:grid;gap:20px;align-content:start}
-.lane h3{font-size:clamp(32px,4vw,56px)}
-.lane p{color:var(--dim);font-size:14px;max-width:44ch}
-
-/* scripture / lyrics */
-.verses{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-.verse{border-top:1px solid var(--line);padding-top:16px;display:grid;gap:10px}
-.verse .ref{font:500 12px var(--f-mono);color:var(--red)}
-.verse p{font-size:clamp(18px,1.8vw,22px);letter-spacing:-.02em;line-height:1.25}
-.lyrics{columns:2;column-gap:clamp(24px,5vw,72px);font-size:clamp(18px,2vw,24px);letter-spacing:-.02em;line-height:1.35}
-.lyrics p{break-inside:avoid;margin-bottom:28px}
-.lyrics .tagline{font:500 11px var(--f-mono);color:var(--dim);display:block;margin-bottom:6px;letter-spacing:.04em}
-
-/* form */
-.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:4px;gap:4px}
-.seg button{border:0;background:transparent;color:var(--dim);font:500 14px var(--f-sans);padding:10px 20px;border-radius:999px;cursor:pointer}
-.seg button[aria-pressed="true"]{background:var(--bone);color:var(--ink)}
-form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:32px}
-.field{display:grid;gap:8px;min-width:0}
-.field.full{grid-column:1/-1}
-.field label{font:12px var(--f-mono);color:var(--dim);letter-spacing:.04em}
-.field input,.field select,.field textarea{width:100%;background:transparent;border:0;border-bottom:1px solid var(--line);color:var(--bone);font:16px var(--f-sans);padding:10px 0;border-radius:0}
-.field select option{background:var(--ink)}
-.field textarea{min-height:96px;resize:vertical}
-.formnote{grid-column:1/-1;font:12px var(--f-mono);color:var(--red);min-height:1.2em}
-.steps{list-style:none;margin:0;padding:0;display:grid;gap:0;border-top:1px solid var(--line);counter-reset:s}
-.steps li{display:grid;grid-template-columns:48px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);font-size:14px;counter-increment:s}
-.steps li::before{content:counter(s,decimal-leading-zero);font:12px var(--f-mono);color:var(--red);padding-top:2px}
-
-/* footer */
-.foot{border-top:1px solid var(--line);padding-block:40px calc(32px + env(safe-area-inset-bottom,0px))}
-.foot .big{font-size:clamp(48px,11vw,160px);letter-spacing:-.06em;line-height:.85;font-weight:500}
-.foot .cols{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;margin-top:40px;font-size:13px}
-.foot .cols div{display:grid;gap:6px}
-.foot .cols a{text-decoration:none}
-.foot .cols a:hover{color:var(--red)}
-.next{display:flex;justify-content:space-between;align-items:end;gap:16px;text-decoration:none;border-top:1px solid var(--line);padding-block:28px 48px}
-.next .t{font-size:clamp(40px,8vw,112px);letter-spacing:-.055em;line-height:.9}
-
-[hidden]{display:none!important}
-/* global navbar */
-.nav{display:none!important}
-.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(17,17,17,.72);-webkit-backdrop-filter:blur(14px) saturate(1.2);backdrop-filter:blur(14px) saturate(1.2);border-bottom:1px solid var(--line)}
-.topbar-in{display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px}
-.topbar .mark{font-weight:600;letter-spacing:.16em;font-size:13px;text-decoration:none;color:var(--bone)}
-.toplinks{display:flex;align-items:center;gap:clamp(18px,3vw,40px)}
-.toplinks a{font-size:14px;text-decoration:none;color:var(--bone);opacity:.75;transition:opacity .15s}
-.toplinks a:hover,.toplinks a.on{opacity:1}
-.toplinks a.on:not(.topcta){box-shadow:0 1px 0 var(--red)}
-.toplinks .topcta{opacity:1;padding:9px 16px;border-radius:999px;border:1px solid var(--line);transition:background .18s,border-color .18s}
-.toplinks .topcta:hover,.toplinks .topcta.on{background:var(--red);border-color:var(--red);color:#fff}
-.menubtn{display:none;align-items:center;gap:10px;background:transparent;border:1px solid var(--line);color:var(--bone);border-radius:999px;padding:8px 14px;font:500 13px var(--f-sans);cursor:pointer}
-.menubtn-icon{display:grid;gap:5px;width:16px}
-.menubtn-icon i{display:block;height:1.5px;background:currentColor;transition:transform .25s}
-.menubtn[aria-expanded="true"] .menubtn-icon i:first-child{transform:translateY(3.25px) rotate(45deg)}
-.menubtn[aria-expanded="true"] .menubtn-icon i:last-child{transform:translateY(-3.25px) rotate(-45deg)}
-.menu{position:fixed;inset:0;z-index:49;background:var(--ink);padding-top:calc(60px + env(safe-area-inset-top,0px));overflow-y:auto}
-.menu-in{display:grid;gap:40px;padding-block:24px calc(32px + env(safe-area-inset-bottom,0px))}
-.menu-links{display:grid}
-.menu-links a{display:flex;align-items:baseline;gap:14px;text-decoration:none;color:var(--bone);font-size:clamp(32px,9vw,48px);font-weight:500;letter-spacing:-.04em;line-height:1.15;padding-block:6px;border-bottom:1px solid var(--line)}
-.menu-links a .mono{font-size:11px;color:var(--red);letter-spacing:.04em;width:22px}
-.menu-links a.sub{font-size:clamp(20px,5.5vw,26px);padding-left:36px;color:#cfcbc5;border-bottom-color:transparent}
-.menu-links a.on{color:var(--red)}
-.menu-foot{display:grid;gap:10px;color:var(--dim)}
-.menu-foot a{text-decoration:none}
-body.menu-open{overflow:hidden}
-.hh-nav{display:none}
-@media (max-width:760px){.toplinks{display:none}.menubtn{display:inline-flex}}
-
-.formnote{font:13px var(--f-sans);color:var(--dim)}
-.formnote.is-info{color:var(--bone)}
-.formnote.is-error{color:#fff;background:rgba(228,41,28,.18);border:1px solid rgba(228,41,28,.5);border-radius:12px;padding:10px 14px}
-.btn.is-busy{opacity:.6;cursor:progress}
-.sent-panel{margin-top:32px;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,4vw,40px);display:grid;gap:12px;justify-items:start;background:var(--ink-2)}
-.sent-panel h3{font-size:clamp(28px,3.4vw,44px)}
-.sent-panel p{color:#cfcbc5;max-width:46ch}
-.sent-tick{display:grid;place-items:center;width:44px;height:44px;border-radius:999px;background:var(--red);color:#fff;font:600 20px var(--f-sans)}
-
-.card .media.fit{isolation:isolate}
-.card .media.fit .fit-bg{position:absolute;inset:-12%;width:124%;height:124%;object-fit:cover;filter:blur(26px) saturate(1.15) brightness(.75);transform:scale(1.05);z-index:0}
-.card .media.fit::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(17,17,17,.18));box-shadow:inset 0 0 0 1px rgba(242,240,236,.08);border-radius:inherit;pointer-events:none}
-.card .media.fit .fit-fg{position:relative;z-index:2;width:100%;height:100%;object-fit:contain;padding:14px;filter:drop-shadow(0 10px 24px rgba(0,0,0,.35))}
-.card:hover .media.fit .fit-fg{transform:scale(1.03)}
-.card .media.fit .chip,.card .media.fit .onimg{z-index:3}
-
-.view[hidden]{display:none!important}
-.formnote{font:13px var(--f-sans);color:var(--dim)}
-.formnote.is-info{color:var(--bone)}
-.formnote.is-error{color:#fff;background:rgba(228,41,28,.18);border:1px solid rgba(228,41,28,.5);border-radius:12px;padding:10px 14px}
-.btn.is-busy{opacity:.6;cursor:progress}
-.sent-panel{margin-top:32px;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,4vw,40px);display:grid;gap:12px;justify-items:start;background:var(--ink-2)}
-.sent-panel h3{font-size:clamp(28px,3.4vw,44px)}
-.sent-panel p{color:#cfcbc5;max-width:46ch}
-.sent-tick{display:grid;place-items:center;width:44px;height:44px;border-radius:999px;background:var(--red);color:#fff;font:600 20px var(--f-sans)}
-
-.hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0}
-.lane-form .label.full{grid-column:1/-1;margin-bottom:4px}
-.lanes.three{grid-template-columns:repeat(3,minmax(0,1fr))}
-.notify{display:grid;grid-template-columns:1fr;gap:10px;margin-top:28px;max-width:460px;position:relative}
-.notify-row{display:flex;gap:10px;flex-wrap:wrap}
-.notify-row input{flex:1 1 220px;min-width:0;background:transparent;border:1px solid var(--line-paper);border-radius:999px;padding:12px 18px;font:15px var(--f-sans);color:var(--ink)}
-@media (max-width:860px){.lanes.three{grid-template-columns:1fr}}
-.home-hero{background:#e3e3e3}
-.hh-nav{position:absolute;left:0;right:0;top:0;z-index:4}
-.hh-media{position:relative}
-.hh-media img{width:100%;aspect-ratio:16/9;object-fit:cover;object-position:50% 30%;max-width:100%}
-.hh-over{position:absolute;inset:0;pointer-events:none}
-.hh-over-in{position:relative;height:100%}
-.hh-over a{pointer-events:auto}
-.hh-name{position:absolute;left:0;right:0;bottom:6%;text-align:center;font-size:clamp(40px,10.6vw,190px);font-weight:600;letter-spacing:-.045em;line-height:.9;white-space:nowrap;color:#fff4ec;mix-blend-mode:difference;z-index:2;pointer-events:none}
-.home-hero .hero-roles{top:52%;bottom:auto}
-@media (max-width:860px){.hh-media img{aspect-ratio:4/5;object-position:50% 20%}.hh-name{bottom:5%;font-size:12vw}.home-hero .hero-roles{display:none}}
-.viral{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
-.viral li{display:grid;grid-template-columns:clamp(72px,12vw,160px) minmax(0,1fr);align-items:baseline;gap:16px;border-bottom:1px solid var(--line);padding-block:clamp(10px,1.6vw,20px)}
-.viral .vl{font-size:clamp(64px,10vw,140px);font-weight:500;letter-spacing:-.05em;line-height:.85;color:transparent;-webkit-text-stroke:1.2px var(--red)}
-.viral .vt{font-size:clamp(22px,3.4vw,48px);font-weight:500;letter-spacing:-.04em;line-height:1}
-.vm{font-size:clamp(22px,2.6vw,34px);font-weight:500;letter-spacing:-.035em;line-height:1.1;color:var(--bone)!important;max-width:none!important}
-.light-sec{background:var(--paper);color:var(--ink)}
-.light-sec .dim,.light-sec .body-copy{color:var(--dim-paper)}
-
-@media (max-width:860px){
-  .cards{grid-template-columns:1fr 1fr}
-  .cards .card:nth-child(even){margin-top:32px}
-  .pgrid,.feature,.lanes,.group,form{grid-template-columns:1fr}
-  .verses{grid-template-columns:1fr}
-  .lyrics{columns:1}
-  .hero-name{top:30%}
-  .hero-portrait{transform:translateX(-50%);width:70vw}
-  .hero-roles{bottom:20px}
-  .hero-social{display:none}
-  .nav .links{gap:14px}
-  .intro{margin-left:0}
-}
-@media (max-width:480px){
-  .nav .links a.hide-sm{display:none}
-}
-@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
-.rise{animation:rise .7s cubic-bezier(.22,1,.36,1) both}
-@keyframes rise{from{transform:translateY(14px)}to{transform:none}}
-</style>
+<link rel="stylesheet" href="/assets/site.css?v=20261110">
+<script>(function(){var h=location.hash.slice(1),m={about:'/about',works:'/works',music:'/music',design:'/design',apologetics:'/apologetics','viral-church':'/viral-church','work-with-me':'/work-with-me',learn:'/work-with-me#learn','thank-you':'/thank-you'};if(m[h])location.replace(m[h]);})();</script>
+<link rel="preload" as="image" href="/images/header.jpg">
+<script defer src="/assets/site.js?v=20261110"></script>
 </head>
-<body>
+<body data-page="home">
+<a class="skip" href="#main">Skip to content</a>
 <header class="topbar wrap" id="topbar">
   <div class="inner topbar-in">
-    <a class="mark" href="#home" aria-label="MANNORR home">MANNORR</a>
+    <a class="mark" href="/" aria-label="MANNORR home">MANNORR</a>
     <nav class="toplinks" aria-label="Main">
-      <a href="#about" data-nav="about">About</a>
-      <a href="#works" data-nav="works music design apologetics viral-church">Works</a>
-      <a href="#learn" data-nav="learn">Learn</a>
-      <a href="#work-with-me" class="topcta" data-nav="work-with-me thank-you">Work With Me</a>
+      <a href="/about" data-nav="about">About</a>
+      <a href="/works" data-nav="works music design apologetics viral-church">Works</a>
+      <a href="/work-with-me#learn" data-nav="learn">Learn</a>
+      <a href="/work-with-me" class="topcta" data-nav="work-with-me thank-you">Work With Me</a>
     </nav>
     <button class="menubtn" id="menubtn" type="button" aria-expanded="false" aria-controls="menu"><span class="menubtn-label">Menu</span><span class="menubtn-icon" aria-hidden="true"><i></i><i></i></span></button>
   </div>
@@ -278,29 +34,24 @@ body.menu-open{overflow:hidden}
 <div class="menu" id="menu" hidden>
   <div class="menu-in wrap">
     <nav class="menu-links" aria-label="Menu">
-      <a href="#home" data-nav="home"><span class="mono">01</span>Home</a>
-      <a href="#about" data-nav="about"><span class="mono">02</span>About</a>
-      <a href="#works" data-nav="works"><span class="mono">03</span>Works</a>
-      <a href="#music" data-nav="music" class="sub">Songs</a>
-      <a href="#design" data-nav="design" class="sub">Design</a>
-      <a href="#apologetics" data-nav="apologetics" class="sub">Apologetics Nigeria</a>
-      <a href="#viral-church" data-nav="viral-church" class="sub">The Viral Church</a>
-      <a href="#learn" data-nav="learn"><span class="mono">04</span>Learn design</a>
-      <a href="#work-with-me" data-nav="work-with-me"><span class="mono">05</span>Work With Me</a>
+      <a href="/" data-nav="home"><span class="mono">01</span>Home</a>
+      <a href="/about" data-nav="about"><span class="mono">02</span>About</a>
+      <a href="/works" data-nav="works"><span class="mono">03</span>Works</a>
+      <a href="/music" data-nav="music" class="sub">Songs</a>
+      <a href="/design" data-nav="design" class="sub">Design</a>
+      <a href="/apologetics" data-nav="apologetics" class="sub">Apologetics Nigeria</a>
+      <a href="/viral-church" data-nav="viral-church" class="sub">The Viral Church</a>
+      <a href="/work-with-me#learn" data-nav="learn"><span class="mono">04</span>Learn design</a>
+      <a href="/work-with-me" data-nav="work-with-me"><span class="mono">05</span>Work With Me</a>
     </nav>
     <div class="menu-foot mono"><a href="https://www.instagram.com/_mannorr/" target="_blank" rel="noopener">Instagram ↗</a><a href="mailto:hellomannorr@gmail.com">hellomannorr@gmail.com</a></div>
   </div>
 </div>
 
-
-
-
-<!-- ========== HOME ========== -->
-<main class="view" id="v-home">
+<main id="main" class="page page-home">
   <header class="hero home-hero">
-    <div class="wrap hh-nav"><div class="inner"><nav class="nav"><a class="mark" href="#home">MANNORR</a><div class="links"><a href="#about">About</a><a href="#works">Works</a><a href="#work-with-me">Work With Me</a></div></nav></div></div>
     <div class="hh-media">
-      <img src="images/header.jpg" alt="Portrait of Nifemi Adeniran">
+      <img src="/images/header.jpg" alt="Portrait of Nifemi Adeniran">
       <h1 class="hh-name">Adeniran Nifemi</h1>
       <div class="wrap hh-over"><div class="inner hh-over-in">
         <div class="hero-social"><a href="https://www.instagram.com/_mannorr/" target="_blank" rel="noopener">Instagram ↗</a><a href="https://www.youtube.com/@Apologetics-ng" target="_blank" rel="noopener">YouTube ↗</a><a href="mailto:hellomannorr@gmail.com">Email</a></div>
@@ -312,318 +63,40 @@ body.menu-open{overflow:hidden}
   <section class="sec wrap"><div class="inner">
     <div class="head"><span class="label">Intro</span><span class="mono dim">Lagos, Nigeria</span></div>
     <p class="intro">I am a visual and brand designer, preacher and songwriter. <span class="red">One heart, different expressions.</span></p>
-    <p class="intro-sub">Eight years of brand and visual design. A new single in January. A ministry that equips believers to give a reason for the hope. A church called The Viral Church, coming soon. One calling behind all of it.</p>
-    <div class="btn-row" style="justify-content:flex-end"><a class="btn" href="#about">About me →</a></div>
+    <p class="intro-sub">Eight years of brand and visual design. A new single on the way. A ministry that equips believers to give a reason for the hope. A church called The Viral Church, coming soon. One calling behind all of it.</p>
+    <div class="btn-row" style="justify-content:flex-end"><a class="btn" href="/about">About me →</a></div>
   </div></section>
 
   <section class="sec wrap"><div class="inner">
     <div class="head"><span class="label">Now</span><span class="mono dim">New single</span></div>
     <div class="feature">
-      <div class="cover"><img src="images/inyou-sq.jpg" alt="In You single artwork"></div>
+      <div class="cover"><img src="/images/inyou-sq.jpg" alt="In You single artwork"></div>
       <div>
         <p class="mono dim">MANNORR · Single</p>
         <h2>In You</h2>
         <p class="lede" style="margin-top:20px">A worship song about the exchange at the cross. He gave Himself, so we could live in Him.</p>
         <div class="meta mono"><span>Coming soon</span><span class="dim">All platforms</span></div>
-        <div class="btn-row"><a class="btn redbtn" href="#music">Get notified →</a><a class="btn" href="#music">The story</a></div>
+        <div class="btn-row"><a class="btn redbtn" href="/music">Get notified →</a><a class="btn" href="/music">The story</a></div>
       </div>
     </div>
   </div></section>
 
   <section class="sec wrap"><div class="inner">
-    <div class="head"><span class="label">Works</span><a class="mono dim" href="#works">All works →</a></div>
+    <div class="head"><span class="label">Works</span><a class="mono dim" href="/works">All works →</a></div>
     <div class="cards">
-      <a class="card" href="#music"><div class="media"><img src="images/cover-songs.jpg" alt=""><span class="chip">Music</span><span class="onimg">In You · coming soon</span></div><h3>Songs</h3><p class="cdesc">Worship, songwriting</p></a>
-      <a class="card" href="#design"><div class="media"><img src="images/cover-design.jpg" alt=""><span class="chip">Design</span><span class="onimg">8+ years of brand work</span></div><h3>Design</h3><p class="cdesc">Identity, direction, campaigns</p></a>
-      <a class="card" href="#apologetics"><div class="media"><img src="images/cover-apologetics.jpg" alt=""><span class="chip">Teaching</span></div><h3>Apologetics Nigeria</h3><p class="cdesc">Teaching, courses, events</p></a>
-      <a class="card" href="#viral-church"><div class="media"><img src="images/cover-church.jpg" alt=""><span class="chip">Church</span></div><h3>The Viral Church</h3><p class="cdesc">Coming soon · @viralchurchglobal</p></a>
+      <a class="card" href="/music"><div class="media"><img src="/images/cover-songs.jpg" alt=""><span class="chip">Music</span><span class="onimg">In You · coming soon</span></div><h3>Songs</h3><p class="cdesc">Worship, songwriting</p></a>
+      <a class="card" href="/design"><div class="media"><img src="/images/cover-design.jpg" alt=""><span class="chip">Design</span><span class="onimg">8+ years of brand work</span></div><h3>Design</h3><p class="cdesc">Identity, direction, campaigns</p></a>
+      <a class="card" href="/apologetics"><div class="media"><img src="/images/cover-apologetics.jpg" alt=""><span class="chip">Teaching</span></div><h3>Apologetics Nigeria</h3><p class="cdesc">Teaching, courses, events</p></a>
+      <a class="card" href="/viral-church"><div class="media"><img src="/images/cover-church.jpg" alt=""><span class="chip">Church</span></div><h3>The Viral Church</h3><p class="cdesc">Coming soon · @viralchurchglobal</p></a>
     </div>
   </div></section>
 
   <section class="sec wrap"><div class="inner">
     <div class="head"><span class="label">Work With Me</span></div>
     <div class="lanes three">
-      <a class="lane" href="#work-with-me" style="text-decoration:none"><span class="mono dim">For brands and businesses</span><h3>Design</h3><p>Brand identity, creative direction and campaigns for teams that care how they look and what they mean.</p><span class="btn" style="justify-self:start">Start a project →</span></a>
-      <a class="lane" href="#work-with-me" style="text-decoration:none"><span class="mono dim">For churches and events</span><h3>Ministry</h3><p>Worship ministration and teaching on apologetics and the faith, for services, conferences and fellowships.</p><span class="btn" style="justify-self:start">Book me →</span></a>
-      <a class="lane" href="#learn" style="text-decoration:none"><span class="mono dim">For new designers</span><h3>Learn</h3><p>A hands-on design programme with weekly sessions and real assignments, for beginners ready to put in the work.</p><span class="btn" style="justify-self:start">Apply to learn →</span></a>
-    </div>
-  </div></section>
-</main>
-
-<!-- ========== ABOUT ========== -->
-<main class="view" id="v-about" hidden>
-  <header class="hero wrap"><div class="inner">
-    <nav class="nav"><a class="mark" href="#home">MANNORR</a><div class="links"><a href="#about">About</a><a href="#works">Works</a><a href="#work-with-me">Work With Me</a></div></nav>
-    <div class="pgrid" style="padding-block:24px 0">
-      <div style="padding-bottom:40px"><span class="label">About</span><h1 class="ptitle" style="margin-top:20px">About</h1><p class="lede" style="margin-top:28px">Visual and brand designer, preacher and songwriter. Lagos and Dublin.</p></div>
-      <img src="images/profile.jpg" alt="Nifemi Adeniran looking upward" style="mix-blend-mode:multiply;justify-self:end;width:min(100%,520px)">
-    </div>
-  </div></header>
-
-  <section class="sec wrap"><div class="inner">
-    <div class="head"><span class="label">Story</span></div>
-    <div class="pgrid" style="align-items:start">
-      <p class="intro" style="margin:0;font-size:clamp(28px,3.6vw,48px)">I make things that <span class="red">point past themselves.</span></p>
-      <div class="body-copy">
-        <p>I'm Nifemi Adeniran, known as MANNORR. For more than eight years I've designed brand identities, campaigns and visual systems for businesses, churches and creators.</p>
-        <p>I hold an MSc in Interactive Digital Media from Griffith College Dublin. I founded Apologetics Nigeria to help believers defend the faith and share the gospel, and I'm starting The Viral Church.</p>
-        <p>In January 2027 I release In You, a song about living in Christ. Design, music and teaching are different crafts serving the same calling.</p>
-      </div>
-    </div>
-  </div></section>
-
-  <section class="sec wrap"><div class="inner">
-    <div class="head"><span class="label">What I believe</span></div>
-    <p class="intro" style="margin-left:0;max-width:24ch">The purpose of every man is to <span class="red">know God and to make Him known.</span></p>
-    <p class="intro-sub">Knowing Him requires diligence. Making Him known requires excellence, in every expression: a brand, a song, a sermon.</p>
-  </div></section>
-
-  <section class="sec wrap"><div class="inner">
-    <div class="head"><span class="label">Experience</span><span class="mono dim">8+ years</span></div>
-    <div class="group"><div class="outline-num">01</div><div><h3>Work</h3><p class="gsub">Brand, campaign and ministry design across tech, finance and the global church.</p><ul class="rows"><li>Graphic Designer · Financefair, Dublin <span class="mono">2025</span></li><li>Lead Visual Designer · Celebration Church International (Global) <span class="mono">2022–2024</span></li><li>Lead Graphic / Brand Designer · PPI and KOG Nigeria Ltd, Lagos <span class="mono">2019–2022</span></li><li>Founder · Kallos Creative Agency <span class="mono">Present</span></li></ul></div></div>
-    <div class="group"><div class="outline-num">02</div><div><h3>Education</h3><p class="gsub">Formal study in design and computing.</p><ul class="rows"><li>MSc Interactive Digital Media · Griffith College Dublin <span class="mono">2024–2025</span></li><li>BSc Computer and Information Systems · Babcock University <span class="mono">2017–2022</span></li><li>Foundations of UX Design · Google <span class="mono">Certificate</span></li><li>Graphic Design Academy (GDA 17.0) <span class="mono">Certificate</span></li></ul></div></div>
-    <div class="btn-row"><a class="btn" href="/ADENIRAN_OLUWANIFEMI_CV.pdf" target="_blank" rel="noopener">Download CV (PDF)</a><a class="btn solid" href="#work-with-me">Work with me →</a></div>
-  </div></section>
-</main>
-
-<!-- ========== WORKS ========== -->
-<main class="view" id="v-works" hidden>
-  <header class="wrap"><div class="inner">
-    <nav class="nav"><a class="mark" href="#home">MANNORR</a><div class="links"><a href="#about">About</a><a href="#works">Works</a><a href="#work-with-me">Work With Me</a></div></nav>
-    <div style="padding-block:40px 56px"><span class="label">Works</span><h1 class="ptitle" style="margin-top:20px">Works</h1><p class="lede" style="margin-top:28px">Four ways of serving one calling: songs, design, teaching and church.</p></div>
-  </div></header>
-  <section class="sec wrap"><div class="inner">
-    <div class="cards" style="grid-template-columns:repeat(2,minmax(0,1fr))">
-      <a class="card" href="#music"><div class="media" style="aspect-ratio:4/3"><img src="images/cover-songs.jpg" alt=""><span class="chip">Music</span><span class="onimg">In You · coming soon</span></div><h3>Songs</h3><p class="cdesc">A new single, the story behind it, lyrics and where to listen.</p></a>
-      <a class="card" href="#design"><div class="media" style="aspect-ratio:4/3"><img src="images/cover-design.jpg" alt=""><span class="chip">Design</span></div><h3>Design</h3><p class="cdesc">Selected brand identities, campaigns and creative direction.</p></a>
-      <a class="card" href="#apologetics"><div class="media" style="aspect-ratio:4/3"><img src="images/cover-apologetics.jpg" alt=""><span class="chip">Teaching</span></div><h3>Apologetics Nigeria</h3><p class="cdesc">Equipping believers to give a reason for the hope.</p></a>
-      <a class="card" href="#viral-church"><div class="media" style="aspect-ratio:4/3"><img src="images/cover-church.jpg" alt=""><span class="chip">Church</span></div><h3>The Viral Church</h3><p class="cdesc">Coming soon. Vision, mission and what VIRAL stands for.</p></a>
-    </div>
-  </div></section>
-</main>
-
-<!-- ========== MUSIC ========== -->
-<main class="view" id="v-music" hidden>
-  <header class="hero wrap"><div class="inner">
-    <nav class="nav"><a class="mark" href="#home">MANNORR</a><div class="links"><a href="#about">About</a><a href="#works">Works</a><a href="#work-with-me">Work With Me</a></div></nav>
-    <div class="pgrid" style="padding-block:24px 48px;align-items:center">
-      <div>
-        <span class="label">Music</span>
-        <h1 class="ptitle red" style="margin-top:20px">In You</h1>
-        <p class="mono" style="margin-top:20px">MANNORR · Single · Coming soon</p>
-        <form id="notify" class="notify" novalidate>
-          <input type="text" name="mn_trap_x" class="hp" tabindex="-1" autocomplete="new-password" aria-hidden="true" readonly onfocus="this.removeAttribute('readonly')">
-          <label for="n-email" class="mono" style="color:var(--dim-paper)">Get an email the day it's out</label>
-          <div class="notify-row"><input id="n-email" name="email" type="email" placeholder="you@example.com" required><button class="btn redbtn" type="submit">Notify me →</button></div>
-          <p class="formnote" id="notifynote" aria-live="polite" style="color:var(--ink)"></p>
-        </form>
-      </div>
-      <img src="images/inyou-sq.jpg" alt="In You single artwork" style="border-radius:18px;justify-self:end;width:min(100%,520px)">
-    </div>
-  </div></header>
-
-  <section class="sec wrap"><div class="inner">
-    <div class="head"><span class="label">The story</span></div>
-    <div class="pgrid" style="align-items:start">
-      <p class="intro" style="margin:0;font-size:clamp(28px,3.6vw,48px)">He gave Himself away, <span class="red">so I could live in Him.</span></p>
-      <div class="body-copy"><p>[Draft] Where the song came from, what was happening when you wrote it, and what you hope people carry away. Three short paragraphs in your voice.</p><p>[Draft] The recording: who produced it, where it was made, one detail from the session.</p></div>
-    </div>
-  </div></section>
-
-  <section class="sec wrap"><div class="inner">
-    <div class="head"><span class="label">The scriptures</span><span class="mono dim">Behind the lyrics</span></div>
-    <div class="verses">
-      <div class="verse"><span class="ref">Acts 17:28</span><p>In Him we live and move and have our being.</p></div>
-      <div class="verse"><span class="ref">Galatians 2:20</span><p>The Son of God, who loved me and gave Himself for me.</p></div>
-      <div class="verse"><span class="ref">John 8:36</span><p>If the Son sets you free, you will be free indeed.</p></div>
-    </div>
-  </div></section>
-
-  <section class="sec wrap"><div class="inner">
-    <div class="head"><span class="label">Lyrics</span></div>
-    <div class="lyrics">
-      <p><span class="tagline">VERSE</span>You gave Yourself away<br>You gave Your love<br>You gave Your life away<br>So I could live in You</p>
-      <p><span class="tagline">CHORUS</span>In You I live<br>In You I move<br>I have my being<br>Joy and peace I find in You<br>I'm free indeed</p>
-      <p><span class="tagline">BRIDGE</span>You gave Yourself<br>You gave Your love<br>You gave Your strength<br>And righteousness</p>
-    </div>
-  </div></section>
-
-  <section class="sec wrap"><div class="inner">
-    <div class="head"><span class="label">Credits</span></div>
-    <ul class="rows"><li>Written by <span class="mono">MANNORR</span></li><li>Produced by <span class="mono">DAkinson &amp; Steph Ade</span></li><li>Artwork <span class="mono">MANNORR</span></li><li>Video production <span class="mono">Deacon Alex Louis &amp; ItunuAde</span></li></ul>
-  </div></section>
-  <a class="next wrap" href="#design"><div class="inner" style="display:flex;justify-content:space-between;align-items:end;width:100%;gap:16px"><span class="label">Next work</span><span class="t">Design →</span></div></a>
-</main>
-
-<!-- ========== DESIGN ========== -->
-<main class="view" id="v-design" hidden>
-  <header class="wrap"><div class="inner">
-    <nav class="nav"><a class="mark" href="#home">MANNORR</a><div class="links"><a href="#about">About</a><a href="#works">Works</a><a href="#work-with-me">Work With Me</a></div></nav>
-    <div style="padding-block:40px 56px"><span class="label">Design</span><h1 class="ptitle" style="margin-top:20px">Design</h1><p class="lede" style="margin-top:28px">Brand identity and creative direction for teams that care how they look <span class="red">and what they mean.</span></p></div>
-  </div></header>
-
-  <section class="sec wrap"><div class="inner">
-    <div class="head"><span class="label">Selected work</span><a class="mono dim" href="/portfolio">Full portfolio →</a></div>
-    <div class="cards" id="dsWork">
-      <a class="card" href="/portfolio"><div class="media"><div class="ph">Loading work…</div></div><h3>&nbsp;</h3></a>
-      <a class="card" href="/portfolio"><div class="media"><div class="ph">&nbsp;</div></div><h3>&nbsp;</h3></a>
-      <a class="card" href="/portfolio"><div class="media"><div class="ph">&nbsp;</div></div><h3>&nbsp;</h3></a>
-      <a class="card" href="/portfolio"><div class="media"><div class="ph">&nbsp;</div></div><h3>&nbsp;</h3></a>
-    </div>
-    <div class="btn-row"><a class="btn solid" href="/portfolio">View the full portfolio →</a></div>
-  </div></section>
-
-  <section class="sec wrap"><div class="inner">
-    <div class="head"><span class="label">Services</span></div>
-    <div class="group"><div class="outline-num">01</div><div><h3>Identity</h3><p class="gsub">Brands that are clear, distinct and built to last.</p><ul class="rows"><li>Brand identity systems <span class="mono">01</span></li><li>Logo design and visual identity <span class="mono">02</span></li><li>Typography and editorial layout <span class="mono">03</span></li><li>Design systems and frameworks <span class="mono">04</span></li></ul></div></div>
-    <div class="group"><div class="outline-num">02</div><div><h3>Direction</h3><p class="gsub">The idea, the look and the rollout, kept consistent.</p><ul class="rows"><li>Creative direction <span class="mono">01</span></li><li>Campaign development <span class="mono">02</span></li><li>Social media visual strategy <span class="mono">03</span></li><li>UI/UX design and prototyping <span class="mono">04</span></li></ul></div></div>
-  </div></section>
-
-  <section class="sec wrap"><div class="inner">
-    <div class="head"><span class="label">Clients</span><span class="mono dim">Selected, with Kallos</span></div>
-    <ul class="rows"><li>It Ends With Me podcast <span class="mono">Identity</span></li><li>Kiwi &amp; Yam <span class="mono">Fashion</span></li><li>The Ascension concert <span class="mono">Campaign</span></li></ul>
-    <div class="btn-row"><a class="btn solid" href="#work-with-me">Start a design project →</a><a class="btn" href="https://wearekallos.com" target="_blank" rel="noopener">Studio projects: Kallos ↗</a></div>
-  </div></section>
-  <a class="next wrap" href="#apologetics"><div class="inner" style="display:flex;justify-content:space-between;align-items:end;width:100%;gap:16px"><span class="label">Next work</span><span class="t">Apologetics →</span></div></a>
-</main>
-
-<!-- ========== APOLOGETICS ========== -->
-<main class="view" id="v-apologetics" hidden>
-  <header class="hero wrap"><div class="inner">
-    <nav class="nav"><a class="mark" href="#home">MANNORR</a><div class="links"><a href="#about">About</a><a href="#works">Works</a><a href="#work-with-me">Work With Me</a></div></nav>
-    <div style="padding-block:40px 64px"><span class="label">Teaching</span><h1 class="ptitle" style="margin-top:20px">Apologetics<br>Nigeria</h1><p class="lede" style="margin-top:28px">Give a reason for the hope. We partner with churches, pastors and ministry groups to equip believers to defend the faith and share the gospel with clarity, confidence and joy.</p><p class="mono" style="margin-top:12px;color:var(--dim-paper)">1 Peter 3:15</p></div>
-  </div></header>
-
-  <section class="sec wrap"><div class="inner">
-    <div class="head"><span class="label">Coming up</span><span class="mono dim">Hosted by MANNORR</span></div>
-    <div class="lanes">
-      <a class="lane" href="https://apologeticsnigeria.com" target="_blank" rel="noopener" style="text-decoration:none"><span class="mono dim">Online · 13–22 Dec 2026 · 9PM WAT · Free</span><h3>10 Days of Fundamentals</h3><p>Ten nightly sessions on the fundamentals of the Christian faith.</p><span class="btn" style="justify-self:start">Register ↗</span></a>
-      <a class="lane" href="https://apologeticsnigeria.com" target="_blank" rel="noopener" style="text-decoration:none"><span class="mono dim">Ogba, Lagos · Saturday 13 Feb 2027</span><h3>Opened Veil</h3><p>The Bible Experience: a day of studying the Scriptures together.</p><span class="btn" style="justify-self:start">Register ↗</span></a>
-    </div>
-  </div></section>
-
-  <section class="sec wrap"><div class="inner">
-    <div class="head"><span class="label">Go deeper</span></div>
-    <div class="group"><div class="outline-num">01</div><div><h3>Foundations</h3><p class="gsub">A twelve-week track for believers and church teams.</p><ul class="rows"><li>The existence of God <span class="mono">01</span></li><li>The person and work of Jesus <span class="mono">02</span></li><li>Engaging Islam and atheism <span class="mono">03</span></li><li>Starting conversations <span class="mono">04</span></li></ul></div></div>
-    <div class="group"><div class="outline-num">02</div><div><h3>Video series</h3><p class="gsub">Teaching on YouTube at <a href="https://www.youtube.com/@Apologetics-ng" target="_blank" rel="noopener">@Apologetics-ng ↗</a>.</p><ul class="rows"><li>Is Islam Peace? <span class="mono">Series</span></li><li>Inside Islam <span class="mono">Series</span></li><li>Analyzing the Qur'an <span class="mono">Series</span></li><li>Understanding Hadith <span class="mono">Series</span></li><li>History of the Quran <span class="mono">Series</span></li></ul></div></div>
-    <div class="group"><div class="outline-num">03</div><div><h3>For churches</h3><p class="gsub">Partnerships that equip members and leaders, with a train-the-trainers approach.</p><ul class="rows"><li>Resource library <span class="mono">Islam · Atheism · Jesus · The Bible</span></li><li>WhatsApp community <span class="mono">Free</span></li><li>Instagram <a class="mono" href="https://www.instagram.com/apologeticsnigeria/" target="_blank" rel="noopener">@apologeticsnigeria ↗</a></li></ul></div></div>
-    <div class="btn-row"><a class="btn solid" href="https://apologeticsnigeria.com" target="_blank" rel="noopener">Visit apologeticsnigeria.com ↗</a><a class="btn" href="#work-with-me">Invite me to teach</a></div>
-  </div></section>
-  <a class="next wrap" href="#viral-church"><div class="inner" style="display:flex;justify-content:space-between;align-items:end;width:100%;gap:16px"><span class="label">Next work</span><span class="t">The Viral Church →</span></div></a>
-</main>
-
-<!-- ========== VIRAL CHURCH ========== -->
-<main class="view" id="v-viral-church" hidden>
-  <header class="wrap"><div class="inner">
-    <nav class="nav"><a class="mark" href="#home">MANNORR</a><div class="links"><a href="#about">About</a><a href="#works">Works</a><a href="#work-with-me">Work With Me</a></div></nav>
-    <div style="padding-block:40px 56px"><span class="label">Church</span><h1 class="ptitle" style="margin-top:20px">The Viral<br>Church</h1><p class="lede" style="margin-top:28px">Coming soon. <span class="red">Follow along on Instagram</span> while we prepare.</p><div class="btn-row"><a class="btn redbtn" href="https://www.instagram.com/viralchurchglobal/" target="_blank" rel="noopener">@viralchurchglobal ↗</a></div></div>
-  </div></header>
-
-  <section class="sec wrap"><div class="inner">
-    <div class="head"><span class="label">What VIRAL means</span></div>
-    <ul class="viral">
-      <li><span class="vl">V</span><span class="vt">Victorious in Christ Jesus</span></li>
-      <li><span class="vl">I</span><span class="vt">Indoctrinated in His Word</span></li>
-      <li><span class="vl">R</span><span class="vt">Rejuvenated in devotion</span></li>
-      <li><span class="vl">A</span><span class="vt">Ambassadors for Christ</span></li>
-      <li><span class="vl">L</span><span class="vt">Light of the Word</span></li>
-    </ul>
-  </div></section>
-
-  <section class="sec wrap"><div class="inner">
-    <div class="lanes">
-      <div class="lane"><span class="label">Vision</span><p class="vm">We envision that the gospel becomes <span class="red">commonplace</span> in this generation and the next.</p></div>
-      <div class="lane"><span class="label">Mission</span><p class="vm">We equip men for ministry with the sound and balanced teaching of the Word, till the whole world is filled with the <span class="red">knowledge and the glory of God.</span></p></div>
-    </div>
-    <p class="mono dim" style="margin-top:32px">Gatherings, location and how to join will be announced here.</p>
-  </div></section>
-  <a class="next wrap" href="#music"><div class="inner" style="display:flex;justify-content:space-between;align-items:end;width:100%;gap:16px"><span class="label">Next work</span><span class="t">Songs →</span></div></a>
-</main>
-
-<!-- ========== WORK WITH ME ========== -->
-<main class="view" id="v-work-with-me" hidden>
-  <header class="wrap"><div class="inner">
-    <nav class="nav"><a class="mark" href="#home">MANNORR</a><div class="links"><a href="#about">About</a><a href="#works">Works</a><a href="#work-with-me">Work With Me</a></div></nav>
-    <div style="padding-block:40px 40px"><span class="label">Work With Me</span><h1 class="ptitle" style="margin-top:20px">Work<br>with me</h1></div>
-  </div></header>
-
-  <section class="sec wrap"><div class="inner">
-    <div class="seg" role="group" aria-label="Choose a lane"><button type="button" id="lane-design" aria-pressed="true">Design</button><button type="button" id="lane-ministry" aria-pressed="false">Ministry</button><button type="button" id="lane-learn" aria-pressed="false">Learn</button></div>
-
-    <div class="pgrid" style="align-items:start;margin-top:48px">
-      <div>
-        <p class="intro" id="lane-lede" style="margin:0;font-size:clamp(28px,3.6vw,48px)">Brand identity and direction <span class="red">for teams that care.</span></p>
-        <div style="margin-top:40px"><span class="label">What I offer</span><ul class="rows" id="lane-offer" style="margin-top:16px"></ul></div>
-        <div style="margin-top:40px"><span class="label">How it works</span><ol class="steps" id="lane-steps" style="margin-top:16px"></ol></div>
-        <div style="margin-top:28px" id="lane-pkg"><a class="btn" href="/work-with-me">Packages and pricing →</a></div>
-        <p class="mono dim" style="margin-top:28px" id="lane-note" hidden>Fees and the next start date are shared after you apply.</p>
-      </div>
-      <div>
-        <form class="lane-form" data-form="design" id="form-design" novalidate>
-          <input type="text" name="mn_trap_x" class="hp" tabindex="-1" autocomplete="new-password" aria-hidden="true" readonly onfocus="this.removeAttribute('readonly')">
-          <span class="label full">Start a project</span>
-          <div class="field"><label for="d-name">Your name</label><input id="d-name" name="name" type="text" placeholder="Full name" required></div>
-          <div class="field"><label for="d-email">Email</label><input id="d-email" name="email" type="email" placeholder="you@company.com" required></div>
-          <div class="field"><label for="d-company">Company or brand</label><input id="d-company" name="company" type="text" placeholder="Kiln Coffee Co."></div>
-          <div class="field"><label for="d-project">What you need</label><select id="d-project" name="project"><option>Brand identity</option><option>Campaign</option><option>Creative direction</option><option>Something else</option></select></div>
-          <div class="field full"><label for="d-budget">Budget range</label><select id="d-budget" name="budget"><option>Under ₦300k</option><option>₦300k – ₦1m</option><option>₦1m+</option><option>Not sure yet</option></select></div>
-          <div class="field full"><label for="d-msg">Tell me about the project</label><textarea id="d-msg" name="message" placeholder="What you're building, who it's for, and when you'd like to launch."></textarea></div>
-          <div class="field full" style="justify-items:start"><button class="btn solid" type="submit">Send enquiry →</button></div>
-          <p class="formnote" aria-live="polite"></p>
-        </form>
-
-        <form class="lane-form" data-form="ministry" id="form-ministry" novalidate hidden>
-          <input type="text" name="mn_trap_x" class="hp" tabindex="-1" autocomplete="new-password" aria-hidden="true" readonly onfocus="this.removeAttribute('readonly')">
-          <span class="label full">Book a ministration</span>
-          <div class="field"><label for="m-name">Your name</label><input id="m-name" name="name" type="text" placeholder="Full name" required></div>
-          <div class="field"><label for="m-org">Church or organisation</label><input id="m-org" name="org" type="text" placeholder="Grace Assembly, Ikeja"></div>
-          <div class="field"><label for="m-email">Email</label><input id="m-email" name="email" type="email" placeholder="you@church.org" required></div>
-          <div class="field"><label for="m-phone">Phone or WhatsApp</label><input id="m-phone" name="phone" type="tel" placeholder="0803 000 0000" required></div>
-          <div class="field"><label for="m-date">Date</label><input id="m-date" name="date" type="text" placeholder="14 March 2027"></div>
-          <div class="field"><label for="m-city">City</label><input id="m-city" name="city" type="text" placeholder="Lagos"></div>
-          <div class="field full"><label for="m-what">I'd like you to</label><select id="m-what" name="request"><option>Minister in song</option><option>Teach</option><option>Both</option></select></div>
-          <div class="field full"><label for="m-msg">About the gathering</label><textarea id="m-msg" name="message" placeholder="The occasion, expected attendance, and the theme or topic you have in mind."></textarea></div>
-          <div class="field full" style="justify-items:start"><button class="btn solid" type="submit">Send booking request →</button></div>
-          <p class="formnote" aria-live="polite"></p>
-        </form>
-
-        <form class="lane-form" data-form="learn" id="form-learn" novalidate hidden>
-          <input type="text" name="mn_trap_x" class="hp" tabindex="-1" autocomplete="new-password" aria-hidden="true" readonly onfocus="this.removeAttribute('readonly')">
-          <span class="label full">Apply to learn</span>
-          <div class="field"><label for="l-name">Your name</label><input id="l-name" name="name" type="text" placeholder="Full name" required></div>
-          <div class="field"><label for="l-phone">WhatsApp number</label><input id="l-phone" name="phone" type="tel" placeholder="0803 000 0000" required></div>
-          <div class="field full"><label for="l-email">Email</label><input id="l-email" name="email" type="email" placeholder="you@example.com" required></div>
-          <div class="field"><label for="l-level">Where you are now</label><select id="l-level" name="level"><option>Complete beginner</option><option>Some experience</option><option>Already designing, want to grow</option></select></div>
-          <div class="field"><label for="l-format">How you'd like to learn</label><select id="l-format" name="format"><option>In person, Lagos</option><option>Online</option><option>Either</option></select></div>
-          <div class="field full"><label for="l-laptop">Do you have a laptop?</label><select id="l-laptop" name="laptop"><option>Yes, with Photoshop</option><option>Yes, without Photoshop</option><option>Not yet</option></select></div>
-          <div class="field full"><label for="l-msg">Why do you want to learn design?</label><textarea id="l-msg" name="message" placeholder="A few lines about you and what you hope to do with design."></textarea></div>
-          <div class="field full" style="justify-items:start"><button class="btn solid" type="submit">Apply to learn →</button></div>
-          <p class="formnote" aria-live="polite"></p>
-        </form>
-        <p class="mono dim" style="margin-top:20px">Prefer email? <a href="mailto:hellomannorr@gmail.com">hellomannorr@gmail.com</a></p>
-      </div>
-    </div>
-  </div></section>
-</main>
-
-<!-- ========== THANK YOU ========== -->
-<main class="view" id="v-thank-you" hidden>
-  <header class="hero wrap"><div class="inner">
-    <nav class="nav"><a class="mark" href="#home">MANNORR</a><div class="links"><a href="#about">About</a><a href="#works">Works</a><a href="#work-with-me">Work With Me</a></div></nav>
-    <div style="padding-block:48px 72px">
-      <span class="label" id="ty-kicker">Sent</span>
-      <h1 class="ptitle" style="margin-top:20px;font-size:clamp(52px,10vw,148px)"><span id="ty-hello">Thank you.</span><br><span class="red" id="ty-title">Your message is in.</span></h1>
-      <p class="lede" id="ty-intro" style="margin-top:28px">I read every message myself and will get back to you soon.</p>
-      <p class="mono" id="ty-ref" style="margin-top:20px" hidden></p>
-    </div>
-  </div></header>
-  <section class="sec wrap"><div class="inner">
-    <div class="pgrid" style="align-items:start">
-      <div><span class="label">What happens next</span><ol class="steps" id="ty-steps" style="margin-top:16px"><li>I read your message</li><li>I get back to you by email or WhatsApp</li></ol></div>
-      <div><span class="label">Meanwhile</span>
-        <p class="body-copy" id="ty-mail" style="margin-top:16px">A confirmation is on its way to your inbox. If you can't see it in a few minutes, check your spam or promotions folder.</p>
-        <div class="btn-row"><a class="btn solid" href="#home">Back to home</a><a class="btn" href="#works">Explore my work</a><a class="btn" href="https://www.instagram.com/_mannorr/" target="_blank" rel="noopener">Instagram ↗</a></div>
-      </div>
+      <a class="lane" href="/work-with-me" style="text-decoration:none"><span class="mono dim">For brands and businesses</span><h3>Design</h3><p>Brand identity, creative direction and campaigns for teams that care how they look and what they mean.</p><span class="btn" style="justify-self:start">Start a project →</span></a>
+      <a class="lane" href="/work-with-me" style="text-decoration:none"><span class="mono dim">For churches and events</span><h3>Ministry</h3><p>Worship ministration and teaching on apologetics and the faith, for services, conferences and fellowships.</p><span class="btn" style="justify-self:start">Book me →</span></a>
+      <a class="lane" href="/work-with-me#learn" style="text-decoration:none"><span class="mono dim">For new designers</span><h3>Learn</h3><p>A hands-on design programme with weekly sessions and real assignments, for beginners ready to put in the work.</p><span class="btn" style="justify-self:start">Apply to learn →</span></a>
     </div>
   </div></section>
 </main>
@@ -631,174 +104,11 @@ body.menu-open{overflow:hidden}
 <footer class="foot wrap"><div class="inner">
   <div class="big">MANNORR</div>
   <div class="cols">
-    <div><span class="label">Pages</span><a href="#about">About</a><a href="#works">Works</a><a href="#work-with-me">Work With Me</a><a href="#learn">Learn design</a></div>
-    <div><span class="label">Works</span><a href="#music">In You</a><a href="#design">Design</a><a href="#apologetics">Apologetics Nigeria</a><a href="#viral-church">Viral Church</a></div>
+    <div><span class="label">Pages</span><a href="/about">About</a><a href="/works">Works</a><a href="/work-with-me">Work With Me</a><a href="/work-with-me#learn">Learn design</a></div>
+    <div><span class="label">Works</span><a href="/music">In You</a><a href="/design">Design</a><a href="/apologetics">Apologetics Nigeria</a><a href="/viral-church">Viral Church</a></div>
     <div><span class="label">Elsewhere</span><a href="https://www.instagram.com/_mannorr/" target="_blank" rel="noopener">Instagram @_mannorr ↗</a><a href="https://www.instagram.com/viralchurchglobal/" target="_blank" rel="noopener">@viralchurchglobal ↗</a><a href="mailto:hellomannorr@gmail.com">hellomannorr@gmail.com</a><a href="https://apologeticsnigeria.com" target="_blank" rel="noopener">apologeticsnigeria.com ↗</a><a href="https://wearekallos.com" target="_blank" rel="noopener">wearekallos.com ↗</a></div>
     <div class="mono dim" style="align-self:end">© 2026 Nifemi Adeniran · Lagos</div>
   </div>
 </div></footer>
-
-<script>
-(function(){
-  /* Paste the Google Apps Script web app URL here (see apps-script/README.md).
-     While it is empty, forms fall back to the existing Formspree form. */
-  var DB_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwkaHoaKJr2C98juyAmhcGF6GqiTQVnZ9B70Ezws0HBSpldg9Uod5BbwGTvxAGfidCeNQ/exec';
-  var FALLBACK = 'https://formspree.io/f/mldqqvra';
-  var EMAIL = 'hellomannorr@gmail.com';
-  var openedAt = Date.now();
-
-  var views=['home','about','works','music','design','apologetics','viral-church','work-with-me','thank-you'];
-  function show(){
-    var h=(location.hash||'#home').slice(1), lane=null;
-    if(h==='learn'){ h='work-with-me'; lane='learn'; }
-    if(views.indexOf(h)<0) h='home';
-    views.forEach(function(v){document.getElementById('v-'+v).hidden=(v!==h);});
-    if(lane) setLane(lane);
-    window.scrollTo(0,0);
-  }
-
-  var lanes={
-    design:{lede:'Brand identity and direction <span class="red">for teams that care.</span>', label:'Enquiry', submit:'Send enquiry →', msg:'Tell me more',
-      offer:[['Brand identity systems','Identity'],['Creative direction','Direction'],['Campaign development','Campaign'],['Design systems','Systems']],
-      steps:['Send an enquiry','Discovery call','Proposal and timeline','Design and review','Handover and guidelines'],
-      ph:"We're refreshing our brand ahead of a second location and want it to feel warmer and more confident."},
-    ministry:{lede:'Worship and teaching <span class="red">for your congregation.</span>', label:'Booking', submit:'Send booking request →', msg:'Tell me more',
-      offer:[['Worship ministration','Song'],['Teaching and apologetics talks','Word'],['Design in ministry training','Workshop']],
-      steps:['Send a request','Confirm the date and brief','Logistics and travel','Ministration'],
-      ph:"Our annual youth conference has around 400 attendees. We'd love a ministration and a 30-minute talk on why the resurrection matters."},
-    learn:{lede:'Learn design <span class="red">with me.</span>', label:'Application', submit:'Apply to learn →', msg:'Why do you want to learn design?',
-      offer:[['Two-month programme','8 weeks'],['Weekly hands-on session','1:1 or small group'],['Assignments between sessions','Real briefs'],['Social and marketing graphics in Photoshop','Beginner friendly']],
-      steps:['Apply','A short call','Confirm your place and schedule','Weekly sessions and assignments'],
-      ph:"I'm starting from zero and want to design for my church and small businesses."}
-  };
-  var current='design';
-  function setLane(l){
-    var d=lanes[l]; current=l;
-    ['design','ministry','learn'].forEach(function(k){document.getElementById('lane-'+k).setAttribute('aria-pressed',k===l);});
-    document.getElementById('lane-lede').innerHTML=d.lede;
-    document.getElementById('lane-offer').innerHTML=d.offer.map(function(o){return '<li>'+o[0]+' <span class="mono">'+o[1]+'</span></li>';}).join('');
-    document.getElementById('lane-steps').innerHTML=d.steps.map(function(x){return '<li>'+x+'</li>';}).join('');
-    document.getElementById('lane-pkg').hidden=(l!=='design');
-    document.getElementById('lane-note').hidden=(l!=='learn');
-    document.querySelectorAll('.sent-panel').forEach(function(p){p.remove();});
-    document.querySelectorAll('.lane-form').forEach(function(f){f.hidden=(f.getAttribute('data-form')!==l);});
-  }
-  ['design','ministry','learn'].forEach(function(k){document.getElementById('lane-'+k).addEventListener('click',function(){setLane(k);});});
-  setLane('design');
-  window.addEventListener('hashchange',show); show();
-  /* navbar: active link + mobile menu */
-  (function(){
-    var btn=document.getElementById('menubtn'), menu=document.getElementById('menu');
-    function setMenu(open){ menu.hidden=!open; btn.setAttribute('aria-expanded',open); btn.querySelector('.menubtn-label').textContent=open?'Close':'Menu'; document.body.classList.toggle('menu-open',open); }
-    btn.addEventListener('click',function(){ setMenu(menu.hidden); });
-    document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&!menu.hidden) setMenu(false); });
-    function mark(){
-      var h=(location.hash||'#home').slice(1);
-      document.querySelectorAll('[data-nav]').forEach(function(a){ a.classList.toggle('on', a.getAttribute('data-nav').split(' ').indexOf(h)>-1); });
-      setMenu(false);
-    }
-    window.addEventListener('hashchange',mark); mark();
-  })();
-
-
-  /* send any form: to the Google Sheet when connected, otherwise to Formspree */
-  function send(fd, formKey){
-    fd.append('form', formKey); fd.append('page', location.hash||'#home'); fd.append('t', String(Date.now()-openedAt));
-    if(DB_ENDPOINT){
-      var timer=new Promise(function(_,rej){setTimeout(function(){rej(new Error('timeout'));},20000);});
-      return Promise.race([fetch(DB_ENDPOINT,{method:'POST',body:fd}).then(function(r){return r.json();}),timer])
-        .catch(function(){
-          /* response unreadable: send blind to the sheet and keep a copy in Formspree so nothing is lost */
-          var copy=new FormData(); fd.forEach(function(v,k){copy.append(k,v);}); copy.append('_subject','mannorr.com · '+formKey+' (backup)');
-          return Promise.allSettled([
-            fetch(DB_ENDPOINT,{method:'POST',body:fd,mode:'no-cors'}),
-            fetch(FALLBACK,{method:'POST',body:copy,headers:{'Accept':'application/json'}})
-          ]).then(function(){return {ok:true,ref:''};});
-        });
-    }
-    fd.append('_subject','mannorr.com · '+formKey);
-    return fetch(FALLBACK,{method:'POST',body:fd,headers:{'Accept':'application/json'}}).then(function(r){return {ok:r.ok};});
-  }
-  function fail(note){ note.textContent="That didn't send. Please email "+EMAIL+" instead."; }
-
-  var THANKS={
-    design:{kicker:'Design enquiry',title:'Your project enquiry is in.',intro:'Thank you for thinking of me for your project. I read every brief myself and will come back to you with questions or a time to talk.',steps:['I review your brief','A short discovery call','A proposal, timeline and next steps']},
-    ministry:{kicker:'Ministry booking',title:'Your booking request is in.',intro:"Thank you for inviting me. I'll pray over it, check the date, and get back to you to confirm the details.",steps:['I check the date and pray over it','We confirm the brief and logistics','The ministration']},
-    learn:{kicker:'Student application',title:'Your application is in.',intro:"Thank you for wanting to learn design with me. I'll go through your application and reach out on WhatsApp about the next steps.",steps:['I review your application','A short call on WhatsApp','We confirm your place and schedule']}
-  };
-  function showThanks(key,name,email,ref){
-    var t=THANKS[key]; if(!t) return;
-    var first=(name||'').split(' ')[0];
-    document.getElementById('ty-kicker').textContent=t.kicker;
-    document.getElementById('ty-hello').textContent='Thank you'+(first?', '+first:'')+'.';
-    document.getElementById('ty-title').textContent=t.title;
-    document.getElementById('ty-intro').textContent=t.intro;
-    var rf=document.getElementById('ty-ref'); rf.hidden=!ref; rf.textContent=ref?'Reference '+ref:'';
-    document.getElementById('ty-steps').innerHTML=t.steps.map(function(x){return '<li>'+x+'</li>';}).join('');
-    document.getElementById('ty-mail').textContent='A confirmation is on its way to '+(email||'your inbox')+". If you can't see it in a few minutes, check your spam or promotions folder.";
-    location.hash='thank-you';
-  }
-
-  var DONE={design:'Thank you. Your enquiry is in, and I will reply soon.',ministry:'Thank you. Your request is in, and I will be in touch to confirm.',learn:'Thank you for applying. I will reach out on WhatsApp about next steps.'};
-  var NAMES={name:'name',email:'email',phone:'phone number'};
-  document.querySelectorAll('.lane-form').forEach(function(f){
-    var btn=f.querySelector('button[type=submit]'), label=btn.textContent;
-    f.addEventListener('submit',function(e){
-      e.preventDefault();
-      var key=f.getAttribute('data-form'), note=f.querySelector('.formnote');
-      note.className='formnote';
-      var trapped=!!(f.querySelector('[name=mn_trap_x]')||{}).value;
-      var miss=Array.prototype.filter.call(f.querySelectorAll('[required]'),function(el){return !el.value.trim();});
-      if(miss.length){ note.className='formnote is-error'; note.textContent='Please add your '+miss.map(function(el){return NAMES[el.name]||el.name;}).join(', ')+'.'; miss[0].focus(); return; }
-      var fd=new FormData();
-      Array.prototype.forEach.call(f.querySelectorAll('.field [name]'),function(el){ fd.append(el.name, el.value.trim()); });
-      btn.disabled=true; btn.classList.add('is-busy'); btn.textContent='Sending…';
-      note.className='formnote is-info'; note.textContent='Sending your details. This can take a few seconds.';
-      (trapped?Promise.resolve({ok:true,ref:''}):send(fd,key)).then(function(r){
-        if(r&&r.ok){
-          showThanks(key, f.querySelector('[name=name]').value.trim(), f.querySelector('[name=email]').value.trim(), r.ref||'');
-          f.reset(); note.textContent=''; note.className='formnote';
-        } else { note.className='formnote is-error'; note.textContent=(r&&r.error)||"That didn't send. Please try again, or email "+EMAIL+"."; }
-      }).catch(function(){ note.className='formnote is-error'; note.textContent="That didn't send. Please try again, or email "+EMAIL+"."; })
-        .then(function(){ btn.disabled=false; btn.classList.remove('is-busy'); btn.textContent=label; });
-    });
-  });
-
-  document.getElementById('notify').addEventListener('submit',function(e){
-    e.preventDefault();
-    var f=e.target, note=document.getElementById('notifynote');
-    if((f.querySelector('[name=mn_trap_x]')||{}).value){ note.textContent="You're on the list."; return; }
-    var em=f.querySelector('[name=email]').value.trim();
-    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){ note.textContent='Please check your email address.'; return; }
-    var fd=new FormData(); fd.append('email',em); fd.append('interest','In You release');
-    note.textContent='Adding you…';
-    send(fd,'updates').then(function(r){ note.textContent = r&&r.ok ? "You're on the list. I'll email you the day it's out." : ((r&&r.error)||"That didn't work. Please try again."); if(r&&r.ok) f.reset(); })
-      .catch(function(){ note.textContent="That didn't work. Please try again."; });
-  });
-
-  /* live design work, from the same store the admin page manages */
-  (function(){
-    var API='https://api.jsonbin.io/v3/b', PROJ='69c12f68c3097a1dd54fdec5', ARCH='69a1b1b8d0ea881f40df36ba';
-    var CATS={brand:'Brand Identity',visual:'Visual Design',print:'Print & Packaging',event:'Events',web:'Website Design'};
-    function get(id){return fetch(API+'/'+id+'/latest').then(function(r){if(!r.ok)throw r.status;return r.json();}).then(function(j){return j.record;});}
-    function cld(u,t){return typeof u==='string'&&u.indexOf('/upload/')>-1?u.replace('/upload/','/upload/'+t+'/'):u;}
-    function esc(x){return String(x==null?'':x).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
-    Promise.allSettled([get(PROJ),get(ARCH)]).then(function(res){
-      var hidden=res[1].status==='fulfilled'?(res[1].value&&res[1].value.siteHidden)||[]:[];
-      var list=res[0].status==='fulfilled'?((res[0].value&&res[0].value.projects)||res[0].value||[]):[];
-      list=list.filter(function(p){return p&&p.visible!==false&&hidden.indexOf(p.id)<0&&p.media&&p.media.length&&p.media[0].type!=='video';});
-      list.sort(function(a,b){return (b.featured?1:0)-(a.featured?1:0);});
-      var pick=list.slice(0,4), box=document.getElementById('dsWork');
-      if(!pick.length){ box.innerHTML='<p class="mono dim">See the full portfolio for selected work.</p>'; return; }
-      box.innerHTML=pick.map(function(p){
-        var img=cld(p.media[0].url,'w_900,c_limit,q_auto,f_auto'), blur=cld(p.media[0].url,'w_80,q_auto,f_auto');
-        return '<a class="card" href="/portfolio"><div class="media fit"><img class="fit-bg" src="'+esc(blur)+'" alt="" aria-hidden="true" loading="lazy"><img class="fit-fg" src="'+esc(img)+'" alt="'+esc(p.title)+'" loading="lazy"><span class="chip">'+esc(CATS[p.cat]||p.cat)+'</span>'+(p.year?'<span class="onimg">'+esc(p.year)+'</span>':'')+'</div><h3>'+esc(p.title)+'</h3><p class="cdesc">'+esc(CATS[p.cat]||'')+'</p></a>';
-      }).join('');
-    }).catch(function(){});
-  })();
-  document.querySelectorAll('[data-inert]').forEach(function(b){b.addEventListener('click',function(){b.textContent=b.textContent.replace(/ \(.*\)$/,'')+' (added at launch)';},{once:true});});
-})();
-</script>
-
 </body>
 </html>

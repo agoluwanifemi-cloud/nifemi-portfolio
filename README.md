@@ -326,3 +326,25 @@ This template is for personal/commercial use by the buyer. Do not resell or redi
 ---
 
 Built by **MANNORR** — Adeniran Oluwanifemi
+
+## Site structure (mannorr.com)
+
+Each page is its own file; they share one stylesheet and one script, which browsers cache.
+
+| URL | File |
+|---|---|
+| / | index.html |
+| /about | about.html |
+| /works | works.html |
+| /music | music.html (In You) |
+| /design | design.html |
+| /apologetics | apologetics.html |
+| /viral-church | viral-church.html |
+| /work-with-me | work-with-me.html (Design, Ministry, Learn: /work-with-me#learn) |
+| /thank-you | thank-you.html |
+| /portfolio | portfolio.html (driven by /admin) |
+| /packages | packages.html (packages and pricing, leads to /invoice) |
+
+Shared: `assets/site.css`, `assets/site.js`. The navbar and footer are repeated in each page, so a change there goes in every file.
+When you change site.css or site.js, bump the `?v=` number in each page so visitors get the new version.
+Form endpoint (Google Apps Script) is at the top of `assets/site.js`.
