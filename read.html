@@ -12,10 +12,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="/assets/site.css?v=20261111d">
+<link rel="stylesheet" href="/assets/site.css?v=20261111e">
 <meta name="robots" content="noindex">
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<script defer src="/assets/site.js?v=20261111d"></script>
+<script defer src="/assets/site.js?v=20261111e"></script>
 </head>
 <body data-page="read">
 <a class="skip" href="#main">Skip to content</a>
@@ -53,7 +53,18 @@
   <section class="reader-wrap wrap"><div class="inner">
     <div class="reader-bar">
       <div><span class="label">Our Space</span><p class="mono dim" id="r-who" style="margin-top:6px">Opening your book…</p></div>
-      <div class="reader-tools" id="r-tools" hidden><button class="btn" type="button" id="r-out" aria-label="Zoom out">−</button><span class="mono" id="r-page">1 / 1</span><button class="btn" type="button" id="r-in" aria-label="Zoom in">+</button></div>
+      <div class="reader-tools" id="r-tools" hidden>
+        <button class="btn" type="button" id="r-toc-btn" aria-expanded="false" hidden>Contents</button>
+        <button class="btn" type="button" id="r-find-btn" aria-expanded="false" aria-label="Search the book">Search</button>
+        <form class="r-go" id="r-go" novalidate><label for="r-num" class="sr">Page</label><input id="r-num" type="number" inputmode="numeric" min="1" value="1" aria-label="Go to page"><span class="mono" id="r-total">/ 1</span></form>
+        <button class="btn" type="button" id="r-out" aria-label="Zoom out">−</button><button class="btn" type="button" id="r-in" aria-label="Zoom in">+</button>
+      </div>
+      <div class="r-panel" id="r-find" hidden>
+        <form id="r-find-form" class="r-find-form" novalidate><input id="r-q" type="search" placeholder="Search the book, or type a page number" autocomplete="off" aria-label="Search the book"><button class="btn solid" type="submit">Search</button></form>
+        <p class="mono dim" id="r-find-note" aria-live="polite"></p>
+        <ol class="r-results" id="r-results"></ol>
+      </div>
+      <div class="r-panel" id="r-toc" hidden><ol class="r-results" id="r-toc-list"></ol></div>
     </div>
     <div class="reader" id="reader" aria-live="polite"></div>
     <div class="reader-msg" id="r-msg" hidden>

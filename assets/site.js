@@ -264,10 +264,26 @@
         .catch(function () { n.textContent = "That didn't work. Please try again, or email " + EMAIL + '.'; });
     });
     if (!code) return showMsg('Find your book');
+    var KEY = 'mn_read_' + code.slice(0, 16), cur = 1, ratio = 1.414, lastW = 0, texts = null, bar = document.querySelector('.reader-bar');
+    function saved() { try { return +localStorage.getItem(KEY) || 1; } catch (x) { return 1; } }
+    function setCur(n) { cur = n; if (document.activeElement !== $('r-num')) $('r-num').value = n; try { localStorage.setItem(KEY, n); } catch (x) {} }
+    function pageEl(n) { return reader.querySelector('.rpage[data-n="' + n + '"]'); }
+    function offset() { return ($('topbar') ? $('topbar').offsetHeight : 60) + (bar ? bar.offsetHeight : 60) + 12; }
+    function go(n, flash) {
+      n = Math.max(1, Math.min(pdf.numPages, Math.round(+n) || 1));
+      var el = pageEl(n); if (!el) return;
+      window.scrollTo(0, el.getBoundingClientRect().top + window.pageYOffset - offset());
+      setCur(n);
+      if (flash) { el.classList.add('hit'); setTimeout(function () { el.classList.remove('hit'); }, 1600); }
+    }
+    var io, counter;
     function draw() {
+      var keep = cur;
+      if (io) io.disconnect(); if (counter) counter.disconnect();
       reader.innerHTML = '';
-      var width = Math.min(reader.clientWidth || 800, 880) * scale;
-      var io = new IntersectionObserver(function (entries) {
+      lastW = reader.clientWidth;
+      var width = Math.min(lastW || 800, 880) * scale;
+      io = new IntersectionObserver(function (entries) {
         entries.forEach(function (en) {
           var el = en.target;
           if (!en.isIntersecting || el.dataset.done) return;
@@ -275,23 +291,102 @@
           pdf.getPage(+el.dataset.n).then(function (pg) {
             var vp1 = pg.getViewport({ scale: 1 }), s = width / vp1.width, dpr = Math.min(window.devicePixelRatio || 1, 2);
             var vp = pg.getViewport({ scale: s * dpr }), c = document.createElement('canvas');
-            c.width = vp.width; c.height = vp.height; el.style.aspectRatio = vp1.width + '/' + vp1.height;
+            c.width = vp.width; c.height = vp.height;
             el.insertBefore(c, el.firstChild);
             pg.render({ canvasContext: c.getContext('2d'), viewport: vp });
           });
         });
-      }, { rootMargin: '600px 0px', threshold: 0.01 });
-      var counter = new IntersectionObserver(function (entries) {
-        entries.forEach(function (en) { if (en.isIntersecting) $('r-page').textContent = en.target.dataset.n + ' / ' + pdf.numPages; });
+      }, { rootMargin: '800px 0px', threshold: 0.01 });
+      counter = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { if (en.isIntersecting) setCur(+en.target.dataset.n); });
       }, { rootMargin: '-45% 0px -45% 0px' });
+      var wm = email.replace(/[<>&"]/g, '');
       for (var i = 1; i <= pdf.numPages; i++) {
-        var d = document.createElement('div'); d.className = 'rpage'; d.dataset.n = i; d.style.width = width + 'px'; d.style.aspectRatio = '1/1.414';
-        d.innerHTML = '<div class="wm" aria-hidden="true"><span>' + email.replace(/[<>&"]/g, '') + ' · mannorr.com</span></div><span class="pn">' + i + '</span>';
+        var d = document.createElement('div'); d.className = 'rpage'; d.dataset.n = i; d.style.width = width + 'px'; d.style.aspectRatio = '1/' + ratio;
+        d.innerHTML = '<div class="wm" aria-hidden="true"><span>' + wm + ' · mannorr.com</span></div><span class="pn">' + i + '</span>';
         reader.appendChild(d); io.observe(d); counter.observe(d);
       }
+      go(keep);
     }
     $('r-in').addEventListener('click', function () { scale = Math.min(scale + 0.15, 1.6); draw(); });
     $('r-out').addEventListener('click', function () { scale = Math.max(scale - 0.15, 0.6); draw(); });
+    /* phones fire "resize" when the address bar shows or hides; only redraw when the width really changes */
+    var rt; window.addEventListener('resize', function () { if (!pdf) return; clearTimeout(rt); rt = setTimeout(function () { if (Math.abs(reader.clientWidth - lastW) > 40) draw(); }, 250); });
+
+    /* go to page */
+    $('r-go').addEventListener('submit', function (e) { e.preventDefault(); go($('r-num').value, true); $('r-num').blur(); });
+    $('r-num').addEventListener('change', function () { go(this.value, true); });
+
+    /* panels */
+    function panel(which) {
+      ['find', 'toc'].forEach(function (k) {
+        var open = k === which && $('r-' + k).hidden;
+        $('r-' + k).hidden = !open; $('r-' + k + '-btn').setAttribute('aria-expanded', open);
+      });
+      if (!$('r-find').hidden) setTimeout(function () { $('r-q').focus(); }, 30);
+    }
+    $('r-find-btn').addEventListener('click', function () { panel('find'); });
+    $('r-toc-btn').addEventListener('click', function () { panel('toc'); });
+    function closePanels() { panel(null); }
+    function hitButton(n, html, sub) {
+      var li = document.createElement('li'); if (sub) li.className = 'sub';
+      var bt = document.createElement('button'); bt.type = 'button';
+      bt.innerHTML = '<span class="pg">p. ' + n + '</span><span>' + html + '</span>';
+      bt.addEventListener('click', function () { closePanels(); go(n, true); });
+      li.appendChild(bt); return li;
+    }
+    function esc(x) { return String(x).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+    /* search */
+    function loadTexts() {
+      if (texts) return Promise.resolve(texts);
+      var jobs = [];
+      for (var i = 1; i <= pdf.numPages; i++) jobs.push(pdf.getPage(i).then(function (p) { return p.getTextContent(); }).then(function (tc) {
+        return tc.items.map(function (it) { return it.str; }).join(' ').replace(/\s+/g, ' ');
+      }));
+      return Promise.all(jobs).then(function (a) { texts = a; return a; });
+    }
+    $('r-find-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var q = $('r-q').value.trim(), list = $('r-results'), note = $('r-find-note');
+      list.innerHTML = '';
+      if (!q) { note.textContent = ''; return; }
+      if (/^\d+$/.test(q)) { closePanels(); go(+q, true); return; }
+      note.textContent = 'Searching…';
+      loadTexts().then(function (pages) {
+        var ql = q.toLowerCase(), hits = 0;
+        pages.forEach(function (t, i) {
+          var tl = t.toLowerCase(), at = tl.indexOf(ql), shown = 0;
+          while (at > -1 && shown < 3 && hits < 80) {
+            var a = Math.max(0, at - 50), b = Math.min(t.length, at + q.length + 70);
+            var snip = (a ? '…' : '') + esc(t.slice(a, at)) + '<mark>' + esc(t.slice(at, at + q.length)) + '</mark>' + esc(t.slice(at + q.length, b)) + (b < t.length ? '…' : '');
+            list.appendChild(hitButton(i + 1, snip)); hits++; shown++;
+            at = tl.indexOf(ql, at + q.length);
+          }
+        });
+        note.textContent = hits ? hits + (hits === 80 ? '+' : '') + ' result' + (hits === 1 ? '' : 's') + '. Tap one to jump there.' : 'No results for "' + q + '".';
+      });
+    });
+
+    /* contents, from the book's own chapter list */
+    function buildToc() {
+      pdf.getOutline().then(function (items) {
+        if (!items || !items.length) return;
+        var ul = $('r-toc-list');
+        function resolve(dest) {
+          return (typeof dest === 'string' ? pdf.getDestination(dest) : Promise.resolve(dest)).then(function (d) {
+            return d && d[0] ? pdf.getPageIndex(d[0]).then(function (ix) { return ix + 1; }) : null;
+          }).catch(function () { return null; });
+        }
+        var flat = [];
+        items.forEach(function (it) { flat.push([it, false]); (it.items || []).forEach(function (s) { flat.push([s, true]); }); });
+        Promise.all(flat.map(function (f) { return resolve(f[0].dest); })).then(function (pages) {
+          flat.forEach(function (f, i) { if (pages[i]) ul.appendChild(hitButton(pages[i], esc(f[0].title), f[1])); });
+          if (ul.children.length) $('r-toc-btn').hidden = false;
+        });
+      }).catch(function () {});
+    }
+
     fetch(DB_ENDPOINT + '?action=read&code=' + encodeURIComponent(code)).then(function (r) { return r.json(); }).then(function (r) {
       if (!r || !r.ok) return showMsg("This link didn't open", (r && r.error ? r.error + ' ' : '') + 'Enter the email you used to buy the book and we will send you a fresh link.');
       email = r.email || '';
@@ -300,9 +395,17 @@
       for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
       var lib = window.pdfjsLib;
       lib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-      return lib.getDocument({ data: bytes }).promise.then(function (doc) { pdf = doc; $('r-tools').hidden = false; draw(); });
+      return lib.getDocument({ data: bytes }).promise.then(function (doc) {
+        pdf = doc; $('r-tools').hidden = false; $('r-total').textContent = '/ ' + pdf.numPages; $('r-num').max = pdf.numPages;
+        return pdf.getPage(1).then(function (p1) { var v = p1.getViewport({ scale: 1 }); ratio = v.height / v.width; });
+      }).then(function () {
+        var back = saved();
+        cur = back > 1 && back <= pdf.numPages ? back : 1;
+        draw();
+        if (cur > 1) $('r-who').textContent += ' · picked up at page ' + cur;
+        buildToc();
+      });
     }).catch(function () { showMsg("This link didn't open", "We couldn't load the book just now. Please refresh, or enter your email for a fresh link."); });
-    var rt; window.addEventListener('resize', function () { if (!pdf) return; clearTimeout(rt); rt = setTimeout(draw, 250); });
   })();
 
   /* ---------- Design: live projects from the store the admin page manages ---------- */
