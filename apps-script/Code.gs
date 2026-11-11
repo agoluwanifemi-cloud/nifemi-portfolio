@@ -506,14 +506,68 @@ function startOrder(p) {
 }
 
 // Asks Flutterwave about one transaction. Returns its details only if it really succeeded in naira.
+// Works with either kind of Flutterwave key (Project Settings → Script properties):
+//   v4 keys (Live API keys page):  FLW_CLIENT_ID  and  FLW_CLIENT_SECRET
+//   older v3 key:                  FLW_SECRET_KEY  (starts with FLWSECK-)
 function verifyTransaction(id) {
-  const key = PropertiesService.getScriptProperties().getProperty("FLW_SECRET_KEY");
-  if (!key || !id) return null;
+  if (!id) return null;
+  const props = PropertiesService.getScriptProperties();
+  const v3 = props.getProperty("FLW_SECRET_KEY");
+  if (v3) return v3Verify(id, v3);
+  const token = flwToken();
+  if (!token) return null;
+  return v3Verify(id, token) || v4Verify(id, token);
+}
+
+// v4 keys are swapped for a short-lived access token, kept for a few minutes.
+function flwToken() {
+  const props = PropertiesService.getScriptProperties();
+  const cid = props.getProperty("FLW_CLIENT_ID"), sec = props.getProperty("FLW_CLIENT_SECRET");
+  if (!cid || !sec) return null;
+  const cache = CacheService.getScriptCache(), hit = cache.get("flw_token");
+  if (hit) return hit;
+  const res = UrlFetchApp.fetch("https://idp.flutterwave.com/realms/flutterwave/protocol/openid-connect/token", {
+    method: "post", muteHttpExceptions: true,
+    payload: { client_id: cid.trim(), client_secret: sec.trim(), grant_type: "client_credentials" }
+  });
+  const j = JSON.parse(res.getContentText() || "{}");
+  if (!j.access_token) { console.log("Flutterwave token failed: " + res.getResponseCode() + " " + res.getContentText().slice(0, 200)); return null; }
+  cache.put("flw_token", j.access_token, Math.max(60, Math.min(21600, Number(j.expires_in || 600) - 60)));
+  return j.access_token;
+}
+
+function v3Verify(id, bearer) {
   const res = UrlFetchApp.fetch("https://api.flutterwave.com/v3/transactions/" + encodeURIComponent(id) + "/verify",
-    { headers: { Authorization: "Bearer " + key }, muteHttpExceptions: true });
-  const j = JSON.parse(res.getContentText() || "{}"), t = j && j.data;
+    { headers: { Authorization: "Bearer " + bearer }, muteHttpExceptions: true });
+  let j = {}; try { j = JSON.parse(res.getContentText() || "{}"); } catch (e) {}
+  console.log("v3 verify " + id + ": " + res.getResponseCode() + " " + (j.message || ""));
+  const t = j && j.data;
   if (j.status !== "success" || !t || t.status !== "successful" || t.currency !== BOOK.currency) return null;
   return t;
+}
+
+function v4Verify(id, token) {
+  const bases = ["https://f4bexperience.flutterwave.com", "https://api.flutterwave.cloud/f4bexperience"];
+  for (let i = 0; i < bases.length; i++) {
+    let res; try { res = UrlFetchApp.fetch(bases[i] + "/charges/" + encodeURIComponent(id), { headers: { Authorization: "Bearer " + token }, muteHttpExceptions: true }); } catch (e) { continue; }
+    let j = {}; try { j = JSON.parse(res.getContentText() || "{}"); } catch (e) {}
+    console.log("v4 verify " + id + " @ " + bases[i] + ": " + res.getResponseCode() + " " + (j.message || ""));
+    const d = j && j.data;
+    if (!d) continue;
+    const amount = typeof d.amount === "object" && d.amount ? d.amount.value : d.amount;
+    if (String(d.status).toLowerCase() !== "succeeded" || d.currency !== BOOK.currency) return null;
+    const c = typeof d.customer === "object" && d.customer ? d.customer : {};
+    return { id: d.id, tx_ref: d.reference || "", amount: Number(amount), currency: d.currency, customer: { email: c.email || "", name: c.name || "", phone_number: c.phone || "" } };
+  }
+  return null;
+}
+
+// Run this from the editor to check your keys: put a real Flutterwave transaction ID below, choose testPayment, click Run, then open the log.
+function testPayment() {
+  const TRANSACTION_ID = "PASTE_A_TRANSACTION_ID_HERE";
+  const t = verifyTransaction(TRANSACTION_ID);
+  console.log(t ? "✅ Keys work. Confirmed " + naira(t.amount) + " from " + ((t.customer && t.customer.email) || "the customer") + "."
+                : "❌ Not confirmed. Check the keys in Script properties and the transaction ID, and see the lines above.");
 }
 
 // Marks an order paid, gives digital buyers their reading code, and sends the emails.
@@ -580,7 +634,7 @@ function checkPaymentEmail(o) {
 <tr><td bgcolor="#ffffff" style="background:#ffffff;padding:32px">
 <div style="font:600 30px/1.1 ${BRAND.font};letter-spacing:-1px;color:${BRAND.ink}">${esc(o.name)} says they paid ${esc(naira(o.total))}.</div>
 <p style="font:15px/1.6 ${BRAND.font};color:#3d3a36;margin:16px 0 0">Find Flutterwave transaction <strong>${esc(String(o.flw_id))}</strong> in your Flutterwave dashboard. If it's there, set the Status of ${esc(o.ref)} to <strong>Paid</strong> in the Orders tab and the buyer gets ${o.format === "digital" ? "their reading link" : "their confirmation"} straight away.</p>
-<p style="font:13px/1.6 ${BRAND.font};color:${BRAND.muted};margin:14px 0 0">Add FLW_SECRET_KEY in Apps Script and this check happens automatically.</p>
+<p style="font:13px/1.6 ${BRAND.font};color:${BRAND.muted};margin:14px 0 0">Add your Flutterwave keys in Apps Script (Script properties) and this check happens automatically.</p>
 </td></tr>
 <tr><td bgcolor="#ffffff" style="background:#ffffff;padding:0 32px 32px"><table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>${button(url, "Open the Orders tab", true)}</tr></table></td></tr>`;
   MailApp.sendEmail({ to: CONFIG.NOTIFY_EMAIL, subject: `Check payment · ${o.name} · ${naira(o.total)} · ${o.ref}`,
@@ -600,7 +654,7 @@ function readBook(code) {
   if (code.length < 20) return { ok: false, error: "This reading link isn't valid." };
   const o = findOrder("code", code);
   if (!o || PAID.indexOf(o.status) < 0) return { ok: false, error: "This reading link isn't valid." };
-  const id = PropertiesService.getScriptProperties().getProperty("BOOK_FILE_ID");
+  const raw = String(PropertiesService.getScriptProperties().getProperty("BOOK_FILE_ID") || ""), m = raw.match(/[-\w]{25,}/), id = m ? m[0] : "";
   if (!id) return { ok: false, error: "The book isn't available yet. Please try again later." };
   setCells(o._row, { opens: Number(o.opens || 0) + 1 });
   const blob = DriveApp.getFileById(id).getBlob();

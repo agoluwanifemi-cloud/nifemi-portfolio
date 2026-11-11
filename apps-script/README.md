@@ -65,7 +65,8 @@ Prices live in `BOOK` in `Code.gs` and `BOOK` in `assets/site.js`. They must mat
 2. **Book file.** Upload `Our-Space.pdf` to Google Drive on hellomannorr@gmail.com. Keep it private (do not share it). Open it and copy the ID from the address: `drive.google.com/file/d/`**`THIS-PART`**`/view`.
 3. **Script properties.** In Apps Script: *Project Settings (gear) → Script properties → Add*:
    - `BOOK_FILE_ID` = the ID from step 2
-   - `FLW_SECRET_KEY` = your Flutterwave **secret** key (Settings → API keys). It stays inside Apps Script, never in the website. With it, payments are confirmed and books delivered automatically.
+   - `FLW_CLIENT_ID` and `FLW_CLIENT_SECRET` = from Flutterwave → Settings → API keys → **Live API keys** (the v4 keys). If your account shows an older secret key starting `FLWSECK-` instead, add it as `FLW_SECRET_KEY`. Keys stay inside Apps Script, never in the website. With them, payments are confirmed and books delivered automatically.
+   - To check the keys: open `testPayment` in the editor, paste a real transaction ID from Flutterwave → Transactions, run it and read the log.
 4. **Update the code.** Paste the new `Code.gs`, Save, run `setup` once (approve the new permissions), then *Deploy → Manage deployments → Edit → New version → Deploy*.
 5. **Webhook (recommended).** Flutterwave → Settings → Webhooks → URL = your Apps Script `/exec` URL, tick *JSON format*. This confirms orders even when a buyer closes the page before coming back.
 6. **Test.** Buy the digital edition yourself, check the Orders tab, the emails and the reader.
