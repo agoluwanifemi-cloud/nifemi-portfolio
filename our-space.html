@@ -11,9 +11,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="/assets/site.css?v=20261111f">
-<meta property="og:image" content="https://mannorr.com/images/our-space-book.jpg">
-<script defer src="/assets/site.js?v=20261111f"></script>
+<link rel="stylesheet" href="/assets/site.css?v=20261111g">
+<meta property="og:image" content="https://mannorr.com/images/our-space-banner.jpg">
+<script defer src="/assets/site.js?v=20261111g"></script>
 </head>
 <body data-page="our-space">
 <a class="skip" href="#main">Skip to content</a>
@@ -48,19 +48,24 @@
 </div>
 
 <main id="main" class="page page-our-space">
-  <header class="hero wrap"><div class="inner">
-    <div class="pgrid book-hero">
-      <img class="book-shot" src="/images/our-space-book.jpg" alt="Our Space, the book and the digital edition on a phone" width="2000" height="2000" fetchpriority="high">
-      <div>
-        <span class="label">Books</span>
-        <h1 class="ptitle" style="margin-top:18px;font-size:clamp(56px,9vw,128px)">Our Space</h1>
-        <p class="lede" style="margin-top:16px">Building a Godly Long Distance Relationship</p>
-        <p class="mono" style="margin-top:14px;color:var(--dim-paper)">By Adeniran Oluwanifemi</p>
-        <div class="price-row"><span class="price" id="b-price">₦7,000</span><span class="mono" id="b-price-note" style="color:var(--dim-paper)">Digital edition · read instantly</span></div>
-        <a class="btn redbtn" href="#buy" style="margin-top:20px">Get the book →</a>
-      </div>
+  <header class="os-banner">
+    <a href="#buy" aria-label="Get Our Space">
+      <picture>
+        <source media="(max-width:700px)" srcset="/images/our-space-banner-mobile.jpg" width="1080" height="1350">
+        <img src="/images/our-space-banner.jpg" alt="Our Space is out now. Digital ₦7,000, paperback ₦13,000." width="2880" height="1200" fetchpriority="high">
+      </picture>
+    </a>
+  </header>
+  <section class="wrap os-strip"><div class="inner os-strip-in">
+    <div>
+      <h1 class="os-title">Our Space</h1>
+      <p class="mono" style="margin-top:8px;color:var(--dim)">Building a Godly Long Distance Relationship · By Adeniran Oluwanifemi</p>
     </div>
-  </div></header>
+    <div class="os-cta">
+      <div class="price-row" style="margin-top:0"><span class="price" id="b-price">₦7,000</span><span class="mono" id="b-price-note" style="color:var(--dim)">Digital edition · read instantly</span></div>
+      <div class="btn-row" style="margin-top:0"><a class="btn redbtn" href="#buy">Get the book →</a><a class="btn" href="/read">Already bought? Read</a></div>
+    </div>
+  </div></section>
 
   <section class="sec wrap"><div class="inner">
     <div class="head"><span class="label">Why this book</span></div>

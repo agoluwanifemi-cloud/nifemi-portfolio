@@ -334,3 +334,11 @@ body.menu-open{overflow:hidden}
   .r-go input{width:46px;padding:7px 4px;font-size:13px}
   .r-go .mono{font-size:11px}
 }
+.os-banner{background:#3E0810}
+.os-banner a{display:block}
+.os-banner img{display:block;width:100%;height:auto;max-height:calc(100vh - 60px);object-fit:cover}
+.os-strip{padding-block:28px;border-bottom:1px solid var(--line)}
+.os-strip-in{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.os-title{font-size:clamp(40px,5vw,64px);letter-spacing:-.05em;line-height:.95}
+.os-cta{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+@media (max-width:700px){.os-banner img{max-height:none}.os-cta{gap:14px}}
