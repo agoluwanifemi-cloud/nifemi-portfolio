@@ -46,3 +46,22 @@ Edit `Code.gs`, then *Deploy → Manage deployments → Edit → Version: New ve
 Hidden spam field, a minimum fill time, duplicate protection (same email and form within 2 minutes), a site-wide cap of 30 submissions per 10 minutes, at most one confirmation email per address every 6 hours, and formula-like values stored as plain text. Keep the sheet private.
 
 A free Gmail account can send about 100 script emails a day. Each enquiry, booking or application uses one or two; Updates sign-ups send none.
+
+## Book sales: Our Space (/our-space and /read)
+
+Buyers pay on mannorr.com with Flutterwave. The script records each order in an **Orders** tab, checks the payment with Flutterwave, then:
+- **Digital:** emails a private reading link (mannorr.com/read?code=…). The reader only opens the book for paid codes and shows the buyer's email faintly on every page.
+- **Paperback:** emails the buyer a confirmation and sends you the delivery address. Set Status to Shipped and then Delivered as you go.
+
+Prices and delivery fees live in two places that must match: `BOOK` in `Code.gs` (what is charged) and `BOOK` in `assets/site.js` (what is shown).
+
+### Setup
+
+1. **Book file.** Upload the book PDF to Google Drive on hellomannorr@gmail.com. Keep it private (do not share it). Open it and copy the ID from the address: `drive.google.com/file/d/`**`THIS-PART`**`/view`.
+2. **Script properties.** In Apps Script: *Project Settings (gear) → Script properties → Add*:
+   - `BOOK_FILE_ID` = the ID from step 1
+   - `FLW_SECRET_KEY` = your Flutterwave **secret** key (Flutterwave dashboard → Settings → API keys). Never put this in the website.
+3. **Update the code.** Paste the new `Code.gs`, Save, run `setup` once (approve the new Drive and external-request permissions), then *Deploy → Manage deployments → Edit → New version → Deploy*.
+4. **Website key.** Send Claude your Flutterwave **public** key (starts with `FLWPUBK-`), or paste it into `publicKey` in `assets/site.js`. Until it is set, the digital button goes to Selar and the paperback button opens an email.
+5. **Webhook (recommended).** Flutterwave dashboard → Settings → Webhooks → URL = your Apps Script `/exec` URL, and tick *Receive webhook response in JSON format*. This confirms orders even if a buyer closes the page right after paying.
+6. **Test.** Use Flutterwave test keys first, buy the digital edition, check the Orders tab, the emails and the reader. Then switch to live keys.

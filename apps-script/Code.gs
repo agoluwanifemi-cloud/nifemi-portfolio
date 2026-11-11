@@ -100,16 +100,31 @@ function setup() {
   });
   const def = ss.getSheetByName("Sheet1");
   if (def && def.getLastRow() === 0 && ss.getSheets().length > 1) ss.deleteSheet(def);
-  ss.toast("Design, Ministry, Students and Updates tabs are ready.", "MANNORR");
+  setupOrders();
+  ss.toast("Design, Ministry, Students, Updates and Orders tabs are ready.", "MANNORR");
 }
 
 /* ---------- web app ---------- */
-function doGet() {
+function doGet(e) {
+  const p = (e && e.parameter) || {};
+  if (p.action === "read") return json(readBook(p.code));
   return json({ ok: true, service: "MANNORR database" });
 }
 
 function doPost(e) {
+  // Flutterwave webhook (JSON body): confirm the payment by its reference.
+  if (e && e.postData && /json/.test(e.postData.type || "")) {
+    try {
+      const body = JSON.parse(e.postData.contents || "{}");
+      const ref = body && body.data && body.data.tx_ref;
+      if (ref) confirmOrder(String(ref));
+    } catch (err) { console.error("webhook", err); }
+    return json({ ok: true });
+  }
   const p = (e && e.parameter) || {};
+  if (p.form === "order-start") return json(startOrder(p));
+  if (p.form === "order-confirm") return json(confirmOrder(clean(p.tx_ref, 80)));
+  if (p.form === "order-resend") return json(resendReading(clean(p.email, 200).toLowerCase()));
 
   // Spam traps: real people never fill the hidden "website" field, and take more than a moment.
   if (p.website) return json({ ok: true, ref: "" });
@@ -379,4 +394,249 @@ function testStudent() {
     laptop: "Yes, with Photoshop", start: "As soon as possible", message: "This is a test from the script editor.", page: "editor"
   }});
   console.log(res.getContent());
+}
+
+/* =====================================================================
+   BOOK SALES: Our Space (digital reader + paperback with delivery)
+   Script properties needed (Project Settings → Script properties):
+     FLW_SECRET_KEY   your Flutterwave secret key (never put it in the website)
+     BOOK_FILE_ID     the Google Drive file ID of the book PDF (keep the file private)
+   ===================================================================== */
+
+const BOOK = {
+  title: "Our Space",
+  subtitle: "Building a Godly Long Distance Relationship",
+  currency: "NGN",
+  prices: { digital: 7000, paperback: 10000 },
+  delivery: { Lagos: 2500, other: 5000 },     // paperback delivery by state
+  readerUrl: "https://mannorr.com/read",
+  sheet: "Orders", prefix: "OR-",
+  statuses: ["Pending", "Paid", "Shipped", "Delivered", "Failed", "Refunded"],
+  columns: [["Reference","ref"],["Created","created"],["Status","status"],["Format","format"],["Name","name"],["Email","email"],
+            ["Phone","phone"],["WhatsApp","wa"],["State","state"],["City","city"],["Address","address"],["Book (₦)","price"],
+            ["Delivery (₦)","fee"],["Total (₦)","total"],["Payment ref","tx_ref"],["Flutterwave ID","flw_id"],["Paid at","paid"],
+            ["Reader code","code"],["Opens","opens"],["Notes","notes"]]
+};
+const NG_STATES = ["Abia","Adamawa","Akwa Ibom","Anambra","Bauchi","Bayelsa","Benue","Borno","Cross River","Delta","Ebonyi","Edo","Ekiti",
+  "Enugu","FCT Abuja","Gombe","Imo","Jigawa","Kaduna","Kano","Katsina","Kebbi","Kogi","Kwara","Lagos","Nasarawa","Niger","Ogun","Ondo",
+  "Osun","Oyo","Plateau","Rivers","Sokoto","Taraba","Yobe","Zamfara"];
+
+function setupOrders() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let sh = ss.getSheetByName(BOOK.sheet);
+  if (!sh) sh = ss.insertSheet(BOOK.sheet);
+  const headers = BOOK.columns.map(c => c[0]);
+  sh.getRange(1, 1, 1, headers.length).setValues([headers])
+    .setFontWeight("bold").setFontColor("#F2F0EC").setBackground("#111111");
+  sh.setFrozenRows(1);
+  const sc = headers.indexOf("Status") + 1;
+  const rng = sh.getRange(2, sc, sh.getMaxRows() - 1, 1);
+  rng.setDataValidation(SpreadsheetApp.newDataValidation().requireValueInList(BOOK.statuses, true).setAllowInvalid(false).build());
+  const colours = { Pending: "#E4E4E4", Paid: "#FAD4CF", Shipped: "#FCEBC4", Delivered: "#D3EBD9", Failed: "#E4E4E4", Refunded: "#E4E4E4" };
+  sh.setConditionalFormatRules(Object.keys(colours).map(k =>
+    SpreadsheetApp.newConditionalFormatRule().whenTextEqualTo(k).setBackground(colours[k]).setRanges([rng]).build()));
+  sh.getRange(2, headers.indexOf("Created") + 1, sh.getMaxRows() - 1, 1).setNumberFormat("dd mmm yyyy, hh:mm");
+  sh.getRange(2, headers.indexOf("Paid at") + 1, sh.getMaxRows() - 1, 1).setNumberFormat("dd mmm yyyy, hh:mm");
+}
+
+function ordersSheet() {
+  const sh = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(BOOK.sheet);
+  if (!sh) throw new Error("Run setup() first.");
+  return sh;
+}
+function col(name) { return BOOK.columns.findIndex(c => c[1] === name) + 1; }
+
+function findOrder(field, value) {
+  const sh = ordersSheet(), last = sh.getLastRow();
+  if (last < 2 || !value) return null;
+  const vals = sh.getRange(2, col(field), last - 1, 1).getValues();
+  for (let i = vals.length - 1; i >= 0; i--) {
+    if (String(vals[i][0]) === String(value)) {
+      const row = i + 2, data = sh.getRange(row, 1, 1, BOOK.columns.length).getValues()[0], o = {};
+      BOOK.columns.forEach((c, j) => { o[c[1]] = data[j]; });
+      o._row = row;
+      return o;
+    }
+  }
+  return null;
+}
+function setCells(row, obj) {
+  const sh = ordersSheet();
+  Object.keys(obj).forEach(k => { const c = col(k); if (c) sh.getRange(row, c).setValue(obj[k]); });
+}
+
+function priceFor(format, state) {
+  if (format === "digital") return { price: BOOK.prices.digital, fee: 0 };
+  const fee = state === "Lagos" ? BOOK.delivery.Lagos : BOOK.delivery.other;
+  return { price: BOOK.prices.paperback, fee: fee };
+}
+
+// Called before checkout opens: saves the order and returns the amount to charge.
+function startOrder(p) {
+  const format = p.format === "paperback" ? "paperback" : "digital";
+  const d = {
+    format: format, name: clean(p.name, 120), email: clean(p.email, 200).toLowerCase(), phone: "",
+    state: clean(p.state, 40), city: clean(p.city, 80), address: clean(p.address, 400)
+  };
+  if (!d.name || !d.email) return { ok: false, error: "Please add your name and email." };
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) return { ok: false, error: "Please check your email address." };
+  let phone = "";
+  if (p.phone) { phone = intlPhone(p.phone); if (phone.length >= 10) d.phone = "'+" + phone; }
+  if (format === "paperback") {
+    if (NG_STATES.indexOf(d.state) < 0) return { ok: false, error: "Please choose your state." };
+    if (!d.city || !d.address || !phone) return { ok: false, error: "Please add your phone number, city and delivery address." };
+  }
+  const pr = priceFor(format, d.state);
+  const lock = LockService.getScriptLock(); lock.waitLock(20000);
+  try {
+    const props = PropertiesService.getScriptProperties();
+    const n = Number(props.getProperty("lastRef_" + BOOK.prefix) || Math.max(0, ordersSheet().getLastRow() - 1)) + 1;
+    props.setProperty("lastRef_" + BOOK.prefix, String(n));
+    d.ref = BOOK.prefix + String(n).padStart(4, "0");
+    d.tx_ref = "OS-" + d.ref + "-" + Utilities.getUuid().slice(0, 8).toUpperCase();
+    d.created = new Date(); d.status = "Pending";
+    d.price = pr.price; d.fee = pr.fee; d.total = pr.price + pr.fee;
+    d.wa = phone ? `=HYPERLINK("https://wa.me/${phone}","WhatsApp")` : "";
+    d.flw_id = ""; d.paid = ""; d.code = ""; d.opens = 0; d.notes = "";
+    ordersSheet().appendRow(BOOK.columns.map(c => d[c[1]] === undefined ? "" : d[c[1]]));
+  } finally { lock.releaseLock(); }
+  return { ok: true, ref: d.ref, tx_ref: d.tx_ref, amount: d.total, currency: BOOK.currency };
+}
+
+// Checks the payment with Flutterwave, marks the order paid, and sends the emails. Safe to call twice.
+function confirmOrder(txRef) {
+  if (!txRef) return { ok: false, error: "Missing payment reference." };
+  const lock = LockService.getScriptLock(); lock.waitLock(25000);
+  try {
+    const o = findOrder("tx_ref", txRef);
+    if (!o) return { ok: false, error: "We couldn't find this order." };
+    if (o.status === "Paid" || o.status === "Shipped" || o.status === "Delivered")
+      return { ok: true, ref: o.ref, format: o.format, code: o.code };
+    const key = PropertiesService.getScriptProperties().getProperty("FLW_SECRET_KEY");
+    if (!key) return { ok: false, error: "Payments are not set up yet." };
+    const res = UrlFetchApp.fetch("https://api.flutterwave.com/v3/transactions/verify_by_reference?tx_ref=" + encodeURIComponent(txRef),
+      { headers: { Authorization: "Bearer " + key }, muteHttpExceptions: true });
+    const j = JSON.parse(res.getContentText() || "{}"), t = j && j.data;
+    const good = j.status === "success" && t && t.status === "successful" && t.tx_ref === txRef &&
+                 t.currency === BOOK.currency && Number(t.amount) >= Number(o.total);
+    if (!good) return { ok: false, pending: true, error: "We haven't received confirmation of this payment yet." };
+    const code = o.format === "digital" ? Utilities.getUuid().replace(/-/g, "") : "";
+    setCells(o._row, { status: "Paid", flw_id: t.id, paid: new Date(), code: code });
+    o.status = "Paid"; o.flw_id = t.id; o.code = code;
+    try { orderEmails(o); } catch (err) { console.error("order email", err); }
+    return { ok: true, ref: o.ref, format: o.format, code: code };
+  } finally { lock.releaseLock(); }
+}
+
+// The reader asks for the book with a code. Returns the PDF only for paid digital orders.
+function readBook(code) {
+  code = String(code || "").replace(/[^a-f0-9]/gi, "");
+  if (code.length < 20) return { ok: false, error: "This reading link isn't valid." };
+  const o = findOrder("code", code);
+  if (!o || ["Paid", "Shipped", "Delivered"].indexOf(o.status) < 0) return { ok: false, error: "This reading link isn't valid." };
+  const id = PropertiesService.getScriptProperties().getProperty("BOOK_FILE_ID");
+  if (!id) return { ok: false, error: "The book isn't available yet. Please try again later." };
+  setCells(o._row, { opens: Number(o.opens || 0) + 1 });
+  const blob = DriveApp.getFileById(id).getBlob();
+  return { ok: true, name: firstName(o.name), email: o.email, data: Utilities.base64Encode(blob.getBytes()) };
+}
+
+// "Lost your link?" on the reader page. Always answers the same way so it can't be used to check emails.
+function resendReading(email) {
+  const answer = { ok: true, message: "If that email bought the digital edition, a fresh reading link is on its way." };
+  if (!email) return answer;
+  const cache = CacheService.getScriptCache(), k = "resend_" + Utilities.base64EncodeWebSafe(email);
+  if (cache.get(k)) return answer;
+  cache.put(k, "1", 600);
+  const sh = ordersSheet(), last = sh.getLastRow();
+  if (last < 2) return answer;
+  const rows = sh.getRange(2, 1, last - 1, BOOK.columns.length).getValues();
+  for (let i = rows.length - 1; i >= 0; i--) {
+    const o = {}; BOOK.columns.forEach((c, j) => { o[c[1]] = rows[i][j]; });
+    if (o.email === email && o.format === "digital" && o.code && ["Paid", "Shipped", "Delivered"].indexOf(o.status) > -1) {
+      sendBookEmail(o, true);
+      break;
+    }
+  }
+  return answer;
+}
+
+function naira(n) { return "₦" + Number(n || 0).toLocaleString("en-NG"); }
+
+function pairRows(pairs) {
+  return pairs.filter(p => p[1]).map(p => `<tr>
+<td valign="top" style="padding:12px 16px 12px 0;border-top:1px solid ${BRAND.line};font:12px ${BRAND.mono};color:${BRAND.muted};white-space:nowrap;width:120px">${esc(p[0])}</td>
+<td valign="top" style="padding:12px 0;border-top:1px solid ${BRAND.line};font:15px/1.5 ${BRAND.font};color:${BRAND.ink}">${esc(p[1])}</td></tr>`).join("");
+}
+
+function orderEmails(o) {
+  sendBookEmail(o, false);
+  const isPaper = o.format === "paperback";
+  const phone = String(o.phone || "").replace(/^'/, "").replace(/\D/g, "");
+  const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent("Hello " + firstName(o.name) + ", this is Nifemi (MANNORR). Thank you for ordering Our Space (" + o.ref + ").")}` : "";
+  const inner = header(isPaper ? "Paperback order" : "E-book sale", o.ref) + `
+<tr><td bgcolor="#ffffff" style="background:#ffffff;padding:32px 32px 8px">
+<div style="font:12px ${BRAND.mono};color:${BRAND.muted}">Our Space · ${isPaper ? "Paperback to deliver" : "Digital edition"} · paid ${esc(naira(o.total))}</div>
+<div style="font:600 34px/1.05 ${BRAND.font};letter-spacing:-1px;color:${BRAND.ink};margin-top:10px">${esc(o.name)}</div>
+</td></tr>
+<tr><td bgcolor="#ffffff" style="background:#ffffff;padding:20px 32px 8px"><table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+${wa ? button(wa, "WhatsApp", true) : ""}${button("mailto:" + o.email + "?subject=" + encodeURIComponent("Your Our Space order " + o.ref), "Email buyer", false)}
+</tr></table></td></tr>
+<tr><td bgcolor="#ffffff" style="background:#ffffff;padding:20px 32px 32px"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+${pairRows([["Email", o.email], ["Phone", String(o.phone || "").replace(/^'/, "")], ["Deliver to", isPaper ? [o.address, o.city, o.state].filter(Boolean).join(", ") : ""],
+  ["Book", naira(o.price)], ["Delivery", isPaper ? naira(o.fee) : ""], ["Total paid", naira(o.total)], ["Flutterwave ID", String(o.flw_id || "")]])}
+</table>
+<p style="font:13px/1.6 ${BRAND.font};color:${BRAND.muted};margin:20px 0 0">${isPaper ? "Ship it, then set the Status of " + esc(o.ref) + " to Shipped in the Orders tab." : "The buyer has been sent their reading link."}</p>
+</td></tr>`;
+  MailApp.sendEmail({
+    to: CONFIG.NOTIFY_EMAIL,
+    subject: `${isPaper ? "Paperback order" : "E-book sale"} · ${o.name} · ${naira(o.total)} · ${o.ref}`,
+    htmlBody: shell(`${o.name} bought Our Space (${isPaper ? "paperback" : "digital"})`, inner),
+    body: `${o.ref} ${o.name} ${o.email} ${naira(o.total)} ${isPaper ? [o.address, o.city, o.state].join(", ") : "digital"}`,
+    replyTo: o.email, name: "mannorr.com"
+  });
+}
+
+function sendBookEmail(o, isResend) {
+  const isPaper = o.format === "paperback";
+  const link = BOOK.readerUrl + "?code=" + o.code;
+  const steps = isPaper
+    ? ["We pack your copy", "We send it to the address below", "You'll get a message when it's on its way"]
+    : ["Tap Start reading below", "Read on any phone, tablet or computer", "Keep this email: your link opens the book any time"];
+  const stepRows = steps.map((s, i) => `<tr>
+<td valign="top" style="padding:12px 14px 12px 0;border-top:1px solid ${BRAND.line};font:12px ${BRAND.mono};color:${BRAND.red};width:28px">0${i + 1}</td>
+<td valign="top" style="padding:12px 0;border-top:1px solid ${BRAND.line};font:15px ${BRAND.font};color:${BRAND.ink}">${esc(s)}</td></tr>`).join("");
+  const inner = header("Our Space", o.ref) + `
+<tr><td bgcolor="#ffffff" style="background:#ffffff;padding:40px 32px 8px">
+<div style="font:600 36px/1.05 ${BRAND.font};letter-spacing:-1.2px;color:${BRAND.ink}">${isResend ? "Here's your book" : "Thank you, " + esc(firstName(o.name)) + "."}</div>
+<div style="font:600 36px/1.05 ${BRAND.font};letter-spacing:-1.2px;color:${BRAND.red}">${isPaper ? "Your copy is on its way." : "Your book is ready to read."}</div>
+<p style="font:16px/1.65 ${BRAND.font};color:#3d3a36;margin:20px 0 0">${isPaper
+    ? "Thank you for ordering Our Space: Building a Godly Long Distance Relationship. I pray it strengthens your relationship and keeps Christ at the centre of it."
+    : "Thank you for getting Our Space: Building a Godly Long Distance Relationship. I pray it strengthens your relationship and keeps Christ at the centre of it."}</p>
+</td></tr>
+${isPaper ? "" : `<tr><td bgcolor="#ffffff" style="background:#ffffff;padding:24px 32px 0"><table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>${button(link, "Start reading →", false)}</tr></table>
+<p style="font:12px/1.6 ${BRAND.font};color:${BRAND.muted};margin:8px 0 0">This link is yours. Please don't share it.</p></td></tr>`}
+<tr><td bgcolor="#ffffff" style="background:#ffffff;padding:28px 32px 4px">
+<div style="font:12px ${BRAND.mono};color:${BRAND.red};padding-bottom:10px">// What happens next</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">${stepRows}</table></td></tr>
+<tr><td bgcolor="#ffffff" style="background:#ffffff;padding:28px 32px 4px">
+<div style="font:12px ${BRAND.mono};color:${BRAND.red};padding-bottom:10px">// Your order</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+${pairRows([["Book", "Our Space · " + (isPaper ? "Paperback" : "Digital edition")], ["Deliver to", isPaper ? [o.address, o.city, o.state].filter(Boolean).join(", ") : ""],
+  ["Book price", naira(o.price)], ["Delivery", isPaper ? naira(o.fee) : ""], ["Total paid", naira(o.total)]])}
+</table></td></tr>
+<tr><td bgcolor="#ffffff" style="background:#ffffff;padding:28px 32px 36px">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${BRAND.grey}" style="background:${BRAND.grey};border-radius:14px"><tr>
+<td style="padding:18px 20px;font:13px/1.6 ${BRAND.font};color:${BRAND.muted}">Your order reference is <strong style="color:${BRAND.ink};font-family:${BRAND.mono}">${esc(o.ref)}</strong>. Reply to this email any time and it comes straight to me.</td>
+</tr></table>
+<p style="font:15px/1.6 ${BRAND.font};color:${BRAND.ink};margin:28px 0 0">Nifemi Adeniran<br><span style="color:${BRAND.muted}">Author, Our Space</span></p>
+</td></tr>`;
+  MailApp.sendEmail({
+    to: o.email,
+    subject: isPaper ? `Your Our Space order is confirmed · ${o.ref}` : `Your copy of Our Space · ${o.ref}`,
+    htmlBody: shell(isPaper ? "Your paperback is on its way." : "Your book is ready to read.", inner),
+    body: isPaper ? `Thank you, ${firstName(o.name)}. Your Our Space paperback order ${o.ref} is confirmed and will be delivered to ${[o.address, o.city, o.state].join(", ")}.`
+                  : `Thank you, ${firstName(o.name)}. Start reading Our Space here: ${link}\n\nReference: ${o.ref}`,
+    replyTo: CONFIG.NOTIFY_EMAIL, name: CONFIG.OWNER_NAME
+  });
 }

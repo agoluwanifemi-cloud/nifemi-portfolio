@@ -251,3 +251,41 @@ body.menu-open{overflow:hidden}
 .skip{position:absolute;left:-9999px;top:8px;z-index:100;background:var(--bone);color:var(--ink);padding:8px 14px;border-radius:999px;font:500 13px var(--f-sans)}
 .skip:focus{left:16px}
 
+
+/* ===== Book: Our Space ===== */
+.book-hero{padding-block:24px 56px;align-items:center}
+.book-shot{width:min(100%,560px);border-radius:18px;box-shadow:0 30px 60px -30px rgba(17,17,17,.45)}
+.price-row{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-top:28px}
+.price{font-size:clamp(36px,4.4vw,56px);font-weight:500;letter-spacing:-.04em}
+.fmt-info{margin-top:28px;display:grid;gap:8px}
+.fmt-info h3{font-size:clamp(26px,3vw,36px)}
+.fmt-info p{color:#cfcbc5;max-width:46ch}
+.summary li{font-variant-numeric:tabular-nums}
+.summary li.total{font-size:18px;border-bottom-color:var(--bone)}
+.summary li.total .mono{color:var(--bone);font-size:15px}
+.buy-form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:0}
+.buy-form .full{grid-column:1/-1}
+.faq{display:grid;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line);padding:18px 4px}
+.faq summary{cursor:pointer;font-size:clamp(18px,2vw,22px);font-weight:500;letter-spacing:-.02em;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq summary::after{content:"+";color:var(--red);font-weight:400}
+.faq details[open] summary::after{content:"−"}
+.faq summary::-webkit-details-marker{display:none}
+.faq p{color:#cfcbc5;margin-top:12px;max-width:62ch}
+.book-card{display:block;margin-top:24px}
+@media (max-width:860px){.buy-form{grid-template-columns:1fr}.book-hero{gap:32px}}
+
+/* ===== Reader ===== */
+.page-read{min-height:70vh}
+.reader-wrap{padding-block:28px 80px}
+.reader-bar{display:flex;justify-content:space-between;align-items:center;gap:16px;position:sticky;top:calc(60px + env(safe-area-inset-top,0px));z-index:5;background:rgba(17,17,17,.9);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);padding-block:12px;border-bottom:1px solid var(--line)}
+.reader-tools{display:flex;align-items:center;gap:10px}
+.reader-tools .btn{padding:8px 14px;font-size:16px}
+.reader{display:grid;gap:18px;justify-items:center;margin-top:24px;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.rpage{position:relative;background:#fff;box-shadow:0 12px 40px rgba(0,0,0,.45);max-width:100%;border-radius:4px;overflow:hidden}
+.rpage canvas{display:block;width:100%;height:auto}
+.rpage .wm{position:absolute;inset:0;pointer-events:none;display:grid;place-items:center;overflow:hidden}
+.rpage .wm span{transform:rotate(-30deg);font:500 clamp(12px,2.2vw,18px) var(--f-mono);color:rgba(17,17,17,.09);white-space:nowrap;letter-spacing:.06em}
+.rpage .pn{position:absolute;right:10px;bottom:8px;font:11px var(--f-mono);color:rgba(17,17,17,.35)}
+.reader-msg{max-width:640px;margin:48px auto 0;display:grid;gap:4px}
+@media print{body *{display:none!important}body::after{content:"Printing is not available for this book.";display:block!important}}

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Read · Our Space</title>
+<meta name="description" content="Private reader for Our Space.">
+<meta property="og:title" content="Read · Our Space">
+<meta property="og:description" content="Private reader for Our Space.">
+<meta property="og:image" content="https://mannorr.com/images/header.jpg">
+<meta name="theme-color" content="#111111">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/site.css?v=20261111b">
+<meta name="robots" content="noindex">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script defer src="/assets/site.js?v=20261111b"></script>
+</head>
+<body data-page="read">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar wrap" id="topbar">
+  <div class="inner topbar-in">
+    <a class="mark" href="/" aria-label="MANNORR home">MANNORR</a>
+    <nav class="toplinks" aria-label="Main">
+      <a href="/about" data-nav="about">About</a>
+      <a href="/works" data-nav="works music design apologetics viral-church our-space read">Works</a>
+      <a href="/work-with-me#learn" data-nav="learn">Learn</a>
+      <a href="/work-with-me" class="topcta" data-nav="work-with-me thank-you">Work With Me</a>
+    </nav>
+    <button class="menubtn" id="menubtn" type="button" aria-expanded="false" aria-controls="menu"><span class="menubtn-label">Menu</span><span class="menubtn-icon" aria-hidden="true"><i></i><i></i></span></button>
+  </div>
+</header>
+<div class="menu" id="menu" hidden>
+  <div class="menu-in wrap">
+    <nav class="menu-links" aria-label="Menu">
+      <a href="/" data-nav="home"><span class="mono">01</span>Home</a>
+      <a href="/about" data-nav="about"><span class="mono">02</span>About</a>
+      <a href="/works" data-nav="works"><span class="mono">03</span>Works</a>
+      <a href="/music" data-nav="music" class="sub">Songs</a>
+      <a href="/design" data-nav="design" class="sub">Design</a>
+      <a href="/apologetics" data-nav="apologetics" class="sub">Apologetics Nigeria</a>
+      <a href="/viral-church" data-nav="viral-church" class="sub">The Viral Church</a>
+      <a href="/our-space" data-nav="our-space" class="sub">Books</a>
+      <a href="/work-with-me#learn" data-nav="learn"><span class="mono">04</span>Learn design</a>
+      <a href="/work-with-me" data-nav="work-with-me"><span class="mono">05</span>Work With Me</a>
+    </nav>
+    <div class="menu-foot mono"><a href="https://www.instagram.com/_mannorr/" target="_blank" rel="noopener">Instagram ↗</a><a href="mailto:hellomannorr@gmail.com">hellomannorr@gmail.com</a></div>
+  </div>
+</div>
+
+<main id="main" class="page page-read">
+  <section class="reader-wrap wrap"><div class="inner">
+    <div class="reader-bar">
+      <div><span class="label">Our Space</span><p class="mono dim" id="r-who" style="margin-top:6px">Opening your book…</p></div>
+      <div class="reader-tools" id="r-tools" hidden><button class="btn" type="button" id="r-out" aria-label="Zoom out">−</button><span class="mono" id="r-page">1 / 1</span><button class="btn" type="button" id="r-in" aria-label="Zoom in">+</button></div>
+    </div>
+    <div class="reader" id="reader" aria-live="polite"></div>
+    <div class="reader-msg" id="r-msg" hidden>
+      <h1 style="font-size:clamp(36px,6vw,72px)" id="r-msg-title">Find your book</h1>
+      <p class="lede" id="r-msg-text" style="margin-top:16px">Enter the email you used to buy Our Space and we'll send you a fresh reading link.</p>
+      <form id="resend" class="notify" novalidate>
+        <div class="notify-row"><input id="r-email" name="email" type="email" placeholder="you@example.com" required style="color:var(--bone);border-color:var(--line)"><button class="btn redbtn" type="submit">Send my link →</button></div>
+        <p class="formnote" id="r-note" aria-live="polite"></p>
+      </form>
+      <p class="mono dim" style="margin-top:28px">Don't have the book yet? <a href="/our-space">Get Our Space →</a></p>
+    </div>
+  </div></section>
+</main>
+
+<footer class="foot wrap"><div class="inner">
+  <div class="big">MANNORR</div>
+  <div class="cols">
+    <div><span class="label">Pages</span><a href="/about">About</a><a href="/works">Works</a><a href="/work-with-me">Work With Me</a><a href="/work-with-me#learn">Learn design</a></div>
+    <div><span class="label">Works</span><a href="/music">In You</a><a href="/design">Design</a><a href="/apologetics">Apologetics Nigeria</a><a href="/viral-church">Viral Church</a><a href="/our-space">Our Space (book)</a></div>
+    <div><span class="label">Elsewhere</span><a href="https://www.instagram.com/_mannorr/" target="_blank" rel="noopener">Instagram @_mannorr ↗</a><a href="https://www.instagram.com/viralchurchglobal/" target="_blank" rel="noopener">@viralchurchglobal ↗</a><a href="mailto:hellomannorr@gmail.com">hellomannorr@gmail.com</a><a href="https://apologeticsnigeria.com" target="_blank" rel="noopener">apologeticsnigeria.com ↗</a><a href="https://wearekallos.com" target="_blank" rel="noopener">wearekallos.com ↗</a></div>
+    <div class="mono dim" style="align-self:end">© 2026 Nifemi Adeniran · Lagos</div>
+  </div>
+</div></footer>
+</body>
+</html>
