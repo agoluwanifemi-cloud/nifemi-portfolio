@@ -74,3 +74,13 @@ Prices live in `BOOK` in `Code.gs` and `BOOK` in `assets/site.js`. They must mat
 ### Without the secret key
 
 When a buyer comes back from Flutterwave, the order turns **Check payment** and you get an email. Find the transaction in Flutterwave. If it's there, set Status to **Paid** and the buyer gets their book or confirmation straight away. The same works for anyone who pays some other way, such as a bank transfer: add or find their row, then set it to Paid.
+
+### The swipe reader (text edition)
+
+mannorr.com/read opens the book as swipeable pages that fit any screen, with contents, search, text size, Paper/Sepia/Night themes, and resume. The book text is on the site only in encrypted form (`assets/book/our-space.bin`). The key to open it lives in Apps Script and is handed only to paid reading links.
+
+Setup: Apps Script → Project Settings → Script properties → add `BOOK_TEXT_KEY` with the key Claude gave you. Until it is set, the reader falls back to the PDF from `BOOK_FILE_ID`.
+
+Changing the book text: edit `main.tex` in Overleaf, then run
+`BOOK_TEXT_KEY=<the same key> python3 tools/build-ebook.py path/to/main.tex`
+and bump `?v=` on `BOOK_URL` in `assets/ereader.js`. Keep the key the same, or every reader needs the new one.

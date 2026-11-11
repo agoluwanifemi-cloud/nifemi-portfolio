@@ -387,9 +387,17 @@
       }).catch(function () {});
     }
 
-    fetch(DB_ENDPOINT + '?action=read&code=' + encodeURIComponent(code)).then(function (r) { return r.json(); }).then(function (r) {
+    fetch(DB_ENDPOINT + '?action=read&mode=text&code=' + encodeURIComponent(code)).then(function (r) { return r.json(); }).then(function (r) {
       if (!r || !r.ok) return showMsg("This link didn't open", (r && r.error ? r.error + ' ' : '') + 'Enter the email you used to buy the book and we will send you a fresh link.');
       email = r.email || '';
+      if (r.key && window.MNReader && window.crypto && crypto.subtle) {
+        $('r-who').textContent = 'Reading as ' + (r.name || email);
+        return window.MNReader.start({ code: code, key: r.key, email: email, name: r.name }).catch(function () {
+          document.documentElement.classList.remove('eb-open'); var eb = document.querySelector('.eb'); if (eb) eb.remove();
+          showMsg("This link didn't open", "We couldn't open the book just now. Please refresh the page.");
+        });
+      }
+      if (!r.data) return showMsg("This link didn't open", "We couldn't load the book just now. Please refresh, or enter your email for a fresh link.");
       $('r-who').textContent = 'Reading as ' + (r.name || email);
       var bin = atob(r.data), bytes = new Uint8Array(bin.length);
       for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);

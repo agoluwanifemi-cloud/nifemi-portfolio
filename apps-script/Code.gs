@@ -107,7 +107,7 @@ function setup() {
 /* ---------- web app ---------- */
 function doGet(e) {
   const p = (e && e.parameter) || {};
-  if (p.action === "read") return json(readBook(p.code));
+  if (p.action === "read") return json(readBook(p.code, p.mode));
   return json({ ok: true, service: "MANNORR database" });
 }
 
@@ -657,11 +657,17 @@ function notifyUnmatched(t) {
 }
 
 // The reader asks for the book with a code. Returns the PDF only for paid digital orders.
-function readBook(code) {
+function readBook(code, mode) {
   code = String(code || "").replace(/[^a-f0-9]/gi, "");
   if (code.length < 20) return { ok: false, error: "This reading link isn't valid." };
   const o = findOrder("code", code);
   if (!o || PAID.indexOf(o.status) < 0) return { ok: false, error: "This reading link isn't valid." };
+  // The swipe reader: hand over the key that unlocks the book text on the site (set BOOK_TEXT_KEY in Script properties).
+  const textKey = PropertiesService.getScriptProperties().getProperty("BOOK_TEXT_KEY");
+  if (mode === "text" && textKey) {
+    setCells(o._row, { opens: Number(o.opens || 0) + 1 });
+    return { ok: true, name: firstName(o.name), email: o.email, key: textKey.trim() };
+  }
   const raw = String(PropertiesService.getScriptProperties().getProperty("BOOK_FILE_ID") || ""), m = raw.match(/[-\w]{25,}/), id = m ? m[0] : "";
   if (!id) return { ok: false, error: "The book isn't available yet. Please try again later." };
   setCells(o._row, { opens: Number(o.opens || 0) + 1 });
