@@ -49,19 +49,27 @@ A free Gmail account can send about 100 script emails a day. Each enquiry, booki
 
 ## Book sales: Our Space (/our-space and /read)
 
-Buyers pay on mannorr.com with Flutterwave. The script records each order in an **Orders** tab, checks the payment with Flutterwave, then:
+Buyers fill in their details on mannorr.com, which saves the order in an **Orders** tab. They are then sent to your Flutterwave payment link:
+- Digital ₦7,000: https://flutterwave.com/pay/qlnbvtyva9gp
+- Paperback ₦13,000, delivery included: https://flutterwave.com/pay/wmu0epx7tldq
+
+After paying, Flutterwave sends them back to mannorr.com/thank-you. The script checks the payment, then:
 - **Digital:** emails a private reading link (mannorr.com/read?code=…). The reader only opens the book for paid codes and shows the buyer's email faintly on every page.
 - **Paperback:** emails the buyer a confirmation and sends you the delivery address. Set Status to Shipped and then Delivered as you go.
 
-Prices and delivery fees live in two places that must match: `BOOK` in `Code.gs` (what is charged) and `BOOK` in `assets/site.js` (what is shown).
+Prices live in `BOOK` in `Code.gs` and `BOOK` in `assets/site.js`. They must match the amounts on the payment links.
 
 ### Setup
 
-1. **Book file.** Upload the book PDF to Google Drive on hellomannorr@gmail.com. Keep it private (do not share it). Open it and copy the ID from the address: `drive.google.com/file/d/`**`THIS-PART`**`/view`.
-2. **Script properties.** In Apps Script: *Project Settings (gear) → Script properties → Add*:
-   - `BOOK_FILE_ID` = the ID from step 1
-   - `FLW_SECRET_KEY` = your Flutterwave **secret** key (Flutterwave dashboard → Settings → API keys). Never put this in the website.
-3. **Update the code.** Paste the new `Code.gs`, Save, run `setup` once (approve the new Drive and external-request permissions), then *Deploy → Manage deployments → Edit → New version → Deploy*.
-4. **Website key.** Send Claude your Flutterwave **public** key (starts with `FLWPUBK-`), or paste it into `publicKey` in `assets/site.js`. Until it is set, the digital button goes to Selar and the paperback button opens an email.
-5. **Webhook (recommended).** Flutterwave dashboard → Settings → Webhooks → URL = your Apps Script `/exec` URL, and tick *Receive webhook response in JSON format*. This confirms orders even if a buyer closes the page right after paying.
-6. **Test.** Use Flutterwave test keys first, buy the digital edition, check the Orders tab, the emails and the reader. Then switch to live keys.
+1. **Redirect URL on both links.** Flutterwave dashboard → Payment links → open each link → Edit → Redirect URL = `https://mannorr.com/thank-you`. Save. Without this, buyers aren't brought back to confirm.
+2. **Book file.** Upload `Our-Space.pdf` to Google Drive on hellomannorr@gmail.com. Keep it private (do not share it). Open it and copy the ID from the address: `drive.google.com/file/d/`**`THIS-PART`**`/view`.
+3. **Script properties.** In Apps Script: *Project Settings (gear) → Script properties → Add*:
+   - `BOOK_FILE_ID` = the ID from step 2
+   - `FLW_SECRET_KEY` = your Flutterwave **secret** key (Settings → API keys). It stays inside Apps Script, never in the website. With it, payments are confirmed and books delivered automatically.
+4. **Update the code.** Paste the new `Code.gs`, Save, run `setup` once (approve the new permissions), then *Deploy → Manage deployments → Edit → New version → Deploy*.
+5. **Webhook (recommended).** Flutterwave → Settings → Webhooks → URL = your Apps Script `/exec` URL, tick *JSON format*. This confirms orders even when a buyer closes the page before coming back.
+6. **Test.** Buy the digital edition yourself, check the Orders tab, the emails and the reader.
+
+### Without the secret key
+
+When a buyer comes back from Flutterwave, the order turns **Check payment** and you get an email. Find the transaction in Flutterwave. If it's there, set Status to **Paid** and the buyer gets their book or confirmation straight away. The same works for anyone who pays some other way, such as a bank transfer: add or find their row, then set it to Paid.

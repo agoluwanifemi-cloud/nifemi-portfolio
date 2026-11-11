@@ -112,18 +112,18 @@ function doGet(e) {
 }
 
 function doPost(e) {
-  // Flutterwave webhook (JSON body): confirm the payment by its reference.
+  // Flutterwave webhook (JSON body). Checked against Flutterwave with your secret key before anything is marked paid.
   if (e && e.postData && /json/.test(e.postData.type || "")) {
     try {
       const body = JSON.parse(e.postData.contents || "{}");
-      const ref = body && body.data && body.data.tx_ref;
-      if (ref) confirmOrder(String(ref));
+      const id = body && body.data && body.data.id;
+      if (id) confirmOrder("", String(id), "successful");
     } catch (err) { console.error("webhook", err); }
     return json({ ok: true });
   }
   const p = (e && e.parameter) || {};
   if (p.form === "order-start") return json(startOrder(p));
-  if (p.form === "order-confirm") return json(confirmOrder(clean(p.tx_ref, 80)));
+  if (p.form === "order-confirm") return json(confirmOrder(clean(p.ref, 20), clean(p.transaction_id, 20).replace(/\D/g, ""), clean(p.status, 20)));
   if (p.form === "order-resend") return json(resendReading(clean(p.email, 200).toLowerCase()));
 
   // Spam traps: real people never fill the hidden "website" field, and take more than a moment.
@@ -397,7 +397,7 @@ function testStudent() {
 }
 
 /* =====================================================================
-   BOOK SALES: Our Space (digital reader + paperback with delivery)
+   BOOK SALES: Our Space (digital reader + paperback, paid through Flutterwave payment links)
    Script properties needed (Project Settings → Script properties):
      FLW_SECRET_KEY   your Flutterwave secret key (never put it in the website)
      BOOK_FILE_ID     the Google Drive file ID of the book PDF (keep the file private)
@@ -407,16 +407,20 @@ const BOOK = {
   title: "Our Space",
   subtitle: "Building a Godly Long Distance Relationship",
   currency: "NGN",
-  prices: { digital: 7000, paperback: 10000 },
-  delivery: { Lagos: 2500, other: 5000 },     // paperback delivery by state
+  prices: { digital: 7000, paperback: 13000 },   // paperback price includes delivery anywhere in Nigeria
+  links: {                                         // Flutterwave payment links (set each link's Redirect URL to https://mannorr.com/thank-you)
+    digital: "https://flutterwave.com/pay/qlnbvtyva9gp",
+    paperback: "https://flutterwave.com/pay/wmu0epx7tldq"
+  },
   readerUrl: "https://mannorr.com/read",
   sheet: "Orders", prefix: "OR-",
-  statuses: ["Pending", "Paid", "Shipped", "Delivered", "Failed", "Refunded"],
+  statuses: ["Pending", "Check payment", "Paid", "Shipped", "Delivered", "Failed", "Refunded"],
   columns: [["Reference","ref"],["Created","created"],["Status","status"],["Format","format"],["Name","name"],["Email","email"],
             ["Phone","phone"],["WhatsApp","wa"],["State","state"],["City","city"],["Address","address"],["Book (₦)","price"],
             ["Delivery (₦)","fee"],["Total (₦)","total"],["Payment ref","tx_ref"],["Flutterwave ID","flw_id"],["Paid at","paid"],
             ["Reader code","code"],["Opens","opens"],["Notes","notes"]]
 };
+const PAID = ["Paid", "Shipped", "Delivered"];
 const NG_STATES = ["Abia","Adamawa","Akwa Ibom","Anambra","Bauchi","Bayelsa","Benue","Borno","Cross River","Delta","Ebonyi","Edo","Ekiti",
   "Enugu","FCT Abuja","Gombe","Imo","Jigawa","Kaduna","Kano","Katsina","Kebbi","Kogi","Kwara","Lagos","Nasarawa","Niger","Ogun","Ondo",
   "Osun","Oyo","Plateau","Rivers","Sokoto","Taraba","Yobe","Zamfara"];
@@ -432,11 +436,14 @@ function setupOrders() {
   const sc = headers.indexOf("Status") + 1;
   const rng = sh.getRange(2, sc, sh.getMaxRows() - 1, 1);
   rng.setDataValidation(SpreadsheetApp.newDataValidation().requireValueInList(BOOK.statuses, true).setAllowInvalid(false).build());
-  const colours = { Pending: "#E4E4E4", Paid: "#FAD4CF", Shipped: "#FCEBC4", Delivered: "#D3EBD9", Failed: "#E4E4E4", Refunded: "#E4E4E4" };
+  const colours = { Pending: "#E4E4E4", "Check payment": "#FCEBC4", Paid: "#FAD4CF", Shipped: "#E9DDF4", Delivered: "#D3EBD9", Failed: "#E4E4E4", Refunded: "#E4E4E4" };
   sh.setConditionalFormatRules(Object.keys(colours).map(k =>
     SpreadsheetApp.newConditionalFormatRule().whenTextEqualTo(k).setBackground(colours[k]).setRanges([rng]).build()));
   sh.getRange(2, headers.indexOf("Created") + 1, sh.getMaxRows() - 1, 1).setNumberFormat("dd mmm yyyy, hh:mm");
   sh.getRange(2, headers.indexOf("Paid at") + 1, sh.getMaxRows() - 1, 1).setNumberFormat("dd mmm yyyy, hh:mm");
+  // Lets you confirm a payment by hand: set Status to Paid and the buyer gets their book.
+  if (!ScriptApp.getProjectTriggers().some(t => t.getHandlerFunction() === "onOrderEdit"))
+    ScriptApp.newTrigger("onOrderEdit").forSpreadsheet(ss).onEdit().create();
 }
 
 function ordersSheet() {
@@ -445,19 +452,17 @@ function ordersSheet() {
   return sh;
 }
 function col(name) { return BOOK.columns.findIndex(c => c[1] === name) + 1; }
+function rowObj(data, row) { const o = { _row: row }; BOOK.columns.forEach((c, j) => { o[c[1]] = data[j]; }); return o; }
+function allOrders() {
+  const sh = ordersSheet(), last = sh.getLastRow();
+  if (last < 2) return [];
+  return sh.getRange(2, 1, last - 1, BOOK.columns.length).getValues().map((r, i) => rowObj(r, i + 2));
+}
 
 function findOrder(field, value) {
-  const sh = ordersSheet(), last = sh.getLastRow();
-  if (last < 2 || !value) return null;
-  const vals = sh.getRange(2, col(field), last - 1, 1).getValues();
-  for (let i = vals.length - 1; i >= 0; i--) {
-    if (String(vals[i][0]) === String(value)) {
-      const row = i + 2, data = sh.getRange(row, 1, 1, BOOK.columns.length).getValues()[0], o = {};
-      BOOK.columns.forEach((c, j) => { o[c[1]] = data[j]; });
-      o._row = row;
-      return o;
-    }
-  }
+  if (!value) return null;
+  const list = allOrders();
+  for (let i = list.length - 1; i >= 0; i--) if (String(list[i][field]) === String(value)) return list[i];
   return null;
 }
 function setCells(row, obj) {
@@ -465,13 +470,11 @@ function setCells(row, obj) {
   Object.keys(obj).forEach(k => { const c = col(k); if (c) sh.getRange(row, c).setValue(obj[k]); });
 }
 
-function priceFor(format, state) {
-  if (format === "digital") return { price: BOOK.prices.digital, fee: 0 };
-  const fee = state === "Lagos" ? BOOK.delivery.Lagos : BOOK.delivery.other;
-  return { price: BOOK.prices.paperback, fee: fee };
+function priceFor(format) {
+  return format === "digital" ? { price: BOOK.prices.digital, fee: 0 } : { price: BOOK.prices.paperback, fee: 0 };
 }
 
-// Called before checkout opens: saves the order and returns the amount to charge.
+// Saves the order, then the site sends the buyer to the Flutterwave payment link.
 function startOrder(p) {
   const format = p.format === "paperback" ? "paperback" : "digital";
   const d = {
@@ -486,46 +489,109 @@ function startOrder(p) {
     if (NG_STATES.indexOf(d.state) < 0) return { ok: false, error: "Please choose your state." };
     if (!d.city || !d.address || !phone) return { ok: false, error: "Please add your phone number, city and delivery address." };
   }
-  const pr = priceFor(format, d.state);
+  const pr = priceFor(format);
   const lock = LockService.getScriptLock(); lock.waitLock(20000);
   try {
     const props = PropertiesService.getScriptProperties();
     const n = Number(props.getProperty("lastRef_" + BOOK.prefix) || Math.max(0, ordersSheet().getLastRow() - 1)) + 1;
     props.setProperty("lastRef_" + BOOK.prefix, String(n));
     d.ref = BOOK.prefix + String(n).padStart(4, "0");
-    d.tx_ref = "OS-" + d.ref + "-" + Utilities.getUuid().slice(0, 8).toUpperCase();
-    d.created = new Date(); d.status = "Pending";
+    d.tx_ref = ""; d.created = new Date(); d.status = "Pending";
     d.price = pr.price; d.fee = pr.fee; d.total = pr.price + pr.fee;
     d.wa = phone ? `=HYPERLINK("https://wa.me/${phone}","WhatsApp")` : "";
     d.flw_id = ""; d.paid = ""; d.code = ""; d.opens = 0; d.notes = "";
     ordersSheet().appendRow(BOOK.columns.map(c => d[c[1]] === undefined ? "" : d[c[1]]));
   } finally { lock.releaseLock(); }
-  return { ok: true, ref: d.ref, tx_ref: d.tx_ref, amount: d.total, currency: BOOK.currency };
+  return { ok: true, ref: d.ref, amount: d.total, pay_url: BOOK.links[format] };
 }
 
-// Checks the payment with Flutterwave, marks the order paid, and sends the emails. Safe to call twice.
-function confirmOrder(txRef) {
-  if (!txRef) return { ok: false, error: "Missing payment reference." };
+// Asks Flutterwave about one transaction. Returns its details only if it really succeeded in naira.
+function verifyTransaction(id) {
+  const key = PropertiesService.getScriptProperties().getProperty("FLW_SECRET_KEY");
+  if (!key || !id) return null;
+  const res = UrlFetchApp.fetch("https://api.flutterwave.com/v3/transactions/" + encodeURIComponent(id) + "/verify",
+    { headers: { Authorization: "Bearer " + key }, muteHttpExceptions: true });
+  const j = JSON.parse(res.getContentText() || "{}"), t = j && j.data;
+  if (j.status !== "success" || !t || t.status !== "successful" || t.currency !== BOOK.currency) return null;
+  return t;
+}
+
+// Marks an order paid, gives digital buyers their reading code, and sends the emails.
+function markPaid(o, t) {
+  const code = o.format === "digital" ? (o.code || Utilities.getUuid().replace(/-/g, "")) : "";
+  const upd = { status: "Paid", paid: new Date(), code: code };
+  if (t) { upd.flw_id = t.id; upd.tx_ref = t.tx_ref || ""; }
+  setCells(o._row, upd);
+  Object.assign(o, upd);
+  try { orderEmails(o); } catch (err) { console.error("order email", err); }
+  return { ok: true, ref: o.ref, format: o.format, code: code };
+}
+
+// Called by the thank-you page after Flutterwave sends the buyer back, and by the webhook. Safe to call twice.
+//   ref:  our order reference (OR-0001), when the buyer comes back in the same browser
+//   id:   Flutterwave transaction_id
+function confirmOrder(ref, id, status) {
+  if (status && status !== "successful" && status !== "completed") return { ok: false, cancelled: true, error: "The payment wasn't completed." };
   const lock = LockService.getScriptLock(); lock.waitLock(25000);
   try {
-    const o = findOrder("tx_ref", txRef);
-    if (!o) return { ok: false, error: "We couldn't find this order." };
-    if (o.status === "Paid" || o.status === "Shipped" || o.status === "Delivered")
-      return { ok: true, ref: o.ref, format: o.format, code: o.code };
-    const key = PropertiesService.getScriptProperties().getProperty("FLW_SECRET_KEY");
-    if (!key) return { ok: false, error: "Payments are not set up yet." };
-    const res = UrlFetchApp.fetch("https://api.flutterwave.com/v3/transactions/verify_by_reference?tx_ref=" + encodeURIComponent(txRef),
-      { headers: { Authorization: "Bearer " + key }, muteHttpExceptions: true });
-    const j = JSON.parse(res.getContentText() || "{}"), t = j && j.data;
-    const good = j.status === "success" && t && t.status === "successful" && t.tx_ref === txRef &&
-                 t.currency === BOOK.currency && Number(t.amount) >= Number(o.total);
-    if (!good) return { ok: false, pending: true, error: "We haven't received confirmation of this payment yet." };
-    const code = o.format === "digital" ? Utilities.getUuid().replace(/-/g, "") : "";
-    setCells(o._row, { status: "Paid", flw_id: t.id, paid: new Date(), code: code });
-    o.status = "Paid"; o.flw_id = t.id; o.code = code;
-    try { orderEmails(o); } catch (err) { console.error("order email", err); }
-    return { ok: true, ref: o.ref, format: o.format, code: code };
+    const used = id ? findOrder("flw_id", id) : null;
+    if (used) return PAID.indexOf(used.status) > -1 ? { ok: true, ref: used.ref, format: used.format, code: used.code } : { ok: false, pending: true, ref: used.ref };
+    let o = ref ? findOrder("ref", ref) : null;
+    if (o && PAID.indexOf(o.status) > -1) return { ok: true, ref: o.ref, format: o.format, code: o.code };
+
+    const t = verifyTransaction(id);
+    if (t) {
+      const email = String((t.customer && t.customer.email) || "").toLowerCase(), amount = Number(t.amount);
+      if (!o) {   // buyer came back on another device, or this is the webhook: match by email and amount
+        const open = allOrders().filter(x => (x.status === "Pending" || x.status === "Check payment") && x.email === email && Number(x.total) === amount);
+        o = open.length ? open[open.length - 1] : null;
+      }
+      if (!o) {   // paid, but we have no order on file (e.g. paid straight from the link): tell the owner
+        notifyUnmatched(t);
+        return { ok: false, pending: true, error: "We received your payment and will email you shortly." };
+      }
+      if (amount < Number(o.total)) return { ok: false, pending: true, ref: o.ref, error: "The amount paid doesn't match this order." };
+      return markPaid(o, t);
+    }
+
+    // No secret key set (or Flutterwave didn't confirm yet): flag it for a manual check.
+    if (o && id && o.status === "Pending") {
+      setCells(o._row, { status: "Check payment", flw_id: id, notes: "Returned from Flutterwave " + new Date().toLocaleString() });
+      Object.assign(o, { status: "Check payment", flw_id: id });
+      try { checkPaymentEmail(o); } catch (err) { console.error("check email", err); }
+    }
+    return { ok: false, pending: true, ref: o ? o.ref : "" };
   } finally { lock.releaseLock(); }
+}
+
+// Installable trigger (created by setup): when you set an order's Status to Paid by hand, the buyer gets their book.
+function onOrderEdit(e) {
+  const r = e && e.range;
+  if (!r || r.getSheet().getName() !== BOOK.sheet || r.getColumn() !== col("status") || r.getRow() < 2 || r.getNumRows() > 1) return;
+  if (String(e.value) !== "Paid") return;
+  const row = r.getRow(), o = rowObj(ordersSheet().getRange(row, 1, 1, BOOK.columns.length).getValues()[0], row);
+  if (o.paid) return;   // already handled
+  markPaid(o, null);
+}
+
+function checkPaymentEmail(o) {
+  const url = SpreadsheetApp.getActiveSpreadsheet().getUrl();
+  const inner = header("Check a payment", o.ref) + `
+<tr><td bgcolor="#ffffff" style="background:#ffffff;padding:32px">
+<div style="font:600 30px/1.1 ${BRAND.font};letter-spacing:-1px;color:${BRAND.ink}">${esc(o.name)} says they paid ${esc(naira(o.total))}.</div>
+<p style="font:15px/1.6 ${BRAND.font};color:#3d3a36;margin:16px 0 0">Find Flutterwave transaction <strong>${esc(String(o.flw_id))}</strong> in your Flutterwave dashboard. If it's there, set the Status of ${esc(o.ref)} to <strong>Paid</strong> in the Orders tab and the buyer gets ${o.format === "digital" ? "their reading link" : "their confirmation"} straight away.</p>
+<p style="font:13px/1.6 ${BRAND.font};color:${BRAND.muted};margin:14px 0 0">Add FLW_SECRET_KEY in Apps Script and this check happens automatically.</p>
+</td></tr>
+<tr><td bgcolor="#ffffff" style="background:#ffffff;padding:0 32px 32px"><table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>${button(url, "Open the Orders tab", true)}</tr></table></td></tr>`;
+  MailApp.sendEmail({ to: CONFIG.NOTIFY_EMAIL, subject: `Check payment · ${o.name} · ${naira(o.total)} · ${o.ref}`,
+    htmlBody: shell("Confirm a book payment", inner), body: `${o.ref}: ${o.name} (${o.email}) returned from Flutterwave, transaction ${o.flw_id}. Set Status to Paid once you've seen it.`, name: "mannorr.com" });
+}
+
+function notifyUnmatched(t) {
+  const c = t.customer || {};
+  MailApp.sendEmail({ to: CONFIG.NOTIFY_EMAIL, subject: `Book payment with no order · ${naira(t.amount)} · ${c.email || ""}`,
+    body: `A payment came in through a book payment link but didn't match an order on the site.\n\nName: ${c.name || ""}\nEmail: ${c.email || ""}\nPhone: ${c.phone_number || ""}\nAmount: ${naira(t.amount)}\nFlutterwave ID: ${t.id}\n\nAdd a row in the Orders tab for them (Format, Name, Email, Total) and set Status to Paid to send the book.`,
+    name: "mannorr.com" });
 }
 
 // The reader asks for the book with a code. Returns the PDF only for paid digital orders.
@@ -533,7 +599,7 @@ function readBook(code) {
   code = String(code || "").replace(/[^a-f0-9]/gi, "");
   if (code.length < 20) return { ok: false, error: "This reading link isn't valid." };
   const o = findOrder("code", code);
-  if (!o || ["Paid", "Shipped", "Delivered"].indexOf(o.status) < 0) return { ok: false, error: "This reading link isn't valid." };
+  if (!o || PAID.indexOf(o.status) < 0) return { ok: false, error: "This reading link isn't valid." };
   const id = PropertiesService.getScriptProperties().getProperty("BOOK_FILE_ID");
   if (!id) return { ok: false, error: "The book isn't available yet. Please try again later." };
   setCells(o._row, { opens: Number(o.opens || 0) + 1 });
@@ -584,7 +650,7 @@ ${wa ? button(wa, "WhatsApp", true) : ""}${button("mailto:" + o.email + "?subjec
 </tr></table></td></tr>
 <tr><td bgcolor="#ffffff" style="background:#ffffff;padding:20px 32px 32px"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
 ${pairRows([["Email", o.email], ["Phone", String(o.phone || "").replace(/^'/, "")], ["Deliver to", isPaper ? [o.address, o.city, o.state].filter(Boolean).join(", ") : ""],
-  ["Book", naira(o.price)], ["Delivery", isPaper ? naira(o.fee) : ""], ["Total paid", naira(o.total)], ["Flutterwave ID", String(o.flw_id || "")]])}
+  ["Book", naira(o.price)], ["Delivery", isPaper ? "Included" : ""], ["Total paid", naira(o.total)], ["Flutterwave ID", String(o.flw_id || "Confirmed by hand")]])}
 </table>
 <p style="font:13px/1.6 ${BRAND.font};color:${BRAND.muted};margin:20px 0 0">${isPaper ? "Ship it, then set the Status of " + esc(o.ref) + " to Shipped in the Orders tab." : "The buyer has been sent their reading link."}</p>
 </td></tr>`;
@@ -623,7 +689,7 @@ ${isPaper ? "" : `<tr><td bgcolor="#ffffff" style="background:#ffffff;padding:24
 <div style="font:12px ${BRAND.mono};color:${BRAND.red};padding-bottom:10px">// Your order</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
 ${pairRows([["Book", "Our Space · " + (isPaper ? "Paperback" : "Digital edition")], ["Deliver to", isPaper ? [o.address, o.city, o.state].filter(Boolean).join(", ") : ""],
-  ["Book price", naira(o.price)], ["Delivery", isPaper ? naira(o.fee) : ""], ["Total paid", naira(o.total)]])}
+  ["Book price", naira(o.price)], ["Delivery", isPaper ? "Included" : ""], ["Total paid", naira(o.total)]])}
 </table></td></tr>
 <tr><td bgcolor="#ffffff" style="background:#ffffff;padding:28px 32px 36px">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${BRAND.grey}" style="background:${BRAND.grey};border-radius:14px"><tr>

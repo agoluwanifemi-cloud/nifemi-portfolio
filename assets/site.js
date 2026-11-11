@@ -132,10 +132,11 @@
     ministry: { kicker: 'Ministry booking', title: 'Your booking request is in.', intro: "Thank you for inviting me. I'll pray over it, check the date, and get back to you to confirm the details.", steps: ['I check the date and pray over it', 'We confirm the brief and logistics', 'The ministration'] },
     'book-digital': { kicker: 'Our Space · Digital', title: 'Your book is ready to read.', intro: 'Thank you for getting Our Space. Your personal reading link is in your email, and you can start reading right now.', steps: ['Tap Start reading, or use the link in your email', 'Read on any phone, tablet or computer', 'Keep the email so you can come back any time'] },
     'book-paperback': { kicker: 'Our Space · Paperback', title: 'Your copy is on its way.', intro: 'Thank you for ordering Our Space. Your payment is confirmed and your paperback will be delivered to the address you gave.', steps: ['We pack your copy', 'We send it to your address', "You'll get a message when it's on its way"] },
-    'book-pending': { kicker: 'Our Space', title: "We're confirming your payment.", intro: "Your payment went through to Flutterwave and we're waiting for the final confirmation. You'll get an email as soon as it lands, usually within a few minutes.", steps: ['Watch your inbox (and spam) for an email from MANNORR', 'Nothing after 15 minutes? Email hellomannorr@gmail.com with your reference'] },
+    'book-pending': { kicker: 'Our Space', title: "Your payment is being confirmed.", intro: "Thank you for your payment. We're confirming it with Flutterwave, and you'll get an email as soon as it's done.", steps: ['Watch your inbox (and spam) for an email from MANNORR', 'Nothing within a few hours? Email hellomannorr@gmail.com with your reference'] },
+    'book-cancelled': { kicker: 'Our Space', title: "Your payment wasn't completed.", intro: "No money was taken for this order. If something went wrong, you can try again, or pay by bank transfer and email hellomannorr@gmail.com.", steps: ['Go back to the book page', 'Choose your edition and pay again'] },
     learn: { kicker: 'Student application', title: 'Your application is in.', intro: "Thank you for wanting to learn design with me. I'll go through your application and reach out on WhatsApp about the next steps.", steps: ['I review your application', 'A short call on WhatsApp', 'We confirm your place and schedule'] }
   };
-  if (page === 'thank-you') {
+  if (page === 'thank-you' && !/[?&](status|transaction_id)=/.test(location.search)) {
     var q = new URLSearchParams(location.search), sent = store('mn_sent') || {};
     var key = q.get('f') || sent.form, t = THANKS[key];
     if (t) {
@@ -154,32 +155,29 @@
 
   /* ---------- Book: Our Space ---------- */
   var BOOK = {
-    publicKey: '',   /* Flutterwave PUBLIC key (FLWPUBK-…). Leave empty until payments are set up. */
-    prices: { digital: 7000, paperback: 10000 },
-    delivery: { Lagos: 2500, other: 5000 },
-    selar: 'https://selar.com/y66o74u5n5'
+    prices: { digital: 7000, paperback: 13000 },   /* paperback includes delivery anywhere in Nigeria */
+    links: { digital: 'https://flutterwave.com/pay/qlnbvtyva9gp', paperback: 'https://flutterwave.com/pay/wmu0epx7tldq' }
   };
   function naira(n) { return '₦' + Number(n).toLocaleString('en-NG'); }
   function post(fields) {
     var fd = new FormData(); Object.keys(fields).forEach(function (k) { fd.append(k, fields[k]); });
     return fetch(DB_ENDPOINT, { method: 'POST', body: fd }).then(function (r) { return r.json(); });
   }
+  function keep(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (x) {} store(k, v); }
+  function recall(k) { var v = store(k); if (v) return v; try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (x) { return null; } }
+  function forget(k) { try { localStorage.removeItem(k); sessionStorage.removeItem(k); } catch (x) {} }
+
   var buy = $('buy-form');
   if (buy) (function () {
     var fmt = 'digital', state = $('b-state'), payBtn = $('b-pay'), note = $('b-note');
-    function totals() {
-      var price = BOOK.prices[fmt], fee = fmt === 'paperback' ? (state.value ? (state.value === 'Lagos' ? BOOK.delivery.Lagos : BOOK.delivery.other) : null) : 0;
-      return { price: price, fee: fee, total: price + (fee || 0) };
-    }
     function render() {
-      var t = totals();
-      $('b-summary').innerHTML = '<li>Our Space · ' + (fmt === 'paperback' ? 'Paperback' : 'Digital edition') + ' <span class="mono">' + naira(t.price) + '</span></li>' +
-        (fmt === 'paperback' ? '<li>Delivery' + (state.value ? ' to ' + state.value : '') + ' <span class="mono">' + (t.fee === null ? 'Choose your state' : naira(t.fee)) + '</span></li>' : '') +
-        '<li class="total">Total <span class="mono">' + naira(t.total) + (fmt === 'paperback' && t.fee === null ? ' + delivery' : '') + '</span></li>';
-      $('b-price').textContent = naira(BOOK.prices[fmt]);
-      $('b-price-note').textContent = fmt === 'paperback' ? 'Paperback · plus delivery' : 'Digital edition · read instantly';
-      if (!BOOK.publicKey) payBtn.textContent = fmt === 'digital' ? 'Buy on Selar →' : 'Order by email →';
-      else payBtn.textContent = 'Pay ' + naira(t.total) + (fmt === 'paperback' && t.fee === null ? ' + delivery' : '') + ' →';
+      var price = BOOK.prices[fmt];
+      $('b-summary').innerHTML = '<li>Our Space · ' + (fmt === 'paperback' ? 'Paperback' : 'Digital edition') + ' <span class="mono">' + naira(price) + '</span></li>' +
+        (fmt === 'paperback' ? '<li>Delivery' + (state.value ? ' to ' + state.value : ' in Nigeria') + ' <span class="mono">Included</span></li>' : '') +
+        '<li class="total">Total <span class="mono">' + naira(price) + '</span></li>';
+      $('b-price').textContent = naira(price);
+      $('b-price-note').textContent = fmt === 'paperback' ? 'Paperback · delivery included' : 'Digital edition · read instantly';
+      payBtn.textContent = 'Pay ' + naira(price) + ' →';
     }
     function setFmt(f) {
       fmt = f;
@@ -196,61 +194,59 @@
     setFmt(location.hash === '#paperback' ? 'paperback' : 'digital');
 
     function err(msg) { note.className = 'formnote is-error'; note.textContent = msg; }
-    function busy(on, label) { payBtn.disabled = on; payBtn.classList.toggle('is-busy', on); if (label) payBtn.textContent = label; if (!on) render(); }
-    function loadCheckout() {
-      return new Promise(function (ok, bad) {
-        if (window.FlutterwaveCheckout) return ok();
-        var sc = document.createElement('script'); sc.src = 'https://checkout.flutterwave.com/v3.js'; sc.onload = ok; sc.onerror = bad; document.head.appendChild(sc);
-      });
-    }
-    function finish(order, who) {
-      note.className = 'formnote is-info'; note.textContent = 'Confirming your payment…';
-      var tries = 0;
-      (function attempt() {
-        post({ form: 'order-confirm', tx_ref: order.tx_ref }).then(function (r) {
-          if (r && r.ok) {
-            store('mn_sent', { form: 'book-' + r.format, name: who.name, email: who.email, ref: r.ref, code: r.code || '' });
-            location.href = '/thank-you?f=book-' + r.format + '&ref=' + encodeURIComponent(r.ref);
-          } else if (++tries < 5) setTimeout(attempt, 3000);
-          else { store('mn_sent', { form: 'book-pending', name: who.name, email: who.email, ref: order.ref }); location.href = '/thank-you?f=book-pending&ref=' + encodeURIComponent(order.ref); }
-        }).catch(function () {
-          if (++tries < 5) setTimeout(attempt, 3000);
-          else { store('mn_sent', { form: 'book-pending', name: who.name, email: who.email, ref: order.ref }); location.href = '/thank-you?f=book-pending&ref=' + encodeURIComponent(order.ref); }
-        });
-      })();
-    }
     buy.addEventListener('submit', function (e) {
       e.preventDefault();
       if ((buy.querySelector('[name=mn_trap_x]') || {}).value) return;
-      if (!BOOK.publicKey) {
-        if (fmt === 'digital') { location.href = BOOK.selar; return; }
-        location.href = 'mailto:' + EMAIL + '?subject=' + encodeURIComponent('Our Space paperback order') + '&body=' + encodeURIComponent('Hello, I would like to order a paperback copy of Our Space.\n\nName:\nPhone:\nState:\nCity:\nAddress:');
-        return;
-      }
       var v = function (id) { return $(id).value.trim(); };
       var who = { name: v('b-name'), email: v('b-email'), phone: v('b-phone') };
       if (!who.name || !who.email) return err('Please add your name and email.');
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(who.email)) return err('Please check your email address.');
       if (fmt === 'paperback' && (!state.value || !v('b-city') || !v('b-address') || !who.phone)) return err('Please add your phone number, state, city and delivery address.');
-      busy(true, 'Preparing checkout…'); note.className = 'formnote is-info'; note.textContent = 'Preparing a secure checkout. This takes a few seconds.';
-      Promise.all([
-        post({ form: 'order-start', format: fmt, name: who.name, email: who.email, phone: who.phone, state: state.value, city: v('b-city'), address: v('b-address') }),
-        loadCheckout()
-      ]).then(function (res) {
-        var order = res[0];
-        if (!order || !order.ok) { busy(false); return err((order && order.error) || "Checkout couldn't start. Please try again."); }
-        note.textContent = ''; note.className = 'formnote';
-        var paid = false;
-        var modal = window.FlutterwaveCheckout({
-          public_key: BOOK.publicKey, tx_ref: order.tx_ref, amount: order.amount, currency: order.currency || 'NGN',
-          payment_options: 'card, banktransfer, ussd',
-          customer: { email: who.email, name: who.name, phone_number: who.phone },
-          customizations: { title: 'Our Space', description: (fmt === 'paperback' ? 'Paperback with delivery' : 'Digital edition') + ' · ' + order.ref, logo: 'https://mannorr.com/images/our-space-mockup.jpg' },
-          callback: function () { paid = true; try { modal && modal.close && modal.close(); } catch (x) {} finish(order, who); },
-          onclose: function () { if (!paid) { busy(false); note.className = 'formnote'; note.textContent = 'Checkout closed. Your order is saved; you can try again.'; } }
+      payBtn.disabled = true; payBtn.classList.add('is-busy'); payBtn.textContent = 'Saving your order…';
+      note.className = 'formnote is-info'; note.textContent = "You'll be taken to Flutterwave to pay securely. Use the same email there.";
+      post({ form: 'order-start', format: fmt, name: who.name, email: who.email, phone: who.phone, state: state.value, city: v('b-city'), address: v('b-address') })
+        .then(function (r) {
+          if (!r || !r.ok) throw new Error((r && r.error) || '');
+          keep('mn_order', { ref: r.ref, format: fmt, name: who.name, email: who.email, at: Date.now() });
+          payBtn.textContent = 'Opening Flutterwave…';
+          location.href = r.pay_url || BOOK.links[fmt];
+        })
+        .catch(function (x) {
+          payBtn.disabled = false; payBtn.classList.remove('is-busy'); render();
+          err((x && x.message) || "We couldn't save your order. Please check your connection and try again.");
         });
-      }).catch(function () { busy(false); err("Checkout couldn't start. Please check your connection and try again."); });
     });
+  })();
+
+  /* Flutterwave sends buyers back to /thank-you?status=…&tx_ref=…&transaction_id=… */
+  if (page === 'thank-you') (function () {
+    var q = new URLSearchParams(location.search), status = q.get('status'), tid = q.get('transaction_id');
+    if (!status && !tid) return;
+    var order = recall('mn_order') || {}, first = (order.name || '').split(' ')[0];
+    function show(key, extra) {
+      var t = THANKS[key]; if (!t) return;
+      $('ty-kicker').textContent = t.kicker;
+      $('ty-hello').textContent = 'Thank you' + (first ? ', ' + first : '') + '.';
+      $('ty-title').textContent = t.title; $('ty-intro').textContent = t.intro;
+      var rf = $('ty-ref'), ref = (extra && extra.ref) || order.ref || '';
+      rf.hidden = !ref; rf.textContent = ref ? 'Reference ' + ref : '';
+      $('ty-steps').innerHTML = t.steps.map(function (x) { return '<li>' + x + '</li>'; }).join('');
+      $('ty-mail').textContent = key === 'book-cancelled' ? 'Your order is saved. You can go back and pay whenever you are ready.' : 'An email is on its way to ' + (order.email || 'the address you paid with') + ". If you can't see it in a few minutes, check your spam or promotions folder.";
+      if (extra && extra.code) { $('ty-read').href = '/read?code=' + encodeURIComponent(extra.code); $('ty-read').hidden = false; $('ty-read').textContent = 'Start reading →'; }
+      if (key === 'book-cancelled') { $('ty-read').href = '/our-space#buy'; $('ty-read').hidden = false; $('ty-read').textContent = 'Try again →'; }
+    }
+    if (status === 'cancelled' || status === 'failed') { show('book-cancelled'); return; }
+    $('ty-kicker').textContent = 'Our Space'; $('ty-hello').textContent = 'One moment.'; $('ty-title').textContent = 'Confirming your payment…';
+    $('ty-intro').textContent = 'This takes a few seconds. Please keep this page open.'; $('ty-steps').innerHTML = '';
+    var tries = 0;
+    (function attempt() {
+      post({ form: 'order-confirm', ref: order.ref || '', transaction_id: tid || '', status: status || '' }).then(function (r) {
+        if (r && r.ok) { forget('mn_order'); store('mn_sent', { form: 'book-' + r.format, name: order.name, email: order.email, ref: r.ref, code: r.code || '' }); show('book-' + r.format, r); }
+        else if (r && r.cancelled) show('book-cancelled');
+        else if (++tries < 3 && r && r.pending && !r.ref) setTimeout(attempt, 3000);
+        else show('book-pending', r);
+      }).catch(function () { if (++tries < 3) setTimeout(attempt, 3000); else show('book-pending'); });
+    })();
   })();
 
   /* ---------- Reader: paid copies only ---------- */
