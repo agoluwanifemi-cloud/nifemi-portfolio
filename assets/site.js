@@ -117,7 +117,7 @@
     if ((notify.querySelector('[name=mn_trap_x]') || {}).value) { note.textContent = "You're on the list."; return; }
     var em = notify.querySelector('[name=email]').value.trim();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { note.textContent = 'Please check your email address.'; return; }
-    var fd = new FormData(); fd.append('email', em); fd.append('interest', 'In You release');
+    var fd = new FormData(); fd.append('email', em); fd.append('interest', notify.getAttribute('data-interest') || 'In You release');
     btn.disabled = true; btn.textContent = 'Adding you…'; note.textContent = '';
     send(fd, 'updates').then(function (r) {
       note.textContent = r && r.ok ? "You're on the list. Check your inbox for a confirmation." : ((r && r.error) || "That didn't work. Please try again.");

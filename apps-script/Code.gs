@@ -229,8 +229,16 @@ const COPY = {
     intro: "Thank you for wanting to hear In You. It has been almost seven years in the making, and I can't wait to share it with you. You'll be among the first to know when it's out.",
     steps: ["You get one email the day In You is released", "Listen, share it, and sing along"],
     alert: "New waitlist sign-up"
+  },
+  "updates-veil": {
+    kicker: "The Opened Veil · Waitlist",
+    title: "You're on the list.",
+    intro: "Thank you for wanting to read The Opened Veil. I'm writing it now, and you'll be among the first to know when it's ready.",
+    steps: ["You get an email when The Opened Veil is released", "Read it, share it, and pass it on"],
+    alert: "New book waitlist sign-up"
   }
 };
+function copyFor(key, d) { return key === "updates" && /veil/i.test((d && d.interest) || "") ? COPY["updates-veil"] : COPY[key]; }
 
 function formKeyOf(form) { return Object.keys(FORMS).find(k => FORMS[k] === form); }
 
@@ -274,7 +282,7 @@ function detailRows(form, d, skip) {
 }
 
 function notifyOwner(form, d, waUrl) {
-  const key = formKeyOf(form), c = COPY[key] || { kicker: form.label, alert: form.label };
+  const key = formKeyOf(form), c = copyFor(key, d) || { kicker: form.label, alert: form.label };
   const when = Utilities.formatDate(d.received, "Africa/Lagos", "EEE d MMM yyyy, h:mm a");
   let sheetUrl = "";
   try { sheetUrl = SpreadsheetApp.getActiveSpreadsheet().getUrl() + "#gid=" + sheetFor(form).getSheetId(); } catch (e) {}
@@ -307,7 +315,7 @@ ${sheetUrl ? `<a href="${sheetUrl}" style="color:${BRAND.ink};font-weight:600">O
 }
 
 function confirmPerson(form, d) {
-  const key = formKeyOf(form), c = COPY[key];
+  const key = formKeyOf(form), c = copyFor(key, d);
   if (!c) return;
   const steps = c.steps.map((s, i) => `<tr>
 <td valign="top" style="padding:12px 14px 12px 0;border-top:1px solid ${BRAND.line};font:12px ${BRAND.mono};color:${BRAND.red};width:28px">0${i + 1}</td>

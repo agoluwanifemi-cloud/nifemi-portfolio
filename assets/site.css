@@ -290,3 +290,15 @@ body.menu-open{overflow:hidden}
 .reader-msg{max-width:640px;margin:48px auto 0;display:grid;gap:4px}
 @media print{body *{display:none!important}body::after{content:"Printing is not available for this book.";display:block!important}}
 .book-covers{width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:18px;display:block}
+.cards.five{grid-template-columns:repeat(5,minmax(0,1fr))}
+.cards .card.wide{grid-column:1/-1;margin-top:0}
+.cards .card.wide .media{aspect-ratio:16/7}
+.veil-cover{aspect-ratio:3/4;border-radius:18px;background:radial-gradient(120% 80% at 50% 0%,#2a2a2a 0%,#111 60%);border:1px solid var(--line);display:grid;align-content:space-between;padding:clamp(20px,3vw,36px);position:relative;overflow:hidden}
+.veil-cover::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 49.6%,rgba(228,41,28,.55) 49.8%,rgba(228,41,28,.55) 50.2%,transparent 50.4%);opacity:.7}
+.veil-cover .vc-title{font-size:clamp(40px,6vw,84px);font-weight:500;letter-spacing:-.05em;line-height:.9;color:var(--bone);position:relative}
+.veil-cover .mono{position:relative;color:var(--dim)}
+.book-list{display:grid;gap:clamp(56px,8vw,120px)}
+@media (max-width:1100px){.cards.five{grid-template-columns:repeat(3,minmax(0,1fr))}.cards.five .card:nth-child(even){margin-top:40px}}
+@media (max-width:860px){.cards.five{grid-template-columns:1fr 1fr}}
+.page-books .notify-row input{color:var(--bone);border-color:var(--line)}
+.page-books .notify-row input::placeholder{color:var(--dim)}
