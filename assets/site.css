@@ -356,3 +356,9 @@ body.menu-open{overflow:hidden}
 .abroad .notify-row input{flex:1 1 150px}
 /* 404 */
 .page-404 .ptitle{color:var(--red)}
+
+/* photo strip (About: in ministry) */
+.strip{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x proximity;padding-bottom:12px;margin-right:calc(-1 * var(--gr));padding-right:var(--gr);scrollbar-width:thin;scrollbar-color:var(--dim) transparent}
+.strip img{flex:none;height:clamp(300px,46vw,560px);width:auto;max-width:none;border-radius:18px;scroll-snap-align:start;background:var(--ink-2)}
+.strip-note{margin-top:18px}
+.lane-photo{width:100%;height:auto;border-radius:18px;margin-top:28px}

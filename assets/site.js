@@ -101,6 +101,7 @@
     $('lane-steps').innerHTML = d.steps.map(function (x) { return '<li>' + x + '</li>'; }).join('');
     $('lane-pkg').hidden = (l !== 'design');
     $('lane-note').hidden = (l !== 'learn');
+    if ($('lane-photo')) $('lane-photo').hidden = (l !== 'ministry');
     document.querySelectorAll('.lane-form').forEach(function (f) { f.hidden = (f.getAttribute('data-form') !== l); });
     if (push && history.replaceState) history.replaceState(null, '', l === 'design' ? location.pathname : '#' + l);
     markNav();
