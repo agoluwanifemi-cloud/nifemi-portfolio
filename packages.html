@@ -3,10 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Work With Me — MANNORR</title>
-<meta name="description" content="Hire Mannorr for brand identity, visual design, and creative direction. Choose a package or build a custom project.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>Packages and pricing · MANNORR</title>
+<meta name="description" content="Design packages and guide prices from Nifemi Adeniran (MANNORR): brand identity, visual design and creative direction. Choose a package or build your own.">
+<link rel="canonical" href="https://mannorr.com/packages">
+<meta property="og:title" content="Packages and pricing · MANNORR">
+<meta property="og:description" content="Design packages and guide prices from Nifemi Adeniran (MANNORR): brand identity, visual design and creative direction. Choose a package or build your own.">
+<meta property="og:url" content="https://mannorr.com/packages">
+<meta property="og:image" content="https://mannorr.com/images/header.jpg">
+<meta property="og:site_name" content="MANNORR">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://mannorr.com/images/header.jpg">
+<meta name="theme-color" content="#111111">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/site.css?v=20261112a">
+<script defer src="/assets/site.js?v=20261112a"></script>
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 [data-theme="dark"] {
@@ -170,9 +185,6 @@ body { background: var(--bg); color: var(--fg); font-family: var(--mono); font-w
 .summary-total { display: flex; justify-content: space-between; font-size: 0.85rem; padding-top: 1rem; margin-top: 0.5rem; border-top: 1px solid var(--accent); font-weight: 500; }
 .summary-deposit { display: flex; justify-content: space-between; font-size: 0.75rem; padding-top: 0.5rem; color: var(--warning); }
 
-footer { padding: 2rem 5vw; border-top: 1px solid var(--border); display: flex; justify-content: space-between; }
-footer span { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
-
 .grain { position: fixed; inset: 0; pointer-events: none; z-index: 9998; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); background-repeat: repeat; background-size: 200px; }
 
 @media (max-width: 900px) {
@@ -198,31 +210,73 @@ footer span { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: upperca
 body{cursor:auto}
 .cursor-dot,.cursor-ring,.grain,.theme-toggle{display:none!important}
 h1,h2,h3{font-weight:500!important;letter-spacing:-.04em}
+
+/* shared site nav, header and footer on this page */
+body{font-family:var(--f-sans);font-weight:400}
+.pk-head{padding-bottom:clamp(32px,5vw,64px)}
+.pk-head .lede{max-width:34ch}
+.mode-toggle{border-radius:999px;padding:4px;gap:4px;border:1px solid var(--line)}
+.mode-btn{border-radius:999px;font:500 14px var(--f-sans);text-transform:none;letter-spacing:0;padding:10px 22px}
+.mode-btn.active{background:var(--bone);color:var(--ink)}
+.currency-btn{border-radius:999px;font-family:var(--f-mono)}
+.pk-region{text-align:center;font-size:14px;color:var(--dim);margin:0 16px 20px}
+.pk-region a{color:var(--bone)}
+.pkg-dropdown,.package-card,.order-summary,.service-category,.client-form-section{border-radius:18px}
+.pkg-dropdown{overflow:hidden}
+.pkg-name,.pkg-dropdown-header h2,.category-header h3,.client-form-section h2,.order-summary h4{text-transform:none;letter-spacing:-.03em}
+.pkg-tagline{font-style:normal;font-family:var(--f-mono)}
+.pkg-price,.total-amount{font-weight:500!important}
+.proceed-btn,.submit-order,.rec-add{border-radius:999px;font:500 14px var(--f-sans);text-transform:none;letter-spacing:0;color:#fff}
+.client-form{display:block;margin-top:0}
+.pk-foot{text-align:center;padding:32px 16px 56px}
+.sticky-total{z-index:40}
 </style>
 </head>
-<body>
+<body data-page="packages">
 <div class="grain"></div>
 
-<div class="top-bar">
-  <a href="/" class="logo">MANNORR<span class="dot"></span></a>
-  <div class="top-bar-right">
-    <a href="/portfolio">Portfolio</a>
-    <a href="/about">About</a>
-    <a href="/#contact">Contact</a>
-    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">☀</button>
+<button id="themeToggle" hidden></button>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar wrap" id="topbar">
+  <div class="inner topbar-in">
+    <a class="mark" href="/" aria-label="MANNORR home">MANNORR</a>
+    <nav class="toplinks" aria-label="Main">
+      <a href="/about" data-nav="about">About</a>
+      <a href="/works" data-nav="works music design portfolio packages apologetics viral-church books our-space read">Works</a>
+      <a href="/work-with-me#learn" data-nav="learn">Learn</a>
+      <a href="/work-with-me" class="topcta" data-nav="work-with-me thank-you">Work With Me</a>
+    </nav>
+    <button class="menubtn" id="menubtn" type="button" aria-expanded="false" aria-controls="menu"><span class="menubtn-label">Menu</span><span class="menubtn-icon" aria-hidden="true"><i></i><i></i></span></button>
+  </div>
+</header>
+<div class="menu" id="menu" hidden>
+  <div class="menu-in wrap">
+    <nav class="menu-links" aria-label="Menu">
+      <a href="/" data-nav="home"><span class="mono">01</span>Home</a>
+      <a href="/about" data-nav="about"><span class="mono">02</span>About</a>
+      <a href="/works" data-nav="works"><span class="mono">03</span>Works</a>
+      <a href="/music" data-nav="music" class="sub">Songs</a>
+      <a href="/design" data-nav="design" class="sub">Design</a>
+      <a href="/apologetics" data-nav="apologetics" class="sub">Apologetics Nigeria</a>
+      <a href="/viral-church" data-nav="viral-church" class="sub">The Viral Church</a>
+      <a href="/books" data-nav="books our-space" class="sub">Books</a>
+      <a href="/work-with-me#learn" data-nav="learn"><span class="mono">04</span>Learn design</a>
+      <a href="/work-with-me" data-nav="work-with-me"><span class="mono">05</span>Work With Me</a>
+    </nav>
+    <div class="menu-foot mono"><a href="https://www.instagram.com/_mannorr/" target="_blank" rel="noopener">Instagram ↗</a><a href="mailto:hellomannorr@gmail.com">hellomannorr@gmail.com</a></div>
   </div>
 </div>
-
-<section class="page-hero">
-  <h1>WORK <span class="italic">with</span> <span class="accent">ME</span></h1>
-  <p>Choose a package tailored to your needs or build a custom project from scratch. Select, review, and let's bring your vision to life.</p>
-</section>
+<main id="main">
+<header class="wrap pk-head"><div class="inner">
+  <div style="padding-block:40px 0"><span class="label">Design · Packages</span><h1 class="ptitle" style="margin-top:20px">Packages</h1><p class="lede" style="margin-top:28px">Choose a package or build your own. <span class="red">Guide prices, confirmed after a short call.</span></p></div>
+</div></header>
 
 <div class="mode-toggle">
   <button class="mode-btn active" onclick="showMode('packages', this)">Packages</button>
   <button class="mode-btn" onclick="showMode('custom', this)">Build Your Own</button>
 </div>
 
+<p class="pk-region">Based in Nigeria? Projects there are quoted in naira. <a href="/work-with-me">Send an enquiry →</a></p>
 <div class="currency-bar">
   <button class="currency-btn active" onclick="setCurrency('EUR')">€ EUR</button>
   <button class="currency-btn" onclick="setCurrency('USD')">$ USD</button>
@@ -438,7 +492,7 @@ h1,h2,h3{font-weight:500!important;letter-spacing:-.04em}
   <div class="order-summary" id="orderSummary"></div>
   <form class="client-form" id="clientForm" onsubmit="submitOrder(event)">
     <div class="form-row"><div><label>Full Name *</label><input type="text" id="clientName" required placeholder="Your full name"></div><div><label>Email *</label><input type="email" id="clientEmail" required placeholder="your@email.com"></div></div>
-    <div class="form-row"><div><label>Company / Brand</label><input type="text" id="clientCompany" placeholder="Company name"></div><div><label>Phone</label><input type="tel" id="clientPhone" placeholder="+353 ..."></div></div>
+    <div class="form-row"><div><label>Company / Brand</label><input type="text" id="clientCompany" placeholder="Company name"></div><div><label>Phone</label><input type="tel" id="clientPhone" placeholder="With country code"></div></div>
     <div><label>Project Timeline</label><select id="clientTimeline"><option value="">When do you need this?</option><option value="ASAP">ASAP (within 2 weeks)</option><option value="1 month">Within 1 month</option><option value="2-3 months">2–3 months</option><option value="flexible">Flexible / No rush</option></select></div>
     <div><label>Project Brief</label><textarea id="clientBrief" placeholder="Tell me about your project, your brand, your goals..."></textarea></div>
     <button type="submit" class="submit-order">Generate Invoice & Submit →</button>
@@ -450,7 +504,17 @@ h1,h2,h3{font-weight:500!important;letter-spacing:-.04em}
   <button class="proceed-btn" onclick="proceedToForm()">Proceed →</button>
 </div>
 
-<footer><span>© 2026 Adeniran Oluwanifemi</span><span>All prices are estimates</span></footer>
+<p class="pk-foot mono dim">All prices are estimates until a proposal is agreed.</p>
+</main>
+<footer class="foot wrap"><div class="inner">
+  <div class="big">MANNORR</div>
+  <div class="cols">
+    <div><span class="label">Pages</span><a href="/about">About</a><a href="/works">Works</a><a href="/work-with-me">Work With Me</a><a href="/work-with-me#learn">Learn design</a></div>
+    <div><span class="label">Works</span><a href="/music">In You</a><a href="/design">Design</a><a href="/apologetics">Apologetics Nigeria</a><a href="/viral-church">Viral Church</a><a href="/books">Books</a></div>
+    <div><span class="label">Elsewhere</span><a href="https://www.instagram.com/_mannorr/" target="_blank" rel="noopener">Instagram @_mannorr ↗</a><a href="https://www.instagram.com/viralchurchglobal/" target="_blank" rel="noopener">@viralchurchglobal ↗</a><a href="mailto:hellomannorr@gmail.com">hellomannorr@gmail.com</a><a href="https://apologeticsnigeria.com" target="_blank" rel="noopener">apologeticsnigeria.com ↗</a><a href="https://wearekallos.com" target="_blank" rel="noopener">wearekallos.com ↗</a></div>
+    <div class="mono dim" style="align-self:end">© 2026 Nifemi Adeniran · Lagos</div>
+  </div>
+</div></footer>
 
 <script>
 let currentMode = 'packages', currentCurrency = 'EUR', selectedPackage = null, selectedServices = new Set();

@@ -9,6 +9,34 @@
   function $(id) { return document.getElementById(id); }
   function store(k, v) { try { if (v === undefined) return JSON.parse(sessionStorage.getItem(k) || 'null'); sessionStorage.setItem(k, JSON.stringify(v)); } catch (e) { return null; } }
 
+  /* ---------- analytics (Vercel Web Analytics) ----------
+     Turn it on once in the Vercel dashboard: Project → Analytics → Enable.
+     If the dashboard gives you a different script path, change ANALYTICS_SRC. */
+  var ANALYTICS_SRC = '/_vercel/insights/script.js';
+  var LIVE = /(^|\.)mannorr\.com$/.test(location.hostname);
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  if (LIVE && ['admin', 'content', 'studio'].indexOf(page) < 0) {
+    var as = document.createElement('script'); as.defer = true; as.src = ANALYTICS_SRC; document.head.appendChild(as);
+  }
+  function track(name, data) { try { window.va('event', { name: name, data: data || {} }); } catch (e) {} }
+
+  /* ---------- where the visitor came from ----------
+     Kept from the first page of the visit and saved with every form and book order
+     (the Source column in the sheet), so you can see what brings enquiries and sales. */
+  var SOURCE = (function () {
+    var had = store('mn_src'); if (had) return had;
+    var q = new URLSearchParams(location.search), parts = [], ref = '';
+    try { ref = document.referrer ? new URL(document.referrer).hostname.replace(/^www\./, '') : ''; } catch (e) {}
+    if (ref === location.hostname.replace(/^www\./, '') || /flutterwave/.test(ref)) ref = '';
+    var utm = [q.get('utm_source'), q.get('utm_medium'), q.get('utm_campaign')].filter(Boolean).join(' / ');
+    if (utm) parts.push(utm);
+    if (ref) parts.push('from ' + ref);
+    if (!parts.length) parts.push('direct');
+    parts.push('landed on ' + location.pathname);
+    var v = parts.join(' · ').slice(0, 280);
+    store('mn_src', v); return v;
+  })();
+
   /* ---------- navbar ---------- */
   var menuBtn = $('menubtn'), menu = $('menu');
   function setMenu(open) {
@@ -36,7 +64,7 @@
 
   /* ---------- sending ---------- */
   function send(fd, formKey) {
-    fd.append('form', formKey); fd.append('page', location.pathname + location.hash); fd.append('t', String(Date.now() - openedAt));
+    fd.append('form', formKey); fd.append('page', location.pathname + location.hash); fd.append('t', String(Date.now() - openedAt)); fd.append('source', SOURCE);
     if (DB_ENDPOINT) {
       var timer = new Promise(function (_, rej) { setTimeout(function () { rej(new Error('timeout')); }, 20000); });
       return Promise.race([fetch(DB_ENDPOINT, { method: 'POST', body: fd }).then(function (r) { return r.json(); }), timer])
@@ -84,6 +112,23 @@
     window.addEventListener('hashchange', fromHash);
   }
 
+  /* Design budget: naira ranges for clients in Nigeria, euro ranges (matching /packages) for everyone else. */
+  var BUDGETS = {
+    ng: ['Under ₦300k', '₦300k – ₦1m', '₦1m+', 'Not sure yet'],
+    intl: ['Under €1,200', '€1,200 – €3,500', '€3,500+', 'Not sure yet']
+  };
+  var region = $('d-region'), budget = $('d-budget');
+  if (region && budget) {
+    var inNigeria = false; try { inNigeria = /Lagos/.test(Intl.DateTimeFormat().resolvedOptions().timeZone || ''); } catch (e) {}
+    var setRegion = function (r) {
+      region.value = r;
+      budget.innerHTML = BUDGETS[r].map(function (b) { return '<option>' + b + '</option>'; }).join('');
+      var pk = $('lane-pkg-note'); if (pk) pk.textContent = r === 'ng' ? 'Projects in Nigeria are quoted in naira after a short call.' : 'Guide prices in EUR, USD and GBP.';
+    };
+    region.addEventListener('change', function () { setRegion(region.value); });
+    setRegion(inNigeria ? 'ng' : 'intl');
+  }
+
   var NAMES = { name: 'name', email: 'email', phone: 'phone number' };
   document.querySelectorAll('.lane-form').forEach(function (f) {
     var btn = f.querySelector('button[type=submit]'), label = btn.textContent;
@@ -102,6 +147,7 @@
       (trapped ? Promise.resolve({ ok: true, ref: '' }) : send(fd, key)).then(function (r) {
         if (r && r.ok) {
           store('mn_sent', { form: key, name: who.name, email: who.email, ref: r.ref || '' });
+          track('Enquiry sent', { lane: key });
           location.href = '/thank-you?f=' + key + (r.ref ? '&ref=' + encodeURIComponent(r.ref) : '');
         } else { note.className = 'formnote is-error'; note.textContent = (r && r.error) || "That didn't send. Please try again, or email " + EMAIL + '.'; }
       }).catch(function () { note.className = 'formnote is-error'; note.textContent = "That didn't send. Please try again, or email " + EMAIL + '.'; })
@@ -109,21 +155,25 @@
     });
   });
 
-  /* ---------- In You waitlist ---------- */
-  var notify = $('notify');
-  if (notify) notify.addEventListener('submit', function (e) {
-    e.preventDefault();
-    var note = $('notifynote'), btn = notify.querySelector('button[type=submit]'), label = btn.textContent;
-    if ((notify.querySelector('[name=mn_trap_x]') || {}).value) { note.textContent = "You're on the list."; return; }
-    var em = notify.querySelector('[name=email]').value.trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { note.textContent = 'Please check your email address.'; return; }
-    var fd = new FormData(); fd.append('email', em); fd.append('interest', notify.getAttribute('data-interest') || 'In You release');
-    btn.disabled = true; btn.textContent = 'Adding you…'; note.textContent = '';
-    send(fd, 'updates').then(function (r) {
-      note.textContent = r && r.ok ? "You're on the list. Check your inbox for a confirmation." : ((r && r.error) || "That didn't work. Please try again.");
-      if (r && r.ok) notify.reset();
-    }).catch(function () { note.textContent = "That didn't work. Please try again."; })
-      .then(function () { btn.disabled = false; btn.textContent = label; });
+  /* ---------- sign-up forms (In You, The Opened Veil, Viral Church, Apologetics, paperback abroad) ----------
+     Any <form class="notify" data-interest="…"> works. An optional [name=country] field is added to the interest. */
+  document.querySelectorAll('form.notify:not(#resend)').forEach(function (notify) {
+    notify.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var note = notify.querySelector('.formnote'), btn = notify.querySelector('button[type=submit]'), label = btn.textContent;
+      if ((notify.querySelector('[name=mn_trap_x]') || {}).value) { note.textContent = "You're on the list."; return; }
+      var em = notify.querySelector('[name=email]').value.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { note.textContent = 'Please check your email address.'; return; }
+      var interest = notify.getAttribute('data-interest') || 'In You release', country = notify.querySelector('[name=country]');
+      if (country) { if (!country.value.trim()) { note.textContent = 'Please add your country.'; country.focus(); return; } interest += ' · ' + country.value.trim(); }
+      var fd = new FormData(); fd.append('email', em); fd.append('interest', interest);
+      btn.disabled = true; btn.textContent = 'Adding you…'; note.textContent = '';
+      send(fd, 'updates').then(function (r) {
+        note.textContent = r && r.ok ? "You're on the list. Check your inbox for a confirmation." : ((r && r.error) || "That didn't work. Please try again.");
+        if (r && r.ok) { track('Signed up', { interest: notify.getAttribute('data-interest') || 'In You release' }); notify.reset(); }
+      }).catch(function () { note.textContent = "That didn't work. Please try again."; })
+        .then(function () { btn.disabled = false; btn.textContent = label; });
+    });
   });
 
   /* ---------- thank-you page ---------- */
@@ -183,6 +233,7 @@
       fmt = f;
       $('fmt-digital').setAttribute('aria-pressed', f === 'digital'); $('fmt-paperback').setAttribute('aria-pressed', f === 'paperback');
       $('info-digital').hidden = f !== 'digital'; $('info-paperback').hidden = f !== 'paperback';
+      if ($('abroad-digital')) { $('abroad-digital').hidden = f !== 'digital'; $('abroad-paperback').hidden = f !== 'paperback'; }
       buy.querySelectorAll('.paper').forEach(function (el) { el.hidden = f !== 'paperback'; });
       $('b-phone').required = f === 'paperback';
       note.textContent = ''; note.className = 'formnote';
@@ -204,10 +255,11 @@
       if (fmt === 'paperback' && (!state.value || !v('b-city') || !v('b-address') || !who.phone)) return err('Please add your phone number, state, city and delivery address.');
       payBtn.disabled = true; payBtn.classList.add('is-busy'); payBtn.textContent = 'Saving your order…';
       note.className = 'formnote is-info'; note.textContent = "You'll be taken to Flutterwave to pay securely. Use the same email there.";
-      post({ form: 'order-start', format: fmt, name: who.name, email: who.email, phone: who.phone, state: state.value, city: v('b-city'), address: v('b-address') })
+      post({ form: 'order-start', format: fmt, name: who.name, email: who.email, phone: who.phone, state: state.value, city: v('b-city'), address: v('b-address'), source: SOURCE })
         .then(function (r) {
           if (!r || !r.ok) throw new Error((r && r.error) || '');
           keep('mn_order', { ref: r.ref, format: fmt, name: who.name, email: who.email, at: Date.now() });
+          track('Checkout started', { format: fmt });
           payBtn.textContent = 'Opening Flutterwave…';
           location.href = r.pay_url || BOOK.links[fmt];
         })
@@ -241,7 +293,7 @@
     var tries = 0;
     (function attempt() {
       post({ form: 'order-confirm', ref: order.ref || '', transaction_id: tid || '', status: status || '' }).then(function (r) {
-        if (r && r.ok) { forget('mn_order'); store('mn_sent', { form: 'book-' + r.format, name: order.name, email: order.email, ref: r.ref, code: r.code || '' }); show('book-' + r.format, r); }
+        if (r && r.ok) { track('Book bought', { format: r.format }); forget('mn_order'); store('mn_sent', { form: 'book-' + r.format, name: order.name, email: order.email, ref: r.ref, code: r.code || '' }); show('book-' + r.format, r); }
         else if (r && r.cancelled) show('book-cancelled');
         else if (++tries < 3 && r && r.pending && !r.ref) setTimeout(attempt, 3000);
         else show('book-pending', r);

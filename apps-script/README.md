@@ -37,6 +37,12 @@ Optional: run `testStudent` in the editor to add a test row without using the si
 - Move the Status along as you go, and use **Notes** for anything else.
 - Students: New → Contacted → Accepted → Paid → In progress → Completed.
 
+## Sign-up lists and where people came from
+
+- The **Updates** tab collects every sign-up form on the site. The **Interest** column says which list: In You release, The Opened Veil, The Viral Church, Apologetics Nigeria, or Our Space paperback (with the country). Each gets its own confirmation email, set in `COPY` and `copyFor` in `Code.gs`.
+- Every tab, including **Orders**, has a **Source** column at the end: the campaign link (utm tags), the site the visitor came from, and the first page they landed on. Use links like `mannorr.com/music?utm_source=instagram&utm_medium=bio&utm_campaign=inyou` in bios and posts to see what each one brings in.
+- After pasting a new `Code.gs` that adds a column, run `setup` once more. It only rewrites the header rows; your data stays where it is.
+
 ## Changing the code later
 
 Edit `Code.gs`, then *Deploy → Manage deployments → Edit → Version: New version → Deploy*. The URL stays the same.

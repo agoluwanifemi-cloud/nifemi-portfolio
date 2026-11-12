@@ -35,7 +35,7 @@ const FORMS = {
     required: ["name", "email"],
     columns: [["Reference","ref"],["Received","received"],["Status","status"],["Name","name"],["Email","email"],
               ["Phone","phone"],["WhatsApp","wa"],["Company","company"],["Project","project"],["Budget","budget"],
-              ["Timeline","timeline"],["Message","message"],["Page","page"],["Notes","notes"]]
+              ["Timeline","timeline"],["Message","message"],["Page","page"],["Notes","notes"],["Source","source"]]
   },
   ministry: {
     sheet: "Ministry", prefix: "MB-", label: "Ministry booking", notify: true,
@@ -43,7 +43,7 @@ const FORMS = {
     required: ["name", "email", "phone"],
     columns: [["Reference","ref"],["Received","received"],["Status","status"],["Name","name"],["Email","email"],
               ["Phone","phone"],["WhatsApp","wa"],["Organisation","org"],["Event","event"],["Date","date"],
-              ["City","city"],["Request","request"],["Message","message"],["Page","page"],["Notes","notes"]]
+              ["City","city"],["Request","request"],["Message","message"],["Page","page"],["Notes","notes"],["Source","source"]]
   },
   learn: {
     sheet: "Students", prefix: "ST-", label: "Student application", notify: true,
@@ -51,14 +51,14 @@ const FORMS = {
     required: ["name", "email", "phone"],
     columns: [["Reference","ref"],["Received","received"],["Status","status"],["Name","name"],["Email","email"],
               ["Phone","phone"],["WhatsApp","wa"],["City","city"],["Level","level"],["Focus","focus"],
-              ["Format","format"],["Laptop","laptop"],["Start","start"],["Goals","message"],["Page","page"],["Notes","notes"]]
+              ["Format","format"],["Laptop","laptop"],["Start","start"],["Goals","message"],["Page","page"],["Notes","notes"],["Source","source"]]
   },
   updates: {
     sheet: "Updates", prefix: "UP-", label: "Waitlist sign-up", notify: true,
     statuses: ["Subscribed", "Unsubscribed"],
     required: ["email"],
     columns: [["Reference","ref"],["Received","received"],["Status","status"],["Name","name"],["Email","email"],
-              ["Interest","interest"],["Page","page"],["Notes","notes"]]
+              ["Interest","interest"],["Page","page"],["Notes","notes"],["Source","source"]]
   }
 };
 
@@ -153,7 +153,7 @@ function doPost(e) {
   lock.waitLock(20000);
   try {
     const cache = CacheService.getScriptCache();
-    const dupKey = "dup_" + formKey + "_" + Utilities.base64EncodeWebSafe(d.email || phone);
+    const dupKey = "dup_" + formKey + "_" + Utilities.base64EncodeWebSafe((d.email || phone) + (d.interest ? "|" + d.interest : ""));
     const seen = cache.get(dupKey);
     if (seen) return json({ ok: true, ref: seen, duplicate: true });
 
@@ -236,9 +236,47 @@ const COPY = {
     intro: "Thank you for wanting to read The Opened Veil. I'm writing it now, and you'll be among the first to know when it's ready.",
     steps: ["You get an email when The Opened Veil is released", "Read it, share it, and pass it on"],
     alert: "New book waitlist sign-up"
+  },
+  "updates-viral": {
+    kicker: "The Viral Church · Updates",
+    title: "You're on the list.",
+    intro: "Thank you for wanting to be part of The Viral Church. We're still preparing, and you'll be among the first to know when and where we gather.",
+    steps: ["You get an email when gatherings are announced", "Follow @viralchurchglobal on Instagram in the meantime"],
+    alert: "New Viral Church sign-up"
+  },
+  "updates-apologetics": {
+    kicker: "Apologetics Nigeria · Updates",
+    title: "You're on the list.",
+    intro: "Thank you for wanting to go deeper. You'll hear from me when a new teaching series, class or event is coming up.",
+    steps: ["You get an email before each new series or event", "Find the current teaching at apologeticsnigeria.com"],
+    alert: "New Apologetics sign-up"
+  },
+  "updates-paperback": {
+    kicker: "Our Space · Paperback abroad",
+    title: "You're on the list.",
+    intro: "Thank you for wanting a paperback of Our Space. Delivery outside Nigeria isn't available yet, and you'll be the first to know when it is. The digital edition is available everywhere today.",
+    steps: ["You get an email when delivery to your country opens", "Read the digital edition now at mannorr.com/our-space"],
+    alert: "Paperback wanted outside Nigeria"
+  },
+  "updates-general": {
+    kicker: "MANNORR · Updates",
+    title: "You're on the list.",
+    intro: "Thank you for signing up. You'll hear from me when there is news to share.",
+    steps: ["You get an email when there is news", "Reply to this email any time"],
+    alert: "New sign-up"
   }
 };
-function copyFor(key, d) { return key === "updates" && /veil/i.test((d && d.interest) || "") ? COPY["updates-veil"] : COPY[key]; }
+// Each sign-up form on the site sends an "interest". The matching email copy is chosen here.
+function copyFor(key, d) {
+  if (key !== "updates") return COPY[key];
+  const i = String((d && d.interest) || "");
+  if (/veil/i.test(i)) return COPY["updates-veil"];
+  if (/viral/i.test(i)) return COPY["updates-viral"];
+  if (/apologetics/i.test(i)) return COPY["updates-apologetics"];
+  if (/paperback/i.test(i)) return COPY["updates-paperback"];
+  if (!i || /in you/i.test(i)) return COPY.updates;
+  return COPY["updates-general"];
+}
 
 function formKeyOf(form) { return Object.keys(FORMS).find(k => FORMS[k] === form); }
 
@@ -333,7 +371,7 @@ function confirmPerson(form, d) {
 <tr><td bgcolor="#ffffff" style="background:#ffffff;padding:28px 32px 4px">
 <div style="font:12px ${BRAND.mono};color:${BRAND.red};padding-bottom:10px">// What you sent</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
-${detailRows(form, d, ["ref", "received", "status", "wa", "notes", "page", "phone"])}
+${detailRows(form, d, ["ref", "received", "status", "wa", "notes", "page", "phone", "source"])}
 </table></td></tr>
 <tr><td bgcolor="#ffffff" style="background:#ffffff;padding:28px 32px 36px">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${BRAND.grey}" style="background:${BRAND.grey};border-radius:14px"><tr>
@@ -426,7 +464,7 @@ const BOOK = {
   columns: [["Reference","ref"],["Created","created"],["Status","status"],["Format","format"],["Name","name"],["Email","email"],
             ["Phone","phone"],["WhatsApp","wa"],["State","state"],["City","city"],["Address","address"],["Book (₦)","price"],
             ["Delivery (₦)","fee"],["Total (₦)","total"],["Payment ref","tx_ref"],["Flutterwave ID","flw_id"],["Paid at","paid"],
-            ["Reader code","code"],["Opens","opens"],["Notes","notes"]]
+            ["Reader code","code"],["Opens","opens"],["Notes","notes"],["Source","source"]]
 };
 const PAID = ["Paid", "Shipped", "Delivered"];
 const NG_STATES = ["Abia","Adamawa","Akwa Ibom","Anambra","Bauchi","Bayelsa","Benue","Borno","Cross River","Delta","Ebonyi","Edo","Ekiti",
@@ -487,7 +525,8 @@ function startOrder(p) {
   const format = p.format === "paperback" ? "paperback" : "digital";
   const d = {
     format: format, name: clean(p.name, 120), email: clean(p.email, 200).toLowerCase(), phone: "",
-    state: clean(p.state, 40), city: clean(p.city, 80), address: clean(p.address, 400)
+    state: clean(p.state, 40), city: clean(p.city, 80), address: clean(p.address, 400),
+    source: clean(p.source, 300)
   };
   if (!d.name || !d.email) return { ok: false, error: "Please add your name and email." };
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) return { ok: false, error: "Please check your email address." };

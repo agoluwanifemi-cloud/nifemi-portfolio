@@ -9,11 +9,19 @@
 <meta property="og:description" content="Start a design project, book a ministration, or apply to learn design with Nifemi Adeniran (MANNORR).">
 <meta property="og:image" content="https://mannorr.com/images/header.jpg">
 <meta name="theme-color" content="#111111">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="canonical" href="https://mannorr.com/work-with-me">
+<meta property="og:url" content="https://mannorr.com/work-with-me">
+<meta property="og:site_name" content="MANNORR">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://mannorr.com/images/header.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="/assets/site.css?v=20261111g">
-<script defer src="/assets/site.js?v=20261111g"></script>
+<link rel="stylesheet" href="/assets/site.css?v=20261112a">
+<script defer src="/assets/site.js?v=20261112a"></script>
 </head>
 <body data-page="work-with-me">
 <a class="skip" href="#main">Skip to content</a>
@@ -22,7 +30,7 @@
     <a class="mark" href="/" aria-label="MANNORR home">MANNORR</a>
     <nav class="toplinks" aria-label="Main">
       <a href="/about" data-nav="about">About</a>
-      <a href="/works" data-nav="works music design apologetics viral-church books our-space read">Works</a>
+      <a href="/works" data-nav="works music design portfolio packages apologetics viral-church books our-space read">Works</a>
       <a href="/work-with-me#learn" data-nav="learn">Learn</a>
       <a href="/work-with-me" class="topcta" data-nav="work-with-me thank-you">Work With Me</a>
     </nav>
@@ -60,7 +68,7 @@
         <p class="intro" id="lane-lede" style="margin:0;font-size:clamp(28px,3.6vw,48px)">Brand identity and direction <span class="red">for teams that care.</span></p>
         <div style="margin-top:40px"><span class="label">What I offer</span><ul class="rows" id="lane-offer" style="margin-top:16px"></ul></div>
         <div style="margin-top:40px"><span class="label">How it works</span><ol class="steps" id="lane-steps" style="margin-top:16px"></ol></div>
-        <div style="margin-top:28px" id="lane-pkg"><a class="btn" href="/packages">Packages and pricing →</a></div>
+        <div style="margin-top:28px" id="lane-pkg"><a class="btn" href="/packages">Packages and pricing →</a><p class="mono dim" id="lane-pkg-note" style="margin-top:14px"></p></div>
         <p class="mono dim" style="margin-top:28px" id="lane-note" hidden>Fees and the next start date are shared after you apply.</p>
       </div>
       <div>
@@ -71,7 +79,8 @@
           <div class="field"><label for="d-email">Email</label><input id="d-email" name="email" type="email" placeholder="you@company.com" required></div>
           <div class="field"><label for="d-company">Company or brand</label><input id="d-company" name="company" type="text" placeholder="Kiln Coffee Co."></div>
           <div class="field"><label for="d-project">What you need</label><select id="d-project" name="project"><option>Brand identity</option><option>Campaign</option><option>Creative direction</option><option>Something else</option></select></div>
-          <div class="field full"><label for="d-budget">Budget range</label><select id="d-budget" name="budget"><option>Under ₦300k</option><option>₦300k – ₦1m</option><option>₦1m+</option><option>Not sure yet</option></select></div>
+          <div class="field"><label for="d-region">Where you're based</label><select id="d-region" name="region"><option value="ng">Nigeria</option><option value="intl">Outside Nigeria</option></select></div>
+          <div class="field"><label for="d-budget">Budget range</label><select id="d-budget" name="budget"><option>Under ₦300k</option><option>₦300k – ₦1m</option><option>₦1m+</option><option>Not sure yet</option></select></div>
           <div class="field full"><label for="d-msg">Tell me about the project</label><textarea id="d-msg" name="message" placeholder="What you're building, who it's for, and when you'd like to launch."></textarea></div>
           <div class="field full" style="justify-items:start"><button class="btn solid" type="submit">Send enquiry →</button></div>
           <p class="formnote" aria-live="polite"></p>
